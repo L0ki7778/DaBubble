@@ -9,5 +9,5 @@ import { Component, Input } from '@angular/core';
 })
 export class DropdownComponent {
 @Input() name ="";
-active = false
+active = true
 }

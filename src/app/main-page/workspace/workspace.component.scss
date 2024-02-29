@@ -1,0 +1,15 @@
+@import './../../mixin.scss';
+
+.dropdown{
+@include dFlex(space-between, center);
+position: relative;
+width: 100%;
+margin: 1rem
+}
+
+.exclude-flex{
+display: flex;
+position: absolute;
+left:2rem;
+gap:1rem
+}

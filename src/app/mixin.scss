@@ -4,7 +4,7 @@
     flex-direction: column;
     padding: 2rem 1.5rem;
     background-color: white;
-    border-radius: .75rem;
+    border-radius: 1rem;
 }
 
 @mixin dFlex($justify-content: center, $align-items: center) {
