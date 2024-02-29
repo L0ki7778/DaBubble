@@ -1,5 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
-body{
-    background-color: #ECEEFE;;
+body {
+    margin: 0;
+    background-color: var(--bgColor);
 }
 
+:root {
+    --bgColor: #ECEEFE;
+    --lightPurple: #AEB0D9;
+    --textGray: #686868;
+    --purple1: #444DF2;
+    --purple2: #797EF3;
+    --purple3: #535AF1;
+    --onlineGreen: #91C93E;
+    --rosaError: #ED1E7A;
+}
