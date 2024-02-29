@@ -1,0 +1,14 @@
+@mixin container(){
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+    background-color: white;
+    border-radius: .75rem;
+}
+
+@mixin dFlex($justify-content:center, $align-items:center){
+    display: flex;
+    justify-content: $justify-content;
+    align-items: $align-items;
+}

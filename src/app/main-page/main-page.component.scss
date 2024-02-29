@@ -1,0 +1,23 @@
+@import './../mixin.scss';
+
+app-channel-manager,
+app-chat-container,
+app-thread{
+    @include container();
+}
+
+#main-content{
+    @include dFlex();
+    justify-content: space-evenly;
+    gap:2rem
+}
+
+app-channel-manager,
+app-thread{
+    flex:1
+}
+
+app-chat-container{
+    flex:2;
+    max-width: 50%;
+}
