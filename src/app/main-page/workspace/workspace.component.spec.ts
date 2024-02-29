@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChannelManagerComponent } from './channel-manager.component';
+import { WorkspaceComponent } from './workspace.component';
 
-describe('ChannelManagerComponent', () => {
-  let component: ChannelManagerComponent;
-  let fixture: ComponentFixture<ChannelManagerComponent>;
+describe('WorkspaceComponent', () => {
+  let component: WorkspaceComponent;
+  let fixture: ComponentFixture<WorkspaceComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ChannelManagerComponent]
+      imports: [WorkspaceComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ChannelManagerComponent);
+    fixture = TestBed.createComponent(WorkspaceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

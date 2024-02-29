@@ -1,6 +1,6 @@
 @import './../mixin.scss';
 
-app-channel-manager,
+app-workspace,
 app-chat-container,
 app-thread{
     @include container();
@@ -12,7 +12,7 @@ app-thread{
     gap:2rem
 }
 
-app-channel-manager,
+app-workspace,
 app-thread{
     flex:1
 }
