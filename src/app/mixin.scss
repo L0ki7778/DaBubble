@@ -1,4 +1,4 @@
-@mixin container(){
+@mixin container() {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -7,7 +7,7 @@
     border-radius: .75rem;
 }
 
-@mixin dFlex($justify-content:center, $align-items:center){
+@mixin dFlex($justify-content: center, $align-items: center) {
     display: flex;
     justify-content: $justify-content;
     align-items: $align-items;
