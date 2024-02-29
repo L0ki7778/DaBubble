@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { MainPageComponent } from './main-page/main-page.component';
+import { StartPageComponent } from './main-page/start-page/start-page.component';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,8 @@ import { MainPageComponent } from './main-page/main-page.component';
   imports: [
     CommonModule,
     RouterOutlet,
-    MainPageComponent],
+    StartPageComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

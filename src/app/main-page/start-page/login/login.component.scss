@@ -1,0 +1,72 @@
+.login-container {
+    height: 550px;
+    width: 500px;
+    border-radius: 30px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.d-flex {
+    display: flex;
+    justify-content: center;
+}
+
+h1 {
+    color: #444DF2;
+}
+
+.info-text {
+    margin: 0px 50px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 40px;
+    gap: 20px;
+}
+
+.email {
+    width: 370px;
+    padding: 10px;
+    background-color: #ECEEFE;
+    border-radius: 100px;
+    border: 1px solid #ECEEFE;
+}
+
+.password {
+    width: 370px;
+    padding: 10px;
+    background-color: #ECEEFE;
+    border-radius: 100px;
+    border: 1px solid #ECEEFE;
+}
+
+.buttons {
+    gap: 30px;
+    display: flex;
+    margin-top: 50px;
+}
+
+.login-button {
+    background-color: #444DF2;
+    border-radius: 25px;
+    padding: 12px 25px 12px 25px;
+    color: white;
+    cursor: pointer;
+    border: 1px solid #444DF2;
+}
+
+.guest-button {
+    color: #444DF2;
+    border-radius: 25px;
+    padding: 12px 25px 12px 25px;
+    cursor: pointer;
+    border: 1px solid #444DF2;
+    background-color: white;
+}
+
