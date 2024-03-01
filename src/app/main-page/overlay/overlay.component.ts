@@ -23,8 +23,4 @@ export class OverlayComponent {
 
   constructor() {}
 
-
-  closeOverlay() {
-    this.overlay.closeOverlay()
-  }
 }

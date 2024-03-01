@@ -3,28 +3,12 @@
 app-chat-overlay,
 app-workspace-overlay {
     position: absolute;
-    height: 50%;
+    inset: 0;
+    margin: auto;
+    padding: 3rem 4rem;
+    height: fit-content;
     width: 50%;
-    background-color: red;
+    background-color: white;
+    border-radius: 3rem;
 }
 
-button {
-    background-color: transparent;
-    border: unset;
-    @include dFlex(center, center);
-    transform: scale(1.2);
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-
-    &:hover {
-        background-color: $bgColor;
-        #cross {
-            transform: scale(1.2);
-            path {
-
-                fill: $purple1;
-            }
-        }
-    }
-}

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { StartPageComponent } from './main-page/start-page/start-page.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -16,4 +17,10 @@ import { StartPageComponent } from './main-page/start-page/start-page.component'
 })
 export class AppComponent {
   title = 'dabubble';
+  constructor(public translate: TranslateService) {
+    translate.addLangs(['en', 'de']);
+    translate.setDefaultLang('en');
+    const browserLanguage = translate.getBrowserLang();
+    translate.use(browserLanguage?.match(/en|de/) ? browserLanguage : 'en');
+  }
 }

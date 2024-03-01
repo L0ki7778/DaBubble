@@ -1,0 +1,12 @@
+{
+    "workspaceOverlay": {
+        "createChannel": "Channel creation",
+        "description": "Channels are used to communicate with your team. They should be related to a topic, such as #marketing",
+        "nameHeader": "Channel name",
+        "nameExample":"e.g. Marketing projects",
+        "descriptionHeader": "Description ",
+        "descriptionExample":"Your text here",
+        "optional": " (optional)",
+        "create": "Create"
+    }
+}

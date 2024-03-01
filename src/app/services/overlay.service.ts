@@ -35,7 +35,7 @@ export class OverlayService {
 
 
   toggleWorkspaceOverlay() {
-    // this.workspaceOverlay = !this.overlay;
+    this.workspaceOverlay = !this.overlay;
     this.overlaySubject.next()
   }
 }

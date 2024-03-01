@@ -1,0 +1,95 @@
+@import './../../../mixin.scss';
+
+.inline{
+    display: flex;
+    align-items: center;
+    gap:.5rem
+}
+
+span{
+    margin:0 .5rem
+}
+
+.input-field{
+    border:2px solid rgba(0,0,0,0.1);
+    border-radius: 2rem;
+    padding: .5rem;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all ease .25s;
+
+    &:hover{
+        border-color: $lightPurple2;
+    }
+
+    &:focus-within{
+        border-color: $purple2;
+    }
+    input{
+        width: 90%;
+        border: unset;
+        outline: unset;
+    }
+}
+
+#description{
+        margin-left:1.45rem    
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+
+    button{
+        margin-top: 1.5rem;
+        width: 6rem;
+        height: 2rem;
+        border-radius: 1rem;
+        font-weight: bold;
+        align-self: flex-end;
+        border: unset;
+        transform: scale(1.1);
+        transition: all ease .1s;
+        background-color: $purple2;
+        color: white;
+
+        &:not(:disabled):hover{
+            cursor: pointer;
+            background-color: $purple3;
+        }
+        &:active{
+            background-color: $purple1!important;
+        }
+
+
+        &:disabled{
+            color: rgba(0,0,0,0.3);
+            background-color: transparent;
+            border: 2px solid $lightPurple
+        }
+    }
+}
+
+.close-btn {
+    position: absolute;
+    top:3rem;
+    right: 4rem;
+    background-color: transparent;
+    transition: all ease .1s;
+    border: unset;
+    @include dFlex(center, center);
+    transform: scale(1.1);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+
+    &:hover {
+        background-color: $bgColor;
+        #cross {
+            transform: scale(1.1);
+            path {
+                fill: $purple1;
+            }
+        }
+    }
+}
