@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SearchBarComponent } from "./search-bar/search-bar.component";
-import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
+import { DropdownMenuComponent } from '../overlay/dropdown-menu/dropdown-menu.component';
 import { CommonModule } from '@angular/common';
+import { OverlayService } from '../../services/overlay.service';
 
 @Component({
     selector: 'app-head',
@@ -15,11 +16,10 @@ import { CommonModule } from '@angular/common';
     ]
 })
 export class HeadComponent {
-
-    isDropdownMenuVisible: boolean = false;
+    overlay = inject(OverlayService)
 
     showDropdownMenu() {
-        this.isDropdownMenuVisible = true;
-      }
+        this.overlay.toggleDropdownMenu();
+    }
 
 }
