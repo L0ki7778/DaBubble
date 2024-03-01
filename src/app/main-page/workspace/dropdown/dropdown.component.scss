@@ -1,5 +1,24 @@
+@import '../../../mixin.scss';
+
 div{
     font-weight: bold;
     font-size: 1.2rem;
+}
+
+.arrow-img{
+    transition: all ease .1s;
+}
+
+.drop-down-list{
+    transition: all ease .1s;
+    overflow: hidden
+}
+
+.dropdown{
+        @include dFlex(flex-start, center);
+        position: relative;
+        width: 100%;
+        gap:1rem;
+        margin: 1rem
 }
 

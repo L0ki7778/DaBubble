@@ -1,4 +1,9 @@
-<img src="./../../../../assets/img/main-page/workspace/workspace-arrow.svg" alt="">
-<img src="{{src}}" alt="">
-<div>{{name}}</div>
-<ng-content></ng-content>
+<div class="dropdown" (click)="toggleActiveDropdown($event)">
+    <img class="arrow-img" [ngStyle] = "active? {transform: 'rotate(0deg)'} : {transform: 'rotate(-90deg)'}" src="./../../../../assets/img/main-page/workspace/workspace-arrow.svg" alt="">
+    <img src="{{src}}" alt="">
+    <div>{{name}}</div>
+    <ng-content></ng-content>
+</div>
+<div class="drop-down-list" [ngStyle] = "active? {height:'5rem'} : {height:'0'}">
+    test
+</div>

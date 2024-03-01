@@ -1,18 +1,28 @@
-import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-dropdown',
   standalone: true,
-  imports: [],
+  imports: [
+    CommonModule
+  ],
   templateUrl: './dropdown.component.html',
   styleUrl: './dropdown.component.scss'
 })
 export class DropdownComponent {
-@Input() name ="";
-@Input() src ="";
-active = true;
+  @Input() name = "";
+  @Input() src = "";
+  @Input() active = true;
+  @ViewChild('arrow') arrow: HTMLImageElement | undefined;
 
-constructor() {}
 
+  constructor() {
 
+  }
+
+  toggleActiveDropdown(event:Event) {
+    this.active = !this.active
+
+  }
 }
