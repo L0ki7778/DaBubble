@@ -1,6 +1,6 @@
 @import './../../mixin.scss';
 
-.dropdown {
+app-dropdown {
     @include dFlex(space-between, center);
     position: relative;
     width: 100%;

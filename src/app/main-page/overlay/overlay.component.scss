@@ -1,0 +1,30 @@
+@import './../../mixin.scss';
+
+app-chat-overlay,
+app-workspace-overlay {
+    position: absolute;
+    height: 50%;
+    width: 50%;
+    background-color: red;
+}
+
+button {
+    background-color: transparent;
+    border: unset;
+    @include dFlex(center, center);
+    transform: scale(1.2);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+
+    &:hover {
+        background-color: $bgColor;
+        #cross {
+            transform: scale(1.2);
+            path {
+
+                fill: $purple1;
+            }
+        }
+    }
+}
