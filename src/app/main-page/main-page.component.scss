@@ -26,12 +26,12 @@ app-thread {
 app-chat-container {
     flex: 2;
     max-width: 50%;
+    height: calc(90dvh - 2rem);
 }
 
 app-overlay {
     position: absolute;
-    height: 100%;
-    width: 100%;
+    @include scaleElement();
     top: 0;
     left: 0;
     z-index: 20;
