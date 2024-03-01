@@ -9,5 +9,10 @@ import { Component, Input } from '@angular/core';
 })
 export class DropdownComponent {
 @Input() name ="";
-active = true
+@Input() src ="";
+active = true;
+
+constructor() {}
+
+
 }

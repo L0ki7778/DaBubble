@@ -2,22 +2,38 @@
 
 app-workspace,
 app-chat-container,
-app-thread{
+app-thread {
     @include container();
 }
 
-#main-content{
-    @include dFlex();
-    justify-content: space-evenly;
-    gap:2rem
+#main-content {
+    @include dFlex(space-evenly, flex-start);
+    width: 98dvw;
+    // position: absolute;
+    // bottom: 0;
+    // right: 0;
+    // left: 0;
+    margin: 0 auto;
+    height: calc(100dvh - 10%);
+    gap: 2rem
 }
 
 app-workspace,
-app-thread{
-    flex:1
+app-thread {
+    flex: 1
 }
 
-app-chat-container{
-    flex:2;
+app-chat-container {
+    flex: 2;
     max-width: 50%;
+}
+
+app-overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    background-color: rgba(0, 0, 0, 0.4);
 }

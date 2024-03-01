@@ -1,12 +1,17 @@
 input {
-    width: 989px;
+    width: 450px;
     height: 70px;
     padding: 17.5px 45px 17.5px 45px;
     border-radius: 42px;
     font-size: 24px;
-    font-weight: 400;
+    font-weight: 300;
     color: black;
     box-sizing: border-box;
+    border: 0;
+    background-image: url('../../../..//assets/img/main-page/head/search.svg');
+    background-repeat: no-repeat;
+    background-position: right;
+    background-origin: content-box;
 
     &::placeholder {
         color: var(--textGray);

@@ -1,0 +1,14 @@
+@import './../../mixin.scss';
+
+app-chat-overlay,
+app-workspace-overlay {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    padding: 3rem 4rem;
+    height: fit-content;
+    width: 50%;
+    background-color: white;
+    border-radius: 3rem;
+}
+

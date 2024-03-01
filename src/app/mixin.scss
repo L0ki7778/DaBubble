@@ -1,10 +1,20 @@
+$bgColor: #ECEEFE;
+$lightPurple: #AEB0D9;
+$textGray: #686868;
+$purple1: #444DF2;
+$purple2: #797EF3;
+$lightPurple2: #797df386;
+$purple3: #535AF1;
+$onlineGreen: #91C93E;
+$rosaError: #ED1E7A;
+
 @mixin container() {
     display: flex;
     align-items: center;
     flex-direction: column;
     padding: 2rem 1.5rem;
     background-color: white;
-    border-radius: 1rem;
+    border-radius: 2rem;
 }
 
 @mixin dFlex($justify-content: center, $align-items: center) {
