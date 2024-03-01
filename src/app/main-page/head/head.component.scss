@@ -2,5 +2,40 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
+    margin: 16px auto;
+    width: 98dvw;
+}
+
+.head-logo {
+    height: 70px;
+    width: 240px;
+}
+
+.user-container {
+    width: 342px;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+
+    span {
+        font-size: 32px;
+        font-weight: 600;
+    }
+
+    &:hover .arrow-img {
+        background-image: url('../../../assets/img/main-page/head/arrow-blue.svg');
+    }
+
+    &:hover span {
+        color: var(--purple2);
+    }
+}
+
+.arrow-img {
+    width: 30px;
+    height: 30px;
+    background-image: url('../../../assets/img/main-page/head/arrow-black.svg');
 }
