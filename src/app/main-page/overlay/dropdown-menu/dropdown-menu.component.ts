@@ -9,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './dropdown-menu.component.scss'
 })
 export class DropdownMenuComponent {
-
+  
 }

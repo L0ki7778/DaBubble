@@ -16,10 +16,13 @@ import { OverlayService } from '../../services/overlay.service';
     ]
 })
 export class HeadComponent {
-    overlay = inject(OverlayService)
+    overlay = inject(OverlayService);
 
     showDropdownMenu() {
         this.overlay.toggleDropdownMenu();
     }
 
+    openDropdownMenu(event: MouseEvent) {
+        event.stopPropagation();
+    }
 }

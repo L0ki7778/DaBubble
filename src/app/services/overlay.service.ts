@@ -34,7 +34,7 @@ export class OverlayService {
     this.chatOverlay = !this.overlay;
     this.overlaySubject.next();
   }
-  
+
 
   toggleDropdownMenu() {
     this.isDropdownMenuVisible = !this.overlay;
