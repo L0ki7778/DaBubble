@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { StartPageComponent } from './main-page/start-page/start-page.component';
+import { StartPageComponent } from './start-page/start-page.component';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
