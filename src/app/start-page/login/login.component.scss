@@ -6,6 +6,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 30px;
 }
 
 .d-flex {
@@ -13,52 +14,142 @@
     justify-content: center;
 }
 
+.forgot-password {
+    color: var(--purple2);
+    padding: 1px 10px;
+    border-radius: 18px;
+    font-size: 18px;
+    margin-bottom: 10px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: var(--lighterPurple);
+        color: var(--purple1);
+        font-weight: 500;
+    }
+}
+
 h1 {
-    color: #444DF2;
+    color: var(--purple1);
+    font-size: 46px;
+    margin: 15px 0;
 }
 
 .info-text {
     margin: 0px 50px;
+    font-size: 18px;
 }
 
 form {
     display: flex;
     flex-direction: column;
-    padding-left: 30px;
-    padding-right: 30px;
-    margin-top: 40px;
+    margin-top: 30px;
     gap: 20px;
+    width: 100%;
+}
+
+.separator-box {
+    display: flex;
+    width: 80%;
+    margin-bottom: 12px;
+}
+
+.or {
+    font-size: 18px;
+    margin-bottom: 10px;
+    margin: 0 15px;
+}
+
+.separator {
+    height: 1px;
+    width: 100%;
+    background-color: var(--lightPurple);
+    margin-top: 16px;
 }
 
 .email {
-    width: 370px;
-    padding: 10px;
-    background-color: #ECEEFE;
+    width: auto;
+    padding: 15px 10px;
+    text-indent: 18%;
+    margin: 0 50px;
+    font-size: 18px;
+    background-color: var(--lighterPurple);
     border-radius: 100px;
-    border: 1px solid #ECEEFE;
+    border: 1px solid transparent;
+    background-image: url("/assets/img/start-page/mail.svg");
+    background-repeat: no-repeat;
+    background-position: 8% 50%;
+    outline: none;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:focus {
+        border: 1px solid var(--purple1);
+    }
 }
 
 .password {
-    width: 370px;
-    padding: 10px;
-    background-color: #ECEEFE;
+    width: auto;
+    padding: 15px 10px;
+    text-indent: 18%;
+    font-size: 18px;
+    margin: 0 50px;
+    background-color: var(--lighterPurple);
     border-radius: 100px;
-    border: 1px solid #ECEEFE;
+    border: 1px solid var(--lighterPurple);
+    background-image: url("/assets/img/start-page/lock.svg");
+    background-repeat: no-repeat;
+    background-position: 8% 50%;
+    outline: none;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:focus {
+        border: 1px solid var(--purple1);
+    }
+}
+
+.loginGoogle {
+    width: 80%;
+    padding: 15px 10px;
+    font-size: 18px;
+    background-color: var(--lighterPurple);
+    border-radius: 100px;
+    border: 1px solid var(--lighterPurple);
+    outline: none;
+    color: var(--purple1);
+    background-image: url("/assets/img/start-page/google.svg");
+    background-repeat: no-repeat;
+    background-position: 17% 50%;
+
+    &:hover {
+        cursor: pointer;
+        font-weight: 500;
+        border: 1px solid var(--purple1);
+    }
+
+    &:focus {
+        border: 1px solid var(--purple1);
+    }
 }
 
 .buttons {
     gap: 30px;
     display: flex;
-    margin-top: 50px;
+    margin-top: 26px;
 }
 
 .login-button {
-    background-color: #444DF2;
+    background-color: var(--purple1);
     border-radius: 25px;
     padding: 12px 25px 12px 25px;
     color: var(--bgColor);
     cursor: pointer;
-    border: 1px solid #444DF2;
+    border: 1px solid var(--purple1);
     &:hover {
         background-color: var(--purple2);
         border: 1px solid var(--purple2);
@@ -66,14 +157,14 @@ form {
 }
 
 .guest-button {
-    color: #444DF2;
+    color: var(--purple1);
     border-radius: 25px;
     padding: 12px 25px 12px 25px;
     cursor: pointer;
-    border: 1px solid #444DF2;
+    border: 1px solid var(--purple1);
     background-color: white;
     &:hover {
-        background-color: #444DF2;
+        background-color: var(--purple1);
         color: var(--bgColor);
     }
 }
