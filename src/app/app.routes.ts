@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { StartPageComponent } from './start-page/start-page.component';
 
