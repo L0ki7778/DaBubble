@@ -7,9 +7,15 @@ app-thread{
 }
 
 #main-content{
-    @include dFlex();
-    justify-content: space-evenly;
-    gap:2rem
+    @include dFlex(space-evenly, flex-start);
+    position: absolute;
+    bottom: 0;
+    width: 98dvw;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    height: calc(100dvh - 10%);
+    gap: 2rem
 }
 
 app-workspace,
