@@ -56,9 +56,13 @@ form {
     background-color: #444DF2;
     border-radius: 25px;
     padding: 12px 25px 12px 25px;
-    color: white;
+    color: var(--bgColor);
     cursor: pointer;
     border: 1px solid #444DF2;
+    &:hover {
+        background-color: var(--purple2);
+        border: 1px solid var(--purple2);
+    }
 }
 
 .guest-button {
@@ -68,5 +72,9 @@ form {
     cursor: pointer;
     border: 1px solid #444DF2;
     background-color: white;
+    &:hover {
+        background-color: #444DF2;
+        color: var(--bgColor);
+    }
 }
 
