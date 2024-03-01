@@ -1,16 +1,18 @@
 @import './../../mixin.scss';
 
 app-dropdown {
-    @include dFlex(space-between, center);
-    position: relative;
-    width: 100%;
-    margin: 1rem
+    align-self: flex-start;
+    width: 90%;
+    user-select: none;
+    
 }
 
 #plus {
     transform: scale(1.1);
     border-radius: 50%;
     transition: all ease .025s;
+    position: absolute;
+    right:0;
 
     &:hover {
         cursor: pointer;

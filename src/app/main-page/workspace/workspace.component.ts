@@ -20,7 +20,7 @@ export class WorkspaceComponent {
     console.log(this.overlayService.workspaceOverlay)
   }
 
-  dropdown(){
+  handleToggleActiveDropdown(active:boolean){
     console.log("dropdown clicked")
   }
 }

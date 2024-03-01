@@ -4,17 +4,14 @@ app-workspace,
 app-chat-container,
 app-thread {
     @include container();
+    height: 100%
 }
 
 #main-content {
     @include dFlex(space-evenly, flex-start);
     width: 98dvw;
-    // position: absolute;
-    // bottom: 0;
-    // right: 0;
-    // left: 0;
     margin: 0 auto;
-    height: calc(100dvh - 10%);
+    height: calc(90dvh - 10%);
     gap: 2rem
 }
 
@@ -26,7 +23,6 @@ app-thread {
 app-chat-container {
     flex: 2;
     max-width: 50%;
-    height: calc(90dvh - 2rem);
 }
 
 app-overlay {
