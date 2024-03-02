@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { OverlayService } from '../../../services/overlay.service';
 
 @Component({
   selector: 'app-thread-header',
@@ -9,7 +10,9 @@ import { Component } from '@angular/core';
 })
 export class ThreadHeaderComponent {
 
+  overlay = inject(OverlayService);
+
   hideThread() {
-    
+    this.overlay.hideThread();
   }
 }

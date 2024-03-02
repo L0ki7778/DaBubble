@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class OverlayService {
+  isThreadVisible: boolean = true;
   isDropdownMenuVisible: boolean = false;
   overlay = false;
   chatOverlay = false;
@@ -44,6 +45,12 @@ export class OverlayService {
 
   toggleWorkspaceOverlay() {
     this.workspaceOverlay = !this.overlay;
+    this.overlaySubject.next();
+  }
+
+
+  hideThread() {
+    this.isThreadVisible = false;
     this.overlaySubject.next();
   }
 }
