@@ -2,10 +2,9 @@
     <div class="login-container">
         <h1>Anmeldung</h1>
         <p class="info-text">Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest</p>
-        <form action="">
-            <input type="email" class="email" placeholder="beispielname@email.com">
-            <input type="password" class="password" placeholder="Passwort">
-        </form>
+        <form (submit)="login()" ngNativeValidate>
+            <input required type="email" class="email" placeholder="beispielname@email.com">
+            <input required type="password" class="password" placeholder="Passwort">
         <p class="forgot-password">Passwort vergessen?</p>
         <div class="separator-box"><div class="separator"></div><span class="or">ODER</span><div class="separator"></div></div>
         <button class="loginGoogle">Anmelden mit Google</button>
@@ -13,5 +12,6 @@
             <button [routerLink]="['main-page']" class="login-button">Anmelden</button>
             <button class="guest-button">Gäste-Login</button>
         </div>
+        </form>
     </div>
 </div>
