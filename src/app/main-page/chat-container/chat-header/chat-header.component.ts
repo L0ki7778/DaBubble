@@ -9,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './chat-header.component.scss'
 })
 export class ChatHeaderComponent {
-
+imgSrc: string = "../../../../assets/img/main-page/chat/add-members-button-hover.svg";
 }

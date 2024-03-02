@@ -31,11 +31,7 @@ $rosaError: #ED1E7A;
 @mixin hoverEffect() {
     background-color: $bgColor;
     color: $purple3;
-    border-radius: 100px; 
+    border-radius: 100px;
     transition: ease-in 150ms;
     cursor: pointer;
-    img{
-        filter: invert(35%) sepia(30%) saturate(7474%) hue-rotate(229deg) brightness(96%) contrast(97%);
-        transition: ease-in 150ms;
-    }
 }

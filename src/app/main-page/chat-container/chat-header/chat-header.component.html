@@ -13,8 +13,10 @@
                 <img src="../../../../assets/img/general/avatars/avatar2.svg" style="right: 25px">
                 <img src="../../../../assets/img/general/avatars/avatar3.svg">
             </div>
-            3
+            <span>3</span>
         </div>
-        <img src="../../../../assets/img/main-page/chat/add-members-button.svg">
+        <img class="add-member-button" [src]="imgSrc"
+        (mouseover)="imgSrc = '../../../../assets/img/main-page/chat/add-members-button-hover.svg'"
+        (mouseleave)="imgSrc = '../../../../assets/img/main-page/chat/add-members-button.svg'">
     </div>
 </div>

@@ -3,15 +3,20 @@
 .chat-container-header {
     @include dFlex(space-between, center);
     color: black;
-    padding: 0 1.5rem;
+    padding: 0 1.5rem; 
 }
 
 .chat-head-title {
     @include dFlex();
     gap: 10px;
 
-    &:hover{
+    &:hover {
         @include hoverEffect();
+
+        img {
+            filter: invert(35%) sepia(30%) saturate(7474%) hue-rotate(229deg) brightness(96%) contrast(97%);
+            transition: ease-in 150ms;
+        }
     }
 
     img {
@@ -26,6 +31,7 @@
         font-weight: 700;
     }
 }
+
 .chat-member-section {
     @include dFlex();
     gap: 10px;
@@ -38,20 +44,26 @@
     @include dFlex();
     gap: 10px;
 
-    &:hover{
+    &:hover {
         @include hoverEffect();
     }
 }
 
 .member-icons {
-    position: relative;
-    height: 40px;
+    @include dFlex();
 
     img {
-        position: absolute;
-        right: 0;
-        height: 40px;
+        height: 30px;
         border-radius: 100%;
         border: 1px solid white;
+    }
+}
+
+.add-member-button {
+    height: 30px;
+
+    &:hover {
+        transition: ease-in 150ms;
+        cursor: pointer;
     }
 }
