@@ -7,6 +7,10 @@ app-thread {
     @include scaleElement();
 }
 
+app-thread {
+    padding: 0;
+}
+
 #main-content {
     @include dFlex(space-evenly, flex-start);
     width: 98dvw;

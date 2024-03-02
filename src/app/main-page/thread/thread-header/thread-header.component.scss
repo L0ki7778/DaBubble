@@ -1,0 +1,35 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headline-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+span {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--purple2);
+}
+
+.cross-img {
+    width: 40px;
+    height: 40px;
+    background-image: url('../../../../assets/img/main-page/thread/cross.svg');
+    transition: all ease-in-out 0.2s;
+
+    &:hover {
+        cursor: pointer;
+        background-image: url('../../../../assets/img/main-page/thread/cross-hover.svg');
+    }
+}
