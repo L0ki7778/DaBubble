@@ -1,5 +1,9 @@
 @import './../../mixin.scss';
 
 app-chat-header{
-    @include scaleElement();
+    @include scaleElement(10%, 100%);
+    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+    padding-top: 2rem;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
 }
