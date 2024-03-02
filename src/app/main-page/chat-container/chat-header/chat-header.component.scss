@@ -10,6 +10,10 @@
     @include dFlex();
     gap: 10px;
 
+    &:hover{
+        @include hoverEffect();
+    }
+
     img {
         height: 32px;
     }
@@ -22,13 +26,17 @@
         font-weight: 700;
     }
 }
-
-.chat-head-members {
+.chat-member-section {
     @include dFlex();
     gap: 10px;
     font-size: 20px;
     line-height: 28px;
     font-weight: 600;
+}
+
+.chat-head-members {
+    @include dFlex();
+    gap: 10px;
 }
 
 .member-icons {
