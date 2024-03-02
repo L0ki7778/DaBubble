@@ -1,11 +1,9 @@
 <header>
     <img class="head-logo" src="assets/img/general/dabubble-logo.svg">
     <app-search-bar></app-search-bar>
-    <div class="user-container">
+    <div (click)="showDropdownMenu()" class="user-container">
         <span>Frederik Beck</span>
         <img src="assets/img/main-page/head/Profile-img.svg">
-        <div class="arrow-img" (click)="showDropdownMenu()"></div>
+        <div class="arrow-img"></div>
     </div>
 </header>
-
-<app-dropdown-menu [ngStyle]="{ display: isDropdownMenuVisible ? 'block' : 'none' }"></app-dropdown-menu>

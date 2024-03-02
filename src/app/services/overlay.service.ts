@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class OverlayService {
+  isDropdownMenuVisible: boolean = false;
   overlay = false;
   chatOverlay = false;
   workspaceOverlay = false;
@@ -24,18 +25,25 @@ export class OverlayService {
   closeOverlay() {
     this.chatOverlay = false;
     this.workspaceOverlay = false;
-    this.overlaySubject.next()
+    this.isDropdownMenuVisible = false;
+    this.overlaySubject.next();
   }
 
 
   toggleChatOverlay() {
     this.chatOverlay = !this.overlay;
-    this.overlaySubject.next()
+    this.overlaySubject.next();
+  }
+  
+
+  toggleDropdownMenu() {
+    this.isDropdownMenuVisible = !this.overlay;
+    this.overlaySubject.next();
   }
 
 
   toggleWorkspaceOverlay() {
     this.workspaceOverlay = !this.overlay;
-    this.overlaySubject.next()
+    this.overlaySubject.next();
   }
 }
