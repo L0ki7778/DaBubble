@@ -37,6 +37,10 @@
 .chat-head-members {
     @include dFlex();
     gap: 10px;
+
+    &:hover{
+        @include hoverEffect();
+    }
 }
 
 .member-icons {

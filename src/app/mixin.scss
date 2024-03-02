@@ -28,7 +28,7 @@ $rosaError: #ED1E7A;
     width: $width;
 }
 
-@mixin hoverEffect($height: 100%, $width: 100%) {
+@mixin hoverEffect() {
     background-color: $bgColor;
     color: $purple3;
     border-radius: 100px; 
