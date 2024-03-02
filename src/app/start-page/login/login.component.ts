@@ -10,4 +10,7 @@ import { RouterModule, Routes } from '@angular/router';
 })
 export class LoginComponent {
 
+  login() {
+    
+  }
 }

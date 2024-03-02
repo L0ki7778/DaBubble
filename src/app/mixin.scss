@@ -27,3 +27,11 @@ $rosaError: #ED1E7A;
     height: $height;
     width: $width;
 }
+
+@mixin hoverEffect() {
+    background-color: $bgColor;
+    color: $purple3;
+    border-radius: 100px;
+    transition: ease-in 150ms;
+    cursor: pointer;
+}

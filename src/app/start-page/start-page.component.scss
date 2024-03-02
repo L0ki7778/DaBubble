@@ -15,3 +15,51 @@ body {
     margin-top: 30px;
     gap: 16px;
 }
+
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.create-account {
+    display: flex;
+    flex-direction: column;
+    margin-right: 46px;
+    margin-top: 24px;
+
+    >p {
+        font-size: 18px;
+    }
+
+    >span {
+        font-size: 18px;
+        color: var(--purple2);
+        text-align: center;
+        &:hover {
+            cursor: pointer;
+            outline: 1px solid var(--purple2);
+            border-radius: 14px;
+            font-weight: 500;
+            color: var(--purple1);
+        }
+    }
+}
+
+footer {
+    font-size: 18px;
+    color: var(--purple2);
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    >p {
+        margin: 15px;
+        padding: 0 10px;
+        &:hover {
+            cursor: pointer;
+            outline: 1px solid var(--purple2);
+            border-radius: 14px;
+            font-weight: 500;
+            color: var(--purple1);
+        }
+    }
+}

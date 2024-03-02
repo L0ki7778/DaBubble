@@ -12,9 +12,10 @@ import { Component, Input, ViewChild} from '@angular/core';
 })
 export class DropdownComponent {
   @Input() name = "";
-  @Input() src = "";
+  @Input() channel = false;
   @Input() active = true;
   @ViewChild('arrow') arrow: HTMLImageElement | undefined;
+
 
 
   constructor() {
