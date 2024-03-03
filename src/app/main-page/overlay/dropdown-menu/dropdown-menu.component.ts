@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, inject } from '@angular/core';
+import { OverlayService } from '../../../services/overlay.service';
 
 @Component({
   selector: 'app-dropdown-menu',
@@ -9,5 +10,17 @@ import { Component } from '@angular/core';
   styleUrl: './dropdown-menu.component.scss'
 })
 export class DropdownMenuComponent {
-  
+  @ViewChild('profileMenu') profileMenu: ElementRef | null = null;
+  overlay = inject(OverlayService)
+  constructor() {
+  }
+  @HostListener('document:click', ['$event'])
+  onclick(event: Event) {
+    if (this.profileMenu && this.profileMenu.nativeElement.contains(event.target)) {
+      return
+    } else {
+      this.overlay.closeOverlay();
+    }
+  }
+ 
 }
