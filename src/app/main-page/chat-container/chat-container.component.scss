@@ -1,9 +1,27 @@
 @import './../../mixin.scss';
 
-app-chat-header{
+app-chat-header {
     @include scaleElement(10%, 100%);
     box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
     padding-top: 2rem;
     border-top-left-radius: 2rem;
     border-top-right-radius: 2rem;
+}
+
+app-chat-content {
+    @include scaleElement();
+    padding-top: 2rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+app-chat-input{
+    @include dFlex(space-between, initial);
+    flex-direction: column;
+    border: 1px solid $lightPurple;
+    border-radius: 20px;
+    padding: 20px;
+    width: 85%;
+    height: 20%;
+
 }
