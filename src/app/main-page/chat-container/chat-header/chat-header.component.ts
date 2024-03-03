@@ -12,10 +12,11 @@ import { MembersOverlayComponent } from '../../overlay/members-overlay/members-o
   templateUrl: './chat-header.component.html',
   styleUrl: './chat-header.component.scss'
 })
+
 export class ChatHeaderComponent {
   overlayService = inject(OverlayService);
 
-  imgSrc: string = "../../../../assets/img/main-page/chat/add-members-button-hover.svg";
+  imgSrc: string = "../../../../assets/img/main-page/chat/add-members-button.svg";
 
   openChatOverlay(event: Event) {
     event.stopPropagation();

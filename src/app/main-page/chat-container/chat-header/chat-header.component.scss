@@ -61,6 +61,7 @@
 
 .add-member-button {
     height: 30px;
+    max-height: 30px;
 
     &:hover {
         transition: ease-in 150ms;
