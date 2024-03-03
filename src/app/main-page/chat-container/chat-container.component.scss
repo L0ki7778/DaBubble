@@ -7,6 +7,28 @@ app-chat-header {
     position: absolute;
     top: 0;
     left: 0;
-    border-radius: 2rem 2rem 0 0;
-    
+    border-radius: 2rem 2rem 0 0;}
+
+app-chat-content {
+    @include scaleElement();
+    @include dFlex(flex-end, center);
+    flex-direction: column;
+    padding-top: 2rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+app-chat-input {
+    @include dFlex(space-evenly, initial);
+    flex-direction: column;
+    border: 1px solid $lightPurple;
+    border-radius: 20px;
+    padding: 20px;
+    width: 85%;
+    height: 20%;
+    gap: 15px;
+
+    &:hover{
+        border: 1px solid $purple3;
+    }
 }

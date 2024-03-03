@@ -1,0 +1,86 @@
+@import '../../../mixin.scss';
+
+.input-field {
+    border: none;
+    outline:none;
+    text-align: left;
+    color: $textGray;
+    width: 100%;
+    height: 50%;
+    resize: none;
+}
+
+.command-section {
+    @include dFlex(space-between, center);
+    color: $textGray;
+}
+
+.icon-menu {
+    @include dFlex(center, center);
+    gap: 15px;
+
+    &:hover {
+        cursor: pointer;
+
+        path {
+            fill: black;
+            transition: ease-in 150ms;
+        }
+    }
+
+    svg {
+        height: 20px;
+        width: 20px;
+    }
+}
+
+.send-btn:hover {
+    cursor: pointer;
+
+    path {
+        fill: $purple2;
+        transition: ease-in 150ms;
+    }
+}
+
+.add-btn:hover {
+    cursor: pointer;
+    background-color: $bgColor;
+    border-radius: 100%;
+    padding: 4px;
+
+    path {
+        fill: $purple3;
+        transition: ease-in 150ms;
+    }
+}
+
+.emoji-btn:hover {
+    cursor: pointer;
+    background-color: $bgColor;
+    border-radius: 100%;
+    padding: 4px;
+
+    path {
+        fill: $purple3;
+        transition: ease-in 150ms;
+    }
+}
+
+.email-btn:hover {
+    cursor: pointer;
+    background-color: $bgColor;
+    border-radius: 100%;
+    padding: 4px;
+
+    path {
+        fill: $purple3;
+        transition: ease-in 150ms;
+    }
+}
+
+.icon-fixer {
+    @include dFlex();
+    height: 25px;
+    width: 25px;
+}
