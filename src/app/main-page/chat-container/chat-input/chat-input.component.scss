@@ -74,3 +74,9 @@
         transition: ease-in 150ms;
     }
 }
+
+.icon-fixer{
+    @include dFlex();
+    height: 25px;
+    width: 25px;
+}
