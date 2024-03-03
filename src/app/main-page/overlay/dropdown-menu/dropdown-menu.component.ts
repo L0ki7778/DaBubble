@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, HostListener, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, HostListener, inject } from '@angular/core';
 import { OverlayService } from '../../../services/overlay.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { OverlayService } from '../../../services/overlay.service';
 })
 export class DropdownMenuComponent {
 
-  @ViewChild('profileMenu') profileMenu: ElementRef | null = null;
+  profileMenu: ElementRef | null = null;
   overlay = inject(OverlayService);
 
 

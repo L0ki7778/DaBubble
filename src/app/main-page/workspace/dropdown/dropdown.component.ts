@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, ViewChild} from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-dropdown',
@@ -16,14 +16,9 @@ export class DropdownComponent {
   @Input() active = true;
   @ViewChild('arrow') arrow: HTMLImageElement | undefined;
 
+  constructor() { }
 
-
-  constructor() {
-
-  }
-
-  toggleActiveDropdown(event:Event) {
-    this.active = !this.active
-
+  toggleActiveDropdown(event: Event) {
+    this.active = !this.active;
   }
 }

@@ -12,6 +12,7 @@ import { OverlayService } from '../../services/overlay.service';
   styleUrl: './workspace.component.scss'
 })
 export class WorkspaceComponent {
+
   overlayService = inject(OverlayService)
   createCannel(event: Event){
     event.stopPropagation();

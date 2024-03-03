@@ -7,6 +7,7 @@ import { OverlayService } from '../services/overlay.service';
 import { OverlayComponent } from './overlay/overlay.component';
 import { CommonModule } from '@angular/common';
 import { ThreadHeaderComponent } from './thread/thread-header/thread-header.component';
+import { BooleanValueService } from '../services/boolean-value.service';
 
 @Component({
   selector: 'app-main-page',
@@ -25,8 +26,10 @@ import { ThreadHeaderComponent } from './thread/thread-header/thread-header.comp
 })
 export class MainPageComponent {
   overlayService = inject(OverlayService);
+  booleanService = inject(BooleanValueService);
+
   overlay = this.overlayService.overlay;
-  isThreadVisible = this.overlayService.shiftThread;
+  viewThread = this.booleanService.viewThread;
 
 
   constructor() {

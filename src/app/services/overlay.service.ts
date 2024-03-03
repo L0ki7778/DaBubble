@@ -1,11 +1,10 @@
-import { Injectable, effect, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OverlayService {
-  isThreadVisible: boolean = true; 
   isDropdownMenuVisible: boolean = false;
   isChatVisible: boolean = false;
   isMembersVisible: boolean = false;
@@ -24,15 +23,8 @@ export class OverlayService {
     }
   });
 
-  shiftThread = signal(true)
-
   constructor() { }
 
-  switchThreadShift(){
-    effect(() => {
-      this.shiftThread.set(!this.shiftThread());
-    })
-  }
 
   closeOverlay() {
     this.editChannelOverlay = false;
@@ -70,10 +62,5 @@ export class OverlayService {
   toggleWorkspaceOverlay() {
     this.workspaceOverlay = !this.overlay;
     this.overlaySubject.next();
-  }
-
-  hideThread() {
-    this.isThreadVisible = false;
-    // this.overlaySubject.next();
   }
 }

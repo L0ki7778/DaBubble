@@ -2,6 +2,7 @@ import { Component, effect, inject, signal } from '@angular/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { CommonModule } from '@angular/common';
 import { MainPageComponent } from '../../main-page.component';
+import { BooleanValueService } from '../../../services/boolean-value.service';
 
 @Component({
   selector: 'app-thread-header',
@@ -15,11 +16,12 @@ import { MainPageComponent } from '../../main-page.component';
 })
 export class ThreadHeaderComponent {
 
-  overlay = inject(OverlayService);
-  isThreadVisible = this.overlay.shiftThread
+  booleanService = inject(BooleanValueService);
+
+  viewThread = this.booleanService.viewThread;
 
 
   hideThread() {
-    this.isThreadVisible.set(false);
+    this.viewThread.set(false);
   }
 }
