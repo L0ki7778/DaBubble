@@ -1,12 +1,14 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { CommonModule } from '@angular/common';
+import { MainPageComponent } from '../../main-page.component';
 
 @Component({
   selector: 'app-thread-header',
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    MainPageComponent
   ],
   templateUrl: './thread-header.component.html',
   styleUrl: './thread-header.component.scss'
@@ -14,10 +16,10 @@ import { CommonModule } from '@angular/common';
 export class ThreadHeaderComponent {
 
   overlay = inject(OverlayService);
-  // threadOverlay = this.overlay.isThreadVisible;
+  isThreadVisible = this.overlay.shiftThread
 
 
-  // hideThread() {
-  //   this.overlay.hideThread();
-  // }
+  hideThread() {
+    this.isThreadVisible.set(false);
+  }
 }
