@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 export class OverlayService {
   isThreadVisible: boolean = true;
   isDropdownMenuVisible: boolean = false;
+  isChatVisible: boolean = false;
   overlay = false;
   chatOverlay = false;
   workspaceOverlay = false;
@@ -27,6 +28,7 @@ export class OverlayService {
     this.chatOverlay = false;
     this.workspaceOverlay = false;
     this.isDropdownMenuVisible = false;
+    this.isChatVisible = false;
     this.overlaySubject.next();
   }
 
