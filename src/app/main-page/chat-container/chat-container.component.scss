@@ -2,11 +2,12 @@
 
 app-chat-header {
     @include scaleElement(10%, 100%);
+    @include dFlex();
     box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
-    padding-top: 2rem;
-    border-top-left-radius: 2rem;
-    border-top-right-radius: 2rem;
-}
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 2rem 2rem 0 0;}
 
 app-chat-content {
     @include scaleElement();

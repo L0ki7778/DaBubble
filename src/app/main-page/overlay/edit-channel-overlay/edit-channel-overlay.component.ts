@@ -5,15 +5,15 @@ import { OverlayService } from '../../../services/overlay.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-chat-overlay',
+  selector: 'app-edit-channel-overlay',
   standalone: true,
   imports: [
     CommonModule, TranslateModule, FormsModule
   ],
-  templateUrl: './chat-overlay.component.html',
-  styleUrl: './chat-overlay.component.scss'
+  templateUrl: './edit-channel-overlay.component.html',
+  styleUrl: './edit-channel-overlay.component.scss'
 })
-export class ChatOverlayComponent {
+export class EditChannelOverlayComponent {
   translateService = inject(TranslateService)
   overlay = inject(OverlayService)
 

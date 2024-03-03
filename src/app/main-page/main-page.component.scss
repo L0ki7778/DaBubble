@@ -5,10 +5,7 @@ app-chat-container,
 app-thread {
     @include container();
     @include scaleElement();
-}
-
-app-thread {
-    padding: 0;
+    position: relative;
 }
 
 #main-content {
@@ -21,7 +18,7 @@ app-thread {
 
 app-workspace,
 app-thread {
-    flex: 1
+    flex: 1;
 }
 
 app-chat-container {
