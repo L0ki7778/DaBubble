@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, inject } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, inject } from '@angular/core';
 import { OverlayService } from '../../../services/overlay.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { OverlayService } from '../../../services/overlay.service';
 })
 export class ProfileViewComponent {
 
-  profileView: ElementRef | null = null;
+  @ViewChild('profileView') profileView: ElementRef | null = null;
   overlay = inject(OverlayService);
   
 

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, HostListener, inject } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, inject } from '@angular/core';
 import { OverlayService } from '../../../services/overlay.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { OverlayService } from '../../../services/overlay.service';
 export class DropdownMenuComponent {
 
   overlay = inject(OverlayService);
-  profileMenu: ElementRef | null = null;
+  @ViewChild('profileMenu') profileMenu: ElementRef | null = null;
 
 
   @HostListener('document:click', ['$event'])
@@ -26,7 +26,8 @@ export class DropdownMenuComponent {
 
 
   openProfileView(event: MouseEvent) {
-    // event.stopPropagation();
-    // this.overlay.toggleProfileView();
+    event.stopPropagation();
+    this.overlay.closeOverlay();
+    this.overlay.toggleProfileView();
   }
 }
