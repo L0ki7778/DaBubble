@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class OverlayService {
+
   isThreadVisible: boolean = true;
   isDropdownMenuVisible: boolean = false;
   isChatVisible: boolean = false;
