@@ -9,8 +9,8 @@ $onlineGreen: #91C93E;
 $rosaError: #ED1E7A;
 
 @mixin container() {
-    display: flex;
-    align-items: center;
+    // display: flex;
+    // align-items: center;
     flex-direction: column;
     padding: 2rem 1.5rem;
     background-color: white;

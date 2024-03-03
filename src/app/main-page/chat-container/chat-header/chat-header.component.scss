@@ -3,6 +3,7 @@
 .chat-container-header {
     @include dFlex(space-between, center);
     color: black;
+    width: 100%;
     padding: 0 1.5rem; 
 }
 
@@ -67,4 +68,21 @@
         transition: ease-in 150ms;
         cursor: pointer;
     }
+}
+
+#channel-tag{
+    position: relative;
+}
+
+app-edit-channel-overlay {
+    @include container();
+    position: absolute;
+    top: 3.5rem;
+    right: 2rem;
+    left: 2rem;
+    flex-direction: column;
+    padding: 0 2rem 1.5rem;
+    background-color: white;
+    border-radius: 0 2rem 2rem;
+    z-index: 21;
 }

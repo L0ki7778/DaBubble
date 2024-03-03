@@ -11,7 +11,7 @@ export class OverlayService {
   isMembersVisible: boolean = false;
   isAddMemberVisible: boolean = false;
   overlay = false;
-  chatOverlay = false;
+  editChannelOverlay = false;
   membersOverlay = false;
   addMemberOverlay = false;
   workspaceOverlay = false;
@@ -29,7 +29,7 @@ export class OverlayService {
 
 
   closeOverlay() {
-    this.chatOverlay = false;
+    this.editChannelOverlay = false;
     this.membersOverlay = false;
     this.addMemberOverlay = false;
     this.workspaceOverlay = false;
@@ -42,7 +42,7 @@ export class OverlayService {
 
 
   toggleChatOverlay() {
-    this.chatOverlay = !this.overlay;
+    this.editChannelOverlay = !this.overlay;
     this.overlaySubject.next();
   }
 

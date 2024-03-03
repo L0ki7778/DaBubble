@@ -13,14 +13,8 @@ import { OverlayService } from '../../services/overlay.service';
 })
 export class WorkspaceComponent {
   overlayService = inject(OverlayService)
-  btn(event: Event){
+  createCannel(event: Event){
     event.stopPropagation();
-    console.log("btn clicked");
     this.overlayService.toggleWorkspaceOverlay();
-    console.log(this.overlayService.workspaceOverlay)
-  }
-
-  handleToggleActiveDropdown(active:boolean){
-    console.log("dropdown clicked")
   }
 }

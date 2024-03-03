@@ -1,0 +1,158 @@
+@import './../../../mixin.scss';
+
+.inline{
+    display: flex;
+    align-items: center;
+    gap:.5rem
+}
+
+span{
+    margin:0 .5rem 0 0;
+    font-weight: bold;
+}
+
+// .input-field{
+//     border:2px solid rgba(0,0,0,0.1);
+//     border-radius: 1rem;
+//     padding: .5rem;
+//     width: 100%;
+//     box-sizing: border-box;
+//     transition: all ease .25s;
+
+//     h4{
+//         margin-block: 0;
+//     }
+
+//     &:hover{
+//         border-color: $lightPurple2;
+//     }
+
+//     &:focus-within{
+//         border-color: $purple2;
+//     }
+   
+
+//     // &:focus-within{
+
+//     // }
+// }
+
+.input-field{
+    width: 93%;
+    position: absolute;
+    bottom:0;
+    left: 0;
+    padding: 0 1rem .75rem;
+
+    input{
+        width: 90%;
+        border: unset;
+        outline: unset;
+        &:disabled{
+            background-color: transparent;
+            color: rgba(0,0,0,0.9);
+        }
+    }
+
+}
+
+#channel-name-container{
+    position: relative;
+    width: 94%;
+    height: 4rem;
+    padding: 1rem;
+    transition: all ease .25s;
+
+    &:focus-within{
+       h4{
+        transform: translate(-1rem, -.5rem);
+       }
+    }
+
+    h4{
+        transition:all ease .25s;
+        margin-block: 0;
+    }
+}
+
+.border-container{
+    border:2px solid rgba(0,0,0,0.1);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-radius: 1rem;
+    width: 100%;
+    height: 100%;
+    transition: all ease .25s;
+    
+
+    &:focus-within{
+        height: 46%;
+        border-radius: 2rem;
+
+    }
+}
+
+#description{
+        margin-left:1.45rem    
+}
+
+
+
+.close-btn {
+    position: absolute;
+    top:1rem;
+    right: 2rem;
+    background-color: transparent;
+    transition: all ease .1s;
+    border: unset;
+    @include dFlex(center, center);
+    transform: scale(1.1);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+
+    &:hover {
+        background-color: $bgColor;
+        #cross {
+            transform: scale(1.1);
+            path {
+                fill: $purple1;
+            }
+        }
+    }
+}
+
+// form{
+    //     display: flex;
+    //     flex-direction: column;
+    
+    //     button{
+    //         margin-top: 1.5rem;
+    //         width: 6rem;
+    //         height: 2rem;
+    //         border-radius: 1rem;
+    //         font-weight: bold;
+    //         align-self: flex-end;
+    //         border: unset;
+    //         transform: scale(1.1);
+    //         transition: all ease .1s;
+    //         background-color: $purple2;
+    //         color: white;
+    
+    //         &:not(:disabled):hover{
+    //             cursor: pointer;
+    //             background-color: $purple3;
+    //         }
+    //         &:active{
+    //             background-color: $purple1!important;
+    //         }
+    
+    
+    //         &:disabled{
+    //             color: rgba(0,0,0,0.3);
+    //             background-color: transparent;
+    //             border: 2px solid $lightPurple
+    //         }
+    //     }
+    // }
