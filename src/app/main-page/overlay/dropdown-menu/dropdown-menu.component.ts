@@ -10,10 +10,11 @@ import { OverlayService } from '../../../services/overlay.service';
   styleUrl: './dropdown-menu.component.scss'
 })
 export class DropdownMenuComponent {
+
   @ViewChild('profileMenu') profileMenu: ElementRef | null = null;
-  overlay = inject(OverlayService)
-  constructor() {
-  }
+  overlay = inject(OverlayService);
+
+
   @HostListener('document:click', ['$event'])
   onclick(event: Event) {
     if (this.profileMenu && this.profileMenu.nativeElement.contains(event.target)) {
@@ -22,5 +23,4 @@ export class DropdownMenuComponent {
       this.overlay.closeOverlay();
     }
   }
- 
 }
