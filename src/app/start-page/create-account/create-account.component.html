@@ -1,0 +1,12 @@
+<div class="d-flex">
+    <div class="login-container">
+        <div class="flex-box"><div class="arrow-img" (click)="toggleToLogin()"></div><h1>Konto erstellen</h1></div>
+        <p class="info-text">Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DaBubble-Konto.</p>
+        <form (submit)="register()" ngNativeValidate>
+            <input required type="text" class="name" placeholder="Name und Nachname">
+            <input required type="email" class="email" placeholder="beispielname@email.com">
+            <input required type="password" class="password" placeholder="Passwort">
+            <button class="next-button">Weiter</button>
+        </form>
+    </div>
+</div>
