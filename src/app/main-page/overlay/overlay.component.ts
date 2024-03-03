@@ -4,6 +4,7 @@ import { WorkspaceOverlayComponent } from './workspace-overlay/workspace-overlay
 import { CommonModule } from '@angular/common';
 import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
 import { AddMemberOverlayComponent } from './add-member-overlay/add-member-overlay.component';
+import { ProfileViewComponent } from './profile-view/profile-view.component';
 
 @Component({
   selector: 'app-overlay',
@@ -12,7 +13,8 @@ import { AddMemberOverlayComponent } from './add-member-overlay/add-member-overl
     WorkspaceOverlayComponent,
     CommonModule,
     DropdownMenuComponent,
-    AddMemberOverlayComponent
+    AddMemberOverlayComponent,
+    ProfileViewComponent
   ],
   templateUrl: './overlay.component.html',
   styleUrl: './overlay.component.scss'
@@ -22,4 +24,5 @@ export class OverlayComponent {
   workspaceOverlay = this.overlay.workspaceOverlay;
   isDropdownMenuVisible = this.overlay.isDropdownMenuVisible;
   addMemberOverlay = this.overlay.addMemberOverlay;
+  profileView = this.overlay.profileView;
 }

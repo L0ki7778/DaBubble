@@ -11,8 +11,8 @@ import { OverlayService } from '../../../services/overlay.service';
 })
 export class DropdownMenuComponent {
 
-  profileMenu: ElementRef | null = null;
   overlay = inject(OverlayService);
+  profileMenu: ElementRef | null = null;
 
 
   @HostListener('document:click', ['$event'])
@@ -22,5 +22,11 @@ export class DropdownMenuComponent {
     } else {
       this.overlay.closeOverlay();
     }
+  }
+
+
+  openProfileView(event: MouseEvent) {
+    // event.stopPropagation();
+    // this.overlay.toggleProfileView();
   }
 }
