@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class OverlayService {
-  isThreadVisible: boolean = true;
+  // isThreadVisible: boolean = true; *kein Overlay, triggert ihn aber. Würde einen anderen Service dafür erstellen,wenn er von mehreren components benötigt wird
   isDropdownMenuVisible: boolean = false;
   isChatVisible: boolean = false;
   isMembersVisible: boolean = false;
@@ -66,8 +66,8 @@ export class OverlayService {
     this.overlaySubject.next();
   }
 
-  hideThread() {
-    this.isThreadVisible = false;
-    this.overlaySubject.next();
-  }
+  // hideThread() {
+  //   this.isThreadVisible = false;
+  //   this.overlaySubject.next();
+  // }
 }

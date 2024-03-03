@@ -24,13 +24,13 @@ import { CommonModule } from '@angular/common';
 export class MainPageComponent {
   overlayService = inject(OverlayService);
   overlay = this.overlayService.overlay;
-  isThreadVisible = this.overlayService.isThreadVisible;
+  // isThreadVisible = this.overlayService.isThreadVisible;
 
 
   constructor() {
     this.overlayService.overlaySubject.subscribe(() => {
       this.overlay = this.overlayService.overlay;
-      this.isThreadVisible = this.overlayService.isThreadVisible;
+      // this.isThreadVisible = this.overlayService.isThreadVisible;
     })
   }
 }
