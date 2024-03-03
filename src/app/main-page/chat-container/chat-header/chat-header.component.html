@@ -1,5 +1,5 @@
 <div class="chat-container-header">
-    <div class="chat-head-title" (click)="btn($event)">
+    <div class="chat-head-title" (click)="openChatOverlay($event)">
         <img src="./../../../../assets/img/main-page/chat/tag.svg">
         <span>
             test
@@ -7,7 +7,7 @@
         <img src="./../../../../assets/img/main-page/chat/arrow_down.svg">
     </div>
     <div class="chat-member-section">
-        <div class="chat-head-members">
+        <div class="chat-head-members" (click)="openMembersOverlay($event)">
             <div class="member-icons">
                 <img src="../../../../assets/img/general/avatars/avatar1.svg" style="right: 50px">
                 <img src="../../../../assets/img/general/avatars/avatar2.svg" style="right: 25px">
@@ -17,6 +17,7 @@
         </div>
         <img class="add-member-button" [src]="imgSrc"
         (mouseover)="imgSrc = '../../../../assets/img/main-page/chat/add-members-button-hover.svg'"
-        (mouseleave)="imgSrc = '../../../../assets/img/main-page/chat/add-members-button.svg'">
+        (mouseleave)="imgSrc = '../../../../assets/img/main-page/chat/add-members-button.svg'"
+        (click)="openAddMemberOverlay($event)">
     </div>
 </div>
