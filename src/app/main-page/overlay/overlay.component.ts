@@ -19,7 +19,6 @@ import { AddMemberOverlayComponent } from './add-member-overlay/add-member-overl
 })
 export class OverlayComponent {
   overlay = inject(OverlayService);
-  chatOverlay = this.overlay.chatOverlay;
   workspaceOverlay = this.overlay.workspaceOverlay;
   isDropdownMenuVisible = this.overlay.isDropdownMenuVisible;
   addMemberOverlay = this.overlay.addMemberOverlay;
