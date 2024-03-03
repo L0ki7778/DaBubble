@@ -10,18 +10,24 @@ app-chat-header {
 
 app-chat-content {
     @include scaleElement();
+    @include dFlex(flex-end, center);
+    flex-direction: column;
     padding-top: 2rem;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
 }
 
-app-chat-input{
-    @include dFlex(space-between, initial);
+app-chat-input {
+    @include dFlex(space-evenly, initial);
     flex-direction: column;
     border: 1px solid $lightPurple;
     border-radius: 20px;
     padding: 20px;
     width: 85%;
     height: 20%;
+    gap: 15px;
 
+    &:hover{
+        border: 1px solid $purple3;
+    }
 }
