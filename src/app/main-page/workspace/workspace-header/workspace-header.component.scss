@@ -1,0 +1,25 @@
+@import '../../../mixin.scss';
+
+#workspace-header {
+    @include dFlex(space-between, center);
+    font-weight: bold;
+    font-size: 1.5rem;
+    padding: 2rem 0;
+
+    div:hover{
+        cursor: default;
+    }
+}
+
+#edit-square {
+    path{
+        transition: all ease .125s;
+    } 
+
+    &:hover {
+        cursor: pointer;
+        path {
+            fill: $purple1;
+        }
+    }
+}

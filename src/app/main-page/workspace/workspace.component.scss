@@ -1,11 +1,13 @@
 @import './../../mixin.scss';
 
-app-dropdown {
+app-workspace-dropdown {
     align-self: flex-start;
     width: 90%;
     user-select: none;
     
 }
+
+
 
 #plus {
     transform: scale(1.1);
