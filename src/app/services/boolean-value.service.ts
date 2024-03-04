@@ -8,4 +8,5 @@ export class BooleanValueService {
   constructor() { }
 
   viewThread = signal(true);
+  profileView = signal(false);
 }

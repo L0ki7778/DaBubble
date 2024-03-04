@@ -12,7 +12,7 @@ export class ProfileViewComponent {
 
   @ViewChild('profileView') profileView: ElementRef | null = null;
   overlay = inject(OverlayService);
-  
+
 
   @HostListener('document:click', ['$event'])
   onclick(event: Event) {
@@ -20,6 +20,7 @@ export class ProfileViewComponent {
       return
     } else {
       this.overlay.closeOverlay();
+      setTimeout(() => this.overlay.toggleDropdownMenu(), 1);
     }
   }
 }

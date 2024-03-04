@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
 import { AddMemberOverlayComponent } from './add-member-overlay/add-member-overlay.component';
 import { ProfileViewComponent } from './profile-view/profile-view.component';
+import { BooleanValueService } from '../../services/boolean-value.service';
 
 @Component({
   selector: 'app-overlay',
@@ -21,6 +22,8 @@ import { ProfileViewComponent } from './profile-view/profile-view.component';
 })
 export class OverlayComponent {
   overlay = inject(OverlayService);
+  booleanService = inject(BooleanValueService);
+
   workspaceOverlay = this.overlay.workspaceOverlay;
   isDropdownMenuVisible = this.overlay.isDropdownMenuVisible;
   addMemberOverlay = this.overlay.addMemberOverlay;
