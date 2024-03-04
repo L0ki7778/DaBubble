@@ -2,15 +2,15 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, ViewChild } from '@angular/core';
 
 @Component({
-  selector: 'app-dropdown',
+  selector: 'app-workspace-dropdown',
   standalone: true,
   imports: [
     CommonModule
   ],
-  templateUrl: './dropdown.component.html',
-  styleUrl: './dropdown.component.scss'
+  templateUrl: './workspace-dropdown.component.html',
+  styleUrl: './workspace-dropdown.component.scss'
 })
-export class DropdownComponent {
+export class WorkspaceDropdownComponent {
   @Input() name = "";
   @Input() channel = false;
   @Input() active = true;

@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { DropdownComponent } from './dropdown/dropdown.component';
 import { OverlayService } from '../../services/overlay.service';
+import { WorkspaceDropdownComponent } from './workspace-dropdown/workspace-dropdown.component';
 
 @Component({
   selector: 'app-workspace',
   standalone: true,
   imports: [
-    DropdownComponent
+    WorkspaceDropdownComponent
   ],
   templateUrl: './workspace.component.html',
   styleUrl: './workspace.component.scss'

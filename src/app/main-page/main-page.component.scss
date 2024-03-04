@@ -19,15 +19,17 @@ app-thread {
 app-workspace,
 app-thread {
     flex: 1;
+    max-width: 22%;
 }
 
 app-chat-container {
     flex: 2;
-    max-width: 50%;
+    max-width: 70%;
     display: flex;
     justify-content: space-between;
     align-items: center;    
     padding-bottom: 2rem;
+    transition: all ease .25s;
 }
 
 app-overlay {
