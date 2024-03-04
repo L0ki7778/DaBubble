@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, HostListener, ViewChild, inject } from '@angular/core';
 import { OverlayService } from '../../../services/overlay.service';
+import { BooleanValueService } from '../../../services/boolean-value.service';
 
 @Component({
   selector: 'app-dropdown-menu',
@@ -12,6 +13,8 @@ import { OverlayService } from '../../../services/overlay.service';
 export class DropdownMenuComponent {
 
   overlay = inject(OverlayService);
+  booleanService = inject(BooleanValueService);
+
   @ViewChild('profileMenu') profileMenu: ElementRef | null = null;
 
 
@@ -28,8 +31,6 @@ export class DropdownMenuComponent {
   openProfileView(event: MouseEvent) {
     event.stopPropagation();
     this.overlay.closeOverlay();
-    setTimeout(() => {
-      this.overlay.toggleProfileView();
-    }, 1000);
+    setTimeout(() => this.overlay.toggleProfileView(), 1);
   }
 }

@@ -18,10 +18,8 @@ export class ThreadHeaderComponent {
 
   booleanService = inject(BooleanValueService);
 
-  viewThread = this.booleanService.viewThread;
-
 
   hideThread() {
-    this.viewThread.set(false);
+    this.booleanService.viewThread.set(false);
   }
 }
