@@ -31,4 +31,10 @@ export class StartPageComponent {
     this.showLogin = !this.showLogin;
     this.showResetPassword = !this.showResetPassword;
   }
+
+  toggleToLogin() {
+    this.showLogin = true;
+    this.showCreateAccount = false;
+    this.showResetPassword = false;
+  }
 }

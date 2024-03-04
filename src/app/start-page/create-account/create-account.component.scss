@@ -1,4 +1,4 @@
-.login-container {
+.create-container {
     height: 500px;
     width: 500px;
     border-radius: 30px;
@@ -7,6 +7,7 @@
     flex-direction: column;
     align-items: center;
     margin-top: 30px;
+    position: relative;
 }
 
 .d-flex {
@@ -23,6 +24,9 @@
 .arrow-img {
     height: 24px;
     width: 24px;
+    position: absolute;
+    left: 30px;
+    top: 34px;
     cursor: pointer;
     background-image: url("/assets/img/start-page/arrow-black.svg" );
     background-repeat: no-repeat;

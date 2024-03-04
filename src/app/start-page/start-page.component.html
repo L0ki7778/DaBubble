@@ -10,13 +10,13 @@
 </header>
 <app-login *ngIf="showLogin"
 [showResetPassword]="showResetPassword"
+[showLogin]="showLogin"
 (toggleStateResetPassword)="toggleToResetPassword()"></app-login>
 <app-create-account  *ngIf="showCreateAccount"
 [showLogin]="showLogin"
 [showCreateAccount]="showCreateAccount"
 (toggleState)="toggleToCreateAccount()"></app-create-account>
-<app-reset-password *ngIf="showResetPassword"
-></app-reset-password>
+<app-reset-password *ngIf="showResetPassword" (toggleState)="toggleToLogin()"></app-reset-password>
 <footer>
     <p>Impressum</p>
     <p>Datenschutz</p>

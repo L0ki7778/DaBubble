@@ -11,10 +11,10 @@ export class ResetPasswordComponent {
 
   @Input() showLogin?: boolean;
   @Input() showResetPassword?: boolean;
-  @Output() toggleStateResetPassword = new EventEmitter<void>();
+  @Output() toggleState = new EventEmitter<void>();
 
   toggleToLogin() {
-    this.toggleStateResetPassword.emit();
+    this.toggleState.emit();
   }
 
   resetPassword() {
