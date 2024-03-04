@@ -1,6 +1,5 @@
 .profile-view-container {
-    width: 340px;
-    height: 400px;
+    width: 360px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -18,7 +17,7 @@ h1 {
     font-weight: 700;
 }
 
-.headline-container {
+.space-between {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -36,7 +35,63 @@ h1 {
     }
 }
 
-.user-img {
-    width: 180px;
-    height: 180px;
+.user-img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 24px 0 34px 0;
+
+    img {
+        width: 180px;
+        height: 180px;
+    }
+}
+
+.name {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.edit {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--purple3);
+    transition: all ease-in-out 0.2s;
+
+    &:hover {
+        cursor: pointer;
+        color: var(--purple1);
+        transform: scale(1.06);
+    }
+}
+
+.active-container {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin: 12px 0 32px 0;
+
+    span {
+        color: var(--onlineGreen);
+        font-size: 18px;
+        font-weight: 400;
+    }
+}
+
+.email-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+
+    span {
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    a {
+        font-size: 18px;
+        font-weight: 500;
+        text-decoration: none;
+        color: #1381FF;
+    }
 }

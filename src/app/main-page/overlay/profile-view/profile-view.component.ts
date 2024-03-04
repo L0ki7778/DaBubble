@@ -23,4 +23,17 @@ export class ProfileViewComponent {
       setTimeout(() => this.overlay.toggleDropdownMenu(), 1);
     }
   }
+
+
+  close() {
+    this.overlay.closeOverlay();
+    setTimeout(() => this.overlay.toggleDropdownMenu(), 1);
+  }
+
+
+  openEditProfile(event: MouseEvent) {
+    event.stopPropagation();
+    this.overlay.closeOverlay();
+    setTimeout(() => this.overlay.toggleEditProfile(), 1);
+  }
 }

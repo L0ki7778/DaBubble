@@ -6,6 +6,7 @@ import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
 import { AddMemberOverlayComponent } from './add-member-overlay/add-member-overlay.component';
 import { ProfileViewComponent } from './profile-view/profile-view.component';
 import { BooleanValueService } from '../../services/boolean-value.service';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @Component({
   selector: 'app-overlay',
@@ -15,7 +16,8 @@ import { BooleanValueService } from '../../services/boolean-value.service';
     CommonModule,
     DropdownMenuComponent,
     AddMemberOverlayComponent,
-    ProfileViewComponent
+    ProfileViewComponent,
+    EditProfileComponent
   ],
   templateUrl: './overlay.component.html',
   styleUrl: './overlay.component.scss'
@@ -28,4 +30,5 @@ export class OverlayComponent {
   isDropdownMenuVisible = this.overlay.isDropdownMenuVisible;
   addMemberOverlay = this.overlay.addMemberOverlay;
   profileView = this.overlay.profileView;
+  editProfileView = this.overlay.editProfileView;
 }

@@ -1,7 +1,26 @@
 <div class="profile-view-container" #profileView>
-    <div class="headline-container">
+    <div class="space-between">
         <h1>Profil</h1>
-        <div class="cross-img"></div>
+        <div (click)="close()" class="cross-img"></div>
     </div>
-    <img class="user-img" src="assets/img/general/avatars/Avatar.svg">
+    <div class="user-img-container">
+        <img src="assets/img/general/avatars/Avatar.svg">
+    </div>
+    <div class="space-between">
+        <span class="name">Frederik Beck</span>
+        <span (click)="openEditProfile($event)" class="edit">Bearbeiten</span>
+    </div>
+    <div class="active-container">
+        <img src="assets/img/general/Online.svg">
+        <span>Aktiv</span>
+    </div>
+    <div class="email-container">
+        <img src="assets/img/general/mail.svg">
+        <div>
+            <span>E-Mail-Adresse</span>
+            <br>
+            <br>
+            <a href="mailto:fred.beck&@email.com">fred.beck&#64;email.com</a>
+        </div>
+    </div>
 </div>
