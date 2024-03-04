@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { LoginComponent } from './login/login.component';
 import { CommonModule } from '@angular/common';
 import { CreateAccountComponent } from './create-account/create-account.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @Component({
   selector: 'app-start-page',
@@ -9,6 +10,7 @@ import { CreateAccountComponent } from './create-account/create-account.componen
   imports: [
     LoginComponent,
     CreateAccountComponent,
+    ResetPasswordComponent,
     CommonModule
   ],
   templateUrl: './start-page.component.html',
@@ -16,11 +18,23 @@ import { CreateAccountComponent } from './create-account/create-account.componen
 })
 export class StartPageComponent {
 
-  @Input() showLogin: boolean = true;
-  @Input() showCreateAccount: boolean = false;
+  showLogin: boolean = true;
+  showCreateAccount: boolean = false;
+  showResetPassword: boolean = false;
 
-  toggleContainer() {
-      this.showLogin = false;
-      this.showCreateAccount = true;
+  toggleToCreateAccount() {
+    this.showLogin = !this.showLogin;
+    this.showCreateAccount = !this.showCreateAccount;
+  }
+
+  toggleToResetPassword() {
+    this.showLogin = !this.showLogin;
+    this.showResetPassword = !this.showResetPassword;
+  }
+
+  toggleToLogin() {
+    this.showLogin = true;
+    this.showCreateAccount = false;
+    this.showResetPassword = false;
   }
 }
