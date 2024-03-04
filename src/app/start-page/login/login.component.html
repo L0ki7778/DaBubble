@@ -5,7 +5,7 @@
         <form (submit)="login()" ngNativeValidate>
             <input required type="email" class="email" placeholder="beispielname@email.com">
             <input required type="password" class="password" placeholder="Passwort">
-        <p class="forgot-password">Passwort vergessen?</p>
+        <p class="forgot-password" (click)="toggleToResetPassword()">Passwort vergessen?</p>
         <div class="separator-box"><div class="separator"></div><span class="or">ODER</span><div class="separator"></div></div>
         <button class="loginGoogle">Anmelden mit Google</button>
         <div class="buttons">

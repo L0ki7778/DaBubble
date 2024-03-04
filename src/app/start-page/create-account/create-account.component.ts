@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-create-account',
@@ -12,7 +12,11 @@ export class CreateAccountComponent {
 
   }
 
-  toggleToLogin() {
+  @Input() showLogin?: boolean;
+  @Input() showCreateAccount?: boolean;
+  @Output() toggleState = new EventEmitter<void>();
 
+  toggleToLogin() {
+      this.toggleState.emit();
+    }
   }
-}

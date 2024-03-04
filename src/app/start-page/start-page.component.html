@@ -5,11 +5,18 @@
     </div>
     <div class="create-account" *ngIf="showLogin">
         <p>Neu bei DABubble?</p>
-        <span (click)="toggleContainer()">Konto erstellen</span>
+        <span (click)="toggleToCreateAccount()">Konto erstellen</span>
     </div>
 </header>
-<app-login *ngIf="showLogin"></app-login>
-<app-create-account *ngIf="showCreateAccount"></app-create-account>
+<app-login *ngIf="showLogin"
+[showResetPassword]="showResetPassword"
+(toggleStateResetPassword)="toggleToResetPassword()"></app-login>
+<app-create-account  *ngIf="showCreateAccount"
+[showLogin]="showLogin"
+[showCreateAccount]="showCreateAccount"
+(toggleState)="toggleToCreateAccount()"></app-create-account>
+<app-reset-password *ngIf="showResetPassword"
+></app-reset-password>
 <footer>
     <p>Impressum</p>
     <p>Datenschutz</p>
