@@ -1,28 +1,52 @@
-<h3><span>#</span> Beispiel</h3>
+<h3><span>#</span> Entwicklerteam</h3>
 <div id="channel-name-container">
-    <h4>
-        Channel-Name
-    </h4>
-    <div class ="border-container">
-        
-        <div class="input-field" tabindex="0">
+    <div class="channel-edit-part" [ngClass]="{'h4-translate': editName}">
+
+        <h4>
+            Channel-Name
+        </h4>
+        @if(!editName){
+        <h4 id="edit" class="editable" [ngClass]="{'edit':!firstTime}" (click)="editChannelName()">
+            Bearbeiten
+        </h4>
+        }@else {
+        <h4 id="save" (click)="editChannelName()">
+            Speichern
+        </h4>
+        }
+    </div>
+    <div class="border-container" [ngClass]="{'shrink-container': editName,'hover-input':editName}">
+
+        <div class="input-field">
             <span>#</span>
-            <input type="text" placeholder="Beispiel" tabindex="-1" >
+            <input type="text" placeholder="Entwicklerteam" [disabled]="!editName" [ngClass]="{'hover-input':editName}">
         </div>
     </div>
 </div>
-<!-- <div>
-    <h4>
-        Beschreibung
-    </h4>
-    <div>
-        Der Allgemein-Kanal ist der ideale Ort für allgemeine Diskussionen
-        rund um Programmierung, Technologie und mehr. Teile deine Gedanken,
-        Ideen und Fragen mit der Community!Der Allgemein-Kanal ist der ideale
-        Ort für allgemeine Diskussionen rund um Programmierung, Technologie und mehr. Teile deine Gedanken,
-        Ideen und Fragen mit der Community!
+<div id="channel-description-container">
+    <div class="channel-edit-part">
+        
+        <h4>
+            Beschreibung
+        </h4>
+        @if(!editDescription){
+            <h4 id="edit-description" [ngClass]="{'edit':!firstTime}" (click)="editChannelDescription()">
+                Bearbeiten
+            </h4>
+            }@else {
+            <h4 id="save-description" (click)="editChannelDescription()">
+                Speichern
+            </h4>
+            }
     </div>
-</div> -->
+    <div class="description-input">
+        <input type="text" placeholder="Dein Text hier" >
+    </div>
+    <div>
+        Dieser Channel ist für alles rund um #dfsdf vorgesehen. Hier kannst du zusammen mit
+        deinem Team Meetings abhalten, Dokumente teilen und Entscheidungen treffen.
+    </div>
+</div>
 <button class="close-btn" (click)="closeOverlay()">
     <svg id="cross" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <mask id="mask0_36864_197" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24"
@@ -36,4 +60,4 @@
         </g>
     </svg>
 
-</button> 
+</button>

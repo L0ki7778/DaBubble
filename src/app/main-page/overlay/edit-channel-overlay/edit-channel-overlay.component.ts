@@ -16,8 +16,28 @@ import { FormsModule } from '@angular/forms';
 export class EditChannelOverlayComponent {
   translateService = inject(TranslateService)
   overlay = inject(OverlayService)
+  firstTime = true;
+  editName: boolean = false;
+  editDescription: boolean = false;
 
-  closeOverlay() {
-    this.overlay.closeOverlay()
+  constructor() { }
+
+  ngAfterViewInit() {
+    this.firstTime = false
   }
+
+
+editChannelName(){
+  this.editName = !this.editName;
+}
+
+
+editChannelDescription(){
+  this.editDescription = !this.editDescription;
+}
+
+
+closeOverlay() {
+  this.overlay.closeOverlay()
+}
 }
