@@ -40,7 +40,8 @@ export class ChatHeaderComponent {
     this.overlayService.toggleMembersOverlay();
   }
 
-  openAddMemberOverlay() {
+  openAddMemberOverlay(event: MouseEvent) {
+    event.stopPropagation();
     this.overlayService.toggleAddMemberOverlay();
   }
 
