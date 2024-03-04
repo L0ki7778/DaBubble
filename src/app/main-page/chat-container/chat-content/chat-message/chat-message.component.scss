@@ -1,0 +1,21 @@
+@import '../../../../mixin.scss';
+
+.message-container {
+    @include dFlex(start, center);
+    border-top: 1px solid $lightPurple;
+    padding: 2rem 1.5rem;
+}
+
+.avatar-icon {
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+}
+
+.message-left {
+    @include dFlex();
+}
+
+.message-right {
+    @include dFlex();
+}

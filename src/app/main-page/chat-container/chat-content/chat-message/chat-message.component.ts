@@ -9,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './chat-message.component.scss'
 })
 export class ChatMessageComponent {
-
+isOwnMessage: boolean = true;
 }
