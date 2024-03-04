@@ -39,10 +39,32 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 32px 0 34px 0;
+    margin: 32px 0 32px 0;
 
     img {
         width: 180px;
         height: 180px;
     }
+}
+
+.label-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 18px 0 6px 0;
+
+    span {
+        font-size: 20px;
+        font-weight: 600;
+    }
+}
+
+input {
+    color: var(--textGray);
+    font-size: 18px;
+    font-weight: 500;
+    height: 22px;
+    border-radius: 30px;
+    border: 1px solid #ADB0D9;
+    padding: 15px 20px 15px 20px;
 }

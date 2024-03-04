@@ -1,9 +1,19 @@
 <div class="edit-container" #editProfile>
     <div class="space-between">
         <h1>Dein Profil bearbeiten</h1>
-        <div class="cross-img"></div>
+        <div (click)="close()" class="cross-img"></div>
     </div>
     <div class="user-img-container">
         <img src="assets/img/general/avatars/Avatar.svg">
     </div>
+    <div class="label-container">
+        <img src="assets/img/general/account.svg">
+        <span>Vollständiger Name</span>
+    </div>
+    <input type="text">
+    <div class="label-container">
+        <img src="assets/img/general/mail.svg">
+        <span>E-Mail-Adresse</span>
+    </div>
+    <input type="text">
 </div>

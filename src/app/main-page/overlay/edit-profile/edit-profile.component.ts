@@ -23,4 +23,10 @@ export class EditProfileComponent {
       setTimeout(() => this.overlay.toggleDropdownMenu(), 1);
     }
   }
+  
+
+  close() {
+    this.overlay.closeOverlay();
+    setTimeout(() => this.overlay.toggleDropdownMenu(), 1);
+  }
 }
