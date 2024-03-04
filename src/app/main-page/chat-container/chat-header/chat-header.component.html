@@ -1,24 +1,24 @@
 <div class="chat-container-header">
     <app-edit-channel-overlay *ngIf="editChannel" class="edit-channel-overlay"></app-edit-channel-overlay>
     <div id="channel-tag" class="chat-head-title" (click)="openChatOverlay()">
-        <img  src="./../../../../assets/img/main-page/chat/tag.svg">
+        <img  src="assets/img/main-page/chat/tag.svg">
         <span>
             test
         </span>
-        <img src="./../../../../assets/img/main-page/chat/arrow_down.svg">
+        <img src="assets/img/main-page/chat/arrow_down.svg">
     </div>
     <div class="chat-member-section">
         <div class="chat-head-members" (click)="openMembersOverlay()">
             <div class="member-icons">
-                <img src="../../../../assets/img/general/avatars/avatar1.svg">
-                <img src="../../../../assets/img/general/avatars/avatar2.svg">
-                <img src="../../../../assets/img/general/avatars/avatar3.svg">
+                <img src="assets/img/general/avatars/avatar1.svg">
+                <img src="assets/img/general/avatars/avatar2.svg">
+                <img src="assets/img/general/avatars/avatar3.svg">
             </div>
             <span>3</span>
         </div>
         <img class="add-member-button" [src]="imgSrc"
-        (mouseover)="imgSrc = '../../../../assets/img/main-page/chat/add-members-button-hover.svg'"
-        (mouseleave)="imgSrc = '../../../../assets/img/main-page/chat/add-members-button.svg'"
+        (mouseover)="imgSrc = 'assets/img/main-page/chat/add-members-button-hover.svg'"
+        (mouseleave)="imgSrc = 'assets/img/main-page/chat/add-members-button.svg'"
         (click)="openAddMemberOverlay($event)">
     </div>
 </div>
