@@ -1,5 +1,10 @@
 @import './../../../mixin.scss';
 
+h4 {
+    transition: all ease .25s;
+    margin-block: 0;
+}
+
 .inline {
     display: flex;
     align-items: center;
@@ -59,8 +64,8 @@ span {
 
 .hover-input{
     &:hover{
-        cursor: pointer;
-        border-color: $lightPurple;
+        cursor: pointer!important;
+        border-color: $lightPurple!important;
     }
     &:focus-within{
         border-color: $purple1;
@@ -69,16 +74,33 @@ span {
 
 #channel-name-container {
     position: relative;
-    width: 94%;
     height: 4rem;
     padding: 1rem;
     transition: all ease .25s;
 }
 
 
+#channel-author{
+    font-size: 1.5rem;
+    color:$purple1
+}
+
+
 #channel-description-container {
+    display: flex;
+    flex-direction: column;
+    transition:all ease .25s;
+    gap:1rem;
+    margin-top:2rem;
     padding: 1rem;
     position: relative;
+}
+
+.stroke-div{
+    height: 2px;
+    width: 100%;
+    margin:0 auto;
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 
@@ -102,6 +124,111 @@ span {
     animation: shift-up .25s ease forwards;
     -webkit-animation: shift-up .25s ease forwards;
     -moz-animation: shift-up .25s ease forwards;
+}
+
+
+.channel-edit-part {
+    display: flex;
+    justify-content: space-between;
+
+    h4:last-of-type {
+        z-index: 2;
+        color: $purple2;
+
+        &:hover {
+            cursor: pointer;
+            color: $purple1;
+        }
+    }
+}
+
+.border-container {
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-radius: 1rem;
+    width: 100%;
+    height: 100%;
+    transition: all ease .25s;
+}
+
+.shrink-container {
+    height: 46%;
+    border-radius: 2rem;
+}
+
+.description-input {
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    transition: all ease .25s;
+    height: 100%;
+    border-radius: 1rem;
+
+}
+
+#description-input-field {
+    padding: .75rem;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 2rem;
+    transition: all ease .25s;
+    outline: unset;
+    opacity: 1;
+}
+
+#description {
+    margin-left: 1.45rem
+}
+
+#description-content{
+    opacity: 1;
+}
+
+.transparent{
+    opacity: 0!important;
+    top:2rem;
+    position: absolute!important;
+    z-index: -1;
+
+}
+
+.no-padding{
+    padding: 0!important;
+}
+
+.border-transparent{
+    border-color: transparent!important;
+}
+
+
+.close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+    background-color: transparent;
+    transition: all ease .1s;
+    border: unset;
+    @include dFlex(center, center);
+    transform: scale(1.1);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+
+    &:hover {
+        background-color: $bgColor;
+
+        #cross {
+            transform: scale(1.1);
+
+            path {
+                fill: $purple1;
+            }
+        }
+    }
 }
 
 @-webkit-keyframes shift-down {
@@ -143,128 +270,3 @@ span {
         transform: translate(1rem, -1rem);
     }
 }
-
-
-.channel-edit-part {
-    display: flex;
-    justify-content: space-between;
-
-    h4 {
-        transition: all ease .25s;
-        margin-block: 0;
-    }
-
-    h4:last-of-type {
-        z-index: 2;
-        color: $purple2;
-
-        &:hover {
-            cursor: pointer;
-            color: $purple1;
-        }
-    }
-}
-
-.border-container {
-    border: 2px solid rgba(0, 0, 0, 0.1);
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    border-radius: 1rem;
-    width: 100%;
-    height: 100%;
-    transition: all ease .25s;
-}
-
-.shrink-container {
-    height: 46%;
-    border-radius: 2rem;
-}
-
-.description-input {
-    border: 2px solid rgba(0, 0, 0, 0.1);
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    transition: all ease .25s;
-    height: 83%;
-    border-radius: 1rem;
-
-    input {
-        padding: .75rem;
-        width: 95%;
-        border: 2px solid rgba(0, 0, 0, 0.1);
-        border-radius: 2rem;
-        outline: unset;
-        position: absolute;
-        top:0;
-        visibility: hidden;
-    }
-}
-
-#description {
-    margin-left: 1.45rem
-}
-
-
-
-.close-btn {
-    position: absolute;
-    top: 1rem;
-    right: 2rem;
-    background-color: transparent;
-    transition: all ease .1s;
-    border: unset;
-    @include dFlex(center, center);
-    transform: scale(1.1);
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-
-    &:hover {
-        background-color: $bgColor;
-
-        #cross {
-            transform: scale(1.1);
-
-            path {
-                fill: $purple1;
-            }
-        }
-    }
-}
-
-// form{
-//     display: flex;
-//     flex-direction: column;
-
-//     button{
-//         margin-top: 1.5rem;
-//         width: 6rem;
-//         height: 2rem;
-//         border-radius: 1rem;
-//         font-weight: bold;
-//         align-self: flex-end;
-//         border: unset;
-//         transform: scale(1.1);
-//         transition: all ease .1s;
-//         background-color: $purple2;
-//         color: white;
-
-//         &:not(:disabled):hover{
-//             cursor: pointer;
-//             background-color: $purple3;
-//         }
-//         &:active{
-//             background-color: $purple1!important;
-//         }
-
-
-//         &:disabled{
-//             color: rgba(0,0,0,0.3);
-//             background-color: transparent;
-//             border: 2px solid $lightPurple
-//         }
-//     }
-// }

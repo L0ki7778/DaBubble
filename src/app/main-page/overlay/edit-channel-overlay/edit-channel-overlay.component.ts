@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { FormsModule } from '@angular/forms';
@@ -19,6 +19,8 @@ export class EditChannelOverlayComponent {
   firstTime = true;
   editName: boolean = false;
   editDescription: boolean = false;
+  author: string = "Rene Heller";
+  descriptionInput:string="Beschreibung deiner Wahl" ;
 
   constructor() { }
 

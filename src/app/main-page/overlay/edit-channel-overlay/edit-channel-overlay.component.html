@@ -23,7 +23,7 @@
         </div>
     </div>
 </div>
-<div id="channel-description-container">
+<div id="channel-description-container" [ngClass]="{'no-padding':editDescription}">
     <div class="channel-edit-part">
         
         <h4>
@@ -39,13 +39,20 @@
             </h4>
             }
     </div>
-    <div class="description-input">
-        <input type="text" placeholder="Dein Text hier" >
+    <input id="description-input-field" type="text" placeholder="{{descriptionInput}}" [disabled]="!editDescription" [(ngModel)]="descriptionInput" [ngClass]="{'transparent':!editDescription,'hover-input':editDescription}">
+    <div class="description-input" [ngClass]="{'border-transparent':editDescription}">
     </div>
-    <div>
-        Dieser Channel ist für alles rund um #dfsdf vorgesehen. Hier kannst du zusammen mit
-        deinem Team Meetings abhalten, Dokumente teilen und Entscheidungen treffen.
+    <div #descriptionInputContent id="description-content" [ngClass]="{'transparent':editDescription}">
+        {{descriptionInput}}
     </div>
+    <div class="stroke-div"></div>
+    <h4>
+        Erstellt von
+    </h4>
+    <div id="channel-author">
+        {{author}}
+    </div>
+
 </div>
 <button class="close-btn" (click)="closeOverlay()">
     <svg id="cross" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
