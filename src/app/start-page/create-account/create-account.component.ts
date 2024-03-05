@@ -1,13 +1,21 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 
 @Component({
   selector: 'app-create-account',
   standalone: true,
-  imports: [],
+  imports: [
+  ],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.scss'
 })
 export class CreateAccountComponent {
+
+  constructor() {
+  }
+
+
   register() {
 
   }

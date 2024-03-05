@@ -1,7 +1,7 @@
 @import '../../../mixin.scss';
 
 .close-workspace-container {
-    @include dFlex(space-between, center);
+    @include dFlex(space-around, center);
     height: 100%;
     width: 100%;
     font-weight: bold;
