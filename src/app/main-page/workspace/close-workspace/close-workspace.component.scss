@@ -1,0 +1,27 @@
+@import '../../../mixin.scss';
+
+.close-workspace-container {
+    @include dFlex(space-between, center);
+    height: 100%;
+    width: 100%;
+    font-weight: bold;
+    transition:all ease .1s;
+
+    svg {
+        path {
+            transition:all ease .1s;
+            stroke: black;
+        }
+    }
+
+    &:hover {
+        color: $purple1;
+
+        svg {
+            path {
+                stroke: $purple1
+            }
+
+        }
+    }
+}

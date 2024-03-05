@@ -18,14 +18,15 @@ app-thread {
 
 app-workspace,
 app-thread {
-    flex: 1;
-    max-width: 22%;
-    
+    min-width: 14rem;
+    max-width: 20%;
+    overflow-x: hidden;
+    transition: all ease .25s;
 }
 
 app-chat-container {
-    flex: 2;
-    max-width: 70%;
+    
+    // max-width: 70%;
     display: flex;
     justify-content: space-between;
     align-items: center;    
@@ -40,4 +41,25 @@ app-overlay {
     left: 0;
     z-index: 20;
     background-color: rgba(0, 0, 0, 0.4);
+}
+
+app-close-workspace {
+    filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.2));
+    position: absolute;
+    top: 50%;
+    left: 0rem;
+    z-index: 2;
+    bottom: 0;
+    margin: auto;
+    transform-origin: top left;
+    transform: rotate(-90deg);
+    height: 1rem;
+    width: 15rem;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 0 0 2rem 2rem;
+
+    &:hover {
+        cursor: pointer;
+    }
 }

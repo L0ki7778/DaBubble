@@ -1,6 +1,7 @@
 <app-head></app-head>
+<app-close-workspace (click)="handleWorkspace()" [workspaceOpen]="workspaceOpen"></app-close-workspace>
 <div id="main-content">
-    <app-workspace></app-workspace>
+    <app-workspace #WorkspaceComponent ></app-workspace>
     <app-chat-container></app-chat-container>
     <app-thread *ngIf="viewThread()"></app-thread>
 </div>
