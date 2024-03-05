@@ -192,13 +192,12 @@ span {
 
 .transparent {
     opacity: 0 !important;
-    height: 0px;
     z-index: -1;
 }
 
 .visible-description-input {
     opacity: 1!important;
-    margin-bottom: .7rem!important;
+    margin-bottom: -2rem!important;
 }
 
 .no-padding {
