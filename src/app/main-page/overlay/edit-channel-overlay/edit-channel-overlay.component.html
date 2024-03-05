@@ -30,7 +30,7 @@
             Beschreibung
         </h4>
         @if(!editDescription){
-            <h4 id="edit-description" [ngClass]="{'edit':!firstTime}" (click)="editChannelDescription()">
+            <h4 id="edit-description"  (click)="editChannelDescription()">
                 Bearbeiten
             </h4>
             }@else {
@@ -39,7 +39,7 @@
             </h4>
             }
     </div>
-    <input id="description-input-field" type="text" placeholder="{{descriptionInput}}" [disabled]="!editDescription" [(ngModel)]="descriptionInput" [ngClass]="{'transparent':!editDescription,'hover-input':editDescription}">
+    <input id="description-input-field" type="text" placeholder="{{descriptionInput}}" [disabled]="!editDescription" [(ngModel)]="descriptionInput" [ngClass]="{'visible-description-input':editDescription,'hover-input':editDescription}">
     <div class="description-input" [ngClass]="{'border-transparent':editDescription}">
     </div>
     <div #descriptionInputContent id="description-content" [ngClass]="{'transparent':editDescription}">
@@ -54,6 +54,7 @@
     </div>
 
 </div>
+<button class="leave-channel-btn">Channel verlassen</button>
 <button class="close-btn" (click)="closeOverlay()">
     <svg id="cross" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <mask id="mask0_36864_197" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24"

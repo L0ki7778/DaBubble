@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { FormsModule } from '@angular/forms';

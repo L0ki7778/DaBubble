@@ -62,12 +62,13 @@ span {
 
 }
 
-.hover-input{
-    &:hover{
-        cursor: pointer!important;
-        border-color: $lightPurple!important;
+.hover-input {
+    &:hover {
+        cursor: pointer !important;
+        border-color: $lightPurple !important;
     }
-    &:focus-within{
+
+    &:focus-within {
         border-color: $purple1;
     }
 }
@@ -80,26 +81,26 @@ span {
 }
 
 
-#channel-author{
+#channel-author {
     font-size: 1.5rem;
-    color:$purple1
+    color: $purple1
 }
 
 
 #channel-description-container {
     display: flex;
     flex-direction: column;
-    transition:all ease .25s;
-    gap:1rem;
-    margin-top:2rem;
+    transition: all ease .25s;
+    gap: 1rem;
+    margin-top: 2rem;
     padding: 1rem;
     position: relative;
 }
 
-.stroke-div{
+.stroke-div {
     height: 2px;
     width: 100%;
-    margin:0 auto;
+    margin: 0 auto;
     background-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -177,31 +178,35 @@ span {
     border-radius: 2rem;
     transition: all ease .25s;
     outline: unset;
-    opacity: 1;
+    margin-bottom: -4rem;
+    opacity: 0;
 }
 
 #description {
     margin-left: 1.45rem
 }
 
-#description-content{
+#description-content {
     opacity: 1;
 }
 
-.transparent{
-    opacity: 0!important;
-    top:2rem;
-    position: absolute!important;
+.transparent {
+    opacity: 0 !important;
+    height: 0px;
     z-index: -1;
-
 }
 
-.no-padding{
-    padding: 0!important;
+.visible-description-input {
+    opacity: 1!important;
+    margin-bottom: .7rem!important;
 }
 
-.border-transparent{
-    border-color: transparent!important;
+.no-padding {
+    padding: 0 !important;
+}
+
+.border-transparent {
+    border-color: transparent !important;
 }
 
 
@@ -228,6 +233,29 @@ span {
                 fill: $purple1;
             }
         }
+    }
+}
+
+.leave-channel-btn {
+    margin-top: 1.5rem;
+    width: 9rem;
+    height: 2.5rem;
+    border-radius: 2rem;
+    font-weight: bold;
+    align-self: flex-end;
+    border: unset;
+    transform: scale(1.1);
+    transition: all ease .1s;
+    background-color: $purple3;
+    color: white;
+
+    &:not(:disabled):hover {
+        cursor: pointer;
+        background-color: $purple2;
+    }
+
+    &:active {
+        background-color: $purple1 !important;
     }
 }
 
