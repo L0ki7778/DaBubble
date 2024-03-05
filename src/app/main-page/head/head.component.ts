@@ -18,6 +18,7 @@ import { OverlayService } from '../../services/overlay.service';
 export class HeadComponent {
     overlay = inject(OverlayService);
 
+    
     openDropdownMenu(event: MouseEvent) {
         event.stopPropagation();
         this.overlay.toggleDropdownMenu();

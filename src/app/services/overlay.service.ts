@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class OverlayService {
+  memberView:boolean = false;
   editProfileView: boolean = false;
   profileView: boolean = false;
   isDropdownMenuVisible: boolean = false;
@@ -27,6 +28,7 @@ export class OverlayService {
 
 
   closeOverlay() {
+    this.memberView = false;
     this.editProfileView = false;
     this.profileView = false;
     this.editChannelOverlay = false;
@@ -73,6 +75,11 @@ export class OverlayService {
 
   toggleWorkspaceOverlay() {
     this.workspaceOverlay = !this.overlay;
+    this.overlaySubject.next();
+  }
+
+  toggleMemberView() {
+    this.memberView = !this.overlay;
     this.overlaySubject.next();
   }
 }

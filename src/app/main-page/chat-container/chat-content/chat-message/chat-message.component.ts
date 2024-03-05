@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { OverlayService } from '../../../../services/overlay.service';
 
 @Component({
   selector: 'app-chat-message',
@@ -9,5 +10,13 @@ import { Component } from '@angular/core';
   styleUrl: './chat-message.component.scss'
 })
 export class ChatMessageComponent {
-isOwnMessage: boolean = true;
+  overlay = inject(OverlayService);
+
+  isOwnMessage: boolean = true;
+
+
+  openMemberView(event: MouseEvent) {
+    event.stopPropagation();
+    this.overlay.toggleMemberView();
+  }
 }

@@ -1,8 +1,8 @@
 <div class="message-container">
-    <img src="assets/img/general/avatars/avatar1.svg" class="avatar-icon">
+    <img (click)="openMemberView($event)" src="assets/img/general/avatars/avatar1.svg" class="avatar-icon">
     <div class="message-box">
         <div class="message-header">
-            <span class="message-author">Test Name</span><span class="message-time">14:25 Uhr</span>
+            <span (click)="openMemberView($event)" class="message-author">Test Name</span><span class="message-time">14:25 Uhr</span>
         </div>
         <div class="message-text">
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere est aliquam qui aut dolor, voluptatem
