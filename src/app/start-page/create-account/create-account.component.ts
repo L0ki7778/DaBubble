@@ -1,42 +1,19 @@
-<<<<<<< HEAD
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-
-=======
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Auth, User, user, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
->>>>>>> 4c651ec41df17c930c4ee01bb78e670b47ba0f45
 
 @Component({
   selector: 'app-create-account',
   standalone: true,
-<<<<<<< HEAD
-  imports: [
-  ],
-=======
   imports: [FormsModule],
->>>>>>> 4c651ec41df17c930c4ee01bb78e670b47ba0f45
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.scss'
 })
 export class CreateAccountComponent {
-<<<<<<< HEAD
-
-  constructor() {
-  }
-
-
-  register() {
-
-  }
-
-=======
   
->>>>>>> 4c651ec41df17c930c4ee01bb78e670b47ba0f45
   @Input() showLogin?: boolean;
   @Input() showCreateAccount?: boolean;
   @Output() toggleState = new EventEmitter<void>();
