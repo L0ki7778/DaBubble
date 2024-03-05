@@ -5,10 +5,10 @@
             <h1>Konto erstellen</h1>
         </div>
         <p class="info-text">Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DaBubble-Konto.</p>
-        <form (submit)="register()" ngNativeValidate>
-            <input required type="text" class="name" placeholder="Name und Nachname" autocomplete="username">
-            <input required #email type="email" class="email" placeholder="beispielname@email.com" autocomplete="email">
-            <input required #password type="password" class="password" placeholder="Passwort" autocomplete="current-password">
+        <form (ngSubmit)="register()" ngNativeValidate>
+            <input required type="text" class="name" placeholder="Name und Nachname" autocomplete="username" [(ngModel)]="name" name="name">
+            <input required type="email" class="email" placeholder="beispielname@email.com" autocomplete="email" [(ngModel)]="email" name="email">
+            <input required type="password" class="password" placeholder="Passwort" autocomplete="current-password" [(ngModel)]="password" name="password">
             <div class="center-box"><div class="style-checkbox"><input required type="checkbox" id="privacy-policy"></div>
                 <label>Ich stimme der <span class="color-privacy-policy">Datenschutzerklärung</span> zu</label>
             </div>

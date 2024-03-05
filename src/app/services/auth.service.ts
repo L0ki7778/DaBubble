@@ -1,19 +1,58 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, updateProfile } from '@angular/fire/auth';
-import { Observable, from } from 'rxjs';
+import { Auth, User, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, user } from '@angular/fire/auth';
+import { Router } from '@angular/router';
+import { Observable, Subscription, from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  firebaseAuth = inject(Auth)
 
-  register(email: string,username:string, password: string):Observable<void> {
-    const promise = createUserWithEmailAndPassword(this.firebaseAuth,email,password)
-    .then(response=>
-      updateProfile(response.user,{displayName:username}))
-      return from(promise)
-  };
+  private auth: Auth = inject(Auth);
+  private router: Router = inject(Router);
 
-  constructor() { }
+  email: string = '';
+  password: string = '';
+  name: string = '';
+
+  user$ = user(this.auth);
+  userSubscription: Subscription = new Subscription();
+  
+  constructor() {
+    this.userSubscription = this.user$.subscribe((aUser: User | null) => {
+      //handle user state changes here. Note, that user will be null if there is no currently logged in user.
+      console.log(aUser);
+    })
+  }
+
+  async register() {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(this.auth, this.email, this.password);
+      const user = userCredential.user;
+      console.log('Registered user:', user);
+      // Optionally, you can perform additional actions after successful registration
+      await updateProfile(user, { displayName: this.name });
+      console.log('User profile updated with display name:', this.name);
+    } catch (error) {
+      console.error('Error registering user:', error);
+    }
+  }
+
+  async login() {
+    try {
+      const userCredential = await signInWithEmailAndPassword(this.auth, this.email, this.password);
+      const user = userCredential.user;
+      console.log('Logged in user:', user);
+      this.router.navigate(['main-page']);
+    } catch (error) {
+      console.error('Error signing in:', error);
+    }
+  }
+
+  ngOnDestroy() {
+    // when manually subscribing to an observable remember to unsubscribe in ngOnDestroy
+    this.userSubscription.unsubscribe();
+  }
+
+
 }
