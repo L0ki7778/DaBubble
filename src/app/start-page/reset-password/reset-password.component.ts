@@ -1,4 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { Auth, User, user, signInWithEmailAndPassword, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-reset-password',
@@ -12,6 +17,10 @@ export class ResetPasswordComponent {
   @Input() showLogin?: boolean;
   @Input() showResetPassword?: boolean;
   @Output() toggleState = new EventEmitter<void>();
+
+  private auth: Auth = inject(Auth);
+  email: string = '';
+  password: string = '';
 
   toggleToLogin() {
     this.toggleState.emit();
