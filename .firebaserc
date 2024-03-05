@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "dabubble-adb2f": {
+      "hosting": {
+        "dabubble": [
+          "dabubble-adb2f"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "dabubble-adb2f"
+  }
+}
