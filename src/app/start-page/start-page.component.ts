@@ -3,6 +3,7 @@ import { LoginComponent } from './login/login.component';
 import { CommonModule } from '@angular/common';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-start-page',
@@ -11,7 +12,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     LoginComponent,
     CreateAccountComponent,
     ResetPasswordComponent,
-    CommonModule
+    CommonModule,
+    RouterLink
   ],
   templateUrl: './start-page.component.html',
   styleUrl: './start-page.component.scss'
