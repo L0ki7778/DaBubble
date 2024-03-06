@@ -1,0 +1,44 @@
+.animation {
+    background-image: linear-gradient(1deg, #313ae5 1.22%, #797ef3 98.76%);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    animation: fadeOut 2.5s ease-in-out;
+
+    img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+        animation: moveLeft 1s ease-in-out 0s forwards,
+    }
+}
+
+
+@keyframes fadeOut {
+
+    0%,
+    70% {
+        opacity: 1;
+
+    }
+
+    100% {
+        opacity: 0;
+
+    }
+}
+
+@keyframes moveLeft {
+    0% {
+        left: 50%;
+    }
+    70% {
+        left: 50%;
+    }
+    100% {
+        left: 35%;
+    }
+}
