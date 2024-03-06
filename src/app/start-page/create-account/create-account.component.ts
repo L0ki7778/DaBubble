@@ -20,41 +20,18 @@ export class CreateAccountComponent {
   @Output() toggleState = new EventEmitter<void>();
 
   private auth: Auth = inject(Auth);
-  authService = inject(AuthService);
+  authService: AuthService = inject(AuthService);
 
   email: string = '';
   password: string = '';
   name: string = '';
-  register() {
-  
-}
-  // async register() {
-  //   try {
-  //     const userCredential = await createUserWithEmailAndPassword(this.auth, this.email, this.password);
-  //     const user = userCredential.user;
-  //     console.log('Registered user:', user);
-  //     // Optionally, you can perform additional actions after successful registration
-  //     await updateProfile(user, { displayName: this.name });
-  //     console.log('User profile updated with display name:', this.name);
-  //   } catch (error) {
-  //     console.error('Error registering user:', error);
-  //   }
-  // }
-
-  // user$ = user(this.auth);
-  // userSubscription: Subscription = new Subscription();
-  
-  // constructor() {
-  //   this.userSubscription = this.user$.subscribe((aUser: User | null) => {
-  //     //handle user state changes here. Note, that user will be null if there is no currently logged in user.
-  //     console.log(aUser);
-  //   })
-  // }
-
-  // ngOnDestroy() {
-  //   // when manually subscribing to an observable remember to unsubscribe in ngOnDestroy
-  //   this.userSubscription.unsubscribe();
-  // }
+  async register() {
+    this.authService.email = this.email;
+    this.authService.password = this.password;
+    this.authService.name = this.name;
+    await this.authService.register();
+    this.toggleToLogin();
+  }
 
   toggleToLogin() {
       this.toggleState.emit();
