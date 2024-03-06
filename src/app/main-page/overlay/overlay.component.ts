@@ -31,6 +31,7 @@ export class OverlayComponent {
   workspaceOverlay = this.overlay.workspaceOverlay;
   isDropdownMenuVisible = this.overlay.isDropdownMenuVisible;
   addMemberOverlay = this.overlay.addMemberOverlay;
+  MembersOverlay = this.overlay.membersOverlay;
   profileView = this.overlay.profileView;
   editProfileView = this.overlay.editProfileView;
   memberView = this.overlay.memberView;

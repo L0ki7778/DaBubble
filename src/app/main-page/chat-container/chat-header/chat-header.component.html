@@ -8,7 +8,8 @@
         <img src="assets/img/main-page/chat/arrow_down.svg">
     </div>
     <div class="chat-member-section">
-        <div class="chat-head-members" (click)="openMembersOverlay()">
+        <app-members-overlay *ngIf="showMembers" class="edit-channel-overlay"></app-members-overlay>
+        <div class="chat-head-members" (click)="openMembersOverlay($event)">
             <div class="member-icons">
                 <img src="assets/img/general/avatars/avatar1.svg">
                 <img src="assets/img/general/avatars/avatar2.svg">
