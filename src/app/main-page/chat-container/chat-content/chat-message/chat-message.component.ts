@@ -13,7 +13,18 @@ export class ChatMessageComponent {
   overlay = inject(OverlayService);
 
   isOwnMessage: boolean = true;
+  isHovered: boolean = false;
 
+  constructor() {
+  }
+
+  onHover(): void {
+    this.isHovered = true;
+  }
+
+  onLeave(): void {
+    this.isHovered = false;
+  }
 
   openMemberView(event: MouseEvent) {
     event.stopPropagation();

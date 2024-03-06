@@ -4,21 +4,30 @@ import { Auth, User, user, signInWithEmailAndPassword, createUserWithEmailAndPas
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { IntroAnimationComponent } from '../intro-animation/intro-animation.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterModule, FormsModule],
+  imports: [RouterModule, FormsModule, IntroAnimationComponent, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  animation: boolean = true;
 
   private auth: Auth = inject(Auth);
   private router: Router = inject(Router);
   
   email: string = '';
   password: string = '';
+
+
+  ngOnInit() {
+    setTimeout(() => this.animation = false, 2400);
+  }
+
+
   async login() {
     try {
       const userCredential = await signInWithEmailAndPassword(this.auth, this.email, this.password);
@@ -30,7 +39,6 @@ export class LoginComponent {
   }
   }
 
-  
 
   user$ = user(this.auth);
   userSubscription: Subscription = new Subscription();
