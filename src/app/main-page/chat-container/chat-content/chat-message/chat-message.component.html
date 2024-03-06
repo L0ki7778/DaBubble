@@ -1,10 +1,14 @@
-<div class="message-container">
+<div class="message-container" (mouseover)="onHover()" (mouseleave)="onLeave()">
     <img (click)="openMemberView($event)" src="assets/img/general/avatars/avatar1.svg" class="avatar-icon">
     <div class="message-box">
         <div class="message-header">
             <span (click)="openMemberView($event)" class="message-author">Test Name</span><span class="message-time">14:25 Uhr</span>
         </div>
-        <div class="message-text">
+        <div class="message-text" *ngIf="isOwnMessage" [ngStyle]="{'background-color': isHovered ? 'white' : '#ECEEFE'}">
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere est aliquam qui aut dolor, voluptatem
+                amet dolore autem veritatis ipsum a molestiae commodi eos, sint accusantium fugiat dolores ea esse?</p>
+        </div>
+        <div class="message-text" *ngIf="!isOwnMessage" [ngStyle]="{'background-color': '#797EF3', 'color': 'white'}">
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere est aliquam qui aut dolor, voluptatem
                 amet dolore autem veritatis ipsum a molestiae commodi eos, sint accusantium fugiat dolores ea esse?</p>
         </div>
