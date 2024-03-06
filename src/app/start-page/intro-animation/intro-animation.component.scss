@@ -11,8 +11,20 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        z-index: 10;
-        animation: moveLeft 1s ease-in-out 0s forwards,
+        z-index: 99;
+        animation: moveLeft 0.8s ease-in-out 0s forwards,
+    }
+
+    span {
+        font-size: 72px;
+        font-weight: 700;
+        color: transparent;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9;
+        animation: slideText 0.8s ease-in-out 1s forwards;
     }
 }
 
@@ -32,13 +44,30 @@
 }
 
 @keyframes moveLeft {
-    0% {
-        left: 50%;
-    }
+
+    0%,
     70% {
         left: 50%;
     }
+
     100% {
         left: 35%;
+    }
+}
+
+@keyframes slideText {
+
+    0%,
+    35% {
+        left: 50%;
+    }
+
+    50% {
+        left: 50%;
+        color: white;
+    }
+
+    100% {
+        left: 70%;
     }
 }
