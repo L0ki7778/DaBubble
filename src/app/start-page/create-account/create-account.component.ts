@@ -25,7 +25,7 @@ export class CreateAccountComponent {
   email: string = '';
   password: string = '';
   name: string = '';
-register() {
+  register() {
   
 }
   // async register() {
