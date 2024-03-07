@@ -4,6 +4,7 @@ import { Auth, User, user, signInWithEmailAndPassword, createUserWithEmailAndPas
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -13,17 +14,17 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './reset-password.component.scss'
 })
 export class ResetPasswordComponent {
+  
+  authService: AuthService = inject(AuthService);
 
-  @Input() showLogin?: boolean;
-  @Input() showResetPassword?: boolean;
-  @Output() toggleState = new EventEmitter<void>();
 
   private auth: Auth = inject(Auth);
   email: string = '';
   password: string = '';
 
   toggleToLogin() {
-    this.toggleState.emit();
+    this.authService.showLogin = true;
+    this.authService.showResetPassword = false;
   }
 
   resetPassword() {

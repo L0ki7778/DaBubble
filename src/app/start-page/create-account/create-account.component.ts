@@ -14,26 +14,22 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './create-account.component.scss'
 })
 export class CreateAccountComponent {
-  
-  @Input() showLogin?: boolean;
-  @Input() showCreateAccount?: boolean;
-  @Output() toggleState = new EventEmitter<void>();
 
-  private auth: Auth = inject(Auth);
   authService: AuthService = inject(AuthService);
 
   email: string = '';
   password: string = '';
   name: string = '';
+  
   async register() {
     this.authService.email = this.email;
     this.authService.password = this.password;
     this.authService.name = this.name;
     await this.authService.register();
-    this.toggleToLogin();
   }
 
   toggleToLogin() {
-      this.toggleState.emit();
+      this.authService.showLogin = true;
+      this.authService.showCreateAccount = false;
     }
   }

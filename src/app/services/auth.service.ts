@@ -14,6 +14,10 @@ export class AuthService {
   email: string = '';
   password: string = '';
   name: string = '';
+  showLogin = true;
+  showChooseProfilePicture: boolean = false;
+  showResetPassword: boolean = false;
+  showCreateAccount: boolean = false;
 
   user$ = user(this.auth);
   userSubscription: Subscription = new Subscription();
@@ -26,12 +30,13 @@ export class AuthService {
 
   async register() {
     try {
-      const userCredential = await createUserWithEmailAndPassword(this.auth, this.email, this.password);
-      const user = userCredential.user;
-      console.log('Registered user:', user);
-      // Optionally, you can perform additional actions after successful registration
-      await updateProfile(user, { displayName: this.name });
-      console.log('User profile updated with display name:', this.name);
+      // const userCredential = await createUserWithEmailAndPassword(this.auth, this.email, this.password);
+      // const user = userCredential.user;
+      // console.log('Registered user:', user);
+      this.showChooseProfilePicture = true;
+      this.showCreateAccount = false;
+      // await updateProfile(user, { displayName: this.name });
+      // console.log('User profile updated with display name:', this.name);
     } catch (error) {
       console.error('Error registering user:', error);
     }
@@ -45,6 +50,16 @@ export class AuthService {
       this.router.navigate(['main-page']);
     } catch (error) {
       console.error('Error signing in:', error);
+    }
+  }
+
+  async logout() {
+    try {
+      await this.auth.signOut();
+      console.log('User logged out successfully');
+      this.router.navigate(['']);
+    } catch (error) {
+      console.error('Error logging out:', error);
     }
   }
 

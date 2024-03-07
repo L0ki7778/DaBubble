@@ -1,0 +1,14 @@
+<div class="d-flex">
+    <div class="content-container">
+        <div class="flex-box">
+            <div class="arrow-img" (click)="toggleToCreateAccount()"></div>
+            <h1>Wähle deinen Avatar</h1>
+            <img src="assets/img/start-page/unknown.svg" alt="unknown-image">
+            <p class="name">Name</p>
+        </div>
+        <span>Aus der Liste wählen</span>
+        <div class="profile-icons">
+            <img *ngFor="let icon of profileIcons" [src]="icon" alt="Profile Icon">
+        </div>
+    </div>
+</div>

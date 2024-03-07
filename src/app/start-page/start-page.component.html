@@ -3,16 +3,15 @@
         <img src="/assets/img/start-page/logo.svg" alt="logo" class="logo">
         <h1>DABubble</h1>
     </div>
-    <div class="create-account" *ngIf="showLogin">
+    <div class="create-account" *ngIf="authService.showLogin">
         <p>Neu bei DABubble?</p>
         <span (click)="toggleToCreateAccount()">Konto erstellen</span>
     </div>
 </header>
-<app-login *ngIf="showLogin" [showResetPassword]="showResetPassword" [showLogin]="showLogin"
-    (toggleStateResetPassword)="toggleToResetPassword()"></app-login>
-<app-create-account *ngIf="showCreateAccount" [showLogin]="showLogin" [showCreateAccount]="showCreateAccount"
-    (toggleState)="toggleToCreateAccount()"></app-create-account>
-<app-reset-password *ngIf="showResetPassword" (toggleState)="toggleToLogin()"></app-reset-password>
+<app-login *ngIf="authService.showLogin"></app-login>
+<app-create-account *ngIf="authService.showCreateAccount"></app-create-account>
+<app-reset-password *ngIf="authService.showResetPassword"></app-reset-password>
+<app-choose-profile-picture *ngIf="authService.showChooseProfilePicture"></app-choose-profile-picture>
 <footer>
     <p [routerLink]="['imprint']">Impressum</p>
     <p>Datenschutz</p>

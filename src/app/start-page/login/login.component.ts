@@ -26,10 +26,6 @@ export class LoginComponent {
   private router: Router = inject(Router);
   authService: AuthService = inject(AuthService);
 
-  @Input() showLogin?: boolean;
-  @Input() showResetPassword?: boolean;
-  @Output() toggleStateResetPassword = new EventEmitter<void>();
-
   email: string = '';
   password: string = '';
 
@@ -44,6 +40,7 @@ export class LoginComponent {
   }
 
   toggleToResetPassword() {
-    this.toggleStateResetPassword.emit();
+    this.authService.showLogin = false;
+    this.authService.showResetPassword = true;
   }
 }

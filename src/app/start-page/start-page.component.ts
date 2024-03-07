@@ -1,9 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { LoginComponent } from './login/login.component';
 import { CommonModule } from '@angular/common';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { ChooseProfilePictureComponent } from './create-account/choose-profile-picture/choose-profile-picture.component';
 
 @Component({
   selector: 'app-start-page',
@@ -12,6 +14,7 @@ import { RouterLink } from '@angular/router';
     LoginComponent,
     CreateAccountComponent,
     ResetPasswordComponent,
+    ChooseProfilePictureComponent,
     CommonModule,
     RouterLink
   ],
@@ -20,23 +23,19 @@ import { RouterLink } from '@angular/router';
 })
 export class StartPageComponent {
 
-  showLogin: boolean = true;
-  showCreateAccount: boolean = false;
-  showResetPassword: boolean = false;
+  authService: AuthService = inject(AuthService);
 
   toggleToCreateAccount() {
-    this.showLogin = !this.showLogin;
-    this.showCreateAccount = !this.showCreateAccount;
+    this.authService.showLogin = !this.authService.showLogin;
+    this.authService.showCreateAccount = !this.authService.showCreateAccount;
   }
 
   toggleToResetPassword() {
-    this.showLogin = !this.showLogin;
-    this.showResetPassword = !this.showResetPassword;
+    this.authService.showLogin = !this.authService.showLogin;
+    this.authService.showResetPassword = !this.authService.showResetPassword;
   }
 
-  toggleToLogin() {
-    this.showLogin = true;
-    this.showCreateAccount = false;
-    this.showResetPassword = false;
+  toggleToChooseProfilePicture() {
+    this.authService.showChooseProfilePicture = this.authService.showChooseProfilePicture;
   }
 }
