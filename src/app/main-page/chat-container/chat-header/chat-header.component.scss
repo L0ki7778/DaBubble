@@ -4,12 +4,13 @@
     @include dFlex(space-between, center);
     color: black;
     width: 100%;
-    padding: 0 1.5rem; 
+    padding: 0 1.5rem;
 }
 
 .chat-head-title {
     @include dFlex();
     gap: 10px;
+    position: relative;
 
     &:hover {
         @include hoverEffect();
@@ -44,6 +45,7 @@
 .chat-head-members {
     @include dFlex();
     gap: 10px;
+    position: relative;
 
     &:hover {
         @include hoverEffect();
@@ -52,6 +54,7 @@
 
 .member-icons {
     @include dFlex();
+    position: relative;
 
     img {
         height: 30px;
@@ -70,10 +73,6 @@
     }
 }
 
-#channel-tag{
-    position: relative;
-}
-
 app-edit-channel-overlay {
     @include container();
     display: flex;
@@ -85,5 +84,17 @@ app-edit-channel-overlay {
     padding: 0 2rem 1.5rem;
     background-color: white;
     border-radius: 0 2rem 2rem;
+    z-index: 21;
+}
+
+app-members-overlay {
+    @include container();
+    display: flex;
+    position: absolute;
+    top: 8vh;
+    right: 5vw;
+    padding: 40px;
+    border-radius: 30px 0px 30px 30px;
+    gap: 20px;
     z-index: 21;
 }

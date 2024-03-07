@@ -1,0 +1,71 @@
+@import '../../../mixin.scss';
+
+.members-overview-container {
+    @include dFlex(center, start);
+    flex-direction: column;
+    gap: 20px;
+}
+
+.members-header {
+    @include dFlex(space-between, center);
+    @include scaleElement();
+
+    span {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 33px;
+        letter-spacing: 0em;
+    }
+
+    svg {
+        &:hover {
+            cursor: pointer;
+            fill: $purple2;
+            background-color: $bgColor;
+            border-radius: 100%;
+
+            path {
+                fill: $purple2;
+                transition: ease-in 150ms;
+            }
+        }
+    }
+}
+
+.icon-fixer {
+    @include dFlex();
+    height: 25px;
+    width: 25px;
+}
+
+.users-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.user-box {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-radius: 30px;
+    gap: 15px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.user-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}
+
+.user-name {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 25px;
+    letter-spacing: 0em;
+    text-align: left;
+}

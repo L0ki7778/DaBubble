@@ -43,7 +43,7 @@ export class OverlayService {
   }
 
 
-  toggleChatOverlay() {
+  toggleEditChannelOverlay() {
     this.editChannelOverlay = !this.overlay;
     this.overlaySubject.next();
   }

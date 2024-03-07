@@ -34,8 +34,8 @@ export class ChatHeaderComponent {
 
   }
 
-  openChatOverlay() {
-    this.overlayService.toggleChatOverlay();
+  openEditChannelOverlay() {
+    this.overlayService.toggleEditChannelOverlay();
   }
 
   openMembersOverlay(event: MouseEvent) {

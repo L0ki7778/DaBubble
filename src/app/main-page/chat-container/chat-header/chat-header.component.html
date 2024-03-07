@@ -1,6 +1,6 @@
 <div class="chat-container-header">
     <app-edit-channel-overlay *ngIf="editChannel" class="edit-channel-overlay"></app-edit-channel-overlay>
-    <div id="channel-tag" class="chat-head-title" (click)="openChatOverlay()">
+    <div class="chat-head-title" (click)="openEditChannelOverlay()">
         <img  src="assets/img/main-page/chat/tag.svg">
         <span>
             test
@@ -8,7 +8,7 @@
         <img src="assets/img/main-page/chat/arrow_down.svg">
     </div>
     <div class="chat-member-section">
-        <app-members-overlay *ngIf="showMembers" class="edit-channel-overlay"></app-members-overlay>
+        <app-members-overlay *ngIf="showMembers"></app-members-overlay>
         <div class="chat-head-members" (click)="openMembersOverlay($event)">
             <div class="member-icons">
                 <img src="assets/img/general/avatars/avatar1.svg">
