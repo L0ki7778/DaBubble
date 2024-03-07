@@ -3,11 +3,12 @@ import { Component, ElementRef, HostListener, ViewChild, inject } from '@angular
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { FormsModule } from '@angular/forms';
+import { AddMemberOverlayComponent } from '../add-member-overlay/add-member-overlay.component';
 
 @Component({
   selector: 'app-members-overlay',
   standalone: true,
-  imports: [CommonModule, TranslateModule, FormsModule],
+  imports: [CommonModule, TranslateModule, FormsModule, AddMemberOverlayComponent],
   templateUrl: './members-overlay.component.html',
   styleUrl: './members-overlay.component.scss'
 })
@@ -23,6 +24,11 @@ export class MembersOverlayComponent {
     } else {
       this.overlay.closeOverlay();
     }
+  }
+
+  openAddMemberOverlay(event: MouseEvent) {
+    event.stopPropagation();
+    this.overlay.toggleAddMemberOverlay();
   }
 
   closeOverlay() {
