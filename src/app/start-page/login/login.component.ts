@@ -20,7 +20,7 @@ import { IntroAnimationComponent } from '../intro-animation/intro-animation.comp
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  animation: boolean = true;
+  animation: boolean = false; //muss true sein normalerweise!!!
 
   private auth: Auth = inject(Auth);
   private router: Router = inject(Router);
