@@ -1,18 +1,21 @@
-<div class="message-container" (mouseover)="onHover()" (mouseleave)="onLeave()">
+<div class="message-container" (mouseover)="onHover()" (mouseleave)="onLeave()"
+    [ngStyle]="{'flex-direction': isOwnMessage ? 'none' : 'row-reverse'}">
     <img (click)="openMemberView($event)" src="assets/img/general/avatars/avatar1.svg" class="avatar-icon">
-    <div class="message-box">
-        <div class="message-header">
-            <span (click)="openMemberView($event)" class="message-author">Test Name</span><span class="message-time">14:25 Uhr</span>
+    <div class="message-box" [ngStyle]="{'align-items': isOwnMessage ? 'start' : 'end'}">
+        <div class="message-header" [ngStyle]="{'flex-direction': isOwnMessage ? 'none' : 'row-reverse'}">
+            <span (click)="openMemberView($event)" class="message-author">Test Name</span><span
+                class="message-time">14:25 Uhr</span>
         </div>
-        <div class="message-text" *ngIf="isOwnMessage" [ngStyle]="{'background-color': isHovered ? 'white' : '#ECEEFE'}">
+        <div class="message-text" *ngIf="isOwnMessage"
+            [ngStyle]="{'background-color': isHovered ? 'white' : '#ECEEFE', 'border-top-right-radius': '30px'}">
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere est aliquam qui aut dolor, voluptatem
                 amet dolore autem veritatis ipsum a molestiae commodi eos, sint accusantium fugiat dolores ea esse?</p>
         </div>
-        <div class="message-text" *ngIf="!isOwnMessage" [ngStyle]="{'background-color': '#797EF3', 'color': 'white'}">
+        <div class="message-text" *ngIf="!isOwnMessage" [ngStyle]="{'background-color': '#797EF3', 'color': 'white', 'border-top-left-radius': '30px'}">
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere est aliquam qui aut dolor, voluptatem
                 amet dolore autem veritatis ipsum a molestiae commodi eos, sint accusantium fugiat dolores ea esse?</p>
         </div>
-        <div class="message-header">
+        <div class="message-header" [ngStyle]="{'flex-direction': isOwnMessage ? 'none' : 'row-reverse'}">
             <span class="message-answers">2 Antworten</span><span class="message-time">Letzte Antwort 17:25 Uhr</span>
         </div>
     </div>
