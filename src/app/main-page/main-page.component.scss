@@ -31,7 +31,7 @@ app-chat-container {
     align-items: center;  
     justify-content: flex-end;  
     transition: all ease .25s;
-    overflow: hidden;
+    overflow: hidden scroll;
 }
 
 app-overlay {
