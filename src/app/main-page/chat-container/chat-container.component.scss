@@ -15,9 +15,10 @@ app-chat-content {
     @include scaleElement();
     @include dFlex(flex-end, center);
     flex-direction: column;
-    padding-top: 2rem;
+    margin-top: 10%;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+    overflow-y: scroll;
 }
 
 app-chat-input {
