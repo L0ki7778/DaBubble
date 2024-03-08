@@ -125,6 +125,10 @@ form {
     &:focus {
         border: 1px solid var(--purple1);
     }
+
+    &::placeholder {
+        font-size: 18px;
+    }
 }
 
 .email {
@@ -147,6 +151,10 @@ form {
     &:focus {
         border: 1px solid var(--purple1);
     }
+
+    &::placeholder {
+        font-size: 18px;
+    }
 }
 
 .password {
@@ -168,6 +176,10 @@ form {
 
     &:focus {
         border: 1px solid var(--purple1);
+    }
+
+    &::placeholder {
+        font-size: 18px;
     }
 }
 
