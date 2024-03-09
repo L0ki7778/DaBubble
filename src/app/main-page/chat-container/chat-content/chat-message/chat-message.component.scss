@@ -12,6 +12,20 @@
     }
 }
 
+.date-label {
+    position: relative;
+    top: 5%;
+    background-color: white;
+    border: 1px solid $lightPurple;
+    padding: 2px 10px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 25px;
+    letter-spacing: 0em;
+    text-align: center;
+}
+
 .avatar-icon {
     align-self: flex-start;
     height: 50px;
