@@ -13,12 +13,30 @@ app-chat-header {
 
 app-chat-content {
     @include scaleElement();
-    @include dFlex(none, center);
+    @include dFlex(initial, center);
     flex-direction: column;
     margin-top: 8vh;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        width: 0;
+    }
+
+    /* If scrollbar shoud be visible, more style options...
+    
+    &::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey;
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $purple3;
+        border-radius: 10px;
+    }
+
+    */
 }
 
 app-chat-input {
