@@ -20,6 +20,7 @@ export class ChatHeaderComponent {
   private subscription: Subscription;
   editChannel: boolean = false;
   showMembers: boolean = false;
+  showAddMember: boolean = false;
 
   imgSrc: string = "../../../../assets/img/main-page/chat/add-members-button.svg";
 
@@ -27,6 +28,7 @@ export class ChatHeaderComponent {
     this.subscription = this.$editObservable.subscribe(() => {
       this.editChannel = this.overlayService.editChannelOverlay;
       this.showMembers = this.overlayService.membersOverlay;
+      this.showAddMember = this.overlayService.addMemberOverlay;
     })
   };
 

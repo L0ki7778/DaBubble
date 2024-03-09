@@ -12,9 +12,18 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './add-member-overlay.component.scss'
 })
 export class AddMemberOverlayComponent {
+  translateService = inject(TranslateService)
   @ViewChild('addMember') addMember: ElementRef | null = null;
   overlay = inject(OverlayService);
 
+  openAddMemberOverlay(event: MouseEvent) {
+    event.stopPropagation();
+    this.overlay.toggleAddMemberOverlay();
+  }
+
+  closeOverlay() {
+    this.overlay.closeOverlay()
+  }
 
   @HostListener('document:click', ['$event'])
   onclick(event: Event) {

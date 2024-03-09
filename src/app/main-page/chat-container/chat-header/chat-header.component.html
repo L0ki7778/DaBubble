@@ -17,6 +17,7 @@
             </div>
             <span>3</span>
         </div>
+        <app-add-member-overlay *ngIf="showAddMember"></app-add-member-overlay>
         <img class="add-member-button" [src]="imgSrc"
         (mouseover)="imgSrc = 'assets/img/main-page/chat/add-members-button-hover.svg'"
         (mouseleave)="imgSrc = 'assets/img/main-page/chat/add-members-button.svg'"
