@@ -13,7 +13,7 @@ app-chat-header {
 
 app-chat-content {
     @include scaleElement();
-    @include dFlex(flex-end, center);
+    @include dFlex(none, center);
     flex-direction: column;
     margin-top: 8vh;
     padding-left: 1.5rem;
