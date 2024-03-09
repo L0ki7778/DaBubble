@@ -15,7 +15,7 @@ app-chat-content {
     @include scaleElement();
     @include dFlex(flex-end, center);
     flex-direction: column;
-    margin-top: 10%;
+    margin-top: 8vh;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     overflow-y: scroll;
