@@ -10,5 +10,4 @@ import { ChatMessageComponent } from './chat-message/chat-message.component';
   styleUrl: './chat-content.component.scss'
 })
 export class ChatContentComponent {
-
 }

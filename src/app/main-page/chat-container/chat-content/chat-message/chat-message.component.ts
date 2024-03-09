@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { OverlayService } from '../../../../services/overlay.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { OverlayService } from '../../../../services/overlay.service';
 export class ChatMessageComponent {
   overlay = inject(OverlayService);
 
-  isOwnMessage: boolean = true;
+  @Input()isOwnMessage: boolean = true;
   isHovered: boolean = false;
 
   constructor() {
