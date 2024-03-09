@@ -2,7 +2,7 @@
 
 :host(app-main-page) {
     width: 100%;
-    height: 100%
+    height: 100%;
 }
 
 app-workspace,
@@ -15,10 +15,9 @@ app-thread {
 
 #main-content {
     @include dFlex(space-evenly, flex-start);
-    width: 98dvw;
-    margin: 0 auto;
-    height: calc(90dvh - 8%);
-    gap: 2rem
+    height: calc(90dvh - 6.5%);
+    gap: 1rem;
+    padding: 0 1rem;
 }
 
 app-workspace,
