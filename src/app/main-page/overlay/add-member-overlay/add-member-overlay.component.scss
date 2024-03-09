@@ -54,6 +54,12 @@
     padding: 15px 20px;
     border-radius: 30px;
     border: 1px solid $lightPurple;
+    outline: none;
+
+    &:hover {
+        cursor: pointer;
+        border: 1px solid $purple2;
+    }  
 }
 
 .add-btn {
