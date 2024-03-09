@@ -3,12 +3,15 @@
         <div class="flex-box">
             <div class="arrow-img" (click)="toggleToCreateAccount()"></div>
             <h1>Wähle deinen Avatar</h1>
-            <img src="assets/img/start-page/unknown.svg" alt="unknown-image">
+            <div class="margin-img"><img src="assets/img/start-page/unknown.svg" alt="unknown-image"></div>
             <p class="name">Name</p>
         </div>
         <span>Aus der Liste wählen</span>
         <div class="profile-icons">
-            <img *ngFor="let icon of profileIcons" [src]="icon" alt="Profile Icon">
+            <img [ngStyle]="{'left.px': i * 60, 'margin-left': '15%'}" *ngFor="let icon of profileIcons; let i = index" [src]="icon" alt="Profile Icon">
+        </div>
+        <div class="choose-own-img">
+            <span>eigenes Bild verwenden</span> <button>Datei hochladen</button>
         </div>
     </div>
 </div>

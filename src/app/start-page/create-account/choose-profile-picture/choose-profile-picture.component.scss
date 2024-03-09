@@ -8,6 +8,13 @@
     align-items: center;
     margin-top: 30px;
     position: relative;
+
+    >span {
+        font-size: 20px;
+        font-weight: 400;
+        margin-right: 155px;
+        margin-bottom: 14px;
+    }
 }
 
 .d-flex {
@@ -19,10 +26,23 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    >img {
-        height: 140px;
-        width: 140px;
+
+    >div>img {
+        height: 125px;
+        width: 125px;
+        border-radius: 50%;
+        position: absolute;
+        left: 36%;
+
+        &:hover {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
     }
+}
+
+.margin-img {
+    margin-bottom: 142px;
 }
 
 .arrow-img {
@@ -32,12 +52,13 @@
     left: 30px;
     top: 34px;
     cursor: pointer;
-    background-image: url("/assets/img/start-page/arrow-black.svg" );
+    background-image: url("/assets/img/start-page/arrow-black.svg");
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 50%;
+
     &:hover {
-    background-image: url("/assets/img/start-page/arrow-hover.svg" );    
+        background-image: url("/assets/img/start-page/arrow-hover.svg");
     }
 }
 
@@ -53,21 +74,43 @@ h1 {
     margin-top: 15px;
 }
 
-span {
-    font-size: 20px;
-    font-weight: 400;
-    margin-right: 155px;
-}
-
 .profile-icons {
     display: flex;
-    gap: 10px;
+
     >img {
         cursor: pointer;
         border-radius: 50%;
+        position: absolute;
+        height: 50px;
+        width: 50px;
 
         &:hover {
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(0, 0, 0, 0.1);
+        }
+    }
+}
+
+.choose-own-img {
+    margin-top: 70px;
+
+    >span {
+        font-size: 20px;
+        font-weight: 400;
+    }
+
+    >button {
+        color: var(--purple1);
+        border-radius: 25px;
+        padding: 12px 25px 12px 25px;
+        font-weight: 800;
+        font-size: 18px;
+        cursor: pointer;
+        border: 1px solid var(--purple1);
+        background-color: white;
+        &:hover {
+            background-color: var(--purple1);
+            color: var(--bgColor);
         }
     }
 }
