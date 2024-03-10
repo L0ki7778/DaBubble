@@ -1,0 +1,62 @@
+header {
+    padding: 22px 0 0 40px;
+}
+
+.position-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.privacy-policy-content {
+    padding: 80px 56px 72px 56px;
+    border-radius: 30px;
+    width: 60vw;
+    height: 50vh;
+    background-color: white;
+    overflow: hidden auto;
+    font-size: 20px;
+    font-weight: 400;
+
+    a {
+        text-decoration: none;
+        color: #1381FF;
+    }
+}
+
+h1 {
+    color: var(--purple1);
+    font-size: 46px;
+    font-weight: 700;
+}
+
+strong {
+    color: var(--purple1);
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.arrow-img {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    background-image: url('../../assets/img/general/arrow.svg');
+    margin: 40px 0 0 56px;
+    background-color: white;
+    border-radius: 100%;
+
+    &:hover {
+        cursor: pointer;
+        background-image: url('../../assets/img/general/arrow-hover.svg');
+    }
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--purple2);
+    border-radius: 10px;
+}
