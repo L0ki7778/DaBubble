@@ -6,18 +6,20 @@ header {
     width: 98dvw;
 }
 
-app-dropdown-menu {
-    display: none;
+app-search-bar {
+    width: 100%;
 }
 
 .head-logo {
     height: 70px;
     width: 240px;
+    margin-right: 155px;
 }
 
 .user-container {
-    width: 342px;
+    min-width: 342px;
     height: 70px;
+    margin-left: 58px;
     display: flex;
     justify-content: space-between;
     align-items: center;
