@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild, inject } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { CommonModule } from '@angular/common';
 
@@ -13,6 +13,7 @@ export class ChooseProfilePictureComponent {
 
   authService: AuthService = inject(AuthService);
   isTranslated: boolean = true;
+  @ViewChild('fileInput', { static: false }) fileInput: ElementRef | undefined;
 
   profileIcons: any = [
     'assets/img/start-page/women1.svg',
@@ -30,16 +31,45 @@ export class ChooseProfilePictureComponent {
 
   async register() {
     this.toggleTranslation();
-    // await this.authService.register();
+    this.makeContentBrighter();
+    await this.authService.register();
+    setTimeout(() => {
+      this.authService.showChooseProfilePicture = false;
+      this.authService.showLogin = true;
+      this.authService.selectedProfilePic = 'assets/img/start-page/unknown.svg';
+      this.authService.name = '';
+    }, 1400);
   }
 
   toggleTranslation() {
     this.isTranslated = !this.isTranslated;
-  
-    const element = document.querySelector('.success-report') as HTMLElement;;
+    const element = document.querySelector('.success-report') as HTMLElement;
     if (element) {
-      element.style.translate = '(0 0)';
+      element.style.translate = '0 -20%';
     }
   }
+
+  makeContentBrighter() {
+    const content = document.querySelector('.content-container') as HTMLElement;
+    if (content) {
+      content.style.filter = 'opacity(0.6)'
+    }
+  }
+
+  selectProfilePic(iconUrl: string) {
+    this.authService.selectedProfilePic = iconUrl;
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.authService.selectedProfilePic = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
 
 }

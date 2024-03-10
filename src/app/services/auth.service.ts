@@ -2,6 +2,8 @@ import { Injectable, inject } from '@angular/core';
 import { Auth, User, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, user } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Observable, Subscription, from } from 'rxjs';
+import { UserType } from '../types/user.type';
+import { Firestore, doc, setDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +11,13 @@ import { Observable, Subscription, from } from 'rxjs';
 export class AuthService {
 
   private auth: Auth = inject(Auth);
+  private firestore: Firestore = inject(Firestore);
   private router: Router = inject(Router);
 
   email: string = '';
   password: string = '';
   name: string = '';
+  selectedProfilePic: string = 'assets/img/start-page/unknown.svg';
   showLogin = true;
   showChooseProfilePicture: boolean = false;
   showResetPassword: boolean = false;
@@ -21,16 +25,25 @@ export class AuthService {
 
   user$ = user(this.auth);
   userSubscription: Subscription = new Subscription();
-  
+
   constructor() {
     this.userSubscription = this.user$.subscribe((aUser: User | null) => {
       //handle user state changes here. Note, that user will be null if there is no currently logged in user.
     })
   }
 
+  private createUserObject(): UserType {
+    return {
+      name: this.name,
+      email: this.email,
+      password: this.password,
+      image: this.selectedProfilePic
+    };
+  }
+
   async toggleToChooseProfilePicture() {
-      this.showChooseProfilePicture = true;
-      this.showCreateAccount = false;
+    this.showChooseProfilePicture = true;
+    this.showCreateAccount = false;
   }
 
   async register() {
@@ -38,8 +51,12 @@ export class AuthService {
       const userCredential = await createUserWithEmailAndPassword(this.auth, this.email, this.password);
       const user = userCredential.user;
       console.log('Registered user:', user);
-      await updateProfile(user, { displayName: this.name });
-      console.log('User profile updated with display name:', this.name);
+      // await updateProfile(user, { displayName: this.name });
+      // console.log('User profile updated with display name:', this.name);
+      const userObject: UserType = this.createUserObject();
+      console.log('User object:', userObject);
+      const userDocRef = doc(this.firestore, 'users', user.uid);
+      await setDoc(userDocRef, userObject);
     } catch (error) {
       console.error('Error registering user:', error);
     }
