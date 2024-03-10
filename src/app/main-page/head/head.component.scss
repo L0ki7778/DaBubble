@@ -29,6 +29,7 @@ app-search-bar {
     span {
         font-size: 32px;
         font-weight: 700;
+        white-space: nowrap;
     }
 
     &:hover .arrow-img {
