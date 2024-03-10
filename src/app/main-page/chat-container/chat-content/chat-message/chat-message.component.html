@@ -3,9 +3,12 @@
     [ngStyle]="{'flex-direction': isOwnMessage ? 'none' : 'row-reverse'}">
     <img (click)="openMemberView($event)" src="assets/img/general/avatars/avatar1.svg" class="avatar-icon">
     <div class="message-box" [ngStyle]="{'align-items': isOwnMessage ? 'start' : 'end'}">
-        <div class="message-header" [ngStyle]="{'flex-direction': isOwnMessage ? 'none' : 'row-reverse'}">
-            <span (click)="openMemberView($event)" class="message-author">Test Name</span><span
-                class="message-time">14:25 Uhr</span>
+        <div class="message-header" [ngStyle]="{'flex-direction': isOwnMessage ? 'row-reverse' : 'none'}">
+            <app-reaction-bar [isOwnMessage]="isOwnMessage"></app-reaction-bar>
+            <div>
+                <span (click)="openMemberView($event)" class="message-author">Test Name</span>
+                <span class="message-time">14:25 Uhr</span>
+            </div>
         </div>
         <div class="message-text" *ngIf="isOwnMessage"
             [ngStyle]="{'background-color': isHovered ? 'white' : '#ECEEFE', 'border-top-right-radius': '30px'}">

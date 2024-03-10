@@ -10,6 +10,15 @@
         background-color: $bgColor;
         cursor: pointer;
     }
+
+    &:hover app-reaction-bar {
+        opacity: 1;
+    }
+}
+
+app-reaction-bar {
+    opacity: 0;
+    transition: all ease-in-out 0.2s;
 }
 
 .date-label {
@@ -30,6 +39,7 @@
     align-self: flex-start;
     height: 50px;
     width: 50px;
+    margin-top: 16px;
     border-radius: 100%;
     cursor: pointer;
 }
@@ -42,10 +52,17 @@
 }
 
 .message-header {
+    width: 100%;
     display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 20px;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    div {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 20px;
+    }
 }
 
 .message-author {

@@ -1,0 +1,13 @@
+.reaction-bar-container {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 3px 15px 3px 20px;
+    border: 1px solid var(--lightPurple);
+    border-radius: 25px 25px 0px 25px;
+
+    img:hover {
+        border-radius: 100%;
+        background-color: var(--bgColor);
+    }
+}
