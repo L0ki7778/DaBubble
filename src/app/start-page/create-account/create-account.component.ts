@@ -21,11 +21,11 @@ export class CreateAccountComponent {
   password: string = '';
   name: string = '';
   
-  async register() {
+  async saveVariables() {
     this.authService.email = this.email;
     this.authService.password = this.password;
     this.authService.name = this.name;
-    await this.authService.register();
+    await this.authService.toggleToChooseProfilePicture();
   }
 
   toggleToLogin() {

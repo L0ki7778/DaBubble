@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 export class ChooseProfilePictureComponent {
 
   authService: AuthService = inject(AuthService);
+  isTranslated: boolean = true;
 
   profileIcons: any = [
     'assets/img/start-page/women1.svg',
@@ -25,6 +26,20 @@ export class ChooseProfilePictureComponent {
   toggleToCreateAccount() {
     this.authService.showChooseProfilePicture = false;
     this.authService.showCreateAccount = true;
+  }
+
+  async register() {
+    this.toggleTranslation();
+    // await this.authService.register();
+  }
+
+  toggleTranslation() {
+    this.isTranslated = !this.isTranslated;
+  
+    const element = document.querySelector('.success-report') as HTMLElement;;
+    if (element) {
+      element.style.translate = '(0 0)';
+    }
   }
 
 }

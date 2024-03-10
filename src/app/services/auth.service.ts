@@ -28,15 +28,18 @@ export class AuthService {
     })
   }
 
-  async register() {
-    try {
-      // const userCredential = await createUserWithEmailAndPassword(this.auth, this.email, this.password);
-      // const user = userCredential.user;
-      // console.log('Registered user:', user);
+  async toggleToChooseProfilePicture() {
       this.showChooseProfilePicture = true;
       this.showCreateAccount = false;
-      // await updateProfile(user, { displayName: this.name });
-      // console.log('User profile updated with display name:', this.name);
+  }
+
+  async register() {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(this.auth, this.email, this.password);
+      const user = userCredential.user;
+      console.log('Registered user:', user);
+      await updateProfile(user, { displayName: this.name });
+      console.log('User profile updated with display name:', this.name);
     } catch (error) {
       console.error('Error registering user:', error);
     }
