@@ -2,7 +2,7 @@
     class="reaction-bar-container">
     <img src="assets/img/general/smiley.svg">
     <img src="assets/img/general/answer.svg">
-    <img *ngIf="!isOwnMessage" (click)="showOption($event)" src="assets/img/general/edit.svg">
+    <img *ngIf="isOwnMessage" (click)="showOption($event)" src="assets/img/general/edit.svg">
 
     <span #edit *ngIf="viewOption" class="edit-message">Nachricht bearbeiten</span>
 </div>
