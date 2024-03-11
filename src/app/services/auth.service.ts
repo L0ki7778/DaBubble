@@ -51,8 +51,6 @@ export class AuthService {
       const userCredential = await createUserWithEmailAndPassword(this.auth, this.email, this.password);
       const user = userCredential.user;
       console.log('Registered user:', user);
-      // await updateProfile(user, { displayName: this.name });
-      // console.log('User profile updated with display name:', this.name);
       const userObject: UserType = this.createUserObject();
       console.log('User object:', userObject);
       const userDocRef = doc(this.firestore, 'users', user.uid);
