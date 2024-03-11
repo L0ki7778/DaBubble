@@ -21,7 +21,7 @@
 }
 
 .front-layer {
-    background:transparent;
+    background: transparent;
     width: 100vw;
     height: 100vh;
     position: absolute;
@@ -36,7 +36,6 @@
 }
 
 .logo {
-    animation: fadeOut 2.5s ease-in-out;
     animation: moveLeft 0.8s ease-in-out 0s forwards,
 }
 
@@ -50,19 +49,41 @@
     overflow: hidden;
 }
 
+.endLogo {
+    width: 480px;
+    position: absolute;
+    z-index: 999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    animation: endMove 0.6s ease-in-out 0s forwards;
+}
 
 
-@keyframes fadeOut {
+@keyframes endMove {
 
-    0%,
-    70% {
+    0% {
         opacity: 1;
+    }
+    30% {
+        width: 380px;
+    }
+    60% {
+        width: 300px;
+    }
 
+    80% {
+        opacity: 1;
+        width: 250px;
     }
 
     100% {
         opacity: 0;
-
+        width: auto;
+        top: 30px;
+        left: 45px;
+        transform: none;
     }
 }
 
@@ -71,15 +92,11 @@
     0% {
         transform: translateX(0);
     }
+
     50% {
         transform: translateX(0);
     }
-    70% {
-        transform: translateX(-100px);
-    }
-    85% {
-        transform: translateX(-150px);
-    }
+
     100% {
         transform: translateX(-200px);
     }
@@ -90,16 +107,20 @@
     0% {
         transform: translateX(0);
     }
+
     30% {
         transform: translateX(0);
     }
+
     50% {
-        transform: translateX(calc(30vw - 100px));
+        transform: translateX(calc(30vw - 70px));
     }
+
     75% {
-        transform: translateX(calc(40vw - 100px));
+        transform: translateX(calc(40vw - 80px));
     }
+
     100% {
-        transform: translateX(calc(50vw - 100px));
+        transform: translateX(calc(50vw - 80px));
     }
 }

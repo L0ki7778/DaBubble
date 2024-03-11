@@ -23,6 +23,8 @@ import { ChooseProfilePictureComponent } from './create-account/choose-profile-p
 })
 export class StartPageComponent {
 
+  endAnimation: boolean = false;
+
   authService: AuthService = inject(AuthService);
 
   toggleToCreateAccount() {
@@ -37,5 +39,9 @@ export class StartPageComponent {
 
   toggleToChooseProfilePicture() {
     this.authService.showChooseProfilePicture = this.authService.showChooseProfilePicture;
+  }
+
+  ngOnInit() {
+    setTimeout(() => this.endAnimation = true, 3000);
   }
 }

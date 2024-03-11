@@ -20,7 +20,6 @@ import { IntroAnimationComponent } from '../intro-animation/intro-animation.comp
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  animation: boolean = true;
 
   private auth: Auth = inject(Auth);
   private router: Router = inject(Router);
@@ -29,9 +28,7 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
 
-  ngOnInit() {
-    setTimeout(() => this.animation = false, 2400);
-  }
+
 
   async login() {
     this.authService.email = this.email;

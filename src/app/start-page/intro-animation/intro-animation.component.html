@@ -1,8 +1,11 @@
-<div class="background">
+<div *ngIf="animation" class="background">
     <span class="text">DABubble</span>
 </div>
-<div class="middle-layer">
-</div>
-<div class="front-layer">
+
+<div *ngIf="animation" class="middle-layer"></div>
+
+<div *ngIf="animation" class="front-layer">
     <img class="logo" src="assets/img/general/Logo.svg">
 </div>
+
+<img *ngIf="!animation" class="endLogo" src="assets/img/general/dabubble-logo.svg">
