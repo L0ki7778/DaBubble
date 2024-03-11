@@ -1,34 +1,55 @@
-.animation {
+.background {
     background-image: linear-gradient(1deg, #313ae5 1.22%, #797ef3 98.76%);
     width: 100vw;
     height: 100vh;
     position: fixed;
     top: 0;
-    animation: fadeOut 2.5s ease-in-out;
-
-    img {
-        position: relative;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        
-        animation: moveLeft 0.8s ease-in-out 0s forwards,
-    }
-
-    span {
-        font-size: 72px;
-        font-weight: 700;
-        color: transparent;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        
-        transition: left 2s ease-in;
-        animation: slideText 0.8s ease-in-out 1s forwards;
-        overflow: hidden;
-    }
+    z-index: 0;
+    display: flex;
+    justify-content: start;
+    align-items: center;
 }
+
+.middle-layer {
+    background-image: linear-gradient(1deg, #313ae5 1.22%, #797ef3 98.76%);
+    width: calc(50vw - 100px);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.front-layer {
+    background:transparent;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    animation: fadeOut 2.5s ease-in-out;
+    animation: moveLeft 0.8s ease-in-out 0s forwards,
+}
+
+.text {
+    color: white;
+    font-size: 72px;
+    font-weight: 700;
+    color: white;
+    transition: left 2s ease-in;
+    animation: slideText 0.5s ease-in-out 1s forwards;
+    overflow: hidden;
+}
+
 
 
 @keyframes fadeOut {
@@ -47,29 +68,38 @@
 
 @keyframes moveLeft {
 
-    0%,
-    70% {
-        left: 50%;
+    0% {
+        transform: translateX(0);
     }
-
+    50% {
+        transform: translateX(0);
+    }
+    70% {
+        transform: translateX(-100px);
+    }
+    85% {
+        transform: translateX(-150px);
+    }
     100% {
-        left: 35%;
+        transform: translateX(-200px);
     }
 }
 
 @keyframes slideText {
 
-    0%,
-    35% {
-        left: 50%;
+    0% {
+        transform: translateX(0);
     }
-
+    30% {
+        transform: translateX(0);
+    }
     50% {
-        left: 50%;
-        color: white;
+        transform: translateX(calc(30vw - 100px));
     }
-
+    75% {
+        transform: translateX(calc(40vw - 100px));
+    }
     100% {
-        left: 70%;
+        transform: translateX(calc(50vw - 100px));
     }
 }
