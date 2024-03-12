@@ -28,7 +28,7 @@ export class ChatHeaderComponent {
   imgSrc: string = "../../../../assets/img/main-page/chat/add-members-button.svg";
 
   constructor() {
-    this.currentChannelName = this.channelService.channels[0].channelName;
+    this.currentChannelName = this.channelService.channels[0]?.channelName;
     this.subscription = this.$editObservable.subscribe(() => {
       this.editChannel = this.overlayService.editChannelOverlay;
       this.showMembers = this.overlayService.membersOverlay;
