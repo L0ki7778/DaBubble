@@ -5,6 +5,7 @@ import { EditChannelOverlayComponent } from '../../overlay/edit-channel-overlay/
 import { AddMemberOverlayComponent } from '../../overlay/add-member-overlay/add-member-overlay.component';
 import { MembersOverlayComponent } from '../../overlay/members-overlay/members-overlay.component';
 import { Observable, Subscription } from 'rxjs';
+import { ChannelService } from '../../../services/channel.service';
 
 @Component({
   selector: 'app-chat-header',
@@ -16,15 +17,18 @@ import { Observable, Subscription } from 'rxjs';
 
 export class ChatHeaderComponent {
   overlayService = inject(OverlayService);
+  channelService = inject(ChannelService);
   $editObservable = this.overlayService.overlaySubject.asObservable();
   private subscription: Subscription;
   editChannel: boolean = false;
   showMembers: boolean = false;
   showAddMember: boolean = false;
+  currentChannelName: string = '';
 
   imgSrc: string = "../../../../assets/img/main-page/chat/add-members-button.svg";
 
   constructor() {
+    this.currentChannelName = this.channelService.channels[0].channelName;
     this.subscription = this.$editObservable.subscribe(() => {
       this.editChannel = this.overlayService.editChannelOverlay;
       this.showMembers = this.overlayService.membersOverlay;

@@ -1,24 +1,26 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collection, onSnapshot, query, where } from 'firebase/firestore';
+import { Firestore } from '@angular/fire/firestore';
+import { collection, onSnapshot, query } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChannelService {
 
-  constructor(private firestore: Firestore = inject(Firestore)) {
+  private firestore: Firestore = inject(Firestore);
 
-    const q = query(collection(firestore, "channels"));
+  public channels: {"channelId": string, "channelName": string}[] = [];
+
+  constructor() {
+
+    const q = query(collection(this.firestore, "channels"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const channelIds: string[] = [];
-      const channelNames: string[] = [];
+      this.channels = [];
       querySnapshot.forEach((doc) => {
-        channelIds.push(doc.id);
-        channelNames.push(doc.data()['channelName']);
+        this.channels.push({"channelId": doc.id,
+                            "channelName": doc.data()['channelName']});
       });
-      console.log("Current users channels IDs", channelIds);
-      console.log("Current users channels", channelNames);
+      console.log("All Channels", this.channels);
     });
-
   }
 }
