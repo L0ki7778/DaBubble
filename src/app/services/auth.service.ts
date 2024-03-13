@@ -3,7 +3,7 @@ import { Auth, User, createUserWithEmailAndPassword, signInWithEmailAndPassword,
 import { Router } from '@angular/router';
 import { Observable, Subscription, from } from 'rxjs';
 import { UserType } from '../types/user.type';
-import { Firestore, doc, setDoc } from '@angular/fire/firestore';
+import { Firestore, arrayUnion, doc, setDoc, updateDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -65,9 +65,23 @@ export class AuthService {
       const userCredential = await signInWithEmailAndPassword(this.auth, this.email, this.password);
       const user = userCredential.user;
       console.log('Logged in user:', user);
+      const directMessageId = '7tt9mi3JhZrF2GemQBnC';
+      await this.addUserToDirectMessages(user.uid, directMessageId);
       this.router.navigate(['main-page']);
     } catch (error) {
       console.error('Error signing in:', error);
+    }
+  }
+
+  async addUserToDirectMessages(userId: string, directMessageId: string) {
+    try {
+      const directMessageDocRef = doc(this.firestore, 'direct-messages', directMessageId);
+      await updateDoc(directMessageDocRef, {
+        members: arrayUnion(userId)
+      });
+      console.log('User added to direct message:', userId);
+    } catch (error) {
+      console.error('Error adding user to direct message:', error);
     }
   }
 
