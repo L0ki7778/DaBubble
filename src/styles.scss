@@ -33,6 +33,18 @@ app-root{
     --rosaError: #ED1E7A;
 }
 
+#chatEditor{
+    width: 100%!important;
+}
+
+.tox-editor-header{
+    padding:unset!important
+}
+
+.tox-statusbar{
+    display: none!important
+}
+
 
 /* nunito-200 - latin */
 @font-face {

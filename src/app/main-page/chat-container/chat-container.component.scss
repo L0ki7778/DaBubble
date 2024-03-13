@@ -11,6 +11,10 @@ app-chat-header {
     background-color: white;
 }
 
+form{
+    width: 100%
+}
+
 app-chat-content {
     @include scaleElement();
     @include dFlex(initial, center);
@@ -48,4 +52,6 @@ app-chat-input {
     &:hover {
         border: 1px solid $purple3;
     }
+
+
 }
