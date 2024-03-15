@@ -30,12 +30,11 @@
         </g>
     </svg>
     }
-    <ul>
-        <li *ngFor="let userName of userNames" (click)="getUserId(userName)">{{ userName }}</li>
-    </ul>
 
     <ng-content id="plus-content"></ng-content>
 </div>
 <div class="drop-down-list" [ngStyle]="active? {height:'5rem'} : {height:'0'}">
-    test
+    <ul>
+        <li *ngFor="let userName of userNames" (click)="getUserId(userName)">{{ userName }}</li>
+    </ul>
 </div>
