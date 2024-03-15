@@ -1,22 +1,3 @@
 <app-chat-header></app-chat-header>
 <app-chat-content></app-chat-content>
-<!-- <div style="width: 100%; display: flex;">
-    <app-chat-input></app-chat-input>
-</div> -->
-<form [formGroup]="chatForm" (ngSubmit)="onSubmit()">
-    <editor [(ngModel)]="content" id="chatEditor" apiKey="g7nkifr4vsg9ujkuywv941pn8z3jq2j4ynompqpv3eqwts3h"
-  [init]="{
-    plugins: 'emoticons link lists ',
-    toolbar_location:'bottom',
-    menubar:false,
-    toolbar: 'link | emoticons',
-    tinycomments_mode: 'embedded',
-    tinycomments_author: 'Author name',
-    mergetags_list: [
-      { value: 'First.Name', title: 'First Name' },
-      { value: 'Email', title: 'Email' },
-    ] }"
-    formControlName="message"
-    >{{content}}</editor>
-    <button type="submit">Send</button>
-</form>
+<app-chat-input></app-chat-input>

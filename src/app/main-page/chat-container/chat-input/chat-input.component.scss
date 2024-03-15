@@ -38,7 +38,7 @@
     cursor: pointer;
 
     path {
-        fill: $purple2;
+        fill: $purple1;
         transition: ease-in 150ms;
     }
 }
@@ -84,3 +84,13 @@
     height: 25px;
     width: 25px;
 }
+
+#send-message-btn{
+    background-color: transparent;
+    border:unset;
+    position: absolute;
+    right: 1rem;
+    bottom: 4%;
+    z-index: 2;
+}
+

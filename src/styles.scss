@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
+
 body {
     margin: 0;
     background-color: var(--bgColor);
@@ -43,6 +44,20 @@ app-root{
 
 .tox-statusbar{
     display: none!important
+}
+
+.tox-tinymce{
+    border: 3px solid var(--lightPurple)!important;
+    border-radius: 20px!important;
+    transition: all ease 0.2s;
+ &:hover {
+        border: 3px solid var(--purple3)!important;
+        
+    }
+}
+
+.tox-tbtn:hover{
+cursor: pointer!important;
 }
 
 
