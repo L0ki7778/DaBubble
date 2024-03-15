@@ -19,7 +19,7 @@ app-chat-content {
     @include scaleElement();
     @include dFlex(initial, center);
     flex-direction: column-reverse;
-    margin-top: 8vh;
+    margin-top: 10%;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     overflow-y: scroll;
@@ -44,14 +44,12 @@ app-chat-content {
 }
 
 app-chat-input {
-    border: 1px solid $lightPurple;
-    border-radius: 20px;
-    padding: 20px;
-    width: 100%;
 
-    &:hover {
-        border: 1px solid $purple3;
-    }
+    // padding: 20px;
+    width: 100%;
+    position: relative;
+
+   
 
 
 }
