@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, User, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, user } from '@angular/fire/auth';
+import { Auth, User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, updateProfile, user } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Observable, Subscription, from } from 'rxjs';
 import { UserType } from '../types/user.type';
-import { Firestore, arrayUnion, doc, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, arrayUnion, collection, doc, getDocs, query, setDoc, updateDoc, where, writeBatch } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -62,26 +62,54 @@ export class AuthService {
 
   async login() {
     try {
-      const userCredential = await signInWithEmailAndPassword(this.auth, this.email, this.password);
-      const user = userCredential.user;
-      console.log('Logged in user:', user);
-      const directMessageId = '7tt9mi3JhZrF2GemQBnC';
-      await this.addUserToDirectMessages(user.uid, directMessageId);
+      await signInWithEmailAndPassword(this.auth, this.email, this.password);
       this.router.navigate(['main-page']);
     } catch (error) {
       console.error('Error signing in:', error);
     }
   }
 
-  async addUserToDirectMessages(userId: string, directMessageId: string) {
+  loggedInUser() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const loggedInUserId = user.uid;
+        console.log('Currently logged in user ID:', loggedInUserId);
+        await this.addUserToDirectMessages(user.uid);
+      } else {
+        console.log('No user logged in');
+      }
+    });
+  }
+
+  async addUserToAllDirectMessages(userId: string) {
     try {
-      const directMessageDocRef = doc(this.firestore, 'direct-messages', directMessageId);
-      await updateDoc(directMessageDocRef, {
-        members: arrayUnion(userId)
+      const directMessagesQuery = query(collection(this.firestore, 'direct-messages'), where('members', 'array-contains', userId));
+      const querySnapshot = await getDocs(directMessagesQuery);
+      const batch = writeBatch(this.firestore);
+      querySnapshot.forEach((doc) => {
+        batch.update(doc.ref, {
+          members: arrayUnion(userId)
+        });
       });
-      console.log('User added to direct message:', userId);
+      await batch.commit();
+      console.log('User added to all direct messages:', userId);
     } catch (error) {
-      console.error('Error adding user to direct message:', error);
+      console.error('Error adding user to direct messages:', error);
+    }
+  }
+
+  async addUserToDirectMessages(userId: string) {
+    try {
+      const newDirectMessageRef = doc(collection(this.firestore, 'direct-messages'));
+      const newDirectMessageId = '';
+      await setDoc(newDirectMessageRef, {
+        messages: newDirectMessageId,
+        members: [userId]
+      });
+      console.log('New direct message created with ID:', newDirectMessageId);
+    } catch (error) {
+      console.error('Error creating new direct message:', error);
     }
   }
 

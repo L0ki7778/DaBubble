@@ -22,7 +22,6 @@ div{
         gap:1rem;
 
         &:hover{
-            color:$purple1;
             svg{
                 path{
                     fill: $purple1;
@@ -31,3 +30,13 @@ div{
         }
 }
 
+ul {
+    list-style: none;
+
+    >li {
+        &:hover{
+            color: var(--purple1);
+            cursor: pointer;
+        }
+    }
+}
