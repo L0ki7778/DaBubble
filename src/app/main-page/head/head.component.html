@@ -2,8 +2,8 @@
     <img class="head-logo" src="assets/img/general/dabubble-logo.svg">
     <app-search-bar></app-search-bar>
     <div (click)="openDropdownMenu($event)" class="user-container">
-        <span>Frederik Beck</span>
-        <img src="assets/img/main-page/head/Profile-img.svg">
+        <span>{{ name }}</span>
+        <img class="profile-img" [src]="imgSrc">
         <div class="arrow-img"></div>
     </div>
 </header>

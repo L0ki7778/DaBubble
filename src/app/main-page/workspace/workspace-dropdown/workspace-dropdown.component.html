@@ -33,7 +33,7 @@
     <div>{{ name }}</div>
     <ng-content id="plus-content"></ng-content>
 </div>
-<div class="drop-down-list" [ngStyle]="active? {height:'5rem'} : {height:'0'}">
+<div class="drop-down-list" [ngStyle]="active? {height:'auto'} : {height:'0'}">
     <div *ngIf="showList">
         <div class="list" *ngFor="let userName of userNames" (click)="getUserId(userName)">{{ userName
             }}</div><br>

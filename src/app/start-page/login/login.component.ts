@@ -36,6 +36,10 @@ export class LoginComponent {
     await this.authService.login();
   }
 
+  async loginAsGuest() {
+    await this.authService.loginAsGuest();
+  }
+
   toggleToResetPassword() {
     this.authService.showLogin = false;
     this.authService.showResetPassword = true;

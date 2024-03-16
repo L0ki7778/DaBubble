@@ -22,6 +22,8 @@ export class AuthService {
   showChooseProfilePicture: boolean = false;
   showResetPassword: boolean = false;
   showCreateAccount: boolean = false;
+  guestEmail ='guest@email.com';
+  guestPassword = 'Passwort';
 
   user$ = user(this.auth);
   userSubscription: Subscription = new Subscription();
@@ -51,6 +53,7 @@ export class AuthService {
       const userCredential = await createUserWithEmailAndPassword(this.auth, this.email, this.password);
       const user = userCredential.user;
       console.log('Registered user:', user);
+      await updateProfile(user, { displayName: this.name });
       const userObject: UserType = this.createUserObject();
       console.log('User object:', userObject);
       const userDocRef = doc(this.firestore, 'users', user.uid);
@@ -66,6 +69,15 @@ export class AuthService {
       this.router.navigate(['main-page']);
     } catch (error) {
       console.error('Error signing in:', error);
+    }
+  }
+
+  async loginAsGuest() {
+    try {
+      await signInWithEmailAndPassword(this.auth, this.guestEmail, this.guestPassword);
+      this.router.navigate(['main-page']);
+    } catch (error) {
+      console.error('Error signing in as guest:', error);
     }
   }
 
@@ -107,7 +119,6 @@ export class AuthService {
         messages: newDirectMessageId,
         members: [userId]
       });
-      console.log('New direct message created with ID:', newDirectMessageId);
     } catch (error) {
       console.error('Error creating new direct message:', error);
     }
@@ -116,7 +127,6 @@ export class AuthService {
   async logout() {
     try {
       await this.auth.signOut();
-      console.log('User logged out successfully');
       this.router.navigate(['']);
     } catch (error) {
       console.error('Error logging out:', error);
