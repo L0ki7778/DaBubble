@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, ViewChild, inject } from '@angular/core';
+import { BooleanValueService } from '../../../../../services/boolean-value.service';
 
 @Component({
   selector: 'app-reaction-bar',
@@ -12,6 +13,7 @@ export class ReactionBarComponent {
 
   @Input() isOwnMessage: boolean = true;
   @ViewChild('edit') edit: ElementRef | null = null;
+  booleanService = inject(BooleanValueService);
 
 
   viewOption: boolean = false;
@@ -29,5 +31,10 @@ export class ReactionBarComponent {
     } else {
       this.viewOption = false;
     }
+  }
+
+
+  showThread() {
+    this.booleanService.viewThread.set(true);
   }
 }
