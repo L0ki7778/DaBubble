@@ -30,13 +30,13 @@ div{
         }
 }
 
-ul {
-    list-style: none;
+.list {
+    
+    text-align: center;
 
-    >li {
-        &:hover{
-            color: var(--purple1);
-            cursor: pointer;
-        }
+
+    &:hover{
+        color: var(--purple1);
+        cursor: pointer;
     }
 }
