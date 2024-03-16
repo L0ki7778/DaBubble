@@ -22,12 +22,20 @@ export class WorkspaceDropdownComponent {
   authService: AuthService = inject(AuthService);
   userNames: string[] = [];
   userIdMap: { [userName: string]: string } = {};
+  showList = false;
   private firestore: Firestore = inject(Firestore);
 
   constructor() { }
 
   ngOnInit() {
     this.fetchUserNames();
+    this.checkName();
+  }
+
+  checkName() {
+    if (this.name === 'Direktnachrichten') {
+      this.showList = true;
+    }
   }
 
   async fetchUserNames() {
