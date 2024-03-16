@@ -11,11 +11,10 @@
         <app-members-overlay *ngIf="showMembers"></app-members-overlay>
         <div class="chat-head-members" (click)="openMembersOverlay($event)">
             <div class="member-icons">
-                <img src="assets/img/general/avatars/avatar1.svg">
-                <img src="assets/img/general/avatars/avatar2.svg" style="right: 0;">
-                <img src="assets/img/general/avatars/avatar3.svg">
+                @for(member of currentChannelMembers; track member; let index = $index ){
+                <img src="{{ currentChannelMembersAvatars[index] }}">}
             </div>
-            <span>3</span>
+            <span> {{ currentChannelMembers.length }} </span>
         </div>
         <app-add-member-overlay *ngIf="showAddMember"></app-add-member-overlay>
         <img class="add-member-button" [src]="imgSrc"
