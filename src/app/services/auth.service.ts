@@ -57,6 +57,7 @@ export class AuthService {
       await setDoc(userDocRef, userObject);
     } catch (error) {
       console.error('Error registering user:', error);
+      console.log("test")
     }
   }
 
