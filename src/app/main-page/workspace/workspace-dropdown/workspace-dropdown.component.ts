@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, ViewChild, inject } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { Firestore, collection, getDocs, doc, setDoc, where, query } from '@angular/fire/firestore';
-import { DirectMessagesService } from '../../../services/direct-messages.service';
 
 
 @Component({
@@ -20,11 +19,10 @@ export class WorkspaceDropdownComponent {
   @Input() active = true;
   @ViewChild('arrow') arrow: HTMLImageElement | undefined;
   authService: AuthService = inject(AuthService);
-  userNames: string[] = [];
-  userIdMap: { [userName: string]: string } = {};
+  guestAccount: { name: string, profileImage: string } | undefined;
+  filteredUserNames: { name: string, profileImage: string }[] = [];
   showList = false;
   private firestore: Firestore = inject(Firestore);
-  private directMessages: DirectMessagesService = inject(DirectMessagesService);
 
   constructor() { }
 
@@ -43,11 +41,15 @@ export class WorkspaceDropdownComponent {
     try {
       const usersCollection = collection(this.firestore, 'users');
       const usersSnapshot = await getDocs(usersCollection);
-      usersSnapshot.forEach((doc) => {
+      const users = usersSnapshot.docs.map((doc) => {
         const userData = doc.data();
-        this.userNames.push(userData['name']);
-        this.userIdMap[userData['name']] = doc.id;
+        return {
+          name: userData['name'],
+          profileImage: userData['image']
+        };
       });
+      this.guestAccount = users.find(user => user.name === 'Guest Account');
+      this.filteredUserNames = users.filter(user => user.name !== 'Guest Account');
     } catch (error) {
       console.error('Error fetching user names:', error);
     }
@@ -83,7 +85,7 @@ export class WorkspaceDropdownComponent {
       console.error('Error creating new direct message:', error);
     }
   }
-  
+
   async addUserToDirectMessagesWithIds(loggedInUserId: string, otherUserId: string) {
     const existingDirectMessageQuery = query(
       collection(this.firestore, 'direct-messages'),

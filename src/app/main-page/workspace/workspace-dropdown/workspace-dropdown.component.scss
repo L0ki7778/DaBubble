@@ -1,40 +1,52 @@
 @import '../../../mixin.scss';
 
-div{
+div {
     font-weight: bold;
     font-size: 1.2rem;
 }
 
-.arrow-img{
+.arrow-img {
     transition: all ease .1s;
 }
 
-.drop-down-list{
+.drop-down-list {
     transition: all ease .1s;
     overflow: hidden
 }
 
 
-.dropdown{
-        @include dFlex(flex-start, center);
-        position: relative;
-        width: 100%;
-        gap:1rem;
+.dropdown {
+    @include dFlex(flex-start, center);
+    position: relative;
+    width: 100%;
+    gap: 2rem;
+    margin-left: 24px;
 
-        &:hover{
-            svg{
-                path{
-                    fill: $purple1;
-                }
+    &:hover {
+        svg {
+            path {
+                fill: $purple1;
             }
         }
+    }
 }
 
 .list {
-    margin-left: 67px;
+    margin-left: 54px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 14px;
 
-    &:hover{
+    &:hover {
         color: var(--purple1);
         cursor: pointer;
+        background-color: #ECEEFE;
+        border-radius: 30px;
     }
+}
+
+.profile-image {
+    width: 50px;
+    height: 50px;
 }
