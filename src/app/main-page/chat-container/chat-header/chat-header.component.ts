@@ -27,7 +27,8 @@ export class ChatHeaderComponent {
   showAddMember: boolean = false;
   choosenChannelId: string = 'NB6uszS6xyuHeEC2cMbo';    //This is the Id of the choosen channel from the workspace. 
   currentChannelName: string = '';
-  currentChannelMembers: string[] = [];
+  currentChannelMembersIds: string[] = [];
+  currentChannelMembersNames: string[] = [];
   currentChannelMembersAvatars: string[] = [];
   channelsRef: CollectionReference = collection(this.firestore, "channels");
   usersRef: CollectionReference = collection(this.firestore, "users");
@@ -46,7 +47,7 @@ export class ChatHeaderComponent {
       { includeMetadataChanges: true }, (channel) => {
         if (channel.exists() && channel.data() && channel.data()['channelName']) {
           this.currentChannelName = channel.data()['channelName'] as string;
-          this.currentChannelMembers = channel.data()['members'] as string[];
+          this.currentChannelMembersIds = channel.data()['members'] as string[];
           this.subscribeToUserChanges();
         }
       }
@@ -58,13 +59,15 @@ export class ChatHeaderComponent {
   }
 
   subscribeToUserChanges() {
-    for (let index = 0; index < this.currentChannelMembers.length; index++) {
-      const userId = this.currentChannelMembers[index];
+    for (let index = 0; index < this.currentChannelMembersIds.length; index++) {
+      const userId = this.currentChannelMembersIds[index];
       this.unsubscribeUsers[index] = onSnapshot(doc(this.usersRef, userId),
         { includeMetadataChanges: true }, (user) => {
           if (user.exists() && user.data() && user.data()['image']) {
             const userAvatarSrc = user.data()['image'];
+            const userName = user.data()['name'];
             this.currentChannelMembersAvatars[index] = userAvatarSrc;
+            this.currentChannelMembersNames[index] = userName;
           }
         }
       );

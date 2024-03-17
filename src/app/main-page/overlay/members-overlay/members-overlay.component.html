@@ -9,18 +9,12 @@
         </svg>
     </div>
     <div class="users-container">
-        <div class="user-box">
-            <img class="user-icon" src="assets/img/general/avatars/avatar2.svg">
-            <span class="user-name">Frederik Beck (Du)</span>
+        @for(member of channelMemberIds; track member; let index = $index ){
+        <div class="user-box" onclick="openProfileView(channelMemberIds[index])">
+            <img class="user-icon" src="{{ channelMemberAvatars[index] }}">
+            <span class="user-name">{{ channelMemberNames[index] }}</span>
         </div>
-        <div class="user-box">
-            <img class="user-icon" src="assets/img/general/avatars/avatar1.svg">
-            <span class="user-name">Sofia Müller</span>
-        </div>
-        <div class="user-box">
-            <img class="user-icon" src="assets/img/general/avatars/avatar3.svg">
-            <span class="user-name">Kartoffel Kopf</span>
-        </div>
+        }
         <div class="add-member-box">
             <svg width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path

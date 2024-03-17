@@ -8,13 +8,13 @@
         <img src="assets/img/main-page/chat/arrow_down.svg">
     </div>
     <div class="chat-member-section">
-        <app-members-overlay *ngIf="showMembers"></app-members-overlay>
+        <app-members-overlay *ngIf="showMembers" [channelMemberIds]="currentChannelMembersIds" [channelMemberNames]="currentChannelMembersNames" [channelMemberAvatars]="currentChannelMembersAvatars"></app-members-overlay>
         <div class="chat-head-members" (click)="openMembersOverlay($event)">
             <div class="member-icons">
-                @for(member of currentChannelMembers; track member; let index = $index ){
+                @for(member of currentChannelMembersIds; track member; let index = $index ){
                 <img src="{{ currentChannelMembersAvatars[index] }}">}
             </div>
-            <span> {{ currentChannelMembers.length }} </span>
+            <span> {{ currentChannelMembersIds.length }} </span>
         </div>
         <app-add-member-overlay *ngIf="showAddMember"></app-add-member-overlay>
         <img class="add-member-button" [src]="imgSrc"
