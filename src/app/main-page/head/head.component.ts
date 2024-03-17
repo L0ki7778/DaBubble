@@ -21,7 +21,7 @@ import { Subscription } from 'rxjs';
 export class HeadComponent {
     overlay = inject(OverlayService);
     name: string | null = '';
-    imgSrc: string = 'src="assets/img/start-page/unknown.svg';
+    imgSrc: string = 'assets/img/start-page/unknown.svg';
     private firestore: Firestore = inject(Firestore);
     auth = getAuth();
     authSubscription: Subscription | null = null;

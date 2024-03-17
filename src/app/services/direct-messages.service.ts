@@ -13,40 +13,41 @@ export class DirectMessagesService {
   private firestore: Firestore = inject(Firestore);
   private authService: AuthService = inject(AuthService);
 
-  getUserById(userId: string): Observable<any> {
-    const userDocRef = doc(this.firestore, 'users', userId);
-    return from(getDoc(userDocRef));
-  }
+  // getUserById(userId: string): Observable<any> {
+  //   const userDocRef = doc(this.firestore, 'users', userId);
+  //   return from(getDoc(userDocRef));
+  // }
 
-  getAllUsers(): Observable<any[]> {
-    const usersCollection = collection(this.firestore, 'users');
-    return from(getDocs(usersCollection)).pipe(
-      map((querySnapshot) => {
-        const users: any[] = [];
-        querySnapshot.forEach((doc) => {
-          users.push({ id: doc.id, ...doc.data() });
-        });
-        return users;
-      })
-    );
-  }
+  // getAllUsers(): Observable<any[]> {
+  //   const usersCollection = collection(this.firestore, 'users');
+  //   return from(getDocs(usersCollection)).pipe(
+  //     map((querySnapshot) => {
+  //       const users: any[] = [];
+  //       querySnapshot.forEach((doc) => {
+  //         users.push({ id: doc.id, ...doc.data() });
+  //       });
+  //       return users;
+  //     })
+  //   );
+  // }
 
-  getDirectMessagesByUserId(userId: string): Observable<any[]> {
-    const directMessagesCollection = collection(this.firestore, 'direct-messages');
-    const queryConstraint = where('members', 'array-contains', userId);
-    const queryRef = query(directMessagesCollection, queryConstraint);
+  // getDirectMessagesByUserId(userId: string): Observable<any[]> {
+  //   const directMessagesCollection = collection(this.firestore, 'direct-messages');
+  //   const queryConstraint = where('members', 'array-contains', userId);
+  //   const queryRef = query(directMessagesCollection, queryConstraint);
 
-    return from(getDocs(queryRef)).pipe(
-      map((querySnapshot) => {
-        const directMessages: any[] = [];
-        querySnapshot.forEach((doc) => {
-          directMessages.push({ id: doc.id, ...doc.data() });
-        });
-        return directMessages;
-      })
-    );
-  }
+  //   return from(getDocs(queryRef)).pipe(
+  //     map((querySnapshot) => {
+  //       const directMessages: any[] = [];
+  //       querySnapshot.forEach((doc) => {
+  //         directMessages.push({ id: doc.id, ...doc.data() });
+  //       });
+  //       return directMessages;
+  //     })
+  //   );
+  // }
 
+  
 
   constructor() { 
 

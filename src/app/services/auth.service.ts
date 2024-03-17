@@ -81,15 +81,14 @@ export class AuthService {
     }
   }
 
-  loggedInUser() {
+  getLoggedInUser(callback: any) {
     const auth = getAuth();
-    onAuthStateChanged(auth, async (user) => {
+    onAuthStateChanged(auth, (user) => {
       if (user) {
         const loggedInUserId = user.uid;
-        console.log('Currently logged in user ID:', loggedInUserId);
-        await this.addUserToDirectMessages(user.uid);
+        callback(loggedInUserId);
       } else {
-        console.log('No user logged in');
+        callback(null);
       }
     });
   }
@@ -108,19 +107,6 @@ export class AuthService {
       console.log('User added to all direct messages:', userId);
     } catch (error) {
       console.error('Error adding user to direct messages:', error);
-    }
-  }
-
-  async addUserToDirectMessages(userId: string) {
-    try {
-      const newDirectMessageRef = doc(collection(this.firestore, 'direct-messages'));
-      const newDirectMessageId = '';
-      await setDoc(newDirectMessageRef, {
-        messages: newDirectMessageId,
-        members: [userId]
-      });
-    } catch (error) {
-      console.error('Error creating new direct message:', error);
     }
   }
 

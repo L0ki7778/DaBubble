@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, ViewChild, inject } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
-import { Firestore, collection, getDocs } from '@angular/fire/firestore';
-import { doc, getDoc } from 'firebase/firestore';
+import { Firestore, collection, getDocs, doc, setDoc, where, query } from '@angular/fire/firestore';
+import { DirectMessagesService } from '../../../services/direct-messages.service';
 
 
 @Component({
@@ -24,6 +24,7 @@ export class WorkspaceDropdownComponent {
   userIdMap: { [userName: string]: string } = {};
   showList = false;
   private firestore: Firestore = inject(Firestore);
+  private directMessages: DirectMessagesService = inject(DirectMessagesService);
 
   constructor() { }
 
@@ -56,26 +57,60 @@ export class WorkspaceDropdownComponent {
     try {
       const usersCollection = collection(this.firestore, 'users');
       const querySnapshot = await getDocs(usersCollection);
-  
       const userDoc = querySnapshot.docs.find(doc => doc.data()['name'] === userName);
-  
       if (userDoc) {
         const userId = userDoc.id;
-        this.authService.loggedInUser();
-        console.log(`User ID for ${userName}: ${userId}`);
-
-      } else {
+        return userId;
+      } else
         console.log(`User ${userName} not found`);
-      }
+      return null;
     } catch (error) {
       console.error('Error fetching user ID:', error);
+      return null;
     }
+  }
+
+  async addUserToDirectMessages(otherUserName: string) {
+    try {
+      const loggedInUserId = await this.getLoggedInUserId();
+      const otherUserId = await this.getUserId(otherUserName);
+      if (loggedInUserId && otherUserId) {
+        await this.addUserToDirectMessagesWithIds(loggedInUserId, otherUserId);
+      } else {
+        console.error('Error retrieving user IDs');
+      }
+    } catch (error) {
+      console.error('Error creating new direct message:', error);
+    }
+  }
+  
+  async addUserToDirectMessagesWithIds(loggedInUserId: string, otherUserId: string) {
+    const existingDirectMessageQuery = query(
+      collection(this.firestore, 'direct-messages'),
+      where('members', 'array-contains-any', [loggedInUserId, otherUserId])
+    );
+    const existingDirectMessageSnapshot = await getDocs(existingDirectMessageQuery);
+    const existingChatWithBothUsers = existingDirectMessageSnapshot.docs.find(doc => {
+      const members = doc.data()['members'];
+      return members.includes(loggedInUserId) && members.includes(otherUserId);
+    });
+    if (!existingChatWithBothUsers) {
+      const newDirectMessageRef = doc(collection(this.firestore, 'direct-messages'));
+      await setDoc(newDirectMessageRef, { members: [loggedInUserId, otherUserId] });
+      console.log('New direct message created');
+    } else
+      console.log('Direct message already exists with both users');
+  }
+
+  async getLoggedInUserId(): Promise<string | null> {
+    return new Promise((resolve) => {
+      this.authService.getLoggedInUser((loggedInUserId: any) => {
+        resolve(loggedInUserId);
+      });
+    });
   }
 
   toggleActiveDropdown(event: Event) {
     this.active = !this.active;
   }
-
-
-
 }

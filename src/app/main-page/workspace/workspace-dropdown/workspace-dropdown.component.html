@@ -35,7 +35,7 @@
 </div>
 <div class="drop-down-list" [ngStyle]="active? {height:'auto'} : {height:'0'}">
     <div *ngIf="showList">
-        <div class="list" *ngFor="let userName of userNames" (click)="getUserId(userName)">{{ userName
-            }}</div><br>
+        <div class="list" *ngFor="let userName of userNames" (click)="addUserToDirectMessages(userName)">
+        {{ userName }}</div><br>
     </div>
 </div>
