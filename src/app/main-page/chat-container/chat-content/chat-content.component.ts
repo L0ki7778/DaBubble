@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
-import { Firestore, collection, doc, getDocs, onSnapshot } from '@angular/fire/firestore';
+import { Firestore, collection, doc, getDocs, onSnapshot, orderBy, query } from '@angular/fire/firestore';
 
 
 @Component({
@@ -14,12 +14,15 @@ import { Firestore, collection, doc, getDocs, onSnapshot } from '@angular/fire/f
 export class ChatContentComponent {
   firestore: Firestore = inject(Firestore);
 
+  messages: any[] = [];
+
   constructor() {
     const collRef = collection(this.firestore, 'channels', 'NB6uszS6xyuHeEC2cMbo', 'messages');
+    const q = query(collRef, orderBy('postTime'));
 
-    getDocs(collRef).then((querySnapshot) => {
+    getDocs(q).then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data()['text']);
+        this.messages.push(doc.data()['text']);
       });
     });
   }

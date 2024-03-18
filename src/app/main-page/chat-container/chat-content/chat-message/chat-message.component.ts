@@ -19,6 +19,7 @@ export class ChatMessageComponent {
   firestore: Firestore = inject(Firestore);
 
   isHovered: boolean = false;
+  @Input() message: any;
 
 
   onHover(): void {

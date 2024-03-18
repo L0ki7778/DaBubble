@@ -13,7 +13,12 @@
         <div class="message-text" *ngIf="!isOwnMessage"
             [ngStyle]="{'background-color': isHovered ? 'white' : '#ECEEFE', 'border-top-right-radius': '30px'}">
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere est aliquam qui aut dolor, voluptatem
-                amet dolore autem veritatis ipsum a molestiae commodi eos, sint accusantium fugiat dolores ea esse?</p>
+                amet dolore autem veritatis ipsum a molestiae commodi eos, sint accusantium fugiat dolores ea esse?
+                <br>
+                <br>
+                <br>
+                <span style="color: red;">{{ message }}</span>
+            </p>
         </div>
         <div class="message-text" *ngIf="isOwnMessage"
             [ngStyle]="{'background-color': '#797EF3', 'color': 'white', 'border-top-left-radius': '30px'}">
@@ -21,7 +26,8 @@
                 amet dolore autem veritatis ipsum a molestiae commodi eos, sint accusantium fugiat dolores ea esse?</p>
         </div>
         <div class="message-header" [ngStyle]="{'flex-direction': isOwnMessage ? 'row-reverse' : 'none' }">
-            <span (click)="showThread()" class="message-answers">2 Antworten</span><span class="message-time">Letzte Antwort 17:25 Uhr</span>
+            <span (click)="showThread()" class="message-answers">2 Antworten</span><span class="message-time">Letzte
+                Antwort 17:25 Uhr</span>
         </div>
     </div>
 </div>
