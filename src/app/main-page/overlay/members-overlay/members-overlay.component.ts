@@ -4,7 +4,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { FormsModule } from '@angular/forms';
 import { AddMemberOverlayComponent } from '../add-member-overlay/add-member-overlay.component';
-import { CollectionReference, Firestore, collection, doc, onSnapshot } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-members-overlay',
@@ -13,6 +12,7 @@ import { CollectionReference, Firestore, collection, doc, onSnapshot } from '@an
   templateUrl: './members-overlay.component.html',
   styleUrl: './members-overlay.component.scss'
 })
+
 export class MembersOverlayComponent {
   translateService = inject(TranslateService)
   overlay = inject(OverlayService)
