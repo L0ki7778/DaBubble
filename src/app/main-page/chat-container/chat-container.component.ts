@@ -16,7 +16,4 @@ import { ChatInputComponent } from './chat-input/chat-input.component';
   styleUrl: './chat-container.component.scss'
 })
 export class ChatContainerComponent {
-
-
-
 }

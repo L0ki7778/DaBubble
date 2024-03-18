@@ -3,6 +3,7 @@ import { Component, Input, inject } from '@angular/core';
 import { OverlayService } from '../../../../services/overlay.service';
 import { ReactionBarComponent } from './reaction-bar/reaction-bar.component';
 import { BooleanValueService } from '../../../../services/boolean-value.service';
+import { Firestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-chat-message',
@@ -12,15 +13,13 @@ import { BooleanValueService } from '../../../../services/boolean-value.service'
   styleUrl: './chat-message.component.scss'
 })
 export class ChatMessageComponent {
+  @Input() isOwnMessage: boolean = true;
   overlay = inject(OverlayService);
-
-  @Input()isOwnMessage: boolean = true;
   booleanService = inject(BooleanValueService);
+  firestore: Firestore = inject(Firestore);
 
   isHovered: boolean = false;
 
-  constructor() {
-  }
 
   onHover(): void {
     this.isHovered = true;
