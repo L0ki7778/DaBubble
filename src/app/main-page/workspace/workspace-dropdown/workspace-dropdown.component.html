@@ -35,7 +35,7 @@
 </div>
 <div class="drop-down-list" [ngStyle]="active? {height:'auto'} : {height:'0'}">
     <div *ngIf="showList">
-        <div *ngFor="let user of filteredUserNames" class="list" (click)="addUserToDirectMessages(user.name)">
+        <div *ngFor="let user of DMService.filteredUserNames" class="list" (click)="DMService.addUserToDirectMessages(user.name, DMService.messageText)">
             <img [src]="user.profileImage" class="profile-image"> {{ user.name }}
         </div>
         <br>
