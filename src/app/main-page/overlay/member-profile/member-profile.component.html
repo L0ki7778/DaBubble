@@ -4,10 +4,10 @@
         <div (click)="close()" class="cross-img"></div>
     </div>
     <div class="user-img-container">
-        <img src="assets/img/general/avatars/Avatar.svg">
+        <img src="{{ userImage }}">
     </div>
-    <span class="name">Frederik Beck</span>
-    <div class="active-container">
+    <span class="name">{{ userName }}</span>
+    <div class="active-container"  *ngIf="userStatus === 'online'">
         <img src="assets/img/general/Online.svg">
         <span>Aktiv</span>
     </div>
@@ -17,7 +17,7 @@
             <span>E-Mail-Adresse</span>
             <br>
             <br>
-            <a href="mailto:fred.beck&@email.com">fred.beck&#64;email.com</a>
+            <a href="mailto:{{ userMail }}">{{ userMail }}</a>
         </div>
     </div>
     <div class="btn-container">

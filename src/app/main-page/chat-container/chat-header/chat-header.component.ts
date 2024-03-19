@@ -6,11 +6,12 @@ import { AddMemberOverlayComponent } from '../../overlay/add-member-overlay/add-
 import { MembersOverlayComponent } from '../../overlay/members-overlay/members-overlay.component';
 import { Subscription } from 'rxjs';
 import { CollectionReference, DocumentData, Firestore, collection, doc, onSnapshot, query } from '@angular/fire/firestore';
+import { MemberProfileComponent } from '../../overlay/member-profile/member-profile.component';
 
 @Component({
   selector: 'app-chat-header',
   standalone: true,
-  imports: [CommonModule, EditChannelOverlayComponent, MembersOverlayComponent, AddMemberOverlayComponent],
+  imports: [CommonModule, EditChannelOverlayComponent, MembersOverlayComponent, AddMemberOverlayComponent, MemberProfileComponent],
   templateUrl: './chat-header.component.html',
   styleUrl: './chat-header.component.scss'
 })
@@ -21,9 +22,11 @@ export class ChatHeaderComponent {
   $editObservable = this.overlayService.overlaySubject.asObservable();
   private subscription: Subscription;
   editChannel: boolean = false;
+  profileView: boolean = false;
   showMembers: boolean = false;
   showAddMember: boolean = false;
-  choosenChannelId: string = 'NB6uszS6xyuHeEC2cMbo';    //This is the Id of the choosen channel from the workspace. 
+  choosenChannelId: string = 'NB6uszS6xyuHeEC2cMbo'; //This is the Id of the choosen channel from the workspace.
+  choosenMemberId: string = '';     
   currentChannelName: string = '';
   currentChannelMembersIds: string[] = [];
   currentChannelMembersNames: string[] = [];
@@ -38,6 +41,7 @@ export class ChatHeaderComponent {
     this.subscription = this.$editObservable.subscribe(() => {
       this.editChannel = this.overlayService.editChannelOverlay;
       this.showMembers = this.overlayService.membersOverlay;
+      this.profileView = this.overlayService.memberView;
       this.showAddMember = this.overlayService.addMemberOverlay;
     });
 
@@ -72,8 +76,17 @@ export class ChatHeaderComponent {
     }
   }
 
+  getChoosenMemberId(userId: string) {
+    this.choosenMemberId = userId;
+  }
+
   openEditChannelOverlay() {
     this.overlayService.toggleEditChannelOverlay();
+  }
+
+  openMemberProfile(event: MouseEvent) {
+    event.stopPropagation();
+    this.overlayService.toggleMemberView();
   }
 
   openMembersOverlay(event: MouseEvent) {
