@@ -14,10 +14,10 @@ export class ProfileViewComponent {
   @ViewChild('profileView') profileView: ElementRef | null = null;
   overlay = inject(OverlayService);
 
-  @Input() userImage: string = 'assets/img/general/avatars/avatar3.svg';
-  @Input() userName: string = 'Frederik Beck';
-  @Input() userStatus: 'online' | 'offline' = 'online';
-  @Input() userMail: string = 'fred.beck@email.com';
+  userImage: string = 'assets/img/general/avatars/avatar3.svg';
+  userName: string = 'Frederik Beck';
+  userStatus: 'online' | 'offline' = 'online';
+  userMail: string = 'fred.beck@email.com';
 
 
   @HostListener('document:click', ['$event'])
