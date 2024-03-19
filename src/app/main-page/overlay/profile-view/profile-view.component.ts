@@ -1,10 +1,11 @@
-import { Component, ElementRef, HostListener, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, ViewChild, inject } from '@angular/core';
 import { OverlayService } from '../../../services/overlay.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-profile-view',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './profile-view.component.html',
   styleUrl: './profile-view.component.scss'
 })
@@ -12,6 +13,11 @@ export class ProfileViewComponent {
 
   @ViewChild('profileView') profileView: ElementRef | null = null;
   overlay = inject(OverlayService);
+
+  @Input() userImage: string = 'assets/img/general/avatars/avatar3.svg';
+  @Input() userName: string = 'Frederik Beck';
+  @Input() userStatus: 'online' | 'offline' = 'online';
+  @Input() userMail: string = 'fred.beck@email.com';
 
 
   @HostListener('document:click', ['$event'])
