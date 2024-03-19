@@ -22,7 +22,18 @@ export class ChatContentComponent {
 
     getDocs(q).then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        this.messages.push(doc.data()['text']);
+        const postDate = new Date(doc.data()['postTime']);
+        const hours = postDate.getHours().toString().padStart(2, '0');
+        const minutes = postDate.getMinutes().toString().padStart(2, '0');
+        const formattedPostTime = `${hours}:${minutes}`;
+
+        const formattedPostDate = postDate.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' });
+
+        this.messages.push({
+          text: doc.data()['text'],
+          posthour: formattedPostTime,
+          postDay: formattedPostDate
+        });
       });
     });
   }

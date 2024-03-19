@@ -13,14 +13,16 @@ import { Firestore } from '@angular/fire/firestore';
   styleUrl: './chat-message.component.scss'
 })
 export class ChatMessageComponent {
-  @Input() isOwnMessage: boolean = true;
+  firestore: Firestore = inject(Firestore);
   overlay = inject(OverlayService);
   booleanService = inject(BooleanValueService);
-  firestore: Firestore = inject(Firestore);
-
-  isHovered: boolean = false;
+  
+  @Input() isOwnMessage: boolean = true;
   @Input() message: any;
 
+  isHovered: boolean = false;
+  formattedTime: string = '';
+  
 
   onHover(): void {
     this.isHovered = true;

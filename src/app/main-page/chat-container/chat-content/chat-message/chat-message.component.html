@@ -1,4 +1,4 @@
-<span class="date-label">Heute</span>
+<span class="date-label">Heute <p style="color: red;" *ngIf="message">{{ message.postDay }}</p></span>
 <div class="message-container" (mouseover)="onHover()" (mouseleave)="onLeave()"
     [ngStyle]="{'flex-direction': isOwnMessage ? 'row-reverse' : 'none'}">
     <img (click)="openMemberView($event)" src="assets/img/general/avatars/avatar1.svg" class="avatar-icon">
@@ -7,7 +7,10 @@
             <app-reaction-bar [isOwnMessage]="isOwnMessage"></app-reaction-bar>
             <div>
                 <span (click)="openMemberView($event)" class="message-author">Test Name</span>
-                <span class="message-time">14:25 Uhr</span>
+                <span class="message-time">
+                    14:25 Uhr
+                    <p style="color: red;" *ngIf="message">{{ message.posthour }}</p>
+                </span>
             </div>
         </div>
         <div class="message-text" *ngIf="!isOwnMessage"
@@ -17,7 +20,7 @@
                 <br>
                 <br>
                 <br>
-                <span style="color: red;">{{ message }}</span>
+                <span *ngIf="message" style="color: red;">{{ message.text }}</span>
             </p>
         </div>
         <div class="message-text" *ngIf="isOwnMessage"

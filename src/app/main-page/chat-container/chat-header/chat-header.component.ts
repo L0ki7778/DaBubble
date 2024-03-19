@@ -5,7 +5,6 @@ import { EditChannelOverlayComponent } from '../../overlay/edit-channel-overlay/
 import { AddMemberOverlayComponent } from '../../overlay/add-member-overlay/add-member-overlay.component';
 import { MembersOverlayComponent } from '../../overlay/members-overlay/members-overlay.component';
 import { Subscription } from 'rxjs';
-import { ChannelService } from '../../../services/channel.service';
 import { CollectionReference, DocumentData, Firestore, collection, doc, onSnapshot, query } from '@angular/fire/firestore';
 
 @Component({
@@ -18,7 +17,6 @@ import { CollectionReference, DocumentData, Firestore, collection, doc, onSnapsh
 
 export class ChatHeaderComponent {
   overlayService = inject(OverlayService);
-  channelService = inject(ChannelService);
   private firestore: Firestore = inject(Firestore);
   $editObservable = this.overlayService.overlaySubject.asObservable();
   private subscription: Subscription;
