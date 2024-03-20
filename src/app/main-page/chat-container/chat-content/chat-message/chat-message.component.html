@@ -6,7 +6,10 @@
         <div class="message-header" [ngStyle]="{'flex-direction': isOwnMessage ? 'none' : 'row-reverse'}">
             <app-reaction-bar [isOwnMessage]="isOwnMessage"></app-reaction-bar>
             <div>
-                <span (click)="openMemberView($event)" class="message-author">Test Name</span>
+                <span (click)="openMemberView($event)" class="message-author">
+                    Test Name
+                    <span style="color: red;">{{ user.name }}</span>
+                </span>
                 <span class="message-time">
                     14:25 Uhr
                     <p style="color: red;" *ngIf="message">{{ message.posthour }}</p>

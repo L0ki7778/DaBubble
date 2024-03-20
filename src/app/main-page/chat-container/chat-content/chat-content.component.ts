@@ -33,7 +33,8 @@ export class ChatContentComponent {
           text: doc.data()['text'],
           posthour: formattedPostTime,
           postDay: formattedPostDate,
-          reactions: doc.data()['reactions']
+          reactions: doc.data()['reactions'],
+          authorId: doc.data()['authorId']
         });
       });
     });
