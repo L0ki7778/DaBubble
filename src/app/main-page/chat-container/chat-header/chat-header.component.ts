@@ -22,7 +22,7 @@ export class ChatHeaderComponent {
   $editObservable = this.overlayService.overlaySubject.asObservable();
   private subscription: Subscription;
   editChannel: boolean = false;
-  profileView: boolean = false;
+  memberView: boolean = false;
   showMembers: boolean = false;
   showAddMember: boolean = false;
   choosenChannelId: string = 'NB6uszS6xyuHeEC2cMbo'; //This is the Id of the choosen channel from the workspace.
@@ -41,7 +41,7 @@ export class ChatHeaderComponent {
     this.subscription = this.$editObservable.subscribe(() => {
       this.editChannel = this.overlayService.editChannelOverlay;
       this.showMembers = this.overlayService.membersOverlay;
-      this.profileView = this.overlayService.memberView;
+      this.memberView = this.overlayService.memberView;
       this.showAddMember = this.overlayService.addMemberOverlay;
     });
 

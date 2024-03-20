@@ -23,28 +23,18 @@ export class MembersOverlayComponent {
   @Input() channelMemberAvatars: string[] = [];
   @Output() choosenMemberId = new EventEmitter<string>();
 
-  @ViewChild('membersOverview') membersOverview: ElementRef | null = null;
-
-  @HostListener('document:click', ['$event'])
-  onclick(event: Event) {
-    if (this.membersOverview && this.membersOverview.nativeElement.contains(event.target)) {
-      return
-    } else {
-      this.overlay.closeOverlay();
-    }
-  }
-
   constructor(){
-  }
-
-  openProfileView(userId: string) {
-    this.closeOverlay();
-    this.choosenMemberId.emit(userId);
   }
 
   openAddMemberOverlay(event: MouseEvent) {
     event.stopPropagation();
     this.overlay.toggleAddMemberOverlay();
+  }
+
+  openMemberView(event: MouseEvent) {
+    event.stopPropagation();
+    this.overlay.closeOverlay();
+    setTimeout(() => this.overlay.toggleMemberView(), 1);
   }
 
   closeOverlay() {

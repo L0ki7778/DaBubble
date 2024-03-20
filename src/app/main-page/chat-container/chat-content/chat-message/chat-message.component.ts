@@ -37,7 +37,6 @@ export class ChatMessageComponent {
     this.overlay.toggleMemberView();
   }
 
-
   showThread() {
     this.booleanService.viewThread.set(true);
   }
