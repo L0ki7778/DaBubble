@@ -32,7 +32,8 @@ export class ChatContentComponent {
         this.messages.push({
           text: doc.data()['text'],
           posthour: formattedPostTime,
-          postDay: formattedPostDate
+          postDay: formattedPostDate,
+          reactions: doc.data()['reactions']
         });
       });
     });
