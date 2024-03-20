@@ -8,7 +8,6 @@
         <img src="assets/img/main-page/chat/arrow_down.svg">
     </div>
     <div class="chat-member-section">
-        <app-member-profile [choosenMemberId]="choosenMemberId" *ngIf="profileView"></app-member-profile>
         <app-members-overlay *ngIf="showMembers" (choosenMemberId)="getChoosenMemberId($event)" [channelMemberIds]="currentChannelMembersIds" [channelMemberNames]="currentChannelMembersNames" [channelMemberAvatars]="currentChannelMembersAvatars"></app-members-overlay>
         <div class="chat-head-members" (click)="openMembersOverlay($event)">
             <div class="member-icons">
