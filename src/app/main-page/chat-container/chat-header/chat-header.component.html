@@ -2,8 +2,8 @@
     <app-edit-channel-overlay *ngIf="editChannel" class="edit-channel-overlay"></app-edit-channel-overlay>
     <div class="chat-head-title" (click)="openEditChannelOverlay()">
         <img src="assets/img/main-page/chat/tag.svg">
-        <span>
-            {{ currentChannelName }}
+        <span #channelName>
+            
         </span>
         <img src="assets/img/main-page/chat/arrow_down.svg">
     </div>
@@ -14,7 +14,9 @@
                 @for(member of currentChannelMembersIds; track member; let index = $index ){
                 <img src="{{ currentChannelMembersAvatars[index] }}">}
             </div>
-            <span> {{ currentChannelMembersIds.length }} </span>
+            @if(currentChannelMembersIds.length > 0) {
+                <span> {{ currentChannelMembersIds.length }} </span>
+            }          
         </div>
         <app-add-member-overlay *ngIf="showAddMember" [channelName]="currentChannelName" [channelMemberIds]="currentChannelMembersIds"></app-add-member-overlay>
         <img class="add-member-button" [src]="imgSrc"

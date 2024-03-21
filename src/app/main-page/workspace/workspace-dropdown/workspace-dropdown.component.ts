@@ -36,7 +36,10 @@ export class WorkspaceDropdownComponent {
     this.checkName();
   }
 
-
+openChannel(path:string){
+  this.channelService.currentChannelName = path;
+  this.channelService.newChannelSubject.next(path);
+}
 
 
 

@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { Observable, Subscription } from 'rxjs';
+import { ChannelSelectionService } from '../../../services/channel-service/channel-selection.service';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class ChatInputComponent {
   characterSubscription? : Subscription;
 
   chatForm: FormGroup = new FormGroup({});
+  channelManager = inject(ChannelSelectionService)
 
   ngOnInit() {
     this.newMessage();

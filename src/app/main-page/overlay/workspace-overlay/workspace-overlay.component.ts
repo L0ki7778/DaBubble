@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { OverlayService } from '../../../services/overlay.service';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, Timestamp } from 'firebase/firestore';
 import { ChannelSelectionService } from '../../../services/channel-service/channel-selection.service';
 
 @Component({
@@ -40,7 +40,11 @@ export class WorkspaceOverlayComponent {
       const channelRef = await addDoc(collection(this.db, "channels"), {
         channelName: this.newChannel.get('name')?.value,
         description: this.newChannel.get('description')?.value,
-        // authorId: localStorage.getItem('uid'),
+        members:["authorId"]
+      });
+      const firstMessage = await addDoc(collection(this.db, "channels", channelRef.id, "messages"), {
+        text: `Welcome to ${this.newChannel.get('name')?.value}!`,
+        postTime: Timestamp.fromDate(new Date())
       });
       this.closeOverlay()
     }

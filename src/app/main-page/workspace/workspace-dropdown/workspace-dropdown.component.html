@@ -38,7 +38,7 @@
     <div class="drop-down-list" [ngStyle]="active? {height: existingChannels.length * 3 + 'rem'} : {height:'0'}">
 
         @for(channel of existingChannels; track channel) {
-            <div class="list"># {{channel}}</div>
+            <div class="list" (click)="openChannel(channel)"># {{channel}}</div>
         }
     </div>
 }@else {
