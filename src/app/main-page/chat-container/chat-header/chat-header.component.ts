@@ -5,7 +5,7 @@ import { EditChannelOverlayComponent } from '../../overlay/edit-channel-overlay/
 import { AddMemberOverlayComponent } from '../../overlay/add-member-overlay/add-member-overlay.component';
 import { MembersOverlayComponent } from '../../overlay/members-overlay/members-overlay.component';
 import { Subscription } from 'rxjs';
-import { CollectionReference, DocumentData, Firestore, collection, doc, onSnapshot, query } from '@angular/fire/firestore';
+import { CollectionReference, Firestore, collection, doc, getDocs, onSnapshot } from '@angular/fire/firestore';
 import { MemberProfileComponent } from '../../overlay/member-profile/member-profile.component';
 
 @Component({
@@ -25,13 +25,14 @@ export class ChatHeaderComponent {
   memberView: boolean = false;
   showMembers: boolean = false;
   showAddMember: boolean = false;
-  choosenChannelId: string = 'NB6uszS6xyuHeEC2cMbo'; //This is the Id of the choosen channel from the workspace.
-  choosenMemberId: string = '';     
+  choosenChannelId: string = ''; //This is the Id of the choosen channel from the workspace.
+  choosenMemberId: string = '';
   currentChannelName: string = '';
   currentChannelMembersIds: string[] = [];
   currentChannelMembersNames: string[] = [];
   currentChannelMembersAvatars: string[] = [];
   channelsRef: CollectionReference = collection(this.firestore, "channels");
+  directMessagesRef: CollectionReference = collection(this.firestore, "direct-messages");
   usersRef: CollectionReference = collection(this.firestore, "users");
   unsubscribeUsers: any[] = [];
 
@@ -44,7 +45,31 @@ export class ChatHeaderComponent {
       this.memberView = this.overlayService.memberView;
       this.showAddMember = this.overlayService.addMemberOverlay;
     });
+  }
 
+  async ngOnInit() {
+    this.choosenChannelId = await this.getFirstDocument();
+    this.subscribeToChannelsData();
+  }
+
+  async getFirstDocument() {
+    const queryChannelSnapshot = await getDocs(this.channelsRef);
+    if (!queryChannelSnapshot.empty) {
+      return queryChannelSnapshot.docs[0].id;
+    }
+    else {
+      const queryDMSnapshot = await getDocs(this.directMessagesRef);
+      if (!queryDMSnapshot.empty) {
+        return queryDMSnapshot.docs[0].id;
+      }
+      else {
+        console.log('Keine Dokumente gefunden.');           // Dieser Fall muss noch implementiert werden!!!
+        return '';
+      }
+    }
+  }
+
+  subscribeToChannelsData() {
     const unsubscribeChannel = onSnapshot(doc(this.channelsRef, this.choosenChannelId),
       { includeMetadataChanges: true }, (channel) => {
         if (channel.exists() && channel.data() && channel.data()['channelName']) {
@@ -54,10 +79,6 @@ export class ChatHeaderComponent {
         }
       }
     );
-  }
-
-  ngOnInit() {
-
   }
 
   subscribeToUserChanges() {
