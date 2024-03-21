@@ -10,8 +10,14 @@ div {
 }
 
 .drop-down-list {
-    transition: all ease .1s;
-    overflow: hidden
+    transition: all ease .2s;
+    overflow: hidden;
+    height: 0px;
+}
+
+.drop-down-list-open{
+    min-height: 5rem;
+    height: auto
 }
 
 
@@ -21,6 +27,7 @@ div {
     width: 100%;
     gap: 2rem;
     margin-left: 24px;
+    transition: all ease .5s;
 
     &:hover {
         svg {
@@ -32,7 +39,9 @@ div {
 }
 
 .list {
-    margin-left: 54px;
+    margin-left: 2rem;
+    padding:0 1rem 0 0.5rem;
+    width: fit-content;
     display: flex;
     align-items: center;
     gap: 14px;
