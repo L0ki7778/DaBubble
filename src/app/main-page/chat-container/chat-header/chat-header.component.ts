@@ -34,7 +34,9 @@ export class ChatHeaderComponent {
   channelsRef: CollectionReference = collection(this.firestore, "channels");
   directMessagesRef: CollectionReference = collection(this.firestore, "direct-messages");
   usersRef: CollectionReference = collection(this.firestore, "users");
-  unsubscribeUsers: any[] = [];
+
+  private unsubscribeUsers: any[] = [];
+  private unsubscribeChannel: (() => void) | undefined;
 
   imgSrc: string = "../../../../assets/img/main-page/chat/add-members-button.svg";
 
@@ -70,7 +72,7 @@ export class ChatHeaderComponent {
   }
 
   subscribeToChannelsData() {
-    const unsubscribeChannel = onSnapshot(doc(this.channelsRef, this.choosenChannelId),
+    this.unsubscribeChannel = onSnapshot(doc(this.channelsRef, this.choosenChannelId),
       { includeMetadataChanges: true }, (channel) => {
         if (channel.exists() && channel.data() && channel.data()['channelName']) {
           this.currentChannelName = channel.data()['channelName'] as string;
@@ -120,7 +122,11 @@ export class ChatHeaderComponent {
     this.overlayService.toggleAddMemberOverlay();
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
+    if (this.unsubscribeChannel) {
+    this.unsubscribeChannel();
+    }
+    this.unsubscribeUsers.forEach(unsubscribe => unsubscribe());
     this.subscription.unsubscribe()
   }
 }
