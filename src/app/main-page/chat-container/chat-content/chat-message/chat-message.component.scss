@@ -65,6 +65,57 @@ app-reaction-bar {
     }
 }
 
+.message-footer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.gap {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.reactions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 24px;
+
+    p {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0px 8px;
+        border-radius: 20px;
+        border: 1px solid var(--lightPurple);
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    span {
+        font-size: 16px;
+        font-weight: 400;
+    }
+}
+
+.smiley-img {
+    background-image: url('../../../../../assets/img/general/smiley.svg');
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 100%;
+    background-color: white;
+
+    &:hover {
+        cursor: pointer;
+        background-image: url('../../../../../assets/img/general/smiley-hover.svg');
+    }
+}
+
 .message-author {
     font-size: 18px;
     font-weight: 700;

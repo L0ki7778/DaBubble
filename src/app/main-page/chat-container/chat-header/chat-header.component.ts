@@ -21,6 +21,7 @@ import { DirectMessagesService } from '../../../services/direct-messages.service
 export class ChatHeaderComponent {
   overlayService = inject(OverlayService);
   channelSelectionService = inject(ChannelSelectionService);
+  DMService: DirectMessagesService = inject(DirectMessagesService);
   private firestore: Firestore = inject(Firestore);
   $editObservable = this.overlayService.overlaySubject.asObservable();
   private overlaySubscription: Subscription;
@@ -46,7 +47,7 @@ export class ChatHeaderComponent {
 
   imgSrc: string = "../../../../assets/img/main-page/chat/add-members-button.svg";
 
-  constructor(DMService: DirectMessagesService) {
+  constructor() {
     this.overlaySubscription = this.$editObservable.subscribe(() => {
       this.editChannel = this.overlayService.editChannelOverlay;
       this.showMembers = this.overlayService.membersOverlay;

@@ -11,8 +11,8 @@
         </div>
         <img *ngIf="!DMService.selectedUserName" src="assets/img/main-page/chat/arrow_down.svg">
     </div>
-    <div *ngIf="!DMService.selectedUserName" class="chat-member-section">
-        <app-members-overlay *ngIf="showMembers" [channelMemberIds]="currentChannelMembersIds" [channelMemberNames]="currentChannelMembersNames" [channelMemberAvatars]="currentChannelMembersAvatars"></app-members-overlay>
+    <div class="chat-member-section" *ngIf="!DMService.selectedUserName">
+        <app-members-overlay *ngIf="showMembers" (choosenMemberId)="getChoosenMemberId($event)" [channelMemberIds]="currentChannelMembersIds" [channelMemberNames]="currentChannelMembersNames" [channelMemberAvatars]="currentChannelMembersAvatars"></app-members-overlay>
         <div class="chat-head-members" (click)="openMembersOverlay($event)">
             <div class="member-icons">
                 @for(member of currentChannelMembersIds; track member; let index = $index ){
@@ -20,7 +20,7 @@
             </div>
             <span> {{ currentChannelMembersIds.length }} </span>
         </div>
-        <app-add-member-overlay *ngIf="showAddMember"></app-add-member-overlay>
+        <app-add-member-overlay *ngIf="showAddMember" [channelName]="currentChannelName" [channelMemberIds]="currentChannelMembersIds"></app-add-member-overlay>
         <img class="add-member-button" [src]="imgSrc"
             (mouseover)="imgSrc = 'assets/img/main-page/chat/add-members-button-hover.svg'"
             (mouseleave)="imgSrc = 'assets/img/main-page/chat/add-members-button.svg'"

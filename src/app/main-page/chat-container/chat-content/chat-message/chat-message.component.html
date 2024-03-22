@@ -1,27 +1,46 @@
-<span class="date-label">Heute</span>
+<span class="date-label">Heute <p style="color: red;" *ngIf="message">{{ message.postDay }}</p></span>
 <div class="message-container" (mouseover)="onHover()" (mouseleave)="onLeave()"
     [ngStyle]="{'flex-direction': isOwnMessage ? 'row-reverse' : 'none'}">
     <img (click)="openMemberView($event)" src="assets/img/general/avatars/avatar1.svg" class="avatar-icon">
+    <img *ngIf="user.image" style="border: 1px solid red;" (click)="openMemberView($event)" src="{{ user.image }}" class="avatar-icon">
     <div class="message-box" [ngStyle]="{'align-items': isOwnMessage ? 'end' : 'start'}">
         <div class="message-header" [ngStyle]="{'flex-direction': isOwnMessage ? 'none' : 'row-reverse'}">
             <app-reaction-bar [isOwnMessage]="isOwnMessage"></app-reaction-bar>
             <div>
-                <span (click)="openMemberView($event)" class="message-author">Test Name</span>
-                <span class="message-time">14:25 Uhr</span>
+                <span (click)="openMemberView($event)" class="message-author">
+                    Test Name
+                    <span style="color: red;">{{ user.name }}</span>
+                </span>
+                <span class="message-time">
+                    14:25 Uhr
+                    <p style="color: red;" *ngIf="message">{{ message.posthour }}</p>
+                </span>
             </div>
         </div>
         <div class="message-text" *ngIf="!isOwnMessage"
             [ngStyle]="{'background-color': isHovered ? 'white' : '#ECEEFE', 'border-top-right-radius': '30px'}">
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere est aliquam qui aut dolor, voluptatem
-                amet dolore autem veritatis ipsum a molestiae commodi eos, sint accusantium fugiat dolores ea esse?</p>
+                amet dolore autem veritatis ipsum a molestiae commodi eos, sint accusantium fugiat dolores ea esse?
+                <br>
+                <br>
+                <br>
+                <span *ngIf="message" style="color: red;">{{ message.text }}</span>
+            </p>
         </div>
         <div class="message-text" *ngIf="isOwnMessage"
             [ngStyle]="{'background-color': '#797EF3', 'color': 'white', 'border-top-left-radius': '30px'}">
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere est aliquam qui aut dolor, voluptatem
                 amet dolore autem veritatis ipsum a molestiae commodi eos, sint accusantium fugiat dolores ea esse?</p>
         </div>
-        <div class="message-header" [ngStyle]="{'flex-direction': isOwnMessage ? 'row-reverse' : 'none' }">
-            <span (click)="showThread()" class="message-answers">2 Antworten</span><span class="message-time">Letzte Antwort 17:25 Uhr</span>
+        <div class="message-footer" [ngStyle]="{'flex-direction': isOwnMessage ? 'row-reverse' : 'none' }">
+            <div class="gap">
+                <span (click)="showThread()" class="message-answers">2 Antworten</span>
+                <span class="message-time">Letzte Antwort 17:25 Uhr</span>
+            </div>
+            <div *ngIf="message" class="reactions">
+                <p *ngFor="let smiley of message.reactions">{{ smiley }} <span>1</span></p>
+                <div class="smiley-img"></div>
+            </div>
         </div>
     </div>
 </div>

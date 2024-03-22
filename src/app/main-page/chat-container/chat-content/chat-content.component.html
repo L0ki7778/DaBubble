@@ -1,5 +1,4 @@
-<!-- FOR LATER ::: Render all app-chat-message tags in loop function/ngFor -->
-
+<!-- direct-messages-style -->
 <app-chat-message *ngIf="!DMService.showPrivateChat"></app-chat-message>
 <app-chat-message *ngIf="!DMService.showPrivateChat"></app-chat-message>
 <app-chat-message *ngIf="!DMService.showPrivateChat"></app-chat-message>
@@ -7,4 +6,5 @@
 <div *ngIf="DMService.showPrivateChat">
     <app-chat-message></app-chat-message>
   </div>
-  
+  <!-- channel-messages-style -->
+<app-chat-message [isOwnMessage]="false" style="background-color: yellow;" *ngFor="let message of messages" [message]="message"></app-chat-message>

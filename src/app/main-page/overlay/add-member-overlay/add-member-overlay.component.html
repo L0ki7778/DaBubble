@@ -8,9 +8,18 @@
                 fill="black" />
         </svg>
     </div>
-    <span class="channel-name"># test</span>
+    <span class="channel-name"># {{ channelName }}</span>
     <form class="form-container">
-        <input class="input-field" placeholder="Name eingeben">
+        <input class="input-field" placeholder="Name eingeben" name="name" type="text" [(ngModel)]="inputData"
+            (input)="filterUsers()" autocomplete="off" required="">
+        <div class="member-suggestion-box" *ngIf="filteredUsers.length > 0">
+            @for(member of filteredUsers; track member; let index = $index ){
+                <div class="user-box" (click)="selectUser(filteredUsers[index].name)">
+                    <img class="user-icon" src="{{ filteredUsers[index].image }}">
+                    <span class="user-name">{{ filteredUsers[index].name }}</span>
+                </div>
+                }
+        </div>
         <button class="add-btn">Hinzufügen</button>
     </form>
 </div>

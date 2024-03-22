@@ -55,11 +55,55 @@
     border-radius: 30px;
     border: 1px solid $lightPurple;
     outline: none;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24.55px;
+    text-align: left;
+
 
     &:hover {
         cursor: pointer;
         border: 1px solid $purple2;
-    }  
+    }
+}
+
+.member-suggestion-box {
+    @include dFlex(center, start);
+    box-shadow: 0px 6px 10px 0px #00000033;
+    border-radius: 0 30px 30px 30px;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px 10px;
+}
+
+.user-box {
+    display: flex;
+    align-items: center;
+    border-radius: 30px;
+    gap: 15px;
+    padding: 4px 20px;
+
+    &:hover {
+        transition: ease-in 150ms;
+        cursor: pointer;
+        background-color: $bgColor;
+        border-radius: 30px;
+        color: $purple3;
+    }
+}
+
+.user-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}
+
+.user-name {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 25px;
+    letter-spacing: 0em;
+    text-align: left;
 }
 
 .add-btn {

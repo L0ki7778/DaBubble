@@ -7,9 +7,39 @@
     border: 1px solid var(--lightPurple);
     border-radius: 25px 25px 0px 25px;
 
-    img:hover {
-        border-radius: 100%;
-        background-color: var(--bgColor);
+    div {
+        min-width: 40px;
+        min-height: 40px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.smiley-img {
+    background-image: url('../../../../../../assets/img/general/smiley.svg');
+
+    &:hover {
+        background-image: url('../../../../../../assets/img/general/smiley-hover.svg');
+    }
+}
+
+.answer-img {
+    background-image: url('../../../../../../assets/img/general/answer.svg');
+
+    &:hover {
+        background-image: url('../../../../../../assets/img/general/answer-hover.svg');
+
+    }
+}
+
+.edit-img {
+    background-image: url('../../../../../../assets/img/general/edit.svg');
+
+    &:hover {
+        background-image: url('../../../../../../assets/img/general/edit-hover.svg');
+
     }
 }
 

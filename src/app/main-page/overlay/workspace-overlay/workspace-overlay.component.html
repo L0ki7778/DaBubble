@@ -1,18 +1,18 @@
 <h3>{{"workspaceOverlay.createChannel" | translate}}</h3>
 <div>{{"workspaceOverlay.description" | translate}}</div>
-<form action="">
+<form [formGroup]="newChannel" (ngSubmit)="onSubmit()">
     <h4>{{"workspaceOverlay.nameHeader" | translate}}</h4>
     <div class="input-field">
-       <span>#</span> <input type="text" placeholder="{{'workspaceOverlay.nameExample' | translate}}">
+       <span>#</span> <input type="text"  formControlName="name" name="name" placeholder="{{'workspaceOverlay.nameExample' | translate}}">
     </div>
     <div class="inline">
         <h4>{{"workspaceOverlay.descriptionHeader" | translate}} </h4>
         <div>{{"workspaceOverlay.optional" | translate}}</div>
     </div>
     <div class="input-field">
-        <input id="description" type="text" placeholder="{{'workspaceOverlay.descriptionExample' | translate}}">
+        <input id="description" type="text" formControlName="description" name="description" placeholder="{{'workspaceOverlay.descriptionExample' | translate}}">
     </div>
-    <button>{{"workspaceOverlay.create" | translate}}</button>
+    <button [disabled]="!newChannel.valid">{{"workspaceOverlay.create" | translate}}</button>
 </form>
 <button class="close-btn" (click)="closeOverlay()">
     <svg id="cross" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
