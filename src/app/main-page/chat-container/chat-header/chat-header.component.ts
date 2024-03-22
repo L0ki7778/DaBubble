@@ -23,12 +23,14 @@ export class ChatHeaderComponent {
   private firestore: Firestore = inject(Firestore);
   $editObservable = this.overlayService.overlaySubject.asObservable();
   private overlaySubscription: Subscription;
-  private channelSelectionSubscription: Subscription;
+  private channelSelectionIdSubscription: Subscription;
+  private channelSelectionTypeSubscription: Subscription;
   editChannel: boolean = false;
   memberView: boolean = false;
   showMembers: boolean = false;
   showAddMember: boolean = false;
   choosenChannelId: string = ''; //This is the Id of the choosen channel from the workspace.
+  choosenChannelType: string = 'channel';
   choosenMemberId: string = '';
   currentChannelName: string = '';
   currentChannelMembersIds: string[] = [];
@@ -50,13 +52,16 @@ export class ChatHeaderComponent {
       this.memberView = this.overlayService.memberView;
       this.showAddMember = this.overlayService.addMemberOverlay;
     });
-    this.channelSelectionSubscription = this.channelSelectionService.choosenId$.subscribe(newChannelId => {
+    this.channelSelectionIdSubscription = this.channelSelectionService.choosenId$.subscribe(newChannelId => {
       if (this.unsubscribeChannel) {
         this.unsubscribeChannel();
       }
       this.unsubscribeUsers.forEach(unsubscribe => unsubscribe());
-      this.choosenChannelId = newChannelId.toString();
+      this.choosenChannelId = newChannelId;
       this.subscribeToChannelsData();
+    });
+    this.channelSelectionTypeSubscription = this.channelSelectionService.channelOrDM$.subscribe(newType => {
+      this.choosenChannelType = newType;
     });
   }
 
@@ -73,6 +78,7 @@ export class ChatHeaderComponent {
     else {
       const queryDMSnapshot = await getDocs(this.directMessagesRef);
       if (!queryDMSnapshot.empty) {
+        this.choosenChannelType = 'direct-message';
         return queryDMSnapshot.docs[0].id;
       }
       else {
@@ -141,8 +147,11 @@ export class ChatHeaderComponent {
     }
     this.unsubscribeUsers.forEach(unsubscribe => unsubscribe());
     this.overlaySubscription.unsubscribe();
-    if (this.channelSelectionSubscription) {
-      this.channelSelectionSubscription.unsubscribe();
+    if (this.channelSelectionIdSubscription) {
+      this.channelSelectionIdSubscription.unsubscribe();
+    }
+    if (this.channelSelectionTypeSubscription) {
+      this.channelSelectionTypeSubscription.unsubscribe();
     }
   }
 }
