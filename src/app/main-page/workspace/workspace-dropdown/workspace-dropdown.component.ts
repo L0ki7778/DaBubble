@@ -36,9 +36,9 @@ export class WorkspaceDropdownComponent {
     this.checkName();
   }
 
-
-
-
+  sendChannelId(index: number){
+    this.channelService.choosenChannelId.next(this.channelService.channelIds[index]);
+  }
 
   checkName() {
     if (this.name === 'Direktnachrichten') {

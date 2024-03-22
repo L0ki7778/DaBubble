@@ -7,6 +7,7 @@ import { MembersOverlayComponent } from '../../overlay/members-overlay/members-o
 import { Subscription } from 'rxjs';
 import { CollectionReference, Firestore, collection, doc, getDocs, onSnapshot } from '@angular/fire/firestore';
 import { MemberProfileComponent } from '../../overlay/member-profile/member-profile.component';
+import { ChannelSelectionService } from '../../../services/channel-service/channel-selection.service';
 
 @Component({
   selector: 'app-chat-header',
@@ -18,9 +19,11 @@ import { MemberProfileComponent } from '../../overlay/member-profile/member-prof
 
 export class ChatHeaderComponent {
   overlayService = inject(OverlayService);
+  channelSelectionService = inject(ChannelSelectionService);
   private firestore: Firestore = inject(Firestore);
   $editObservable = this.overlayService.overlaySubject.asObservable();
-  private subscription: Subscription;
+  private overlaySubscription: Subscription;
+  private channelSelectionSubscription: Subscription;
   editChannel: boolean = false;
   memberView: boolean = false;
   showMembers: boolean = false;
@@ -41,11 +44,19 @@ export class ChatHeaderComponent {
   imgSrc: string = "../../../../assets/img/main-page/chat/add-members-button.svg";
 
   constructor() {
-    this.subscription = this.$editObservable.subscribe(() => {
+    this.overlaySubscription = this.$editObservable.subscribe(() => {
       this.editChannel = this.overlayService.editChannelOverlay;
       this.showMembers = this.overlayService.membersOverlay;
       this.memberView = this.overlayService.memberView;
       this.showAddMember = this.overlayService.addMemberOverlay;
+    });
+    this.channelSelectionSubscription = this.channelSelectionService.choosenId$.subscribe(newChannelId => {
+      if (this.unsubscribeChannel) {
+        this.unsubscribeChannel();
+      }
+      this.unsubscribeUsers.forEach(unsubscribe => unsubscribe());
+      this.choosenChannelId = newChannelId.toString();
+      this.subscribeToChannelsData();
     });
   }
 
@@ -65,22 +76,24 @@ export class ChatHeaderComponent {
         return queryDMSnapshot.docs[0].id;
       }
       else {
-        console.log('Keine Dokumente gefunden.');           // Dieser Fall muss noch implementiert werden!!!
-        return '';
+        console.log('Keine Channel oder Message gefunden');           // Dieser Fall muss noch implementiert werden!!!
+        return 'NB6uszS6xyuHeEC2cMbo';
       }
     }
   }
 
   subscribeToChannelsData() {
-    this.unsubscribeChannel = onSnapshot(doc(this.channelsRef, this.choosenChannelId),
-      { includeMetadataChanges: true }, (channel) => {
-        if (channel.exists() && channel.data() && channel.data()['channelName']) {
-          this.currentChannelName = channel.data()['channelName'] as string;
-          this.currentChannelMembersIds = channel.data()['members'] as string[];
-          this.subscribeToUserChanges();
+    if (this.choosenChannelId) {
+      this.unsubscribeChannel = onSnapshot(doc(this.channelsRef, this.choosenChannelId),
+        { includeMetadataChanges: true }, (channel) => {
+          if (channel.exists() && channel.data() && channel.data()['channelName']) {
+            this.currentChannelName = channel.data()['channelName'] as string;
+            this.currentChannelMembersIds = channel.data()['members'] as string[];
+            this.subscribeToUserChanges();
+          }
         }
-      }
-    );
+      );
+    }
   }
 
   subscribeToUserChanges() {
@@ -124,9 +137,12 @@ export class ChatHeaderComponent {
 
   ngOnDestroy() {
     if (this.unsubscribeChannel) {
-    this.unsubscribeChannel();
+      this.unsubscribeChannel();
     }
     this.unsubscribeUsers.forEach(unsubscribe => unsubscribe());
-    this.subscription.unsubscribe()
+    this.overlaySubscription.unsubscribe();
+    if (this.channelSelectionSubscription) {
+      this.channelSelectionSubscription.unsubscribe();
+    }
   }
 }
