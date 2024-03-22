@@ -1,13 +1,17 @@
-<div class="chat-container-header">
+<div class="chat-container-header" *ngIf="choosenChannelType === 'channel'">
     <app-edit-channel-overlay *ngIf="editChannel" class="edit-channel-overlay"></app-edit-channel-overlay>
     <div class="chat-head-title" (click)="openEditChannelOverlay()">
-        <img src="assets/img/main-page/chat/tag.svg">
-        <span>
+        <img *ngIf="!DMService.selectedUserName" src="assets/img/main-page/chat/tag.svg">
+        <span *ngIf="!DMService.selectedUserName">
             {{ currentChannelName }}
         </span>
-        <img src="assets/img/main-page/chat/arrow_down.svg">
+        <div class="profile-container" *ngIf="DMService.selectedUserName">
+            <img class="profile-image" [src]="DMService.selectedUserImage">
+            {{ DMService.selectedUserName }}
+        </div>
+        <img *ngIf="!DMService.selectedUserName" src="assets/img/main-page/chat/arrow_down.svg">
     </div>
-    <div class="chat-member-section">
+    <div *ngIf="!DMService.selectedUserName" class="chat-member-section">
         <app-members-overlay *ngIf="showMembers" [channelMemberIds]="currentChannelMembersIds" [channelMemberNames]="currentChannelMembersNames" [channelMemberAvatars]="currentChannelMembersAvatars"></app-members-overlay>
         <div class="chat-head-members" (click)="openMembersOverlay($event)">
             <div class="member-icons">

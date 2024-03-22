@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
+import { DirectMessagesService } from '../../../services/direct-messages.service';
 
 @Component({
   selector: 'app-chat-content',
@@ -10,4 +11,5 @@ import { ChatMessageComponent } from './chat-message/chat-message.component';
   styleUrl: './chat-content.component.scss'
 })
 export class ChatContentComponent {
+  DMService: DirectMessagesService = inject(DirectMessagesService);
 }

@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { Auth, User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, updateProfile, user } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { Observable, Subscription, from } from 'rxjs';
+import { Subscription, } from 'rxjs';
 import { UserType } from '../types/user.type';
-import { Firestore, arrayUnion, collection, doc, getDocs, query, setDoc, updateDoc, where, writeBatch } from '@angular/fire/firestore';
+import { Firestore, arrayUnion, collection, doc, getDocs, query, setDoc, where, writeBatch } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +30,6 @@ export class AuthService {
 
   constructor() {
     this.userSubscription = this.user$.subscribe((aUser: User | null) => {
-      //handle user state changes here. Note, that user will be null if there is no currently logged in user.
     })
   }
 
@@ -120,7 +119,6 @@ export class AuthService {
   }
 
   ngOnDestroy() {
-    // when manually subscribing to an observable remember to unsubscribe in ngOnDestroy
     this.userSubscription.unsubscribe();
   }
 

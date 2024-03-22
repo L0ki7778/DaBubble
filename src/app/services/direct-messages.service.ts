@@ -1,9 +1,7 @@
 import { Injectable, inject } from '@angular/core';
-import { user } from '@angular/fire/auth';
-import { DocumentReference, Firestore, addDoc, collection, doc, getDoc, getDocs, query, serverTimestamp, setDoc, where } from '@angular/fire/firestore';
-import { Observable, map } from 'rxjs';
+import { DocumentReference, Firestore, addDoc, collection, doc, getDocs, getDoc, query, serverTimestamp, setDoc, where } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
-import { from } from 'rxjs';
+import { PrivateMessageType } from '../types/private-message.type';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +12,24 @@ export class DirectMessagesService {
   private authService: AuthService = inject(AuthService);
   guestAccount: { name: string, profileImage: string } | undefined;
   filteredUserNames: { name: string, profileImage: string }[] = [];
-  messageText: string = 'Hallo';
+  messageText: string = '';
+  selectedUserName: any;
+  selectedUserImage?: string;
+  showPersonName: boolean = false;
+  showPrivateChat: boolean = false;
+  chatMessages: any[] = [];
 
-  
+  private ChatMessage(): PrivateMessageType {
+    return {
+      authorId: '',
+      authorName: '',
+      authorImage: '',
+      postTime: Date.now(),
+      text: '',
+      reactions: '',
+    };
+  }
+
   async fetchUserNames() {
     try {
       const usersCollection = collection(this.firestore, 'users');
@@ -35,13 +48,14 @@ export class DirectMessagesService {
     }
   }
 
-  async getUserId(userName: string) {
+  async getUserId(userName: string | null) {
     try {
       const usersCollection = collection(this.firestore, 'users');
       const querySnapshot = await getDocs(usersCollection);
       const userDoc = querySnapshot.docs.find(doc => doc.data()['name'] === userName);
       if (userDoc) {
         const userId = userDoc.id;
+        this.selectedUserImage = userDoc.data()['image'];
         return userId;
       } else
         console.log(`User ${userName} not found`);
@@ -52,13 +66,30 @@ export class DirectMessagesService {
     }
   }
 
-  async addUserToDirectMessages(otherUserName: string, messageText: string) {
+  async getUserNameById(authorId: string): Promise<string> {
     try {
+      const userDoc = await getDoc(doc(this.firestore, 'users', authorId));
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        return userData['name'];
+      } else {
+        console.log(`User with ID ${authorId} not found`);
+        return 'Unknown User';
+      }
+    } catch (error) {
+      console.error('Error fetching user name:', error);
+      return 'Unknown User';
+    }
+  }
+
+  async addUserToDirectMessages(otherUserName: string) {
+    try {
+      this.selectedUserName = otherUserName;
       const loggedInUserId = await this.getLoggedInUserId();
       const otherUserId = await this.getUserId(otherUserName);
-      messageText = 'Hallo';
       if (loggedInUserId && otherUserId) {
-        await this.addUserToDirectMessagesWithIds(loggedInUserId, otherUserId, messageText);
+        this.showPersonName = true;
+        this.showPrivateChat = true;
       } else {
         console.error('Error retrieving user IDs');
       }
@@ -67,16 +98,18 @@ export class DirectMessagesService {
     }
   }
 
-  async createNewDirectMessage(loggedInUserId: string, otherUserId: string) {
+  async createNewDirectMessage(loggedInUserId: string | null, otherUserId: string) {
     const newDirectMessageRef = doc(collection(this.firestore, 'direct-messages'));
     await setDoc(newDirectMessageRef, { members: [loggedInUserId, otherUserId] });
     return newDirectMessageRef;
   }
 
-  async addMessageToDirectMessage(loggedInUserId: string, directMessageRef: DocumentReference, messageText: string) {
+  async addMessageToDirectMessage(loggedInUserId: string | null, directMessageRef: DocumentReference, messageText: string) {
     const messagesCollectionRef = collection(directMessageRef, 'chat-messages');
-    const newMessageData = {
+    const newMessageData: PrivateMessageType = {
       authorId: loggedInUserId,
+      authorName: '',
+      authorImage: '',
       postTime: serverTimestamp(),
       reactions: [],
       text: messageText
@@ -84,8 +117,9 @@ export class DirectMessagesService {
     await addDoc(messagesCollectionRef, newMessageData);
     console.log('New message added to the direct-messages subcollection');
   }
-  
-  async addUserToDirectMessagesWithIds(loggedInUserId: string, otherUserId: string, messageText: string) {
+
+  async addUserToDirectMessagesWithIds(otherUserId: string, messageText: string) {
+    const loggedInUserId = await this.getLoggedInUserId();
     const existingDirectMessageQuery = query(
       collection(this.firestore, 'direct-messages'),
       where('members', 'array-contains-any', [loggedInUserId, otherUserId])
@@ -103,6 +137,54 @@ export class DirectMessagesService {
     }
   }
 
+  async loadChatHistory() {
+    try {
+      this.chatMessages = [];
+      const loggedInUserId = await this.getLoggedInUserId();
+      const otherUserId = await this.getUserId(this.selectedUserName);
+      const existingDirectMessageQuery = query(
+        collection(this.firestore, 'direct-messages'),
+        where('members', 'array-contains-any', [loggedInUserId, otherUserId])
+      );
+      const existingDirectMessageSnapshot = await getDocs(existingDirectMessageQuery);
+      const existingChatWithBothUsers = existingDirectMessageSnapshot.docs.find(doc => {
+        const members = doc.data()['members'];
+        return members.includes(loggedInUserId) && members.includes(otherUserId);
+      });
+      if (existingChatWithBothUsers) {
+        const messagesCollectionRef = collection(existingChatWithBothUsers.ref, 'chat-messages');
+        const messagesSnapshot = await getDocs(messagesCollectionRef);
+        const messagesData: PrivateMessageType[] = await Promise.all(messagesSnapshot.docs.map(async doc => {
+          const messageData: PrivateMessageType = doc.data() as PrivateMessageType;
+          const authorName = await this.getUserNameById(messageData['authorId']);
+          const authorImage = await this.getUserImageById(messageData['authorId']);
+          return { ...messageData, authorName, authorImage };
+        }));
+        messagesData.sort((a, b) => a.postTime - b.postTime);
+        this.chatMessages = messagesData;
+        console.log(this.chatMessages);
+      }
+    } catch (error) {
+      console.error('Error loading chat history:', error);
+    }
+  }
+
+  async getUserImageById(authorId: string): Promise<string> {
+    try {
+      const userDoc = await getDoc(doc(this.firestore, 'users', authorId));
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        return userData['image'];
+      } else {
+        console.log(`User with ID ${authorId} not found`);
+        return 'default_image.png'; // oder ein anderes Standardbild
+      }
+    } catch (error) {
+      console.error('Error fetching user image:', error);
+      return 'default_image.png'; // oder ein anderes Standardbild
+    }
+  }
+
   async getLoggedInUserId(): Promise<string | null> {
     return new Promise((resolve) => {
       this.authService.getLoggedInUser((loggedInUserId: any) => {
@@ -110,9 +192,9 @@ export class DirectMessagesService {
       });
     });
   }
-  
 
-  constructor() { 
+
+  constructor() {
 
   }
 }

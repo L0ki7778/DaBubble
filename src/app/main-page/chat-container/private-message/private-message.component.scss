@@ -1,0 +1,125 @@
+@import '../../../../mixin.scss';
+
+.message-container {
+    @include dFlex(unset, end);
+    border-top: 1px solid $lightPurple;
+    padding: 2rem 1.5rem;
+    gap: 30px;
+
+    &:hover {
+        background-color: $bgColor;
+        cursor: pointer;
+    }
+
+    &:hover app-reaction-bar {
+        opacity: 1;
+    }
+}
+
+app-reaction-bar {
+    opacity: 0;
+    transition: all ease-in-out 0.2s;
+}
+
+.date-label {
+    position: relative;
+    top: 5%;
+    background-color: white;
+    border: 1px solid $lightPurple;
+    padding: 2px 15px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 25px;
+    letter-spacing: 0em;
+    text-align: center;
+}
+
+.avatar-icon {
+    align-self: flex-start;
+    height: 50px;
+    width: 50px;
+    margin-top: 16px;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.message-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 10px;
+}
+
+.message-header {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    div {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 20px;
+    }
+}
+
+.message-author {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 25px;
+    letter-spacing: 0em;
+    text-align: left;
+    cursor: pointer;
+}
+
+.message-time {
+    color: $textGray;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.message-text {
+    @include dFlex();
+    padding: 15px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 25px;
+    letter-spacing: 0em;
+    text-align: left;
+
+    p {
+        margin: 0;
+    }
+}
+
+.message-answers {
+    color: $purple3;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 25px;
+    letter-spacing: 0em;
+    text-align: left;
+
+    &:hover {
+        transition: ease-in 150ms;
+        cursor: pointer;
+        color: $purple1;
+        font-weight: 700;
+    }
+}
+
+
+.message-left {
+    @include dFlex();
+}
+
+.message-right {
+    @include dFlex();
+}

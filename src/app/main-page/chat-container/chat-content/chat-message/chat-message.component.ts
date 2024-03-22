@@ -13,10 +13,10 @@ import { BooleanValueService } from '../../../../services/boolean-value.service'
 })
 export class ChatMessageComponent {
   overlay = inject(OverlayService);
-
-  @Input()isOwnMessage: boolean = true;
+  
+@Input()isOwnMessage: boolean = true;
   booleanService = inject(BooleanValueService);
-
+  
   isHovered: boolean = false;
 
   constructor() {

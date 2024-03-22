@@ -36,8 +36,6 @@ export class WorkspaceDropdownComponent {
     }
   }
 
-  
-
   toggleActiveDropdown(event: Event) {
     this.active = !this.active;
   }

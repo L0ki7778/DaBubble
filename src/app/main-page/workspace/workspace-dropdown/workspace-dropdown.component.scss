@@ -23,6 +23,8 @@ div {
     margin-left: 24px;
 
     &:hover {
+        cursor: pointer;
+        color: var(--purple1);
         svg {
             path {
                 fill: $purple1;
