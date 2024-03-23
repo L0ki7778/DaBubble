@@ -7,6 +7,6 @@ export class BooleanValueService {
 
   constructor() { }
 
-  viewThread = signal(true);
+  viewThread = signal(false);
   profileView = signal(false);
 }
