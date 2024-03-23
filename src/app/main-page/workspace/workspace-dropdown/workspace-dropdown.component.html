@@ -44,7 +44,7 @@
 }@else {
     <div class="drop-down-list" [ngStyle]="active? {height: DMService.filteredUserNames.length * 4.1 + 'rem'} : {height:'0'}">
         <div *ngIf="showList" (click)="DMService.loadChatHistory()">
-            <div *ngFor="let user of DMService.filteredUserNames" class="list" (click)="DMService.addUserToDirectMessages(user.name)">
+            <div *ngFor="let user of DMService.filteredUserNames, let index = index" class="list" (click)="DMService.addUserToDirectMessages(user.name); sendDMId(index)">
                 <img [src]="user.profileImage" class="profile-image"> {{ user.name }}
             </div>
             <br>
