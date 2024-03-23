@@ -4,3 +4,8 @@ app-chat-message {
     width: 100%;
     text-align: center;
 }
+
+.channel-message-container{
+    display: flex;
+    flex-direction: column-reverse;
+}
