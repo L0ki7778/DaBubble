@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, ViewChild, inject } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
-import { ChannelSelectionService } from '../../../services/channel-service/channel-selection.service';
+import { SelectionService } from '../../../services/selection.service';
 
 
 @Component({
@@ -19,15 +19,13 @@ export class WorkspaceDropdownComponent {
   @Input() channel = false;
   @Input() active = true;
   @ViewChild('arrow') arrow: HTMLImageElement | undefined;
-  channelService = inject(ChannelSelectionService);
+  selectionService = inject(SelectionService);
   authService: AuthService = inject(AuthService);
   DMService: DirectMessagesService = inject(DirectMessagesService);
   showList = false;
-  existingChannels = this.channelService.channels;
+  existingChannels = this.selectionService.channels;
 
   constructor() { 
-    
-    console.log(this.existingChannels)
    }
 
 
@@ -37,13 +35,13 @@ export class WorkspaceDropdownComponent {
   }
 
   sendChannelId(index: number){
-    this.channelService.choosenChannelId.next(this.channelService.channelIds[index]);
-    this.channelService.channelOrDM.next('channel');
+    this.selectionService.choosenChatTypeId.next(this.selectionService.channelIds[index]);
+    this.selectionService.channelOrDM.next('channel');
   }
 
   sendDMId(index: number){
-    this.channelService.choosenChannelId.next(this.channelService.DMIds[index]);
-    this.channelService.channelOrDM.next('direct-message');
+    this.selectionService.choosenChatTypeId.next(this.selectionService.DMIds[index]);
+    this.selectionService.channelOrDM.next('direct-message');
   }
 
   checkName() {

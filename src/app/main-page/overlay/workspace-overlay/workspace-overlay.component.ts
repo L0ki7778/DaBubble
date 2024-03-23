@@ -3,7 +3,8 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { addDoc, collection } from 'firebase/firestore';
-import { ChannelSelectionService } from '../../../services/channel-service/channel-selection.service';
+import { Firestore } from '@angular/fire/firestore';
+import { SelectionService } from '../../../services/selection.service';
 
 @Component({
   selector: 'app-workspace-overlay',
@@ -20,8 +21,8 @@ import { ChannelSelectionService } from '../../../services/channel-service/chann
 export class WorkspaceOverlayComponent {
   translateService = inject(TranslateService);
   overlay = inject(OverlayService);
-  channelService = inject(ChannelSelectionService);
-  db = this.channelService.db
+  firestore: Firestore = inject(Firestore);
+  channelService = inject(SelectionService);
   newChannel: FormGroup = new FormGroup({});
 
   constructor() {  
@@ -37,7 +38,7 @@ export class WorkspaceOverlayComponent {
 
   async onSubmit() {
     if (this.newChannel.valid) {
-      const channelRef = await addDoc(collection(this.db, "channels"), {
+      const channelRef = await addDoc(collection(this.firestore, "channels"), {
         channelName: this.newChannel.get('name')?.value,
         description: this.newChannel.get('description')?.value,
         // authorId: localStorage.getItem('uid'),

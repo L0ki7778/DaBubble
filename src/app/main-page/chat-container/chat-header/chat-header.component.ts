@@ -7,8 +7,8 @@ import { MembersOverlayComponent } from '../../overlay/members-overlay/members-o
 import { Subscription } from 'rxjs';
 import { CollectionReference, Firestore, collection, doc, getDocs, onSnapshot } from '@angular/fire/firestore';
 import { MemberProfileComponent } from '../../overlay/member-profile/member-profile.component';
-import { ChannelSelectionService } from '../../../services/channel-service/channel-selection.service';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
+import { SelectionService } from '../../../services/selection.service';
 
 @Component({
   selector: 'app-chat-header',
@@ -20,19 +20,19 @@ import { DirectMessagesService } from '../../../services/direct-messages.service
 
 export class ChatHeaderComponent {
   overlayService = inject(OverlayService);
-  channelSelectionService = inject(ChannelSelectionService);
+  selectionService = inject(SelectionService);
   DMService: DirectMessagesService = inject(DirectMessagesService);
   private firestore: Firestore = inject(Firestore);
   $editObservable = this.overlayService.overlaySubject.asObservable();
   private overlaySubscription: Subscription;
-  private channelSelectionIdSubscription: Subscription;
-  private channelSelectionTypeSubscription: Subscription;
+  private selectionIdSubscription: Subscription;
+  private selectionTypeSubscription: Subscription;
   editChannel: boolean = false;
   memberView: boolean = false;
   showMembers: boolean = false;
   showAddMember: boolean = false;
-  choosenChannelId: string = ''; //This is the Id of the choosen channel from the workspace.
-  choosenChannelType: string = 'channel';
+  choosenChatTypeId: string = '';
+  choosenChatType: string = 'channel';
   choosenMemberId: string = '';
   currentChannelName: string = '';
   currentChannelMembersIds: string[] = [];
@@ -54,21 +54,21 @@ export class ChatHeaderComponent {
       this.memberView = this.overlayService.memberView;
       this.showAddMember = this.overlayService.addMemberOverlay;
     });
-    this.channelSelectionIdSubscription = this.channelSelectionService.choosenId$.subscribe(newChannelId => {
+    this.selectionIdSubscription = this.selectionService.choosenChatTypeId$.subscribe(newChannelId => {
       if (this.unsubscribeChannel) {
         this.unsubscribeChannel();
       }
       this.unsubscribeUsers.forEach(unsubscribe => unsubscribe());
-      this.choosenChannelId = newChannelId;
+      this.choosenChatTypeId = newChannelId;
       this.subscribeToChannelsData();
     });
-    this.channelSelectionTypeSubscription = this.channelSelectionService.channelOrDM$.subscribe(newType => {
-      this.choosenChannelType = newType;
+    this.selectionTypeSubscription = this.selectionService.channelOrDM$.subscribe(newType => {
+      this.choosenChatType = newType;
     });
   }
 
   async ngOnInit() {
-    this.choosenChannelId = await this.getFirstDocument();
+    this.choosenChatTypeId = await this.getFirstDocument();
     this.subscribeToChannelsData();
   }
 
@@ -80,7 +80,7 @@ export class ChatHeaderComponent {
     else {
       const queryDMSnapshot = await getDocs(this.directMessagesRef);
       if (!queryDMSnapshot.empty) {
-        this.choosenChannelType = 'direct-message';
+        this.choosenChatType = 'direct-message';
         return queryDMSnapshot.docs[0].id;
       }
       else {
@@ -91,8 +91,8 @@ export class ChatHeaderComponent {
   }
 
   subscribeToChannelsData() {
-    if (this.choosenChannelId) {
-      this.unsubscribeChannel = onSnapshot(doc(this.channelsRef, this.choosenChannelId),
+    if (this.choosenChatTypeId) {
+      this.unsubscribeChannel = onSnapshot(doc(this.channelsRef, this.choosenChatTypeId),
         { includeMetadataChanges: true }, (channel) => {
           if (channel.exists() && channel.data() && channel.data()['channelName']) {
             this.currentChannelName = channel.data()['channelName'] as string;
@@ -149,11 +149,11 @@ export class ChatHeaderComponent {
     }
     this.unsubscribeUsers.forEach(unsubscribe => unsubscribe());
     this.overlaySubscription.unsubscribe();
-    if (this.channelSelectionIdSubscription) {
-      this.channelSelectionIdSubscription.unsubscribe();
+    if (this.selectionIdSubscription) {
+      this.selectionIdSubscription.unsubscribe();
     }
-    if (this.channelSelectionTypeSubscription) {
-      this.channelSelectionTypeSubscription.unsubscribe();
+    if (this.selectionTypeSubscription) {
+      this.selectionTypeSubscription.unsubscribe();
     }
   }
 }

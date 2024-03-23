@@ -1,4 +1,4 @@
-<div class="chat-container-header" *ngIf="choosenChannelType === 'channel'">
+<div class="chat-container-header" *ngIf="choosenChatType === 'channel'">
     <app-edit-channel-overlay *ngIf="editChannel" class="edit-channel-overlay"></app-edit-channel-overlay>
     <div class="chat-head-title" (click)="openEditChannelOverlay()">
         <img *ngIf="!DMService.selectedUserName" src="assets/img/main-page/chat/tag.svg">
