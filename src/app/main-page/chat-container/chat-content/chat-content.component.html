@@ -1,9 +1,9 @@
-<!-- direct-messages-style -->
-<div *ngIf="DMService.showPrivateChat">
-  <app-private-message></app-private-message>
-</div>
 <!-- channel-messages-style -->
-<div *ngIf="!DMService.showPrivateChat">
-  <app-chat-message [isOwnMessage]="false" style="background-color: yellow;" *ngFor="let message of messages"
+<div *ngIf="this.selectionService.channelOrDM.value === 'channel'">
+  <app-chat-message [isOwnMessage]="false" *ngFor="let message of messages"
     [message]="message"></app-chat-message>
+</div>
+<!-- direct-messages-style -->
+<div *ngIf="this.selectionService.channelOrDM.value === 'direct-message'">
+  <app-private-message></app-private-message>
 </div>

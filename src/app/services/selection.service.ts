@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore } from '@angular/fire/firestore';
+import { Firestore, getDocs } from '@angular/fire/firestore';
 import { collection, query, where, onSnapshot, CollectionReference } from "firebase/firestore";
 import { BehaviorSubject, timestamp } from 'rxjs';
 
@@ -34,13 +34,31 @@ export class SelectionService {
         this.channels.push(doc.data()['channelName']);
         this.channelIds.push(doc.id);
       }); 
-      console.log(this.channels);
     });
     this.unsubDM = onSnapshot(this.directMessagesQuery, (querySnapshot) => {
       querySnapshot.forEach((doc) => {
         this.DMIds.push(doc.id);
       });
     });
+    this.getFirstDocumentId();
+  }
+
+  async getFirstDocumentId() {
+    const queryChannelSnapshot = await getDocs(this.channelsRef);
+    if (!queryChannelSnapshot.empty) {
+      this.choosenChatTypeId.next(queryChannelSnapshot.docs[0].id);
+    }
+    else {
+      const queryDMSnapshot = await getDocs(this.directMessagesRef);
+      if (!queryDMSnapshot.empty) {
+        this.channelOrDM.next('direct-message');
+        this.choosenChatTypeId.next(queryDMSnapshot.docs[0].id);
+      }
+      else {
+        console.log('Keine Channel oder Message gefunden');           // Dieser Fall muss noch implementiert werden!!!
+        this.choosenChatTypeId.next('NB6uszS6xyuHeEC2cMbo');
+      }
+    }
   }
 
   ngOnDestroy() {

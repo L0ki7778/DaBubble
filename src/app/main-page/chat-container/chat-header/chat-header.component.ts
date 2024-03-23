@@ -67,29 +67,6 @@ export class ChatHeaderComponent {
     });
   }
 
-  async ngOnInit() {
-    this.choosenChatTypeId = await this.getFirstDocument();
-    this.subscribeToChannelsData();
-  }
-
-  async getFirstDocument() {
-    const queryChannelSnapshot = await getDocs(this.channelsRef);
-    if (!queryChannelSnapshot.empty) {
-      return queryChannelSnapshot.docs[0].id;
-    }
-    else {
-      const queryDMSnapshot = await getDocs(this.directMessagesRef);
-      if (!queryDMSnapshot.empty) {
-        this.choosenChatType = 'direct-message';
-        return queryDMSnapshot.docs[0].id;
-      }
-      else {
-        console.log('Keine Channel oder Message gefunden');           // Dieser Fall muss noch implementiert werden!!!
-        return 'NB6uszS6xyuHeEC2cMbo';
-      }
-    }
-  }
-
   subscribeToChannelsData() {
     if (this.choosenChatTypeId) {
       this.unsubscribeChannel = onSnapshot(doc(this.channelsRef, this.choosenChatTypeId),

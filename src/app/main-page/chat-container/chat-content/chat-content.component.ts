@@ -4,6 +4,8 @@ import { ChatMessageComponent } from './chat-message/chat-message.component';
 import { Firestore, collection, doc, getDocs, onSnapshot, orderBy, query } from '@angular/fire/firestore';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
 import { PrivateMessageComponent } from '../private-message/private-message.component';
+import { SelectionService } from '../../../services/selection.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -16,11 +18,23 @@ import { PrivateMessageComponent } from '../private-message/private-message.comp
 export class ChatContentComponent {
   firestore: Firestore = inject(Firestore);
   DMService: DirectMessagesService = inject(DirectMessagesService);
+  selectionService: SelectionService = inject(SelectionService);
+  private selectionIdSubscription: Subscription;
+  choosenChatId: string = '';
 
   messages: any[] = [];
 
   constructor() {
-    const collRef = collection(this.firestore, 'channels', 'NB6uszS6xyuHeEC2cMbo', 'messages');
+    this.selectionIdSubscription = this.selectionService.choosenChatTypeId.subscribe(newId => {
+      this.choosenChatId = newId;
+      if(this.choosenChatId !== '')
+      this.loadChannelMessages();
+    });
+  }
+
+  loadChannelMessages() {
+    this.messages = [];
+    const collRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
     const q = query(collRef, orderBy('postTime'));
 
     getDocs(q).then((querySnapshot) => {
@@ -41,5 +55,9 @@ export class ChatContentComponent {
         });
       });
     });
+  }
+
+  ngOnDestroy() {
+    this.selectionIdSubscription.unsubscribe();
   }
 }
