@@ -3,13 +3,7 @@ import { Component, Input, inject } from '@angular/core';
 import { OverlayService } from '../../../../services/overlay.service';
 import { ReactionBarComponent } from './reaction-bar/reaction-bar.component';
 import { BooleanValueService } from '../../../../services/boolean-value.service';
-import {
-  Firestore,
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-} from '@angular/fire/firestore';
+import { Firestore, collection, doc, getDoc, getDocs } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-chat-message',
