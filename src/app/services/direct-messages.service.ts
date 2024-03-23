@@ -1,7 +1,8 @@
-import { Injectable, inject } from '@angular/core';
+import { Inject, Injectable, LOCALE_ID, inject } from '@angular/core';
 import { DocumentReference, Firestore, addDoc, collection, doc, getDocs, getDoc, query, serverTimestamp, setDoc, where } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
 import { PrivateMessageType } from '../types/private-message.type';
+import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,10 @@ export class DirectMessagesService {
   showPersonName: boolean = false;
   showPrivateChat: boolean = false;
   chatMessages: any[] = [];
+  locale = 'de-DE';
+
+  constructor(@Inject(LOCALE_ID) private localeId: string) {
+  }
 
   private ChatMessage(): PrivateMessageType {
     return {
@@ -46,6 +51,10 @@ export class DirectMessagesService {
     } catch (error) {
       console.error('Error fetching user names:', error);
     }
+  }
+
+  getFormattedDate(date: Date): string {
+    return formatDate(date, 'EEEE, d MMMM', 'de-DE');
   }
 
   async getUserId(userName: string | null) {
@@ -104,12 +113,12 @@ export class DirectMessagesService {
     return newDirectMessageRef;
   }
 
-  async addMessageToDirectMessage(loggedInUserId: string | null, directMessageRef: DocumentReference, messageText: string) {
+  async addMessageToDirectMessage(loggedInUserId: any, directMessageRef: DocumentReference, messageText: string) {
     const messagesCollectionRef = collection(directMessageRef, 'chat-messages');
     const newMessageData: PrivateMessageType = {
       authorId: loggedInUserId,
-      authorName: '',
-      authorImage: '',
+      authorName: await this.getUserNameById(loggedInUserId),
+      authorImage: await this.getUserImageById(loggedInUserId),
       postTime: serverTimestamp(),
       reactions: [],
       text: messageText
@@ -169,7 +178,7 @@ export class DirectMessagesService {
     }
   }
 
-  async getUserImageById(authorId: string): Promise<string> {
+  async getUserImageById(authorId: any): Promise<string> {
     try {
       const userDoc = await getDoc(doc(this.firestore, 'users', authorId));
       if (userDoc.exists()) {
@@ -191,10 +200,5 @@ export class DirectMessagesService {
         resolve(loggedInUserId);
       });
     });
-  }
-
-
-  constructor() {
-
   }
 }

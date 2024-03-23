@@ -1,6 +1,6 @@
 <div *ngIf="DMService.showPrivateChat">
-    <div *ngFor="let message of DMService.chatMessages">
-        <span class="date-label">{{ message.postTime.toDate() | date:'short' }}</span>
+    <div class="date-message-box" *ngFor="let message of DMService.chatMessages">
+        <span class="date-label">{{ DMService.getFormattedDate(message.postTime.toDate()) }}</span>
         <div class="message-container" (mouseover)="onHover()" (mouseleave)="onLeave()" 
         [ngStyle]="{'flex-direction': isOwnMessage(message) ? 'row-reverse' : 'none'}">
             <img (click)="openMemberView($event)" [src]="message.authorImage" class="avatar-icon">

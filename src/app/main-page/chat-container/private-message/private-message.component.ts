@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component,inject } from '@angular/core';
+import { CommonModule, formatDate } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { BooleanValueService } from '../../../services/boolean-value.service';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
@@ -13,10 +13,12 @@ import { ReactionBarComponent } from '../chat-content/chat-message/reaction-bar/
   templateUrl: './private-message.component.html',
   styleUrl: './private-message.component.scss'
 })
+
 export class PrivateMessageComponent {
   overlay = inject(OverlayService);
   currentUserId: string | null = null;
   DMService: DirectMessagesService = inject(DirectMessagesService);
+  
 
   booleanService = inject(BooleanValueService);
   privateMessage: any = null;
@@ -26,6 +28,7 @@ export class PrivateMessageComponent {
   isHovered: boolean = false;
 
   constructor() {
+
   }
 
   ngOnInit() {

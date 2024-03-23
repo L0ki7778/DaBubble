@@ -3,12 +3,13 @@ import { Component, inject } from '@angular/core';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
 import { Firestore, collection, doc, getDocs, onSnapshot, orderBy, query } from '@angular/fire/firestore';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
+import { PrivateMessageComponent } from '../private-message/private-message.component';
 
 
 @Component({
   selector: 'app-chat-content',
   standalone: true,
-  imports: [CommonModule, ChatMessageComponent],
+  imports: [CommonModule, ChatMessageComponent, PrivateMessageComponent],
   templateUrl: './chat-content.component.html',
   styleUrl: './chat-content.component.scss'
 })

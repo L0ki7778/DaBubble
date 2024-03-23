@@ -1,4 +1,4 @@
-@import '../../../../mixin.scss';
+@import '../../../mixin.scss';
 
 .message-container {
     @include dFlex(unset, end);
@@ -122,4 +122,13 @@ app-reaction-bar {
 
 .message-right {
     @include dFlex();
+}
+
+.date-message-box {
+    text-align: center;
+    width: 100%;
+}
+
+.d-flex {
+    display: flex;
 }
