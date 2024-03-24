@@ -8,7 +8,7 @@ import { BehaviorSubject, timestamp } from 'rxjs';
 })
 export class SelectionService {
   firestore = inject(Firestore);
-  channels: string[] = [];
+  channelNames: string[] = [];
   channelIds: string[] = [];
   DMIds: string[] = [];
 
@@ -31,10 +31,10 @@ export class SelectionService {
   constructor() {
     this.unsubChannels = onSnapshot(this.channelsQuery,
       { includeMetadataChanges: true }, (querySnapshot) => {
-        this.channels = [];
+        this.channelNames = [];
         this.channelIds = [];
         querySnapshot.forEach((doc) => {
-          this.channels.push(doc.data()['channelName']);
+          this.channelNames.push(doc.data()['channelName']);
           this.channelIds.push(doc.id);
         });
       });
