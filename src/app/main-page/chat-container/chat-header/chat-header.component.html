@@ -1,18 +1,16 @@
-<div class="chat-container-header">
+<div class="chat-container-header" *ngIf="this.selectionService.channelOrDM.value === 'channel'">
     <app-edit-channel-overlay *ngIf="editChannel" class="edit-channel-overlay"></app-edit-channel-overlay>
     <div class="chat-head-title" (click)="openEditChannelOverlay()">
-        <img *ngIf="!DMService.selectedUserName" src="assets/img/main-page/chat/tag.svg">
-        <span *ngIf="!DMService.selectedUserName">
+        <img src="assets/img/main-page/chat/tag.svg">
+        <span>
             {{ currentChannelName }}
         </span>
-        <div class="profile-container" *ngIf="DMService.selectedUserName">
-            <img class="profile-image" [src]="DMService.selectedUserImage">
-            {{ DMService.selectedUserName }}
-        </div>
-        <img *ngIf="!DMService.selectedUserName" src="assets/img/main-page/chat/arrow_down.svg">
+        <img src="assets/img/main-page/chat/arrow_down.svg">
     </div>
-    <div class="chat-member-section" *ngIf="!DMService.selectedUserName">
-        <app-members-overlay *ngIf="showMembers" (choosenMemberId)="getChoosenMemberId($event)" [channelMemberIds]="currentChannelMembersIds" [channelMemberNames]="currentChannelMembersNames" [channelMemberAvatars]="currentChannelMembersAvatars"></app-members-overlay>
+    <div class="chat-member-section">
+        <app-members-overlay *ngIf="showMembers" (choosenMemberId)="getChoosenMemberId($event)"
+            [channelMemberIds]="currentChannelMembersIds" [channelMemberNames]="currentChannelMembersNames"
+            [channelMemberAvatars]="currentChannelMembersAvatars"></app-members-overlay>
         <div class="chat-head-members" (click)="openMembersOverlay($event)">
             <div class="member-icons">
                 @for(member of currentChannelMembersIds; track member; let index = $index ){
@@ -20,10 +18,22 @@
             </div>
             <span> {{ currentChannelMembersIds.length }} </span>
         </div>
-        <app-add-member-overlay *ngIf="showAddMember" [channelName]="currentChannelName" [channelMemberIds]="currentChannelMembersIds"></app-add-member-overlay>
+        <app-add-member-overlay *ngIf="showAddMember" [channelName]="currentChannelName"
+            [channelMemberIds]="currentChannelMembersIds"></app-add-member-overlay>
         <img class="add-member-button" [src]="imgSrc"
             (mouseover)="imgSrc = 'assets/img/main-page/chat/add-members-button-hover.svg'"
             (mouseleave)="imgSrc = 'assets/img/main-page/chat/add-members-button.svg'"
             (click)="openAddMemberOverlay($event)">
+    </div>
+</div>
+
+
+
+
+
+<div class="chat-container-header" *ngIf="this.selectionService.channelOrDM.value === 'direct-message'">
+    <div class="profile-container">
+        <img class="profile-image" [src]="DMService.selectedUserImage">
+        {{ DMService.selectedUserName }}
     </div>
 </div>

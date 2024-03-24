@@ -55,13 +55,11 @@ export class WorkspaceDropdownComponent {
   sendChannelId(index: number) {
     this.selectionService.choosenChatTypeId.next(this.selectionService.channelIds[index]);
     this.selectionService.channelOrDM.next('channel');
-    console.log(this.selectionService.channelOrDM.value);
   }
 
   sendDMId(index: number) {
     this.selectionService.choosenChatTypeId.next(this.selectionService.DMIds[index]);
     this.selectionService.channelOrDM.next('direct-message');
-    console.log(this.selectionService.channelOrDM.value);
   }
 
   checkName() {
