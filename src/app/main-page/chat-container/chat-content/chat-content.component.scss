@@ -1,6 +1,6 @@
 @import '../../../mixin.scss';
 
-app-chat-message {
+app-chat-message, app-private-message {
     width: 100%;
     text-align: center;
 }

@@ -35,7 +35,7 @@ export class ChatContentComponent {
   loadChannelMessages() {
     this.messages = [];
     const collRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
-    const q = query(collRef, orderBy('postTime', 'desc'));
+    const q = query(collRef, orderBy('postTime'));
 
     getDocs(q).then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
