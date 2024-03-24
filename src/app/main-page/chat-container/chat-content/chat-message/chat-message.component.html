@@ -34,7 +34,10 @@
             </div>
             <div *ngIf="message" class="reactions">
                 <p *ngFor="let smiley of message.reactions">{{ smiley }} <span>1</span></p>
-                <div class="smiley-img"></div>
+                <div (click)="showEmojiPicker($event)" class="smiley-img">
+                    <emoji-mart (emojiClick)="addEmoji($event)" #emoji *ngIf="viewEmojiPicker"
+                        [style]="{ position: 'absolute', bottom: '160px', right: '20px' }"></emoji-mart>
+                </div>
             </div>
         </div>
     </div>
