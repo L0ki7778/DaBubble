@@ -35,6 +35,7 @@
 <ng-content id="plus-content"></ng-content>
 </div>
 @if(channel){
+    <!-- this.selectionService.channelNames muss später ersetzt werden durch filteredChannelNames -->
     <div class="drop-down-list" [ngStyle]="active? {height: this.selectionService.channelNames.length * 3 + 'rem'} : {height:'0'}">
 
         @for(channel of this.selectionService.channelNames; track channel; let index = $index ) {
