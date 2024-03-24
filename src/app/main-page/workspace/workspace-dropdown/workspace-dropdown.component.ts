@@ -25,14 +25,25 @@ export class WorkspaceDropdownComponent {
   firestore = inject(Firestore);
   DMService: DirectMessagesService = inject(DirectMessagesService);
   channelsRef: CollectionReference = collection(this.firestore, "channels");
+  channelQuery = query(this.channelsRef);
   private unsubscribeChannel: (() => void) | undefined;
   showList = false;
-  currentUserID = this.DMService.getLoggedInUserId();
+  currentUserID: string | null= '';
   filteredChannelNames: string[] = [];
 
   constructor() {
-    const q = query(this.channelsRef);
-    const unsubscribeChannel = onSnapshot(q, (querySnapshot) => {
+  }
+
+
+  async ngOnInit() {
+    this.currentUserID = await this.DMService.getLoggedInUserId()
+    this.filterChannels();
+    this.DMService.fetchUserNames();
+    this.checkName();
+  }
+
+  filterChannels(){
+    this.unsubscribeChannel = onSnapshot(this.channelQuery, (querySnapshot) => {
       this.filteredChannelNames = [];
       querySnapshot.forEach((doc) => {
         if(doc.data()['members'].includes(this.currentUserID))
@@ -40,14 +51,6 @@ export class WorkspaceDropdownComponent {
       });
     });
   }
-
-
-  ngOnInit() {
-    this.DMService.fetchUserNames();
-    this.checkName();
-  }
-
-
 
   sendChannelId(index: number) {
     this.selectionService.choosenChatTypeId.next(this.selectionService.channelIds[index]);
@@ -67,5 +70,10 @@ export class WorkspaceDropdownComponent {
 
   toggleActiveDropdown(event: Event) {
     this.active = !this.active;
+  }
+
+  ngOnDestroy() {
+    if(this.unsubscribeChannel)
+    this.unsubscribeChannel();
   }
 }
