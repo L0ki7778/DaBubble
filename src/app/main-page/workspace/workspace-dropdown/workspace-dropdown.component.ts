@@ -23,7 +23,6 @@ export class WorkspaceDropdownComponent {
   authService: AuthService = inject(AuthService);
   DMService: DirectMessagesService = inject(DirectMessagesService);
   showList = false;
-  existingChannels = this.selectionService.channels;
 
   constructor() { 
    }
