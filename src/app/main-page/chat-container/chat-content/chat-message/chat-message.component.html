@@ -36,7 +36,8 @@
                 <p *ngFor="let smiley of message.reactions">{{ smiley }} <span>1</span></p>
                 <div (click)="showEmojiPicker($event)" class="smiley-img">
                     <emoji-mart (emojiClick)="addEmoji($event)" #emoji *ngIf="viewEmojiPicker"
-                        [style]="{ position: 'absolute', bottom: '160px', right: '20px' }"></emoji-mart>
+                        [style]="{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', 'z-index': '9' }">
+                    </emoji-mart>
                 </div>
             </div>
         </div>
