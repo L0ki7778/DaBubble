@@ -9,16 +9,16 @@
                     <app-reaction-bar [isOwnMessage]="isOwnMessage(message)"></app-reaction-bar>
                     <div>
                         <span (click)="openMemberView($event)" class="message-author">{{ message.authorName }}</span>
-                        <span class="message-time">{{ privateMessage ? messageTime : '14:25 Uhr' }}</span>
+                        <span class="message-time">{{ (message.postTime.toDate() | date:'HH:mm') }} Uhr</span>
                     </div>
                 </div>
                 <div class="message-text" *ngIf="!isOwnMessage(message)"
-                    [ngStyle]="{'background-color': isHovered ? 'white' : '#ECEEFE', 'border-top-right-radius': '30px'}">
-                    <p>{{ message.text }}</p>
+                    [ngStyle]="{'background-color': isHovered ? 'white' : '#ECEEFE', 'border-top-right-radius': '30px'}" [innerHTML]="message.text">
+                    <p></p>
                 </div>
                 <div class="message-text" *ngIf="isOwnMessage(message)"
-                    [ngStyle]="{'background-color': '#797EF3', 'color': 'white', 'border-top-left-radius': '30px'}">
-                    <p>{{ message.text }}</p>
+                    [ngStyle]="{'background-color': '#797EF3', 'color': 'white', 'border-top-left-radius': '30px'}" [innerHTML]="message.text">
+                    <p></p>
                 </div>
                 <div class="message-header" [ngStyle]="{'flex-direction': isOwnMessage(message) ? 'row-reverse' : 'none' }">
                     <!-- <span (click)="showThread()" class="message-answers">2 Antworten</span><span class="message-time">Letzte Antwort 17:25 Uhr</span> -->

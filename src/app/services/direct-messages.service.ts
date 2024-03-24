@@ -115,13 +115,14 @@ export class DirectMessagesService {
 
   async addMessageToDirectMessage(loggedInUserId: any, directMessageRef: DocumentReference, messageText: string) {
     const messagesCollectionRef = collection(directMessageRef, 'chat-messages');
+    const processedMessageText = messageText.replace(/\n/g, '<br>');
     const newMessageData: PrivateMessageType = {
       authorId: loggedInUserId,
       authorName: await this.getUserNameById(loggedInUserId),
       authorImage: await this.getUserImageById(loggedInUserId),
       postTime: serverTimestamp(),
       reactions: [],
-      text: messageText
+      text: processedMessageText
     };
     await addDoc(messagesCollectionRef, newMessageData);
     console.log('New message added to the direct-messages subcollection');
