@@ -35,9 +35,9 @@
 <ng-content id="plus-content"></ng-content>
 </div>
 @if(channel){
-    <div class="drop-down-list" [ngStyle]="active? {height: existingChannels.length * 3 + 'rem'} : {height:'0'}">
+    <div class="drop-down-list" [ngStyle]="active? {height: this.selectionService.channels.length * 3 + 'rem'} : {height:'0'}">
 
-        @for(channel of existingChannels; track channel; let index = $index ) {
+        @for(channel of this.selectionService.channels; track channel; let index = $index ) {
             <div class="list" (click)="sendChannelId(index)"># {{channel}}</div>
         }
     </div>
