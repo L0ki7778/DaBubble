@@ -3,6 +3,7 @@ import { Component, Input, ViewChild, inject } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
 import { SelectionService } from '../../../services/selection.service';
+import { CollectionReference, Firestore, collection, doc, onSnapshot, query } from '@angular/fire/firestore';
 
 
 @Component({
@@ -21,26 +22,46 @@ export class WorkspaceDropdownComponent {
   @ViewChild('arrow') arrow: HTMLImageElement | undefined;
   selectionService = inject(SelectionService);
   authService: AuthService = inject(AuthService);
+  firestore = inject(Firestore);
   DMService: DirectMessagesService = inject(DirectMessagesService);
+  channelsRef: CollectionReference = collection(this.firestore, "channels");
+  channelQuery = query(this.channelsRef);
+  private unsubscribeChannel: (() => void) | undefined;
   showList = false;
+  currentUserID: string | null= '';
+  filteredChannelNames: string[] = [];
 
-  constructor() { 
-   }
+  constructor() {
+  }
 
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.currentUserID = await this.DMService.getLoggedInUserId()
+    this.filterChannels();
     this.DMService.fetchUserNames();
     this.checkName();
   }
 
-  sendChannelId(index: number){
-    this.selectionService.choosenChatTypeId.next(this.selectionService.channelIds[index]);
-    this.selectionService.channelOrDM.next('channel');
+  filterChannels(){
+    this.unsubscribeChannel = onSnapshot(this.channelQuery, (querySnapshot) => {
+      this.filteredChannelNames = [];
+      querySnapshot.forEach((doc) => {
+        if(doc.data()['members'].includes(this.currentUserID))
+        this.filteredChannelNames.push(doc.data()['channelName'] as string);
+      });
+    });
   }
 
-  sendDMId(index: number){
+  sendChannelId(index: number) {
+    this.selectionService.choosenChatTypeId.next(this.selectionService.channelIds[index]);
+    this.selectionService.channelOrDM.next('channel');
+    console.log(this.selectionService.channelOrDM.value);
+  }
+
+  sendDMId(index: number) {
     this.selectionService.choosenChatTypeId.next(this.selectionService.DMIds[index]);
     this.selectionService.channelOrDM.next('direct-message');
+    console.log(this.selectionService.channelOrDM.value);
   }
 
   checkName() {
@@ -51,5 +72,10 @@ export class WorkspaceDropdownComponent {
 
   toggleActiveDropdown(event: Event) {
     this.active = !this.active;
+  }
+
+  ngOnDestroy() {
+    if(this.unsubscribeChannel)
+    this.unsubscribeChannel();
   }
 }

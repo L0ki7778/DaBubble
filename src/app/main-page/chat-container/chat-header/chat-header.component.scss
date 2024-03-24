@@ -17,7 +17,7 @@
         @include hoverEffect();
 
         img {
-            filter: invert(35%) sepia(30%) saturate(7474%) hue-rotate(229deg) brightness(96%) contrast(97%);
+            //filter: invert(35%) sepia(30%) saturate(7474%) hue-rotate(229deg) brightness(96%) contrast(97%);
             transition: ease-in 150ms;
         }
     }
