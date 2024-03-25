@@ -1,29 +1,27 @@
-<div *ngIf="DMService.showPrivateChat">
-    <div class="date-message-box" *ngFor="let message of DMService.chatMessages">
-        <span class="date-label">{{ DMService.getFormattedDate(message.postTime.toDate()) }}</span>
-        <div class="message-container" (mouseover)="onHover()" (mouseleave)="onLeave()" 
-        [ngStyle]="{'flex-direction': isOwnMessage(message) ? 'row-reverse' : 'none'}">
-            <img (click)="openMemberView($event)" [src]="message.authorImage" class="avatar-icon">
-            <div class="message-box" [ngStyle]="{'align-items': isOwnMessage(message) ? 'end' : 'start'}">
-                <div class="message-header" [ngStyle]="{'flex-direction': isOwnMessage(message) ? 'none' : 'row-reverse'}">
-                    <app-reaction-bar [isOwnMessage]="isOwnMessage(message)"></app-reaction-bar>
-                    <div>
-                        <span (click)="openMemberView($event)" class="message-author">{{ message.authorName }}</span>
-                        <span class="message-time">{{ (message.postTime.toDate() | date:'HH:mm') }} Uhr</span>
-                    </div>
-                </div>
-                <div class="message-text" *ngIf="!isOwnMessage(message)"
-                    [ngStyle]="{'background-color': isHovered ? 'white' : '#ECEEFE', 'border-top-right-radius': '30px'}" [innerHTML]="message.text">
-                    <p></p>
-                </div>
-                <div class="message-text" *ngIf="isOwnMessage(message)"
-                    [ngStyle]="{'background-color': '#797EF3', 'color': 'white', 'border-top-left-radius': '30px'}" [innerHTML]="message.text">
-                    <p></p>
-                </div>
-                <div class="message-header" [ngStyle]="{'flex-direction': isOwnMessage(message) ? 'row-reverse' : 'none' }">
-                    <!-- <span (click)="showThread()" class="message-answers">2 Antworten</span><span class="message-time">Letzte Antwort 17:25 Uhr</span> -->
-                </div>
+<span class="date-label">{{ DMService.getFormattedDate(message.postTime.toDate()) }}</span>
+<div class="message-container" (mouseover)="onHover()" (mouseleave)="onLeave()"
+    [ngStyle]="{'flex-direction': isOwnMessage(message) ? 'row-reverse' : 'none'}">
+    <img (click)="openMemberView($event)" [src]="message.authorImage" class="avatar-icon">
+    <div class="message-box" [ngStyle]="{'align-items': isOwnMessage(message) ? 'end' : 'start'}">
+        <div class="message-header" [ngStyle]="{'flex-direction': isOwnMessage(message) ? 'row' : 'row-reverse'}">
+            <app-reaction-bar [isOwnMessage]="isOwnMessage(message)"></app-reaction-bar>
+            <div>
+                <span (click)="openMemberView($event)" class="message-author">{{ message.authorName }}</span>
+                <span class="message-time">{{ (message.postTime.toDate() | date:'HH:mm') }} Uhr</span>
             </div>
+        </div>
+        <div class="message-text" *ngIf="!isOwnMessage(message)"
+            [ngStyle]="{'background-color': isHovered ? 'white' : '#ECEEFE', 'border-top-right-radius': '30px'}"
+            [innerHTML]="message.text">
+            <p></p>
+        </div>
+        <div class="message-text" *ngIf="isOwnMessage(message)"
+            [ngStyle]="{'background-color': '#797EF3', 'color': 'white', 'border-top-left-radius': '30px'}"
+            [innerHTML]="message.text">
+            <p></p>
+        </div>
+        <div class="message-header" [ngStyle]="{'flex-direction': isOwnMessage(message) ? 'row-reverse' : 'none' }">
+            <!-- <span (click)="showThread()" class="message-answers">2 Antworten</span><span class="message-time">Letzte Antwort 17:25 Uhr</span> -->
         </div>
     </div>
 </div>

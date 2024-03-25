@@ -1,5 +1,5 @@
 import { CommonModule, formatDate } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { BooleanValueService } from '../../../services/boolean-value.service';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
@@ -18,20 +18,14 @@ export class PrivateMessageComponent {
   overlay = inject(OverlayService);
   currentUserId: string | null = null;
   DMService: DirectMessagesService = inject(DirectMessagesService);
-  
-
   booleanService = inject(BooleanValueService);
-  privateMessage: any = null;
   messageText: any = null;
   messageTime: any = null;
+  @Input() message: any;
 
   isHovered: boolean = false;
 
   constructor() {
-
-  }
-
-  ngOnInit() {
     this.getCurrentUserId();
   }
 
@@ -40,7 +34,7 @@ export class PrivateMessageComponent {
   }
 
   isOwnMessage(message: PrivateMessageType): boolean {
-    return message.authorId === this.currentUserId;
+    return this.currentUserId !== null && message.authorId === this.currentUserId;
   }
 
 

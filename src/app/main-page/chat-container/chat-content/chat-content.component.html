@@ -5,5 +5,5 @@
 </div>
 <!-- direct-messages-style -->
 <div *ngIf="this.selectionService.channelOrDM.value === 'direct-message'" class="channel-message-container">
-  <app-private-message></app-private-message>
+  <app-private-message *ngFor="let message of DMService.chatMessages" [message]="message"></app-private-message>
 </div>
