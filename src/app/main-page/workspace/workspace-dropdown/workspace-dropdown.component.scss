@@ -12,7 +12,6 @@ div {
 .drop-down-list {
     transition: all ease .2s;
     overflow: hidden;
-    height: 0px;
 }
 
 .drop-down-list-open{
@@ -60,4 +59,11 @@ div {
 .profile-image {
     width: 50px;
     height: 50px;
+}
+
+@media (max-height: 700px) {
+    .drop-down-list {
+        overflow-y: scroll;
+        height: 140px !important;
+    }
 }

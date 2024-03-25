@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Subscription, } from 'rxjs';
 import { UserType } from '../types/user.type';
 import { Firestore, arrayUnion, collection, doc, getDocs, query, setDoc, where, writeBatch } from '@angular/fire/firestore';
+import { SelectionService } from './selection.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class AuthService {
   private auth: Auth = inject(Auth);
   private firestore: Firestore = inject(Firestore);
   private router: Router = inject(Router);
+  private selectionService: SelectionService = inject(SelectionService);
 
   email: string = '';
   password: string = '';
@@ -22,7 +24,7 @@ export class AuthService {
   showChooseProfilePicture: boolean = false;
   showResetPassword: boolean = false;
   showCreateAccount: boolean = false;
-  guestEmail ='guest@email.com';
+  guestEmail = 'guest@email.com';
   guestPassword = 'Passwort';
 
   user$ = user(this.auth);
@@ -65,6 +67,8 @@ export class AuthService {
   async login() {
     try {
       await signInWithEmailAndPassword(this.auth, this.email, this.password);
+      this.selectionService.channelOrDM.next('channel');
+      this.selectionService.choosenChatTypeId.next(this.selectionService.channelIds[0]);
       this.router.navigate(['main-page']);
     } catch (error) {
       console.error('Error signing in:', error);
@@ -74,6 +78,8 @@ export class AuthService {
   async loginAsGuest() {
     try {
       await signInWithEmailAndPassword(this.auth, this.guestEmail, this.guestPassword);
+      this.selectionService.channelOrDM.next('channel');
+      this.selectionService.choosenChatTypeId.next(this.selectionService.channelIds[0]);
       this.router.navigate(['main-page']);
     } catch (error) {
       console.error('Error signing in as guest:', error);
