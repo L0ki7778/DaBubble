@@ -70,6 +70,10 @@ export class ChatInputComponent{
   }
 
   addEmoji(event: any) {
-    this.textarea.nativeElement.value += event.emoji.native;
+    this.chatContent += event.emoji.native;
+  }
+  
+  chatContentChanged(newValue: string) {
+    this.chatContent = newValue;
   }
 }
