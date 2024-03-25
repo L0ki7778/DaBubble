@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
 import { SelectionService } from '../../../services/selection.service';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
-
+import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-chat-input',
@@ -19,6 +19,7 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
   styleUrl: './chat-input.component.scss'
 })
 export class ChatInputComponent{
+  firestore: Firestore = inject(Firestore);
   DMService: DirectMessagesService = inject(DirectMessagesService);
   selectionService: SelectionService = inject(SelectionService);
 
@@ -31,8 +32,15 @@ export class ChatInputComponent{
 
   async onSubmit(chatContent: string) {
     if (this.selectionService.channelOrDM.value === 'channel') {
-      console.log('send message to channel');
-      // muss noch implementiert werden
+      const currentUser = await this.DMService.getLoggedInUserId();
+      const currentChannel = this.selectionService.choosenChatTypeId.value;
+      await addDoc(collection(this.firestore, "channels", currentChannel, "messages"), {
+        authorId: currentUser,
+        postTime: new Date().getTime(),
+        reactions: [],
+        text: this.chatContent,
+      });
+      this.chatContent = '';
     }
     if (this.selectionService.channelOrDM.value === 'direct-message') {
       const otherUserId = await this.DMService.getUserId(this.DMService.selectedUserName);
