@@ -30,43 +30,48 @@ export class ChatContentComponent {
       this.choosenChatId = newId;
       if (this.choosenChatId !== '') {
         this.loadChannelMessages();
-        const channelsRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
-        const channelQuery = query(channelsRef);
-        this.unsubscribeChannel = onSnapshot(channelQuery, (querySnapshot) => {
-          this.loadChannelMessages();
+      }
+    });
+    this.subscribeChannelMessagesChanges();
+  }
+
+  subscribeChannelMessagesChanges() {
+      const channelsRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
+      const channelQuery = query(channelsRef);
+      this.unsubscribeChannel = onSnapshot(channelQuery, (querySnapshot) => {
+        this.loadChannelMessages();
+      }
+      )
+  }
+
+  loadChannelMessages() {
+    this.messages = [];
+    const collRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
+    const q = query(collRef, orderBy('postTime'));
+
+    getDocs(q).then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const postDate = new Date(doc.data()['postTime']);
+        const hours = postDate.getHours().toString().padStart(2, '0');
+        const minutes = postDate.getMinutes().toString().padStart(2, '0');
+        const formattedPostTime = `${hours}:${minutes}`;
+
+        const formattedPostDate = postDate.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' });
+
+        this.messages.push({
+          text: doc.data()['text'],
+          posthour: formattedPostTime,
+          postDay: formattedPostDate,
+          reactions: doc.data()['reactions'],
+          authorId: doc.data()['authorId']
         });
-    };
-  });
-}
-
-loadChannelMessages() {
-  this.messages = [];
-  const collRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
-  const q = query(collRef, orderBy('postTime'));
-
-  getDocs(q).then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      const postDate = new Date(doc.data()['postTime']);
-      const hours = postDate.getHours().toString().padStart(2, '0');
-      const minutes = postDate.getMinutes().toString().padStart(2, '0');
-      const formattedPostTime = `${hours}:${minutes}`;
-
-      const formattedPostDate = postDate.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' });
-
-      this.messages.push({
-        text: doc.data()['text'],
-        posthour: formattedPostTime,
-        postDay: formattedPostDate,
-        reactions: doc.data()['reactions'],
-        authorId: doc.data()['authorId']
       });
     });
-  });
-}
+  }
 
-ngOnDestroy() {
-  if (this.unsubscribeChannel)
-    this.unsubscribeChannel();
-  this.selectionIdSubscription.unsubscribe();
-}
+  ngOnDestroy() {
+    if (this.unsubscribeChannel)
+      this.unsubscribeChannel();
+    this.selectionIdSubscription.unsubscribe();
+  }
 }
