@@ -25,6 +25,7 @@ export class DirectMessagesService {
 
   private ChatMessage(): PrivateMessageType {
     return {
+      id: '',
       authorId: '',
       authorName: '',
       authorImage: '',
@@ -116,6 +117,7 @@ export class DirectMessagesService {
     const messagesCollectionRef = collection(directMessageRef, 'chat-messages');
     const processedMessageText = messageText.replace(/\n/g, '<br>');
     const newMessageData: PrivateMessageType = {
+      id: '',
       authorId: loggedInUserId,
       authorName: await this.getUserNameById(loggedInUserId),
       authorImage: await this.getUserImageById(loggedInUserId),
@@ -123,6 +125,8 @@ export class DirectMessagesService {
       reactions: [],
       text: processedMessageText
     };
+    const docRef = await addDoc(messagesCollectionRef, newMessageData);
+    newMessageData.id = docRef.id;
     await addDoc(messagesCollectionRef, newMessageData);
     console.log('New message added to the direct-messages subcollection');
   }

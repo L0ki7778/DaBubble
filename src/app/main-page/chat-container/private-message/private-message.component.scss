@@ -133,3 +133,61 @@ app-reaction-bar {
 .d-flex {
     display: flex;
 }
+
+.full-width {
+    width: 100%;
+}
+
+.edit-input-field {
+    background-color: white;
+    color: var(--textGray);
+    border-top-left-radius: 30px;
+    width: 100%;
+    border: 1px solid var(--lightPurple);
+    outline: none;
+    resize: none;
+    padding-bottom: 80px;
+    display: flex;
+
+    &:focus {
+        border: 1.5px solid var(--purple3);
+    }
+}
+
+.edit-buttons {
+    position: relative;
+    bottom: 66px;
+    gap: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.cancel-button {
+    color: var(--purple1);
+    border-radius: 25px;
+    padding: 7px 15px 7px 15px;
+    font-weight: 800;
+    font-size: 18px;
+    cursor: pointer;
+    border: 1px solid var(--purple1);
+    background-color: white;
+    &:hover {
+        background-color: var(--purple1);
+        color: var(--bgColor);
+    }
+}
+
+.save-button {
+    background-color: var(--purple1);
+    border-radius: 25px;
+    padding: 7px 15px 7px 15px;
+    color: var(--bgColor);
+    font-weight: 600;
+    font-size: 18px;
+    cursor: pointer;
+    border: 1px solid var(--purple1);
+    &:hover {
+        background-color: var(--purple2);
+        border: 1px solid var(--purple2);
+    }
+}
