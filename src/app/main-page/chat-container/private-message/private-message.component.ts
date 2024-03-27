@@ -1,5 +1,5 @@
 import { CommonModule, formatDate } from '@angular/common';
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { BooleanValueService } from '../../../services/boolean-value.service';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
@@ -7,11 +7,12 @@ import { PrivateMessageType } from '../../../types/private-message.type';
 import { ReactionBarComponent } from '../chat-content/chat-message/reaction-bar/reaction-bar.component';
 import { collection, doc, updateDoc } from 'firebase/firestore';
 import { FormsModule } from '@angular/forms';
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 
 @Component({
   selector: 'app-private-message',
   standalone: true,
-  imports: [CommonModule, ReactionBarComponent, FormsModule],
+  imports: [CommonModule, ReactionBarComponent, FormsModule, PickerComponent],
   templateUrl: './private-message.component.html',
   styleUrl: './private-message.component.scss'
 })
@@ -21,18 +22,36 @@ export class PrivateMessageComponent {
   currentUserId: string | null = null;
   DMService: DirectMessagesService = inject(DirectMessagesService);
   booleanService = inject(BooleanValueService);
-  messageText: any = null;
   messageTime: any = null;
   @Input() message: any;
+  @Input() messageId: string | null = null;
+  @Input() messageText: string = '';
   editMessage: boolean = false;
   editingMessageId: string | null = null;
   editingMessageText: string = '';
+  viewEmojiPicker: boolean = false;
+  @ViewChild('emojiPicker') emoji: ElementRef<HTMLElement>| any;
 
   isHovered: boolean = false;
 
   constructor() {
     this.getCurrentUserId();
   }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if (this.isClickInsideEmojiPicker(event)) {
+      return;
+    }
+    this.viewEmojiPicker = false;
+  }
+
+  isClickInsideEmojiPicker(event: MouseEvent): boolean {
+    const emojiPicker = this.emoji?.nativeElement;
+    const target = event.target as HTMLElement;
+    return emojiPicker && emojiPicker.contains(target);
+  }
+
 
   async getCurrentUserId() {
     this.currentUserId = await this.DMService.getLoggedInUserId();
@@ -66,18 +85,14 @@ export class PrivateMessageComponent {
     this.editingMessageId = messageId;
     this.editingMessageText = messageText;
   }
-  
+
   cancelEditing() {
     this.editingMessageId = null;
     this.editingMessageText = '';
+    this.editMessage = false;
   }
-  
+
   async saveEditedMessage(messageId: string | undefined) {
-    if (!messageId) {
-      console.error('Message ID is undefined');
-      return;
-    }
-  
     try {
       const existingChatWithBothUsers = await this.DMService.retrieveChatDocumentReference();
       if (existingChatWithBothUsers) {
@@ -87,10 +102,19 @@ export class PrivateMessageComponent {
         console.log('Message updated successfully');
         this.editingMessageId = null;
         this.editingMessageText = '';
-        await this.DMService.loadChatHistory(); // Aktualisieren Sie die Chatnachrichten nach dem Speichern
+        await this.DMService.loadChatHistory();
       }
     } catch (error) {
       console.error('Error updating message:', error);
     }
+  }
+
+  showEmojiPicker(event: MouseEvent) {
+    event.stopPropagation();
+    this.viewEmojiPicker = true;
+  }
+
+  addEmoji(event: any) {
+    this.editingMessageText += event.emoji.native;
   }
 }

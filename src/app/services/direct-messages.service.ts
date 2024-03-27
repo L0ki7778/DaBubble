@@ -3,6 +3,8 @@ import { DocumentReference, Firestore, addDoc, collection, doc, getDocs, getDoc,
 import { AuthService } from './auth.service';
 import { PrivateMessageType } from '../types/private-message.type';
 import { formatDate } from '@angular/common';
+import { Subject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +21,8 @@ export class DirectMessagesService {
   showPrivateChat: boolean = false;
   chatMessages: any[] = [];
   locale = 'de-DE';
+  private chatHistoryLoaded = new Subject<void>();
+  public chatHistoryLoaded$ = this.chatHistoryLoaded.asObservable();
 
   constructor(@Inject(LOCALE_ID) private localeId: string) {
   }
@@ -125,9 +129,9 @@ export class DirectMessagesService {
       reactions: [],
       text: processedMessageText
     };
-    const docRef = await addDoc(messagesCollectionRef, newMessageData);
-    newMessageData.id = docRef.id;
-    await addDoc(messagesCollectionRef, newMessageData);
+    const newMessageRef = await addDoc(messagesCollectionRef, newMessageData);
+    const newMessageId = newMessageRef.id;
+    await setDoc(newMessageRef, { ...newMessageData, id: newMessageId }, { merge: true });
     console.log('New message added to the direct-messages subcollection');
   }
 
@@ -150,6 +154,7 @@ export class DirectMessagesService {
         await this.retrieveAndEnrichMessageData(existingChatWithBothUsers);
         this.chatMessages.sort((a, b) => a.postTime - b.postTime);
         console.log(this.chatMessages);
+        this.chatHistoryLoaded.next();
       }
     } catch (error) {
       console.error('Error loading chat history:', error);

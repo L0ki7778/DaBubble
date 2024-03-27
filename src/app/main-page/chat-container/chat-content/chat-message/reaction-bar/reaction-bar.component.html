@@ -5,5 +5,5 @@
     </div>
     <div (click)="showThread()" class="answer-img"></div>
     <div *ngIf="isOwnMessage" (click)="showOption($event)" class="edit-img"></div>
-    <span #edit *ngIf="viewOption" class="edit-message">Nachricht bearbeiten</span>
+    <span #edit *ngIf="viewOption" class="edit-message" (click)="startEditing()">Nachricht bearbeiten</span>
 </div>

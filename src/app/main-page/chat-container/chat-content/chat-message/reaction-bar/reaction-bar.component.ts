@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, HostListener, Input, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild, inject } from '@angular/core';
 import { BooleanValueService } from '../../../../../services/boolean-value.service';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 
@@ -13,6 +13,9 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 export class ReactionBarComponent {
 
   @Input() isOwnMessage: boolean = true;
+  @Input() messageId: string | null = null;
+  @Input() messageText: string = '';
+  @Output() editingStarted = new EventEmitter<{ messageId: string, messageText: string }>();
   @ViewChild('edit') edit: ElementRef | null = null;
   @ViewChild('emoji') emoji: ElementRef | null = null;
   booleanService = inject(BooleanValueService);
@@ -38,7 +41,11 @@ export class ReactionBarComponent {
     }
   }
   
-
+  startEditing() {
+    if (this.messageId && this.messageText) {
+      this.editingStarted.emit({ messageId: this.messageId, messageText: this.messageText });
+    }
+  }
 
   showThread() {
     this.booleanService.viewThread.set(true);

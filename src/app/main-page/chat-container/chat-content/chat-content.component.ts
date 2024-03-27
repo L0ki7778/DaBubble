@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild, inject } from '@angular/core';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
 import { CollectionReference, Firestore, collection, doc, getDocs, onSnapshot, orderBy, query } from '@angular/fire/firestore';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
@@ -15,17 +15,21 @@ import { Subscription } from 'rxjs';
   templateUrl: './chat-content.component.html',
   styleUrl: './chat-content.component.scss'
 })
-export class ChatContentComponent {
+export class ChatContentComponent implements AfterViewInit, OnDestroy {
   firestore: Firestore = inject(Firestore);
   DMService: DirectMessagesService = inject(DirectMessagesService);
   selectionService: SelectionService = inject(SelectionService);
   private selectionIdSubscription: Subscription;
   private unsubscribeChannelMessages: (() => void) | undefined;
   choosenChatId: string = '';
+  @ViewChild('chatList')
+  chatList!: ElementRef;
+  private chatHistoryLoadedSubscription!: Subscription;
+
 
   messages: any[] = [];
 
-  constructor() {
+  constructor(private renderer: Renderer2) {
     this.selectionIdSubscription = this.selectionService.choosenChatTypeId.subscribe(newId => {
       this.choosenChatId = newId;
       if (this.choosenChatId != '') {
@@ -34,6 +38,17 @@ export class ChatContentComponent {
     });
   }
 
+  ngAfterViewInit() {
+    this.chatHistoryLoadedSubscription = this.DMService.chatHistoryLoaded$.subscribe(() => {
+      this.scrollToBottom();
+    });
+  }
+
+  scrollToBottom() {
+    if (this.chatList) {
+      this.renderer.setProperty(this.chatList.nativeElement, 'scrollTop', this.chatList.nativeElement.scrollHeight);
+    }
+  }
   subscribeChannelMessagesChanges() {
     if (this.unsubscribeChannelMessages) {
       this.unsubscribeChannelMessages();
@@ -72,6 +87,7 @@ export class ChatContentComponent {
   }
 
   ngOnDestroy() {
+    this.chatHistoryLoadedSubscription.unsubscribe();
     this.selectionIdSubscription.unsubscribe();
     if (this.unsubscribeChannelMessages) {
       this.unsubscribeChannelMessages();
