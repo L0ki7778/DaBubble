@@ -39,6 +39,7 @@ export class SelectionService {
         });
       });
     this.unsubDM = onSnapshot(this.directMessagesQuery, (querySnapshot) => {
+      this.DMIds = [];
       querySnapshot.forEach((doc) => {
         this.DMIds.push(doc.id);
       });

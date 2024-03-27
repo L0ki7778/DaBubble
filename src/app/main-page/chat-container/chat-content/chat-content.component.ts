@@ -39,9 +39,9 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.chatHistoryLoadedSubscription = this.DMService.chatHistoryLoaded$.subscribe(() => {
-      this.scrollToBottom();
-    });
+      this.chatHistoryLoadedSubscription = this.DMService.chatHistoryLoaded$.subscribe(() => {
+        this.scrollToBottom();
+      });
   }
 
   scrollToBottom() {
@@ -49,12 +49,13 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
       this.renderer.setProperty(this.chatList.nativeElement, 'scrollTop', this.chatList.nativeElement.scrollHeight);
     }
   }
+
   subscribeChannelMessagesChanges() {
     if (this.unsubscribeChannelMessages) {
       this.unsubscribeChannelMessages();
     }
-    const channelsRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
-    const channelQuery = query(channelsRef);
+    var channelsRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
+    var channelQuery = query(channelsRef);
     this.unsubscribeChannelMessages = onSnapshot(channelQuery, { includeMetadataChanges: true }, (querySnapshot) => {
       this.loadChannelMessages();
     }
