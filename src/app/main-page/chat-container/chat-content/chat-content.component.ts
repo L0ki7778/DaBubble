@@ -54,8 +54,8 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
     if (this.unsubscribeChannelMessages) {
       this.unsubscribeChannelMessages();
     }
-    var channelsRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
-    var channelQuery = query(channelsRef);
+    const channelsRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
+    const channelQuery = query(channelsRef);
     this.unsubscribeChannelMessages = onSnapshot(channelQuery, { includeMetadataChanges: true }, (querySnapshot) => {
       this.loadChannelMessages();
     }
