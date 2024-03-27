@@ -7,7 +7,7 @@
         class="avatar-icon">
     <div class="message-box" [ngStyle]="{'align-items': isOwnMessage ? 'end' : 'start'}">
         <div class="message-header" [ngStyle]="{'flex-direction': isOwnMessage ? 'none' : 'row-reverse'}">
-            <app-reaction-bar [isOwnMessage]="isOwnMessage"></app-reaction-bar>
+            <app-reaction-bar [message]="message" [isOwnMessage]="isOwnMessage"></app-reaction-bar>
             <div>
                 <span (click)="openMemberView($event)" class="message-author">
                     {{ user.name }}

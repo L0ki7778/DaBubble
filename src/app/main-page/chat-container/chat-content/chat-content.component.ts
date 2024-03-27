@@ -65,7 +65,8 @@ export class ChatContentComponent {
           posthour: formattedPostTime,
           postDay: formattedPostDate,
           reactions: doc.data()['reactions'],
-          authorId: doc.data()['authorId']
+          authorId: doc.data()['authorId'],
+          docId: doc.data()['docId']
         });
       });
     });
