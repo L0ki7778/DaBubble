@@ -34,12 +34,14 @@ export class ChatInputComponent{
     if (this.selectionService.channelOrDM.value === 'channel') {
       const currentUser = await this.DMService.getLoggedInUserId();
       const currentChannel = this.selectionService.choosenChatTypeId.value;
-      await addDoc(collection(this.firestore, "channels", currentChannel, "messages"), {
+      const newDoc: any = await addDoc(collection(this.firestore, "channels", currentChannel, "messages"), {
         authorId: currentUser,
         postTime: new Date().getTime(),
         reactions: [],
         text: this.chatContent,
       });
+      const newDocId = newDoc.id;
+      await newDoc.update({ docId: newDocId });
       this.chatContent = '';
     }
     if (this.selectionService.channelOrDM.value === 'direct-message') {
