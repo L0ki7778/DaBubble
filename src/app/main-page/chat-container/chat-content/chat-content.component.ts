@@ -25,6 +25,7 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
   @ViewChild('chatList')
   chatList!: ElementRef;
   private chatHistoryLoadedSubscription!: Subscription;
+  isLoading: boolean = false;
 
 
   messages: any[] = [];
@@ -51,24 +52,25 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
       this.renderer.setProperty(this.chatList.nativeElement, 'scrollTop', this.chatList.nativeElement.scrollHeight);
     }
   }
+
   subscribeChannelMessagesChanges() {
     if (this.unsubscribeChannelMessages) {
       this.unsubscribeChannelMessages();
     }
-    const channelsRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
-    const channelQuery = query(channelsRef);
-    this.unsubscribeChannelMessages = onSnapshot(channelQuery, { includeMetadataChanges: true }, (querySnapshot) => {
-      this.loadChannelMessages();
-    }
-    )
+      const channelsRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
+      const channelQuery = query(channelsRef);
+      this.unsubscribeChannelMessages = onSnapshot(channelQuery, { includeMetadataChanges: true }, (querySnapshot) => {
+        this.loadChannelMessages();
+      }
+      )
   }
 
-  loadChannelMessages() {
+  async loadChannelMessages() {
     this.messages = [];
     const collRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
     const q = query(collRef, orderBy('postTime'));
 
-    getDocs(q).then((querySnapshot) => {
+    await getDocs(q).then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         const postDate = new Date(doc.data()['postTime']);
         const hours = postDate.getHours().toString().padStart(2, '0');

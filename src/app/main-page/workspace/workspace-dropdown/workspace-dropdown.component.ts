@@ -54,7 +54,7 @@ export class WorkspaceDropdownComponent {
 
   sendChannelId(index: number) {
     this.selectionService.choosenChatTypeId.next(this.selectionService.channelIds[index]);
-    this.selectionService.channelOrDM.next('channel');
+    this.selectionService.channelOrDM.next('channel');  
   }
 
   sendDMId(index: number) {

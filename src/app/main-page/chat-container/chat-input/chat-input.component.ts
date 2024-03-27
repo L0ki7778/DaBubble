@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
 import { SelectionService } from '../../../services/selection.service';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
-import { Firestore, addDoc, collection } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, updateDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-chat-input',
@@ -18,7 +18,7 @@ import { Firestore, addDoc, collection } from '@angular/fire/firestore';
   templateUrl: './chat-input.component.html',
   styleUrl: './chat-input.component.scss'
 })
-export class ChatInputComponent{
+export class ChatInputComponent {
   firestore: Firestore = inject(Firestore);
   DMService: DirectMessagesService = inject(DirectMessagesService);
   selectionService: SelectionService = inject(SelectionService);
@@ -34,12 +34,14 @@ export class ChatInputComponent{
     if (this.selectionService.channelOrDM.value === 'channel') {
       const currentUser = await this.DMService.getLoggedInUserId();
       const currentChannel = this.selectionService.choosenChatTypeId.value;
-      await addDoc(collection(this.firestore, "channels", currentChannel, "messages"), {
+      const newDoc: any = await addDoc(collection(this.firestore, "channels", currentChannel, "messages"), {
         authorId: currentUser,
         postTime: new Date().getTime(),
         reactions: [],
         text: this.chatContent,
       });
+      const newDocId = newDoc.id;
+      await updateDoc(newDoc, { docId: newDocId });
       this.chatContent = '';
     }
     if (this.selectionService.channelOrDM.value === 'direct-message') {
@@ -72,7 +74,7 @@ export class ChatInputComponent{
   addEmoji(event: any) {
     this.chatContent += event.emoji.native;
   }
-  
+
   chatContentChanged(newValue: string) {
     this.chatContent = newValue;
   }
