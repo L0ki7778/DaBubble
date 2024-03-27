@@ -20,7 +20,7 @@ export class ChatContentComponent {
   DMService: DirectMessagesService = inject(DirectMessagesService);
   selectionService: SelectionService = inject(SelectionService);
   private selectionIdSubscription: Subscription;
-  private unsubscribeChannel: (() => void) | undefined;
+  private unsubscribeChannelMessages: (() => void) | undefined;
   choosenChatId: string = '';
 
   messages: any[] = [];
@@ -28,20 +28,22 @@ export class ChatContentComponent {
   constructor() {
     this.selectionIdSubscription = this.selectionService.choosenChatTypeId.subscribe(newId => {
       this.choosenChatId = newId;
-      if (this.choosenChatId !== '') {
-        this.loadChannelMessages();
+      if (this.choosenChatId != '') {
+        this.subscribeChannelMessagesChanges();
       }
     });
-    this.subscribeChannelMessagesChanges();
   }
 
   subscribeChannelMessagesChanges() {
-      const channelsRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
-      const channelQuery = query(channelsRef);
-      this.unsubscribeChannel = onSnapshot(channelQuery, (querySnapshot) => {
-        this.loadChannelMessages();
-      }
-      )
+    if (this.unsubscribeChannelMessages) {
+      this.unsubscribeChannelMessages();
+    }
+    const channelsRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
+    const channelQuery = query(channelsRef);
+    this.unsubscribeChannelMessages = onSnapshot(channelQuery, { includeMetadataChanges: true }, (querySnapshot) => {
+      this.loadChannelMessages();
+    }
+    )
   }
 
   loadChannelMessages() {
@@ -70,8 +72,9 @@ export class ChatContentComponent {
   }
 
   ngOnDestroy() {
-    if (this.unsubscribeChannel)
-      this.unsubscribeChannel();
     this.selectionIdSubscription.unsubscribe();
+    if (this.unsubscribeChannelMessages) {
+      this.unsubscribeChannelMessages();
+    }
   }
 }

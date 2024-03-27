@@ -70,3 +70,12 @@ app-close-workspace {
         overflow-y: scroll;
     }
 }
+
+
+@media (max-height: 700px) {
+
+    app-workspace,
+    app-thread {
+        overflow-y: scroll;
+    }
+}
