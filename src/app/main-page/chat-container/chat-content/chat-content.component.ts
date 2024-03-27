@@ -40,7 +40,9 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.chatHistoryLoadedSubscription = this.DMService.chatHistoryLoaded$.subscribe(() => {
-      this.scrollToBottom();
+      setTimeout(() => {
+        this.scrollToBottom();
+      }, 1);
     });
   }
 
