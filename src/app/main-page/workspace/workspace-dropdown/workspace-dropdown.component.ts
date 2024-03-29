@@ -4,6 +4,7 @@ import { AuthService } from '../../../services/auth.service';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
 import { SelectionService } from '../../../services/selection.service';
 import { CollectionReference, Firestore, collection, doc, onSnapshot, query } from '@angular/fire/firestore';
+import { BooleanValueService } from '../../../services/boolean-value.service';
 
 
 @Component({
@@ -20,19 +21,19 @@ export class WorkspaceDropdownComponent {
   @Input() channel = false;
   @Input() active = true;
   @ViewChild('arrow') arrow: HTMLImageElement | undefined;
+
   selectionService = inject(SelectionService);
   authService: AuthService = inject(AuthService);
+  booleanService = inject(BooleanValueService);
   firestore = inject(Firestore);
   DMService: DirectMessagesService = inject(DirectMessagesService);
+
   channelsRef: CollectionReference = collection(this.firestore, "channels");
   channelQuery = query(this.channelsRef);
   private unsubscribeChannel: (() => void) | undefined;
   showList = false;
   currentUserID: string | null= '';
   filteredChannelNames: string[] = [];
-
-  constructor() {
-  }
 
 
   async ngOnInit() {
@@ -75,5 +76,9 @@ export class WorkspaceDropdownComponent {
   ngOnDestroy() {
     if(this.unsubscribeChannel)
     this.unsubscribeChannel();
+  }
+
+  closeThread() {
+    this.booleanService.viewThread.set(false);
   }
 }
