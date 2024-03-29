@@ -3,8 +3,11 @@ import { Component, ElementRef, HostListener, Input, ViewChild, inject } from '@
 import { OverlayService } from '../../../../services/overlay.service';
 import { ReactionBarComponent } from './reaction-bar/reaction-bar.component';
 import { BooleanValueService } from '../../../../services/boolean-value.service';
-import { Firestore, collection, doc, getDoc, getDocs } from '@angular/fire/firestore';
+import { Firestore, collection, doc, getDoc, getDocs, updateDoc } from '@angular/fire/firestore';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
+import { Subscription } from 'rxjs';
+import { SelectionService } from '../../../../services/selection.service';
+import { DirectMessagesService } from '../../../../services/direct-messages.service';
 
 @Component({
   selector: 'app-chat-message',
@@ -17,15 +20,30 @@ export class ChatMessageComponent {
   firestore: Firestore = inject(Firestore);
   overlay = inject(OverlayService);
   booleanService = inject(BooleanValueService);
+  selectionService: SelectionService = inject(SelectionService);
+  DMService: DirectMessagesService = inject(DirectMessagesService);
+
 
   @Input() isOwnMessage: boolean = true;
   @Input() message: any;
   @ViewChild('emoji') emoji: ElementRef | null = null;
+  selectionIdSubscription: Subscription;
 
 
   isHovered: boolean = false;
   viewEmojiPicker: boolean = false;
   user: any = {};
+  choosenChatId: string = '';
+  currentUserId: string | null = null;
+
+
+  constructor() {
+    this.selectionIdSubscription = this.selectionService.choosenChatTypeId.subscribe(newId => {
+      this.choosenChatId = newId;
+    });
+    this.getCurrentUserId();
+  }
+
 
   ngOnInit() {
     if (this.message && this.message.authorId) {
@@ -42,6 +60,11 @@ export class ChatMessageComponent {
         }
       });
     }
+  }
+
+
+  async getCurrentUserId() {
+    this.currentUserId = await this.DMService.getLoggedInUserId();
   }
 
   onHover(): void {
@@ -75,7 +98,40 @@ export class ChatMessageComponent {
     }
   }
 
-  addEmoji(event: MouseEvent) {
-    const emoji = document.createElement('span');
+
+  addEmoji(event: any) {
+    const emoji = event.emoji.native;
+    const docRef = doc(this.firestore, 'channels', this.choosenChatId, 'messages', this.message.docId);
+
+    getDoc(docRef).then((docSnapshot) => {
+      if (docSnapshot.exists()) {
+        const data = docSnapshot.data();
+        let reactions = data['reactions'] || {};
+
+        if (reactions[emoji]) {
+          const userIndex = reactions[emoji].users.indexOf(this.currentUserId);
+          if (userIndex > -1) {
+            reactions[emoji].count -= 1;
+            reactions[emoji].users.splice(userIndex, 1);
+
+            if (reactions[emoji].count === 0) {
+              delete reactions[emoji];
+            }
+          } else {
+            reactions[emoji].count += 1;
+            reactions[emoji].users.push(this.currentUserId);
+          }
+        } else {
+          reactions[emoji] = { count: 1, users: [this.currentUserId] };
+        }
+
+        updateDoc(docRef, { reactions });
+      }
+    });
+  }
+
+
+  isObjectWithCount(value: any): value is { count: number } {
+    return typeof value === 'object' && value !== null && 'count' in value;
   }
 }
