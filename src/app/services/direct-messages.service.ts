@@ -17,6 +17,8 @@ export class DirectMessagesService {
   messageText: string = '';
   selectedUserName: any;
   selectedUserImage?: string;
+  selectedProfileName?: string;
+  selectedProfileImage?: string;
   showPersonName: boolean = false;
   showPrivateChat: boolean = false;
   chatMessages: any[] = [];

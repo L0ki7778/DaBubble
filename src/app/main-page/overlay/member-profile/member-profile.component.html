@@ -4,9 +4,9 @@
         <div (click)="close()" class="cross-img"></div>
     </div>
     <div class="user-img-container">
-        <img src="{{ userImage }}">
+        <img src="{{ this.DMService.selectedProfileImage }}">
     </div>
-    <span class="name">{{ userName }}</span>
+    <span class="name">{{ this.DMService.selectedProfileName }}</span>
     <div class="active-container"  *ngIf="userStatus === 'online'">
         <img src="assets/img/general/Online.svg">
         <span>Aktiv</span>

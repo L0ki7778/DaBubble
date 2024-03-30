@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, Input, ViewChild, inject } from '@angular/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { CommonModule } from '@angular/common';
+import { DirectMessagesService } from '../../../services/direct-messages.service';
 
 @Component({
   selector: 'app-member-profile',
@@ -12,6 +13,7 @@ import { CommonModule } from '@angular/common';
 export class MemberProfileComponent {
 
   overlay = inject(OverlayService);
+  DMService = inject(DirectMessagesService);
   @ViewChild('memberView') memberView: ElementRef | null = null;
 
   userImage: string = 'assets/img/general/avatars/avatar3.svg';

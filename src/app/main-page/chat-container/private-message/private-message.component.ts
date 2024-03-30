@@ -73,6 +73,8 @@ export class PrivateMessageComponent {
   openMemberView(event: MouseEvent) {
     event.stopPropagation();
     this.overlay.toggleMemberView();
+    this.DMService.selectedProfileName = this.message.authorName;
+    this.DMService.selectedProfileImage = this.message.authorImage;
   }
 
 
