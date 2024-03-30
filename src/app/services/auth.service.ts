@@ -5,6 +5,7 @@ import { Subscription, } from 'rxjs';
 import { UserType } from '../types/user.type';
 import { Firestore, arrayUnion, collection, doc, getDocs, query, setDoc, where, writeBatch } from '@angular/fire/firestore';
 import { SelectionService } from './selection.service';
+import firebase from 'firebase/compat/app';
 
 @Injectable({
   providedIn: 'root'
@@ -96,23 +97,6 @@ export class AuthService {
         callback(null);
       }
     });
-  }
-
-  async addUserToAllDirectMessages(userId: string) {
-    try {
-      const directMessagesQuery = query(collection(this.firestore, 'direct-messages'), where('members', 'array-contains', userId));
-      const querySnapshot = await getDocs(directMessagesQuery);
-      const batch = writeBatch(this.firestore);
-      querySnapshot.forEach((doc) => {
-        batch.update(doc.ref, {
-          members: arrayUnion(userId)
-        });
-      });
-      await batch.commit();
-      console.log('User added to all direct messages:', userId);
-    } catch (error) {
-      console.error('Error adding user to direct messages:', error);
-    }
   }
 
   async logout() {

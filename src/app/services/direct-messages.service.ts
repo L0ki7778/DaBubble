@@ -97,6 +97,19 @@ export class DirectMessagesService {
     }
   }
 
+  async getUserEmailByName(userName: any ): Promise<string | null> {
+    try {
+      const userId = await this.getUserId(userName);
+      if (!userId) return null;
+      const userDoc = await getDoc(doc(this.firestore, 'users', userId));
+      if (!userDoc.exists()) return null;
+      return userDoc.data()['email'];
+    } catch (error) {
+      console.error('Error fetching user email by name:', error);
+      return null;
+    }
+  }
+
   async addUserToDirectMessages(otherUserName: string) {
     try {
       this.selectedUserName = otherUserName;
