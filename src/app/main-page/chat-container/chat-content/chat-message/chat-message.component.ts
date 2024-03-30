@@ -78,6 +78,8 @@ export class ChatMessageComponent {
   openMemberView(event: MouseEvent) {
     event.stopPropagation();
     this.overlay.toggleMemberView();
+    this.DMService.selectedProfileName = this.user.name;
+    this.DMService.selectedProfileImage = this.user.image;
   }
 
   showThread() {
