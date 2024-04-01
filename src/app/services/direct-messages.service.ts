@@ -17,7 +17,7 @@ export class DirectMessagesService {
   messageText: string = '';
   selectedUserName: any;
   selectedUserImage?: string;
-  selectedProfileName?: string;
+  selectedProfileName?: any;
   selectedProfileImage?: string;
   showPersonName: boolean = false;
   showPrivateChat: boolean = false;
@@ -99,13 +99,30 @@ export class DirectMessagesService {
 
   async getUserEmailByName(userName: any ): Promise<string | null> {
     try {
-      const userId = await this.getUserId(userName);
+      const userId = await this.getUserIdProfile(userName);
       if (!userId) return null;
       const userDoc = await getDoc(doc(this.firestore, 'users', userId));
       if (!userDoc.exists()) return null;
       return userDoc.data()['email'];
     } catch (error) {
       console.error('Error fetching user email by name:', error);
+      return null;
+    }
+  }
+
+  async getUserIdProfile(userName: string | null) {
+    try {
+      const usersCollection = collection(this.firestore, 'users');
+      const querySnapshot = await getDocs(usersCollection);
+      const userDoc = querySnapshot.docs.find(doc => doc.data()['name'] === userName);
+      if (userDoc) {
+        const userId = userDoc.id;
+        return userId;
+      } else
+        console.log(`User ${userName} not found`);
+      return null;
+    } catch (error) {
+      console.error('Error fetching user ID:', error);
       return null;
     }
   }
@@ -124,6 +141,12 @@ export class DirectMessagesService {
     } catch (error) {
       console.error('Error creating new direct message:', error);
     }
+  }
+
+  async isSameUser(): Promise<boolean> {
+    const loggedInUserId = await this.getLoggedInUserId();
+    const selectedProfileUserId = await this.getUserIdProfile(this.selectedProfileName);
+    return loggedInUserId === selectedProfileUserId;
   }
 
   async createNewDirectMessage(loggedInUserId: string | null, otherUserId: string) {
@@ -201,6 +224,36 @@ export class DirectMessagesService {
       return { ...messageData, authorName, authorImage };
     }));
     this.chatMessages = messagesData;
+  }
+
+  async loadChatHistoryProfile() {
+    try {
+      this.chatMessages = [];
+      const existingChatWithBothUsers = await this.retrieveChatDocumentReferenceProfile();
+      if (existingChatWithBothUsers) {
+        await this.retrieveAndEnrichMessageData(existingChatWithBothUsers);
+        this.chatMessages.sort((a, b) => a.postTime - b.postTime);
+        console.log(this.chatMessages);
+        this.chatHistoryLoaded.next();
+      }
+    } catch (error) {
+      console.error('Error loading chat history:', error);
+    }
+  }
+
+  async retrieveChatDocumentReferenceProfile() {
+    const loggedInUserId = await this.getLoggedInUserId();
+    const otherUserId = await this.getUserIdProfile(this.selectedProfileName);
+    const existingDirectMessageQuery = query(
+      collection(this.firestore, 'direct-messages'),
+      where('members', 'array-contains-any', [loggedInUserId, otherUserId])
+    );
+    const existingDirectMessageSnapshot = await getDocs(existingDirectMessageQuery);
+    const existingChatWithBothUsers = existingDirectMessageSnapshot.docs.find(doc => {
+      const members = doc.data()['members'];
+      return members.includes(loggedInUserId) && members.includes(otherUserId);
+    });
+    return existingChatWithBothUsers;
   }
 
   async getUserImageById(authorId: any): Promise<string> {

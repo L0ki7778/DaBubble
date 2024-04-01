@@ -80,6 +80,8 @@ export class ChatMessageComponent {
     this.overlay.toggleMemberView();
     this.DMService.selectedProfileName = this.user.name;
     this.DMService.selectedProfileImage = this.user.image;
+    this.DMService.selectedUserName = this.user.name;
+    this.DMService.selectedUserImage = this.user.image;
   }
 
   showThread() {
