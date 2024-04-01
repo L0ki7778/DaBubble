@@ -3,8 +3,9 @@
         placeholder="Nachricht an # {{ this.selectionService.channelOrDM.value }} " class="input-field"
         *ngIf="this.selectionService.channelOrDM.value === 'channel'">
     </textarea>
-    <textarea #textarea name="message" [(ngModel)]="chatContent" (ngModelChange)="chatContentChanged($event)" placeholder="Nachricht an {{ this.DMService.selectedUserName }} "
-        class="input-field" *ngIf="this.selectionService.channelOrDM.value === 'direct-message'">
+    <textarea #textarea name="message" [(ngModel)]="chatContent" (ngModelChange)="chatContentChanged($event)"
+        placeholder="Nachricht an {{ this.DMService.selectedUserName }} " class="input-field"
+        *ngIf="this.selectionService.channelOrDM.value === 'direct-message'">
     </textarea>
     <div class="command-section">
         <div class="icon-menu">

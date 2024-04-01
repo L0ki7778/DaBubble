@@ -8,10 +8,13 @@
         </div>
         <span>Aus der Liste wählen</span>
         <div class="profile-icons">
-            <img *ngFor="let icon of profileIcons; let i = index" [src]="icon" alt="Profile Icon" (click)="selectProfilePic(icon)">
+            <img *ngFor="let icon of profileIcons; let i = index" [src]="icon" alt="Profile Icon"
+                (click)="selectProfilePic(icon)">
         </div>
         <div class="choose-own-img">
-            <span>eigenes Bild nehmen</span><input class="file" type="file" accept="image/*" (change)="onFileSelected($event)" #fileInput> <button (click)="fileInput.click()">Datei hochladen</button>
+            <span>eigenes Bild nehmen</span><input class="file" type="file" accept="image/*"
+                (change)="onFileSelected($event)" #fileInput> <button (click)="fileInput.click()">Datei
+                hochladen</button>
         </div>
         <button class="next-btn" (click)="register()">Weiter</button>
     </div>

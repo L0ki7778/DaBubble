@@ -191,7 +191,6 @@ export class DirectMessagesService {
       if (existingChatWithBothUsers) {
         await this.retrieveAndEnrichMessageData(existingChatWithBothUsers);
         this.chatMessages.sort((a, b) => a.postTime - b.postTime);
-        console.log(this.chatMessages);
         this.chatHistoryLoaded.next();
       }
     } catch (error) {

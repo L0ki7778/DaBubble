@@ -57,12 +57,15 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
     if (this.unsubscribeChannelMessages) {
       this.unsubscribeChannelMessages();
     }
-    const channelsRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
-    const channelQuery = query(channelsRef);
-    this.unsubscribeChannelMessages = onSnapshot(channelQuery, { includeMetadataChanges: true }, (querySnapshot) => {
-      this.loadChannelMessages();
+    if (this.choosenChatId && this.choosenChatId !== '') {
+      const channelsRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
+      const channelQuery = query(channelsRef);
+      this.unsubscribeChannelMessages = onSnapshot(channelQuery, { includeMetadataChanges: true }, (querySnapshot) => {
+        this.loadChannelMessages();
+      });
+    } else {
+      return
     }
-    )
   }
 
 

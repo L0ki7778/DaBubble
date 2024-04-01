@@ -22,7 +22,7 @@ export class ChooseProfilePictureComponent {
     'assets/img/start-page/men3.svg',
     'assets/img/start-page/women2.svg',
     'assets/img/start-page/men4.svg'
-]
+  ]
 
   toggleToCreateAccount() {
     this.authService.showChooseProfilePicture = false;
@@ -70,6 +70,5 @@ export class ChooseProfilePictureComponent {
       reader.readAsDataURL(file);
     }
   }
-
 
 }
