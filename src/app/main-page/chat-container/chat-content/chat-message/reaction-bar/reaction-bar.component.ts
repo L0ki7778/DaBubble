@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild, inject } from '@angular/core';
 import { BooleanValueService } from '../../../../../services/boolean-value.service';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
-import { Firestore, arrayUnion, doc, getDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, doc, getDoc, updateDoc } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { SelectionService } from '../../../../../services/selection.service';
 import { DirectMessagesService } from '../../../../../services/direct-messages.service';
@@ -13,7 +13,7 @@ import { DirectMessagesService } from '../../../../../services/direct-messages.s
   standalone: true,
   imports: [CommonModule, PickerComponent],
   templateUrl: './reaction-bar.component.html',
-  styleUrl: './reaction-bar.component.scss'
+  styleUrl: './reaction-bar.component.scss',
 })
 export class ReactionBarComponent {
 

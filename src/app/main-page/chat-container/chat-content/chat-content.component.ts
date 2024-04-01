@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild, inject } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, Renderer2, ViewChild, inject } from '@angular/core';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
-import { CollectionReference, Firestore, collection, doc, getDocs, onSnapshot, orderBy, query } from '@angular/fire/firestore';
+import { Firestore, collection, getDocs, onSnapshot, orderBy, query } from '@angular/fire/firestore';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
 import { PrivateMessageComponent } from '../private-message/private-message.component';
 import { SelectionService } from '../../../services/selection.service';
@@ -19,16 +19,15 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
   firestore: Firestore = inject(Firestore);
   DMService: DirectMessagesService = inject(DirectMessagesService);
   selectionService: SelectionService = inject(SelectionService);
+  @ViewChild('chatList') chatList!: ElementRef;
   private selectionIdSubscription: Subscription;
   private unsubscribeChannelMessages: (() => void) | undefined;
-  choosenChatId: string = '';
-  @ViewChild('chatList')
-  chatList!: ElementRef;
   private chatHistoryLoadedSubscription!: Subscription;
+
+  choosenChatId: string = '';
   isLoading: boolean = false;
-
-
   messages: any[] = [];
+
 
   constructor(private renderer: Renderer2) {
     this.selectionIdSubscription = this.selectionService.choosenChatTypeId.subscribe(newId => {
@@ -38,6 +37,7 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
       }
     });
   }
+
 
   ngAfterViewInit() {
     this.chatHistoryLoadedSubscription = this.DMService.chatHistoryLoaded$.subscribe(() => {
@@ -57,16 +57,17 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
     if (this.unsubscribeChannelMessages) {
       this.unsubscribeChannelMessages();
     }
-      const channelsRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
-      const channelQuery = query(channelsRef);
-      this.unsubscribeChannelMessages = onSnapshot(channelQuery, { includeMetadataChanges: true }, (querySnapshot) => {
-        this.loadChannelMessages();
-      }
-      )
+    const channelsRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
+    const channelQuery = query(channelsRef);
+    this.unsubscribeChannelMessages = onSnapshot(channelQuery, { includeMetadataChanges: true }, (querySnapshot) => {
+      this.loadChannelMessages();
+    }
+    )
   }
 
+
   async loadChannelMessages() {
-    this.messages = [];
+    let newMessages: any[] = [];
     const collRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
     const q = query(collRef, orderBy('postTime'));
 
@@ -79,7 +80,7 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
 
         const formattedPostDate = postDate.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' });
 
-        this.messages.push({
+        newMessages.push({
           text: doc.data()['text'],
           posthour: formattedPostTime,
           postDay: formattedPostDate,
@@ -89,7 +90,10 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
         });
       });
     });
+
+    this.messages = newMessages;
   }
+
 
   ngOnDestroy() {
     this.chatHistoryLoadedSubscription.unsubscribe();

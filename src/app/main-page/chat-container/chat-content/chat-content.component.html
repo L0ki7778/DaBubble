@@ -3,6 +3,7 @@
   <app-chat-message [isOwnMessage]="false" *ngFor="let message of messages"
     [message]="message"></app-chat-message>
 </div>
+
 <!-- direct-messages-style -->
 <div *ngIf="this.selectionService.channelOrDM.value === 'direct-message'" class="channel-message-container" #chatList>
   <div class="top-text">Diese Unterhaltung findet nur zwischen <span>&commat;{{ this.DMService.selectedUserName }}</span> und dir statt.</div>

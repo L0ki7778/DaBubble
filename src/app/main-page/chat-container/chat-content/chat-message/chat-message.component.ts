@@ -14,7 +14,7 @@ import { DirectMessagesService } from '../../../../services/direct-messages.serv
   standalone: true,
   imports: [CommonModule, ReactionBarComponent, PickerComponent],
   templateUrl: './chat-message.component.html',
-  styleUrl: './chat-message.component.scss',
+  styleUrl: './chat-message.component.scss'
 })
 export class ChatMessageComponent {
   firestore: Firestore = inject(Firestore);
