@@ -16,3 +16,11 @@ app-chat-message, app-private-message {
         width: 0;
     }
 }
+
+.top-text {
+    margin-bottom: 20px;
+    font-size: 18px;
+    > span {
+        color: var(--purple3);
+    }
+}

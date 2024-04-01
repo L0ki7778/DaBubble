@@ -4,7 +4,7 @@
         <emoji-mart (emojiClick)="addEmoji($event)" #emoji *ngIf="viewEmojiPicker"
             [style]="{ position: 'absolute', bottom: '-325px', right: '20px' }"></emoji-mart>
     </div>
-    <div (click)="showThread()" class="answer-img"></div>
+    <div *ngIf="this.selectionService.channelOrDM.value === 'channel'" (click)="showThread()" class="answer-img"></div>
     <div *ngIf="isOwnMessage" (click)="showOption($event)" class="edit-img"></div>
     <span #edit *ngIf="viewOption" class="edit-message" (click)="startEditing()">Nachricht bearbeiten</span>
 </div>
