@@ -15,7 +15,7 @@ form {
     border: none;
     outline: none;
     text-align: left;
-    color: $textGray;
+    color: black;
     width: 100%;
     height: 50%;
     resize: none;
@@ -97,4 +97,26 @@ form {
     @include dFlex();
     height: 25px;
     width: 25px;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    border: 1px solid var(--lightPurple);
+    border-radius: 10px;
+    padding: 4px;
+
+    img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+    }
+
+    p {
+        color: black;
+        font-size: 10px;
+        margin: 0;
+    }
 }

@@ -28,6 +28,28 @@ export class ChatInputComponent {
 
   chatContent: string = '';
   viewEmojiPicker: boolean = false;
+  selectedFile: string | ArrayBuffer | null = null;
+  selectedFileName: string | null = null;
+
+
+  fileToBase64(file: File): Promise<string | ArrayBuffer | null> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+      reader.readAsDataURL(file);
+    });
+  }
+
+
+  async onFileSelected(event: any) {
+    const selectedEventFile = event.target.files[0];
+    if (selectedEventFile) {
+      this.selectedFile = await this.fileToBase64(selectedEventFile);
+      this.selectedFileName = selectedEventFile.name;
+      console.log(this.selectedFile);
+    }
+  }
 
 
   async onSubmit(chatContent: string) {
@@ -78,4 +100,5 @@ export class ChatInputComponent {
   chatContentChanged(newValue: string) {
     this.chatContent = newValue;
   }
+
 }
