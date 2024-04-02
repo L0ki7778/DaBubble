@@ -47,8 +47,14 @@ export class ChatInputComponent {
     if (selectedEventFile) {
       this.selectedFile = await this.fileToBase64(selectedEventFile);
       this.selectedFileName = selectedEventFile.name;
-      console.log(this.selectedFile);
     }
+    event.target.value = '';
+  }
+
+
+  deselectFile() {
+    this.selectedFile = null;
+    this.selectedFileName = null;
   }
 
 

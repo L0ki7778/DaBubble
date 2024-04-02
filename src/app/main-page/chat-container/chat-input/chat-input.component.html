@@ -43,9 +43,12 @@
                 </svg>
             </div>
 
-            <div *ngIf="selectedFile" class="image-container">
+            <div *ngIf="selectedFile" class="image-container" (click)="deselectFile()">
                 <img [src]="selectedFile" alt="{{selectedFileName}}">
                 <p>{{selectedFileName}}</p>
+                <div class="hover-overlay">
+                    <span class="close-icon">X</span>
+                </div>
             </div>
 
         </div>
