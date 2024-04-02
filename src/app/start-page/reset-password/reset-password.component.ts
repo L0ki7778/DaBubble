@@ -31,4 +31,13 @@ export class ResetPasswordComponent {
     
   }
 
+  // const formData = this.createFormData();
+  //   await this.sendFormData(formData);
+  //   private async sendFormData(formData: FormData) {
+  //     await fetch('https://anton-osipov.de/send_mail.php', {
+  //       method: 'post',
+  //       body: formData
+  //     });
+  //   }
+
 }

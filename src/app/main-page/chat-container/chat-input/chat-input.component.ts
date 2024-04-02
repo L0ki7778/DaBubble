@@ -63,8 +63,8 @@ export class ChatInputComponent {
     const currentUser = await this.DMService.getLoggedInUserId();
     const currentChannel = this.selectionService.choosenChatTypeId.value;
     const messageText = this.chatContent;
-    const messageImage = this.selectedFile ? `<img src="${this.selectedFile}">` : '';
-    const messageContent = messageText + messageImage;
+    const messageImage = this.selectedFile ? `<div class="image-box"><img src="${this.selectedFile}"></div>` : '';
+    const messageContent = `<div class="message-wrapper">${messageImage}<div class="text-container">${messageText}</div></div>`;
     const newDoc: any = await addDoc(collection(this.firestore, "channels", currentChannel, "messages"), {
       authorId: currentUser,
       postTime: new Date().getTime(),
@@ -79,8 +79,8 @@ export class ChatInputComponent {
     const otherUserId = await this.DMService.getUserId(this.DMService.selectedUserName);
     if (otherUserId) {
       const messageText = this.chatContent;
-      const messageImage = this.selectedFile ? `<img src="${this.selectedFile}">` : '';
-      const messageContent = messageText + messageImage;
+      const messageImage = this.selectedFile ? `<div class="image-box"><img src="${this.selectedFile}"></div>` : '';
+      const messageContent = `<div class="message-wrapper">${messageImage}<div class="text-container">${messageText}</div></div>`;
       await this.DMService.addUserToDirectMessagesWithIds(otherUserId, messageContent);
       await this.DMService.loadChatHistory();
       this.chatContent = '';
