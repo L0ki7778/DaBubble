@@ -18,6 +18,9 @@ export class SelectionService {
   channelOrDM = new BehaviorSubject<string>('channel');
   channelOrDM$ = this.channelOrDM.asObservable();
 
+  selectedMemberId = new BehaviorSubject<string>('');
+  selectedMemberId$ = this.selectedMemberId.asObservable();
+
 
   channelsRef: CollectionReference = collection(this.firestore, "channels");
   channelsQuery = query(this.channelsRef);

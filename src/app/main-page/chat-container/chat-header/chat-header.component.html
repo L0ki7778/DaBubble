@@ -1,3 +1,4 @@
+<!-- chat header for channels -->
 <div class="chat-container-header" *ngIf="this.selectionService.channelOrDM.value === 'channel'">
     <app-edit-channel-overlay *ngIf="editChannel" class="edit-channel-overlay"></app-edit-channel-overlay>
     <div class="chat-head-title" (click)="openEditChannelOverlay()">
@@ -8,7 +9,7 @@
         <img src="assets/img/main-page/chat/arrow_down.svg">
     </div>
     <div class="chat-member-section">
-        <app-members-overlay *ngIf="showMembers" (choosenMemberId)="getChoosenMemberId($event)"
+        <app-members-overlay *ngIf="showMembers"
             [channelMemberIds]="currentChannelMembersIds" [channelMemberNames]="currentChannelMembersNames"
             [channelMemberAvatars]="currentChannelMembersAvatars"></app-members-overlay>
         <div class="chat-head-members" (click)="openMembersOverlay($event)">
@@ -27,10 +28,7 @@
     </div>
 </div>
 
-
-
-
-
+<!-- chat header for direct messages -->
 <div class="chat-container-header" *ngIf="this.selectionService.channelOrDM.value === 'direct-message'">
     <div class="profile-container">
         <img class="profile-image" [src]="DMService.selectedUserImage">

@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
 import { AuthService } from '../../../services/auth.service';
 import { SelectionService } from '../../../services/selection.service';
+import { CollectionReference } from 'firebase/firestore';
+import { Firestore, collection, doc, onSnapshot } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-member-profile',
@@ -18,8 +20,12 @@ export class MemberProfileComponent {
   DMService = inject(DirectMessagesService);
   auth = inject(AuthService);
   selectionService = inject(SelectionService);
+  firestore = inject(Firestore);
+  usersRef: CollectionReference = collection(this.firestore, "users");
+  unsubUser: any;
   @ViewChild('memberView') memberView: ElementRef | null = null;
 
+  memberId: string = '';
   userImage: string = 'assets/img/general/avatars/avatar3.svg';
   userName: string = 'Frederik Beck';
   userStatus: 'online' | 'offline' = 'online';
@@ -27,15 +33,27 @@ export class MemberProfileComponent {
   isSameUser: boolean = false;
   isDataLoaded = false;
 
-  @Input() choosenMemberId: string = '';
+  constructor() {
+    this.memberId = this.selectionService.selectedMemberId.value;
 
-  ngOnInit() {
-    this.DMService.getUserEmailByName(this.DMService.selectedProfileName)
-      .then(email => this.userMail = email || 'unknown@example.com')
-      .catch(error => console.error('Error fetching user email:', error));
-    this.DMService.isSameUser()
-      .then(isSame => this.isSameUser = isSame)
-      .catch(error => console.error('Error checking if same user:', error));
+    this.unsubUser = onSnapshot(doc(this.usersRef, this.memberId), { includeMetadataChanges: true }, (user) => {
+      if (user.exists() && user.data()) {
+        this.userImage = user.data()['image'];
+        this.userMail = user.data()['email'];
+        this.userName = user.data()['name'];
+      }
+    });
+
+    this.checkIfSameUser()
+  }
+
+  async checkIfSameUser() {
+    if (this.memberId === await this.DMService.getLoggedInUserId()) {
+      this.isSameUser = true;
+    }
+    else {
+      this.isSameUser = false
+    }
   }
 
   @HostListener('document:click', ['$event'])
@@ -55,5 +73,11 @@ export class MemberProfileComponent {
     this.close();
     this.selectionService.channelOrDM.next('direct-message');
     this.DMService.loadChatHistoryProfile();
+  }
+
+  ngOnDestroy() {
+    if (this.unsubUser) {
+      this.unsubUser();
     }
+  }
 }

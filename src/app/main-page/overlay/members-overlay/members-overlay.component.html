@@ -10,7 +10,7 @@
     </div>
     <div class="users-container">
         @for(member of channelMemberIds; track member; let index = $index ){
-        <div class="user-box" (click)="openMemberView($event)">
+        <div class="user-box" (click)="openMemberView($event, member)">
             <img class="user-icon" src="{{ channelMemberAvatars[index] }}">
             <span class="user-name">{{ channelMemberNames[index] }}</span>
         </div>

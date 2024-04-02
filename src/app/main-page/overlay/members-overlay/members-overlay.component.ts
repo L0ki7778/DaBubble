@@ -5,6 +5,7 @@ import { OverlayService } from '../../../services/overlay.service';
 import { FormsModule } from '@angular/forms';
 import { AddMemberOverlayComponent } from '../add-member-overlay/add-member-overlay.component';
 import { user } from '@angular/fire/auth';
+import { SelectionService } from '../../../services/selection.service';
 
 @Component({
   selector: 'app-members-overlay',
@@ -17,11 +18,11 @@ import { user } from '@angular/fire/auth';
 export class MembersOverlayComponent {
   translateService = inject(TranslateService)
   overlay = inject(OverlayService)
+  selectionService = inject(SelectionService)
 
   @Input() channelMemberIds: string[] = [];
   @Input() channelMemberNames: string[] = [];
   @Input() channelMemberAvatars: string[] = [];
-  @Output() choosenMemberId = new EventEmitter<string>();
 
   constructor(){
   }
@@ -31,7 +32,8 @@ export class MembersOverlayComponent {
     this.overlay.toggleAddMemberOverlay();
   }
 
-  openMemberView(event: MouseEvent) {
+  openMemberView(event: MouseEvent, memberId: string) {
+    this.selectionService.selectedMemberId.next(memberId);
     event.stopPropagation();
     this.overlay.closeOverlay();
     setTimeout(() => this.overlay.toggleMemberView(), 1);

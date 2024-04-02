@@ -33,7 +33,6 @@ export class ChatHeaderComponent {
   showAddMember: boolean = false;
   choosenChatTypeId: string = '';
   choosenChatType: string = 'channel';
-  choosenMemberId: string = '';
   currentChannelName: string = '';
   currentChannelMembersIds: string[] = [];
   currentChannelMembersNames: string[] = [];
@@ -95,10 +94,6 @@ export class ChatHeaderComponent {
         }
       );
     }
-  }
-
-  getChoosenMemberId(userId: string) {
-    this.choosenMemberId = userId;
   }
 
   openEditChannelOverlay() {
