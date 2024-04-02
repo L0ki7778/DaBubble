@@ -170,7 +170,6 @@ export class DirectMessagesService {
     const newMessageRef = await addDoc(messagesCollectionRef, newMessageData);
     const newMessageId = newMessageRef.id;
     await setDoc(newMessageRef, { ...newMessageData, id: newMessageId }, { merge: true });
-    console.log('New message added to the direct-messages subcollection');
   }
 
   async addUserToDirectMessagesWithIds(otherUserId: string, messageText: string) {
@@ -232,7 +231,6 @@ export class DirectMessagesService {
       if (existingChatWithBothUsers) {
         await this.retrieveAndEnrichMessageData(existingChatWithBothUsers);
         this.chatMessages.sort((a, b) => a.postTime - b.postTime);
-        console.log(this.chatMessages);
         this.chatHistoryLoaded.next();
       }
     } catch (error) {

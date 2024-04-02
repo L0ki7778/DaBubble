@@ -59,30 +59,37 @@ export class ChatInputComponent {
 
 
   async onSubmit(chatContent: string) {
-    if (this.selectionService.channelOrDM.value === 'channel') {
-      const currentUser = await this.DMService.getLoggedInUserId();
-      const currentChannel = this.selectionService.choosenChatTypeId.value;
-      const newDoc: any = await addDoc(collection(this.firestore, "channels", currentChannel, "messages"), {
-        authorId: currentUser,
-        postTime: new Date().getTime(),
-        reactions: [],
-        text: this.chatContent,
-      });
-      const newDocId = newDoc.id;
-      await updateDoc(newDoc, { docId: newDocId });
+  if (this.selectionService.channelOrDM.value === 'channel') {
+    const currentUser = await this.DMService.getLoggedInUserId();
+    const currentChannel = this.selectionService.choosenChatTypeId.value;
+    const messageText = this.chatContent;
+    const messageImage = this.selectedFile ? `<img src="${this.selectedFile}">` : '';
+    const messageContent = messageText + messageImage;
+    const newDoc: any = await addDoc(collection(this.firestore, "channels", currentChannel, "messages"), {
+      authorId: currentUser,
+      postTime: new Date().getTime(),
+      reactions: [],
+      text: messageContent
+    });
+    const newDocId = newDoc.id;
+    await updateDoc(newDoc, { docId: newDocId });
+    this.chatContent = '';
+    this.deselectFile();
+  } else if (this.selectionService.channelOrDM.value === 'direct-message') {
+    const otherUserId = await this.DMService.getUserId(this.DMService.selectedUserName);
+    if (otherUserId) {
+      const messageText = this.chatContent;
+      const messageImage = this.selectedFile ? `<img src="${this.selectedFile}">` : '';
+      const messageContent = messageText + messageImage;
+      await this.DMService.addUserToDirectMessagesWithIds(otherUserId, messageContent);
+      await this.DMService.loadChatHistory();
       this.chatContent = '';
-    }
-    if (this.selectionService.channelOrDM.value === 'direct-message') {
-      const otherUserId = await this.DMService.getUserId(this.DMService.selectedUserName);
-      if (otherUserId) {
-        await this.DMService.addUserToDirectMessagesWithIds(otherUserId, chatContent);
-        await this.DMService.loadChatHistory();
-        this.chatContent = '';
-      } else {
-        console.error('Error getting user ID');
-      }
+      this.deselectFile();
+    } else {
+      console.error('Error getting user ID');
     }
   }
+}
 
 
   showEmojiPicker(event: MouseEvent) {
