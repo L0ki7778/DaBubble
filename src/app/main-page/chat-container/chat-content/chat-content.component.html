@@ -1,6 +1,6 @@
 <!-- channel-messages-style -->
 <div *ngIf="this.selectionService.channelOrDM.value === 'channel'" class="channel-message-container">
-  <app-chat-message [isOwnMessage]="false" *ngFor="let message of messages"
+  <app-chat-message *ngFor="let message of messages"
     [message]="message"></app-chat-message>
 </div>
 

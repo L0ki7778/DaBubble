@@ -1,39 +1,43 @@
-import { CommonModule } from '@angular/common';
 import { Component, ElementRef, HostListener, Input, ViewChild, inject } from '@angular/core';
-import { OverlayService } from '../../../../services/overlay.service';
-import { ReactionBarComponent } from './reaction-bar/reaction-bar.component';
-import { BooleanValueService } from '../../../../services/boolean-value.service';
-import { Firestore, doc, getDoc, updateDoc } from '@angular/fire/firestore';
+import { OverlayService } from '../../../services/overlay.service';
+import { ReactionBarComponent } from '../../chat-container/chat-content/chat-message/reaction-bar/reaction-bar.component';
+import { BooleanValueService } from '../../../services/boolean-value.service';
+import { Firestore, collection, doc, getDoc, getDocs, updateDoc } from '@angular/fire/firestore';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { Subscription } from 'rxjs';
-import { SelectionService } from '../../../../services/selection.service';
-import { DirectMessagesService } from '../../../../services/direct-messages.service';
+import { SelectionService } from '../../../services/selection.service';
+import { DirectMessagesService } from '../../../services/direct-messages.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-chat-message',
+  selector: 'app-chat-answer',
   standalone: true,
   imports: [CommonModule, ReactionBarComponent, PickerComponent],
-  templateUrl: './chat-message.component.html',
-  styleUrl: './chat-message.component.scss'
+  templateUrl: './chat-answer.component.html',
+  styleUrl: './chat-answer.component.scss'
 })
-export class ChatMessageComponent {
+
+export class ChatAnswerComponent {
+
   firestore: Firestore = inject(Firestore);
   overlay = inject(OverlayService);
   booleanService = inject(BooleanValueService);
   selectionService: SelectionService = inject(SelectionService);
   DMService: DirectMessagesService = inject(DirectMessagesService);
 
+
+  @Input() isOwnMessage: boolean = true;
   @Input() message: any;
   @ViewChild('emoji') emoji: ElementRef | null = null;
-
   selectionIdSubscription: Subscription;
 
-  isOwnMessage: boolean = false;
+
   isHovered: boolean = false;
   viewEmojiPicker: boolean = false;
   user: any = {};
   choosenChatId: string = '';
   currentUserId: string | null = null;
+
 
   constructor() {
     this.selectionIdSubscription = this.selectionService.choosenChatTypeId.subscribe(newId => {
@@ -41,6 +45,7 @@ export class ChatMessageComponent {
     });
     this.getCurrentUserId();
   }
+
 
   ngOnInit() {
     if (this.message && this.message.authorId) {
@@ -59,14 +64,9 @@ export class ChatMessageComponent {
     }
   }
 
+
   async getCurrentUserId() {
     this.currentUserId = await this.DMService.getLoggedInUserId();
-    if (this.currentUserId === this.message.authorId) {
-      this.isOwnMessage = true;
-    }
-    else {
-      this.isOwnMessage = false
-    }
   }
 
   onHover(): void {
