@@ -46,11 +46,18 @@ export class ChatInputComponent {
   async onFileSelected(event: any) {
     const selectedEventFile = event.target.files[0];
     if (selectedEventFile) {
-      this.selectedFile = await this.fileToBase64(selectedEventFile);
-      this.selectedFileName = selectedEventFile.name;
+        if (selectedEventFile.size > 1024 * 1024) {
+            alert('The file is larger than 1 MB. Please select a smaller file.');
+            event.target.value = '';
+            return;
+        }
+
+        this.selectedFile = await this.fileToBase64(selectedEventFile);
+        this.selectedFileName = selectedEventFile.name;
     }
     event.target.value = '';
-  }
+}
+
 
 
   deselectFile() {
@@ -60,7 +67,8 @@ export class ChatInputComponent {
 
 
   async onSubmit(chatContent: string) {
-    if (this.isUploading) {
+    const trimmedChatContent = chatContent.trim();
+    if ((!trimmedChatContent && !this.selectedFile) || this.isUploading) {
       return;
     }
     this.isUploading = true;
