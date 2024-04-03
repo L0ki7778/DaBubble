@@ -144,3 +144,23 @@ form {
     color: var(--rosaError);
     font-size: 40px;
 }
+
+.loading-spinner {
+    border: 8px solid #ECEEFE;
+    border-top: 8px solid #444DF2;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 2s linear infinite;
+}
+
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
