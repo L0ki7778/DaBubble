@@ -59,37 +59,37 @@ export class ChatInputComponent {
 
 
   async onSubmit(chatContent: string) {
-  if (this.selectionService.channelOrDM.value === 'channel') {
-    const currentUser = await this.DMService.getLoggedInUserId();
-    const currentChannel = this.selectionService.choosenChatTypeId.value;
-    const messageText = this.chatContent;
-    const messageImage = this.selectedFile ? `<div class="image-box"><img src="${this.selectedFile}"></div>` : '';
-    const messageContent = `<div class="message-wrapper">${messageImage}<div class="text-container">${messageText}</div></div>`;
-    const newDoc: any = await addDoc(collection(this.firestore, "channels", currentChannel, "messages"), {
-      authorId: currentUser,
-      postTime: new Date().getTime(),
-      reactions: [],
-      text: messageContent
-    });
-    const newDocId = newDoc.id;
-    await updateDoc(newDoc, { docId: newDocId });
-    this.chatContent = '';
-    this.deselectFile();
-  } else if (this.selectionService.channelOrDM.value === 'direct-message') {
-    const otherUserId = await this.DMService.getUserId(this.DMService.selectedUserName);
-    if (otherUserId) {
+    if (this.selectionService.channelOrDM.value === 'channel') {
+      const currentUser = await this.DMService.getLoggedInUserId();
+      const currentChannel = this.selectionService.choosenChatTypeId.value;
       const messageText = this.chatContent;
       const messageImage = this.selectedFile ? `<div class="image-box"><img src="${this.selectedFile}"></div>` : '';
       const messageContent = `<div class="message-wrapper">${messageImage}<div class="text-container">${messageText}</div></div>`;
-      await this.DMService.addUserToDirectMessagesWithIds(otherUserId, messageContent);
-      await this.DMService.loadChatHistory();
+      const newDoc: any = await addDoc(collection(this.firestore, "channels", currentChannel, "messages"), {
+        authorId: currentUser,
+        postTime: new Date().getTime(),
+        reactions: [],
+        text: messageContent
+      });
+      const newDocId = newDoc.id;
+      await updateDoc(newDoc, { docId: newDocId });
       this.chatContent = '';
       this.deselectFile();
-    } else {
-      console.error('Error getting user ID');
+    } else if (this.selectionService.channelOrDM.value === 'direct-message') {
+      const otherUserId = await this.DMService.getUserId(this.DMService.selectedUserName);
+      if (otherUserId) {
+        const messageText = this.chatContent;
+        const messageImage = this.selectedFile ? `<div class="image-box"><img src="${this.selectedFile}"></div>` : '';
+        const messageContent = `<div class="message-wrapper">${messageImage}<div class="text-container">${messageText}</div></div>`;
+        await this.DMService.addUserToDirectMessagesWithIds(otherUserId, messageContent);
+        await this.DMService.loadChatHistory();
+        this.chatContent = '';
+        this.deselectFile();
+      } else {
+        console.error('Error getting user ID');
+      }
     }
   }
-}
 
 
   showEmojiPicker(event: MouseEvent) {
