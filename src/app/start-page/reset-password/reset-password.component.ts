@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.scss'
 })
@@ -31,13 +31,14 @@ export class ResetPasswordComponent {
     
   }
 
-  // const formData = this.createFormData();
-  //   await this.sendFormData(formData);
-  //   private async sendFormData(formData: FormData) {
-  //     await fetch('https://anton-osipov.de/send_mail.php', {
-  //       method: 'post',
-  //       body: formData
-  //     });
-  //   }
+   async sendFormData(emailAddress: string) {
+    const formData = new FormData();
+    formData.append('email', emailAddress);
+  
+    await fetch('https://anton-osipov.de/send_mail_dabubble.php', {
+      method: 'POST',
+      body: formData
+    });
+  }
 
 }
