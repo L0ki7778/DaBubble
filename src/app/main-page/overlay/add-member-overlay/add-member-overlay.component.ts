@@ -3,7 +3,7 @@ import { Component, ElementRef, HostListener, Input, ViewChild, inject } from '@
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { FormsModule } from '@angular/forms';
-import { CollectionReference, Firestore, Query, QuerySnapshot, collection, onSnapshot, query } from '@angular/fire/firestore';
+import { CollectionReference, Firestore, Query, QuerySnapshot, arrayUnion, collection, doc, onSnapshot, query, updateDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-add-member-overlay',
@@ -20,9 +20,12 @@ export class AddMemberOverlayComponent {
   noMemberUsers: { id: string; name: string; image: string }[] = [];
   filteredUsers: { id: string; name: string; image: string }[] = [];
   inputData: string = '';
+  selectedUser: boolean = false;
+  userSelectionValid: boolean = false;
 
   @Input() channelMemberIds: string[] = [];
   @Input() channelName: string = '';
+  @Input() channelId: string = '';
 
   @ViewChild('addMember') addMember: ElementRef | null = null;
 
@@ -38,10 +41,11 @@ export class AddMemberOverlayComponent {
   }
 
   filterUsers() {
-    this.filteredUsers= [];
+    this.filteredUsers = [];
+    this.userSelectionValid = false;
     const lowerCaseInput = this.inputData.toLowerCase();
     this.noMemberUsers.forEach((user) => {
-      if (user.name.toLowerCase().includes(lowerCaseInput)) {
+      if (user.name.toLowerCase().includes(lowerCaseInput) && !this.selectedUser) {
         this.filteredUsers.push(user);
       }
     });
@@ -49,7 +53,18 @@ export class AddMemberOverlayComponent {
 
   selectUser(userName: string) {
     this.inputData = userName;
+    this.selectedUser = true;
     this.filterUsers();
+    this.userSelectionValid = true;
+    this.selectedUser = false;
+  }
+
+  async addSelectedUser() {
+    this.userSelectionValid = false;
+    const channelRef = doc(this.firestore, "channels", this.channelId);
+
+    await updateDoc(channelRef, { members: arrayUnion("New Member") });
+    this.closeOverlay();
   }
 
   openAddMemberOverlay(event: MouseEvent) {
@@ -65,8 +80,9 @@ export class AddMemberOverlayComponent {
   onclick(event: Event) {
     if (this.addMember && this.addMember.nativeElement.contains(event.target)) {
       return
-    } else {
-      this.overlay.closeOverlay();
+    }
+    else {
+      return
     }
   }
 }
