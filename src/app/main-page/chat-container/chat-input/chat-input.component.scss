@@ -144,18 +144,3 @@ form {
     color: var(--rosaError);
     font-size: 40px;
 }
-
-.message-wrapper {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .image-box {
-    max-width: 200px;
-    margin-bottom: 8px;
-  }
-  
-  .image-box img {
-    max-width: 100%;
-    height: auto;
-  }

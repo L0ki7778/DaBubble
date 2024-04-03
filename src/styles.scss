@@ -78,6 +78,21 @@ cursor: pointer!important;
 
 @import '@ctrl/ngx-emoji-mart/picker';
 
+.message-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .image-box {
+    max-width: 400px;
+    margin-bottom: 8px;
+  }
+  
+  .image-box img {
+    max-width: 100%;
+    height: auto;
+  }
+
 
 /* nunito-200 - latin */
 @font-face {
