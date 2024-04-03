@@ -19,7 +19,7 @@
             </div>
             <span> {{ currentChannelMembersIds.length }} </span>
         </div>
-        <app-add-member-overlay *ngIf="showAddMember" [channelName]="currentChannelName"
+        <app-add-member-overlay *ngIf="showAddMember" [channelName]="currentChannelName" [channelId]="choosenChatTypeId"
             [channelMemberIds]="currentChannelMembersIds"></app-add-member-overlay>
         <img class="add-member-button" [src]="imgSrc"
             (mouseover)="imgSrc = 'assets/img/main-page/chat/add-members-button-hover.svg'"

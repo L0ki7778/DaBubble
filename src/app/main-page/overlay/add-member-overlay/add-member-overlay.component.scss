@@ -106,15 +106,26 @@
     text-align: left;
 }
 
-.add-btn {
-    color: white;
-    background-color: $textGray;
+.add-btn-disabled {
     justify-self: flex-end;
     padding: 12px 25px;
     border-radius: 25px;
     border: none;
+    color: white;
+    background-color: $textGray;
+}
+
+.add-btn-active {
+    justify-self: flex-end;
+    padding: 12px 25px;
+    border-radius: 25px;
+    border: none;
+    color: white;
+    background-color: $purple1;
 
     &:hover {
+        transition: ease-in 150ms;
         cursor: pointer;
+        background-color: $purple2;
     }
 }
