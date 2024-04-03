@@ -30,6 +30,7 @@ export class ChatInputComponent {
   viewEmojiPicker: boolean = false;
   selectedFile: string | ArrayBuffer | null = null;
   selectedFileName: string | null = null;
+  isUploading: boolean = false;
 
 
   fileToBase64(file: File): Promise<string | ArrayBuffer | null> {
@@ -59,6 +60,11 @@ export class ChatInputComponent {
 
 
   async onSubmit(chatContent: string) {
+    if (this.isUploading) {
+      return;
+    }
+    this.isUploading = true;
+
     if (this.selectionService.channelOrDM.value === 'channel') {
       const currentUser = await this.DMService.getLoggedInUserId();
       const currentChannel = this.selectionService.choosenChatTypeId.value;
@@ -89,6 +95,8 @@ export class ChatInputComponent {
         console.error('Error getting user ID');
       }
     }
+
+    this.isUploading = false;
   }
 
 
