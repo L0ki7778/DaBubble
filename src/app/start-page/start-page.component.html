@@ -12,6 +12,7 @@
 <app-login *ngIf="authService.showLogin"></app-login>
 <app-create-account *ngIf="authService.showCreateAccount"></app-create-account>
 <app-reset-password *ngIf="authService.showResetPassword"></app-reset-password>
+<app-enter-new-password *ngIf="authService.showEnterNewPassword"></app-enter-new-password>
 <app-choose-profile-picture *ngIf="authService.showChooseProfilePicture"></app-choose-profile-picture>
 <footer>
     <p [routerLink]="['imprint']">Impressum</p>

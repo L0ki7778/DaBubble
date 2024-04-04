@@ -6,6 +6,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { ChooseProfilePictureComponent } from './create-account/choose-profile-picture/choose-profile-picture.component';
+import { EnterNewPasswordComponent } from './enter-new-password/enter-new-password.component';
 
 @Component({
   selector: 'app-start-page',
@@ -14,6 +15,7 @@ import { ChooseProfilePictureComponent } from './create-account/choose-profile-p
     LoginComponent,
     CreateAccountComponent,
     ResetPasswordComponent,
+    EnterNewPasswordComponent,
     ChooseProfilePictureComponent,
     CommonModule,
     RouterLink
