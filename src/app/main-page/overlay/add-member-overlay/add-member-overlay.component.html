@@ -13,7 +13,7 @@
         <input class="input-field" placeholder="Name eingeben" name="name" type="text" [(ngModel)]="inputData"
             (input)="filterUsers()" autocomplete="off">
         <div class="member-suggestion-box" *ngIf="filteredUsers.length > 0">
-            <div class="user-box" *ngFor="let user of filteredUsers" (click)="selectUser(user.name)">
+            <div class="user-box" *ngFor="let user of filteredUsers" (click)="selectUser(user.name, user.id)">
                 <img class="user-icon" [src]="user.image">
                 <span class="user-name">{{ user.name }}</span>
             </div>

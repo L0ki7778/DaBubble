@@ -8,6 +8,7 @@ import { ProfileViewComponent } from './profile-view/profile-view.component';
 import { BooleanValueService } from '../../services/boolean-value.service';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { MemberProfileComponent } from './member-profile/member-profile.component';
+import { UploadWarningComponent } from './upload-warning/upload-warning.component';
 
 @Component({
   selector: 'app-overlay',
@@ -19,7 +20,8 @@ import { MemberProfileComponent } from './member-profile/member-profile.componen
     AddMemberOverlayComponent,
     ProfileViewComponent,
     EditProfileComponent,
-    MemberProfileComponent
+    MemberProfileComponent,
+    UploadWarningComponent
   ],
   templateUrl: './overlay.component.html',
   styleUrl: './overlay.component.scss'
@@ -35,4 +37,5 @@ export class OverlayComponent {
   profileView = this.overlay.profileView;
   editProfileView = this.overlay.editProfileView;
   memberView = this.overlay.memberView;
+  warning = this.overlay.warning;
 }
