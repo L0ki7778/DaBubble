@@ -1,6 +1,6 @@
 <!-- chat header for channels -->
 <div class="chat-container-header" *ngIf="this.selectionService.channelOrDM.value === 'channel'">
-    <app-edit-channel-overlay *ngIf="editChannel" class="edit-channel-overlay"></app-edit-channel-overlay>
+    <app-edit-channel-overlay [channelId]="choosenChatTypeId" *ngIf="editChannel" class="edit-channel-overlay"></app-edit-channel-overlay>
     <div class="chat-head-title" (click)="openEditChannelOverlay()">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path

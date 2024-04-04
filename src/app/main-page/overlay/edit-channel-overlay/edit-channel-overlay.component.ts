@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { FormsModule } from '@angular/forms';
+import { doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { Firestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-edit-channel-overlay',
@@ -16,30 +18,65 @@ import { FormsModule } from '@angular/forms';
 export class EditChannelOverlayComponent {
   translateService = inject(TranslateService)
   overlay = inject(OverlayService)
+  firestore = inject(Firestore)
+
   firstTime = true;
   editName: boolean = false;
   editDescription: boolean = false;
-  author: string = "Rene Heller";
-  descriptionInput:string="Beschreibung deiner Wahl" ;
+  channelName: string = '';
+  description: string = '';
+  authorId: string = '';
+  authorName: string = '';
 
-  constructor() { }
+  @Input() channelId: string = '';
+
+  unsubChannel: any;
+
+  constructor() {}
+
+  ngOnInit() {
+    if(this.channelId)
+    this.unsubChannel = onSnapshot(doc(this.firestore, "channels", this.channelId), (currentChannel) => {
+      if (currentChannel.exists()) {
+        this.channelName = currentChannel.data()['channelName'];
+        this.description = currentChannel.data()['description'];
+        this.authorId = currentChannel.data()['authorId'];
+        if (this.authorId !== '') {
+          this.getAuthorNameFromAuthorId(this.authorId);
+        }
+      }
+    });
+  }
+
+  async getAuthorNameFromAuthorId(authorId: string) {
+    const userRef = doc(this.firestore, "users", authorId);
+    const userData = await getDoc(userRef);
+    if (userData.exists()) {
+      this.authorName = userData.data()['name'];
+    }
+  }
 
   ngAfterViewInit() {
     this.firstTime = false
   }
 
 
-editChannelName(){
-  this.editName = !this.editName;
-}
+  editChannelName() {
+    this.editName = !this.editName;
+  }
 
 
-editChannelDescription(){
-  this.editDescription = !this.editDescription;
-}
+  editChannelDescription() {
+    this.editDescription = !this.editDescription;
+  }
 
 
-closeOverlay() {
-  this.overlay.closeOverlay()
-}
+  closeOverlay() {
+    this.overlay.closeOverlay()
+  }
+
+  ngOnDestroy() {
+    if (this.unsubChannel)
+      this.unsubChannel();
+  }
 }
