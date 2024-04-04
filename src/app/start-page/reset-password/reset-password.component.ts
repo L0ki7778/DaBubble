@@ -14,7 +14,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './reset-password.component.scss'
 })
 export class ResetPasswordComponent {
-  
+
   authService: AuthService = inject(AuthService);
 
 
@@ -28,13 +28,14 @@ export class ResetPasswordComponent {
   }
 
   resetPassword() {
-    
+    this.authService.showEnterNewPassword = true;
+    this.authService.showResetPassword = false;
   }
 
-   async sendFormData(emailAddress: string) {
+  async sendFormData(emailAddress: string) {
     const formData = new FormData();
     formData.append('email', emailAddress);
-  
+
     await fetch('https://anton-osipov.de/send_mail_dabubble.php', {
       method: 'POST',
       body: formData

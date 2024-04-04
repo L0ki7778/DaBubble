@@ -34,17 +34,27 @@ export class MemberProfileComponent {
   isDataLoaded = false;
 
   constructor() {
-    this.memberId = this.selectionService.selectedMemberId.value;
+    if (this.selectionService.channelOrDM.value === 'channel') {
+      this.memberId = this.selectionService.selectedMemberId.value;
 
-    this.unsubUser = onSnapshot(doc(this.usersRef, this.memberId), { includeMetadataChanges: true }, (user) => {
-      if (user.exists() && user.data()) {
-        this.userImage = user.data()['image'];
-        this.userMail = user.data()['email'];
-        this.userName = user.data()['name'];
-      }
-    });
+      this.unsubUser = onSnapshot(doc(this.usersRef, this.memberId), { includeMetadataChanges: true }, (user) => {
+        if (user.exists() && user.data()) {
+          this.userImage = user.data()['image'];
+          this.userMail = user.data()['email'];
+          this.userName = user.data()['name'];
+        }
+      });
 
-    this.checkIfSameUser()
+      this.checkIfSameUser()
+    }
+    if (this.selectionService.channelOrDM.value === 'direct-message') {
+      this.DMService.getUserEmailByName(this.DMService.selectedProfileName)
+        .then(email => this.userMail = email || 'unknown@example.com')
+        .catch(error => console.error('Error fetching user email:', error));
+      this.DMService.isSameUser()
+        .then(isSame => this.isSameUser = isSame)
+        .catch(error => console.error('Error checking if same user:', error));
+    }
   }
 
   async checkIfSameUser() {
