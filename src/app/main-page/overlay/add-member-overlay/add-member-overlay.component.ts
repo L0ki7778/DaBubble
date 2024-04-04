@@ -21,6 +21,7 @@ export class AddMemberOverlayComponent {
   filteredUsers: { id: string; name: string; image: string }[] = [];
   inputData: string = '';
   selectedUser: boolean = false;
+  selectedUserId: string = '';
   userSelectionValid: boolean = false;
 
   @Input() channelMemberIds: string[] = [];
@@ -43,6 +44,7 @@ export class AddMemberOverlayComponent {
   filterUsers() {
     this.filteredUsers = [];
     this.userSelectionValid = false;
+    this.selectedUserId = '';
     const lowerCaseInput = this.inputData.toLowerCase();
     this.noMemberUsers.forEach((user) => {
       if (user.name.toLowerCase().includes(lowerCaseInput) && !this.selectedUser) {
@@ -51,10 +53,11 @@ export class AddMemberOverlayComponent {
     });
   }
 
-  selectUser(userName: string) {
+  selectUser(userName: string, userId: string) {
     this.inputData = userName;
     this.selectedUser = true;
     this.filterUsers();
+    this.selectedUserId = userId;
     this.userSelectionValid = true;
     this.selectedUser = false;
   }
@@ -62,9 +65,10 @@ export class AddMemberOverlayComponent {
   async addSelectedUser() {
     this.userSelectionValid = false;
     const channelRef = doc(this.firestore, "channels", this.channelId);
-
-    await updateDoc(channelRef, { members: arrayUnion("New Member") });
+    if(this.selectedUserId !== ''){
+    await updateDoc(channelRef, { members: arrayUnion(this.selectedUserId) });
     this.closeOverlay();
+    }
   }
 
   openAddMemberOverlay(event: MouseEvent) {

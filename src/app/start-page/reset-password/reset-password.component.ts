@@ -28,7 +28,8 @@ export class ResetPasswordComponent {
   }
 
   resetPassword() {
-
+    this.authService.showEnterNewPassword = true;
+    this.authService.showResetPassword = false;
   }
 
   async sendFormData(emailAddress: string) {

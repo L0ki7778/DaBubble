@@ -39,6 +39,7 @@ header {
         font-size: 18px;
         color: var(--purple2);
         text-align: center;
+
         &:hover {
             cursor: pointer;
             outline: 1px solid var(--purple2);
@@ -55,9 +56,11 @@ footer {
     display: flex;
     justify-content: center;
     gap: 10px;
+
     >p {
         margin: 15px;
         padding: 0 10px;
+
         &:hover {
             cursor: pointer;
             outline: 1px solid var(--purple2);
@@ -65,5 +68,14 @@ footer {
             font-weight: 500;
             color: var(--purple1);
         }
+    }
+}
+
+@media (min-height: 750px) {
+    footer {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
     }
 }

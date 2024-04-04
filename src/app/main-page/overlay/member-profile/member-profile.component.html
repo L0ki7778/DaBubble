@@ -1,4 +1,37 @@
-<div class="member-container" #memberView>
+<div class="member-container" #memberView *ngIf="this.selectionService.channelOrDM.value === 'direct-message'">
+    <div class="space-between">
+        <h1>Profil</h1>
+        <div (click)="close()" class="cross-img"></div>
+    </div>
+    <div class="user-img-container">
+        <img src="{{ this.DMService.selectedProfileImage }}">
+    </div>
+    <span class="name">{{ this.DMService.selectedProfileName }}</span>
+    <div class="active-container"  *ngIf="userStatus === 'online'">
+        <img src="assets/img/general/Online.svg">
+        <span>Aktiv</span>
+    </div>
+    <div class="email-container">
+        <img src="assets/img/general/mail.svg">
+        <div>
+            <span>E-Mail-Adresse</span>
+            <br>
+            <br>
+            <a href="mailto:{{ userMail }}">{{ userMail }}&nbsp;</a>
+        </div>
+    </div>
+    <div class="btn-container" (click)="openChat()" *ngIf="!isSameUser">
+        <button class="message-btn">
+            <img src="assets/img/general/message.svg">
+            Nachricht
+        </button>
+    </div>
+</div>
+
+
+
+
+<div class="member-container" #memberView *ngIf="this.selectionService.channelOrDM.value === 'channel'">
     <div class="space-between">
         <h1>Profil</h1>
         <div (click)="close()" class="cross-img"></div>
