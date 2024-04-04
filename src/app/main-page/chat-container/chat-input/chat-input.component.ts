@@ -5,6 +5,7 @@ import { DirectMessagesService } from '../../../services/direct-messages.service
 import { SelectionService } from '../../../services/selection.service';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { Firestore, addDoc, collection, updateDoc } from '@angular/fire/firestore';
+import { OverlayService } from '../../../services/overlay.service';
 
 @Component({
   selector: 'app-chat-input',
@@ -22,6 +23,7 @@ export class ChatInputComponent {
   firestore: Firestore = inject(Firestore);
   DMService: DirectMessagesService = inject(DirectMessagesService);
   selectionService: SelectionService = inject(SelectionService);
+  overlayService = inject(OverlayService);
 
   @ViewChild('emoji') emoji: ElementRef | null = null;
   @ViewChild('textarea') textarea: ElementRef | any;
@@ -46,17 +48,17 @@ export class ChatInputComponent {
   async onFileSelected(event: any) {
     const selectedEventFile = event.target.files[0];
     if (selectedEventFile) {
-        if (selectedEventFile.size > 1024 * 1024) {
-            alert('The file is larger than 1 MB. Please select a smaller file.');
-            event.target.value = '';
-            return;
-        }
+      if (selectedEventFile.size > 1024 * 1024) {
+        this.overlayService.toggleWarning();
+        event.target.value = '';
+        return;
+      }
 
-        this.selectedFile = await this.fileToBase64(selectedEventFile);
-        this.selectedFileName = selectedEventFile.name;
+      this.selectedFile = await this.fileToBase64(selectedEventFile);
+      this.selectedFileName = selectedEventFile.name;
     }
     event.target.value = '';
-}
+  }
 
 
 
