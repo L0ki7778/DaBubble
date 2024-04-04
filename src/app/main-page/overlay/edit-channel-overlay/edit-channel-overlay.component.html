@@ -19,7 +19,7 @@
 
         <div class="input-field">
             <span>#</span>
-            <input type="text" placeholder="Entwicklerteam" [disabled]="!editName" [ngClass]="{'hover-input':editName}">
+            <input type="text" placeholder="{{ channelName }}" [disabled]="!editName" [ngClass]="{'hover-input':editName}">
         </div>
     </div>
 </div>
@@ -39,18 +39,18 @@
             </h4>
             }
     </div>
-    <input id="description-input-field" type="text" placeholder="{{descriptionInput}}" [disabled]="!editDescription" [(ngModel)]="descriptionInput" [ngClass]="{'visible-description-input':editDescription,'hover-input':editDescription}">
+    <input id="description-input-field" type="text" placeholder="{{ description }}" [disabled]="!editDescription" [(ngModel)]="description" [ngClass]="{'visible-description-input':editDescription,'hover-input':editDescription}">
     <div class="description-input" [ngClass]="{'border-transparent':editDescription}">
     </div>
     <div #descriptionInputContent id="description-content" [ngClass]="{'transparent':editDescription}">
-        {{descriptionInput}}
+        {{ description }}
     </div>
     <div class="stroke-div"></div>
     <h4>
         Erstellt von
     </h4>
     <div id="channel-author">
-        {{author}}
+        {{ authorName }}
     </div>
 
 </div>
