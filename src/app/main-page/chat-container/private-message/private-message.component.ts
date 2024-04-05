@@ -87,7 +87,7 @@ export class PrivateMessageComponent {
   startEditing(messageId: string, messageText: string) {
     this.editMessage = true;
     this.editingMessageId = messageId;
-    this.editingMessageText = messageText;
+    this.editingMessageText = this.extractTextFromMessageContent(messageText);
   }
 
   cancelEditing() {
@@ -96,22 +96,35 @@ export class PrivateMessageComponent {
     this.editMessage = false;
   }
 
-  async saveEditedMessage(messageId: string | undefined) {
-    try {
-      const existingChatWithBothUsers = await this.DMService.retrieveChatDocumentReference();
-      if (existingChatWithBothUsers) {
-        const messagesCollectionRef = collection(existingChatWithBothUsers.ref, 'chat-messages');
-        const messageDocRef = doc(messagesCollectionRef, messageId);
-        await updateDoc(messageDocRef, { text: this.editingMessageText });
-        console.log('Message updated successfully');
-        this.editingMessageId = null;
-        this.editingMessageText = '';
-        await this.DMService.loadChatHistory();
-      }
-    } catch (error) {
-      console.error('Error updating message:', error);
-    }
+  extractTextFromMessageContent(messageContent: string): string {
+    const textContainer = messageContent.match(/<div class="text-container">(.*?)<\/div>/s);
+    return textContainer ? textContainer[1].trim() : messageContent;
   }
+
+  assembleMessageContent(messageText: string, originalMessageContent: string): string {
+    const messageImage = originalMessageContent.match(/<div class="image-box">.*?<\/div>/s)?.[0] || '';
+    const textContainer = `<div class="text-container">${messageText}</div>`;
+    return `<div class="message-wrapper">${messageImage}${textContainer}</div>`;
+  }
+
+  async saveEditedMessage(messageId: string | undefined) {
+  try {
+    const existingChatWithBothUsers = await this.DMService.retrieveChatDocumentReference();
+    if (existingChatWithBothUsers) {
+      const messagesCollectionRef = collection(existingChatWithBothUsers.ref, 'chat-messages');
+      const messageDocRef = doc(messagesCollectionRef, messageId);
+      const originalMessageSnapshot = await getDoc(messageDocRef);
+      const originalMessageContent = originalMessageSnapshot.data()?.['text'];
+      const updatedMessageContent = this.assembleMessageContent(this.editingMessageText, originalMessageContent);
+      await updateDoc(messageDocRef, { text: updatedMessageContent });
+      this.editingMessageId = null;
+      this.editingMessageText = '';
+      await this.DMService.loadChatHistory();
+    }
+  } catch (error) {
+    console.error('Error updating message:', error);
+  }
+}
 
   showEmojiPicker(event: MouseEvent) {
     event.stopPropagation();
