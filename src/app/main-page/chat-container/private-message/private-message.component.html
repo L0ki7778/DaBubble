@@ -7,7 +7,7 @@
       <div class="d-flex" [ngStyle]="{'flex-direction': isOwnMessage(message) ? 'row-reverse' : 'row'}">
         <span (click)="openMemberView($event)" class="message-author">{{ message.authorName }}</span>
         <span class="message-time">{{ (message.postTime.toDate() | date:'HH:mm') }} Uhr</span>
-        <app-reaction-bar [isOwnMessage]="isOwnMessage(message)" [messageId]="message.id" [messageText]="message.text"
+        <app-reaction-bar [privateMessage]="message" [isOwnMessage]="isOwnMessage(message)" [messageId]="message.id" [messageText]="message.text"
           (editingStarted)="startEditing($event.messageId, $event.messageText)"></app-reaction-bar>
       </div>
     </div>

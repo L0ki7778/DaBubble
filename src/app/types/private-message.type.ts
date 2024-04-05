@@ -5,5 +5,4 @@ export type PrivateMessageType = {
     authorImage: any;
     postTime: any;            
     text: string;                  
-    reactions: any;           
 }

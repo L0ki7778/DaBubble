@@ -36,8 +36,7 @@ export class DirectMessagesService {
       authorName: '',
       authorImage: '',
       postTime: Date.now(),
-      text: '',
-      reactions: '',
+      text: ''
     };
   }
 
@@ -164,7 +163,6 @@ export class DirectMessagesService {
       authorName: await this.getUserNameById(loggedInUserId),
       authorImage: await this.getUserImageById(loggedInUserId),
       postTime: serverTimestamp(),
-      reactions: [],
       text: processedMessageText
     };
     const newMessageRef = await addDoc(messagesCollectionRef, newMessageData);

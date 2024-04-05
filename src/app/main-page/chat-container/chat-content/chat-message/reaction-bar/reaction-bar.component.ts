@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild, inject } from '@angular/core';
 import { BooleanValueService } from '../../../../../services/boolean-value.service';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
-import { Firestore, doc, getDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, collection, doc, getDoc, onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { SelectionService } from '../../../../../services/selection.service';
 import { DirectMessagesService } from '../../../../../services/direct-messages.service';
@@ -18,6 +18,7 @@ import { DirectMessagesService } from '../../../../../services/direct-messages.s
 export class ReactionBarComponent {
 
   @Input() message: any;
+  @Input() privateMessage: any;
   @Input() isOwnMessage: boolean = true;
   @Input() messageId: string | null = null;
   @Input() messageText: string = '';
@@ -27,16 +28,15 @@ export class ReactionBarComponent {
   booleanService = inject(BooleanValueService);
   firestore: Firestore = inject(Firestore);
   DMService: DirectMessagesService = inject(DirectMessagesService);
-  selectionIdSubscription: Subscription;
   selectionService: SelectionService = inject(SelectionService);
-
-
+  selectionIdSubscription: Subscription;
 
   viewOption: boolean = false;
   viewEmojiPicker: boolean = false;
   choosenChatId: string = '';
   emojiAmount: number = 0;
   currentUserId: string | null = null;
+  unsubscribe: any;
 
 
   constructor() {
@@ -44,6 +44,13 @@ export class ReactionBarComponent {
       this.choosenChatId = newId;
     });
     this.getCurrentUserId();
+  }
+
+
+  ngOnDestroy() {
+    if (this.unsubscribe) {
+      this.unsubscribe();
+    }
   }
 
 
@@ -87,6 +94,15 @@ export class ReactionBarComponent {
 
 
   addEmoji(event: any) {
+    if (this.message) {
+      this.addEmojiChannel(event);
+    } else if (this.privateMessage) {
+      this.addEmojiPrivateMessage(event);
+    }
+  }
+
+
+  addEmojiChannel(event: any) {
     const emoji = event.emoji.native;
     const docRef = doc(this.firestore, 'channels', this.choosenChatId, 'messages', this.message.docId);
 
@@ -115,6 +131,56 @@ export class ReactionBarComponent {
         updateDoc(docRef, { reactions });
       }
     });
+  }
+
+
+  async addEmojiPrivateMessage(event: any) {
+    const emoji = event.emoji.native;
+    const messageId = this.privateMessage.id;
+
+    try {
+      const existingChatWithBothUsers = await this.DMService.retrieveChatDocumentReference();
+      if (existingChatWithBothUsers) {
+        const messagesCollectionRef = collection(existingChatWithBothUsers.ref, 'chat-messages');
+        const messageDocRef = doc(messagesCollectionRef, messageId);
+
+        const messageSnapshot = await getDoc(messageDocRef);
+        if (messageSnapshot.exists()) {
+          const data = messageSnapshot.data();
+          let reactions = data['reactions'] || {};
+
+          if (reactions[emoji]) {
+            const userIndex = reactions[emoji].users.indexOf(this.currentUserId);
+            if (userIndex > -1) {
+              reactions[emoji].count -= 1;
+              reactions[emoji].users.splice(userIndex, 1);
+
+              if (reactions[emoji].count === 0) {
+                delete reactions[emoji];
+              }
+            } else {
+              reactions[emoji].count += 1;
+              reactions[emoji].users.push(this.currentUserId);
+            }
+          } else {
+            reactions[emoji] = { count: 1, users: [this.currentUserId] };
+          }
+
+          await updateDoc(messageDocRef, { reactions });
+        }
+
+        this.unsubscribe = onSnapshot(messageDocRef, (docSnapshot) => {
+          if (docSnapshot.exists()) {
+            const data = docSnapshot.data();
+            this.privateMessage.reactions = data['reactions'];
+          }
+        });
+
+        this.viewEmojiPicker = false;
+      }
+    } catch (error) {
+      console.error('Error adding reaction:', error);
+    }
   }
 
 }

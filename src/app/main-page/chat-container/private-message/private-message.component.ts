@@ -5,7 +5,7 @@ import { BooleanValueService } from '../../../services/boolean-value.service';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
 import { PrivateMessageType } from '../../../types/private-message.type';
 import { ReactionBarComponent } from '../chat-content/chat-message/reaction-bar/reaction-bar.component';
-import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore';
 import { FormsModule } from '@angular/forms';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { Firestore } from '@angular/fire/firestore';
@@ -21,24 +21,33 @@ import { Firestore } from '@angular/fire/firestore';
 export class PrivateMessageComponent {
   firestore: Firestore = inject(Firestore);
   overlay = inject(OverlayService);
-  currentUserId: string | null = null;
   DMService: DirectMessagesService = inject(DirectMessagesService);
   booleanService = inject(BooleanValueService);
-  messageTime: any = null;
   @Input() message: any;
   @Input() messageId: string | null = null;
   @Input() messageText: string = '';
+  @ViewChild('emojiPicker') emoji: ElementRef<HTMLElement> | any;
+  currentUserId: string | null = null;
+  messageTime: any = null;
   editMessage: boolean = false;
   editingMessageId: string | null = null;
   editingMessageText: string = '';
   viewEmojiPicker: boolean = false;
-  @ViewChild('emojiPicker') emoji: ElementRef<HTMLElement>| any;
-
   isHovered: boolean = false;
+  unsubscribe: any;
+
 
   constructor() {
     this.getCurrentUserId();
   }
+
+
+  ngOnDestroy() {
+    if (this.unsubscribe) {
+      this.unsubscribe();
+    }
+  }
+
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
@@ -108,23 +117,23 @@ export class PrivateMessageComponent {
   }
 
   async saveEditedMessage(messageId: string | undefined) {
-  try {
-    const existingChatWithBothUsers = await this.DMService.retrieveChatDocumentReference();
-    if (existingChatWithBothUsers) {
-      const messagesCollectionRef = collection(existingChatWithBothUsers.ref, 'chat-messages');
-      const messageDocRef = doc(messagesCollectionRef, messageId);
-      const originalMessageSnapshot = await getDoc(messageDocRef);
-      const originalMessageContent = originalMessageSnapshot.data()?.['text'];
-      const updatedMessageContent = this.assembleMessageContent(this.editingMessageText, originalMessageContent);
-      await updateDoc(messageDocRef, { text: updatedMessageContent });
-      this.editingMessageId = null;
-      this.editingMessageText = '';
-      await this.DMService.loadChatHistory();
+    try {
+      const existingChatWithBothUsers = await this.DMService.retrieveChatDocumentReference();
+      if (existingChatWithBothUsers) {
+        const messagesCollectionRef = collection(existingChatWithBothUsers.ref, 'chat-messages');
+        const messageDocRef = doc(messagesCollectionRef, messageId);
+        const originalMessageSnapshot = await getDoc(messageDocRef);
+        const originalMessageContent = originalMessageSnapshot.data()?.['text'];
+        const updatedMessageContent = this.assembleMessageContent(this.editingMessageText, originalMessageContent);
+        await updateDoc(messageDocRef, { text: updatedMessageContent });
+        this.editingMessageId = null;
+        this.editingMessageText = '';
+        await this.DMService.loadChatHistory();
+      }
+    } catch (error) {
+      console.error('Error updating message:', error);
     }
-  } catch (error) {
-    console.error('Error updating message:', error);
   }
-}
 
   showEmojiPicker(event: MouseEvent) {
     event.stopPropagation();
@@ -136,83 +145,58 @@ export class PrivateMessageComponent {
   }
 
 
-  // addReaction(event: any) {
-  //   const emoji = event.emoji.native;
-
-
-  //   const docRef = doc(this.firestore, 'direct-messages', this.choosenChatId, 'chat-messages', this.message.docId);
-
-  //   getDoc(docRef).then((docSnapshot) => {
-  //     if (docSnapshot.exists()) {
-  //       const data = docSnapshot.data();
-  //       let reactions = data['reactions'] || {};
-
-  //       if (reactions[emoji]) {
-  //         const userIndex = reactions[emoji].users.indexOf(this.currentUserId);
-  //         if (userIndex > -1) {
-  //           reactions[emoji].count -= 1;
-  //           reactions[emoji].users.splice(userIndex, 1);
-
-  //           if (reactions[emoji].count === 0) {
-  //             delete reactions[emoji];
-  //           }
-  //         } else {
-  //           reactions[emoji].count += 1;
-  //           reactions[emoji].users.push(this.currentUserId);
-  //         }
-  //       } else {
-  //         reactions[emoji] = { count: 1, users: [this.currentUserId] };
-  //       }
-
-  //       updateDoc(docRef, { reactions });
-  //     }
-  //   });
-  // }
-
+  isObjectWithCount(value: any): value is { count: number } {
+    return typeof value === 'object' && value !== null && 'count' in value;
+  }
 
 
   async addReaction(event: any) {
     const emoji = event.emoji.native;
+    const messageId = this.message.id;
+
     try {
       const existingChatWithBothUsers = await this.DMService.retrieveChatDocumentReference();
       if (existingChatWithBothUsers) {
         const messagesCollectionRef = collection(existingChatWithBothUsers.ref, 'chat-messages');
-        const messageDocRef = doc(messagesCollectionRef, this.message['id']);
+        const messageDocRef = doc(messagesCollectionRef, messageId);
 
-        getDoc(messageDocRef).then((docSnapshot) => {
-          if (docSnapshot.exists()) {
-            const data = docSnapshot.data();
-            let reactions = data['reactions'] || {};
+        const messageSnapshot = await getDoc(messageDocRef);
+        if (messageSnapshot.exists()) {
+          const data = messageSnapshot.data();
+          let reactions = data['reactions'] || {};
 
-            if (reactions[emoji]) {
-              const userIndex = reactions[emoji].users.indexOf(this.currentUserId);
-              if (userIndex > -1) {
-                reactions[emoji].count -= 1;
-                reactions[emoji].users.splice(userIndex, 1);
+          if (reactions[emoji]) {
+            const userIndex = reactions[emoji].users.indexOf(this.currentUserId);
+            if (userIndex > -1) {
+              reactions[emoji].count -= 1;
+              reactions[emoji].users.splice(userIndex, 1);
 
-                if (reactions[emoji].count === 0) {
-                  delete reactions[emoji];
-                }
-              } else {
-                reactions[emoji].count += 1;
-                reactions[emoji].users.push(this.currentUserId);
+              if (reactions[emoji].count === 0) {
+                delete reactions[emoji];
               }
             } else {
-              reactions[emoji] = { count: 1, users: [this.currentUserId] };
+              reactions[emoji].count += 1;
+              reactions[emoji].users.push(this.currentUserId);
             }
+          } else {
+            reactions[emoji] = { count: 1, users: [this.currentUserId] };
+          }
 
-            updateDoc(messageDocRef, { reactions });
+          await updateDoc(messageDocRef, { reactions });
+        }
+
+        this.unsubscribe = onSnapshot(messageDocRef, (docSnapshot) => {
+          if (docSnapshot.exists()) {
+            const data = docSnapshot.data();
+            this.message.reactions = data['reactions'];
           }
         });
+
+        this.viewEmojiPicker = false;
       }
     } catch (error) {
-      console.error(error);
+      console.error('Error adding reaction:', error);
     }
   }
 
-
-
-  isObjectWithCount(value: any): value is { count: number } {
-    return typeof value === 'object' && value !== null && 'count' in value;
-  }
 }

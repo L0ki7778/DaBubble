@@ -84,7 +84,6 @@ export class ChatInputComponent {
       const newDoc: any = await addDoc(collection(this.firestore, "channels", currentChannel, "messages"), {
         authorId: currentUser,
         postTime: new Date().getTime(),
-        reactions: [],
         text: messageContent
       });
       const newDocId = newDoc.id;
