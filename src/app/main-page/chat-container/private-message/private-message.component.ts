@@ -5,9 +5,10 @@ import { BooleanValueService } from '../../../services/boolean-value.service';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
 import { PrivateMessageType } from '../../../types/private-message.type';
 import { ReactionBarComponent } from '../chat-content/chat-message/reaction-bar/reaction-bar.component';
-import { collection, doc, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { FormsModule } from '@angular/forms';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
+import { Firestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-private-message',
@@ -18,6 +19,7 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 })
 
 export class PrivateMessageComponent {
+  firestore: Firestore = inject(Firestore);
   overlay = inject(OverlayService);
   currentUserId: string | null = null;
   DMService: DirectMessagesService = inject(DirectMessagesService);
@@ -118,5 +120,86 @@ export class PrivateMessageComponent {
 
   addEmoji(event: any) {
     this.editingMessageText += event.emoji.native;
+  }
+
+
+  // addReaction(event: any) {
+  //   const emoji = event.emoji.native;
+
+
+  //   const docRef = doc(this.firestore, 'direct-messages', this.choosenChatId, 'chat-messages', this.message.docId);
+
+  //   getDoc(docRef).then((docSnapshot) => {
+  //     if (docSnapshot.exists()) {
+  //       const data = docSnapshot.data();
+  //       let reactions = data['reactions'] || {};
+
+  //       if (reactions[emoji]) {
+  //         const userIndex = reactions[emoji].users.indexOf(this.currentUserId);
+  //         if (userIndex > -1) {
+  //           reactions[emoji].count -= 1;
+  //           reactions[emoji].users.splice(userIndex, 1);
+
+  //           if (reactions[emoji].count === 0) {
+  //             delete reactions[emoji];
+  //           }
+  //         } else {
+  //           reactions[emoji].count += 1;
+  //           reactions[emoji].users.push(this.currentUserId);
+  //         }
+  //       } else {
+  //         reactions[emoji] = { count: 1, users: [this.currentUserId] };
+  //       }
+
+  //       updateDoc(docRef, { reactions });
+  //     }
+  //   });
+  // }
+
+
+
+  async addReaction(event: any) {
+    const emoji = event.emoji.native;
+    try {
+      const existingChatWithBothUsers = await this.DMService.retrieveChatDocumentReference();
+      if (existingChatWithBothUsers) {
+        const messagesCollectionRef = collection(existingChatWithBothUsers.ref, 'chat-messages');
+        const messageDocRef = doc(messagesCollectionRef, this.message['id']);
+
+        getDoc(messageDocRef).then((docSnapshot) => {
+          if (docSnapshot.exists()) {
+            const data = docSnapshot.data();
+            let reactions = data['reactions'] || {};
+
+            if (reactions[emoji]) {
+              const userIndex = reactions[emoji].users.indexOf(this.currentUserId);
+              if (userIndex > -1) {
+                reactions[emoji].count -= 1;
+                reactions[emoji].users.splice(userIndex, 1);
+
+                if (reactions[emoji].count === 0) {
+                  delete reactions[emoji];
+                }
+              } else {
+                reactions[emoji].count += 1;
+                reactions[emoji].users.push(this.currentUserId);
+              }
+            } else {
+              reactions[emoji] = { count: 1, users: [this.currentUserId] };
+            }
+
+            updateDoc(messageDocRef, { reactions });
+          }
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
+
+  isObjectWithCount(value: any): value is { count: number } {
+    return typeof value === 'object' && value !== null && 'count' in value;
   }
 }

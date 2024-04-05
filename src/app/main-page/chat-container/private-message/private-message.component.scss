@@ -205,3 +205,43 @@ app-reaction-bar {
     width: 25px;
     margin-left: 14px;
 }
+
+.reactions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 24px;
+    flex-wrap: wrap;
+
+    p {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0px 8px;
+        border-radius: 20px;
+        border: 1px solid var(--lightPurple);
+        margin: 0;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    span {
+        font-size: 16px;
+        font-weight: 400;
+    }
+}
+
+.smiley-img {
+    background-image: url('../../../../assets/img/general/smiley.svg');
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 100%;
+    background-color: white;
+
+    &:hover {
+        cursor: pointer;
+        background-image: url('../../../../assets/img/general/smiley-hover.svg');
+    }
+}
