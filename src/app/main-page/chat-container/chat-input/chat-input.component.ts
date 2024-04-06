@@ -4,8 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
 import { SelectionService } from '../../../services/selection.service';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
-import { Firestore, addDoc, collection, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { OverlayService } from '../../../services/overlay.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-chat-input',
@@ -24,6 +25,7 @@ export class ChatInputComponent {
   DMService: DirectMessagesService = inject(DirectMessagesService);
   selectionService: SelectionService = inject(SelectionService);
   overlayService = inject(OverlayService);
+  channelSubscription: Subscription;
 
   @ViewChild('emoji') emoji: ElementRef | null = null;
   @ViewChild('textarea') textarea: ElementRef | any;
@@ -33,7 +35,14 @@ export class ChatInputComponent {
   selectedFile: string | ArrayBuffer | null = null;
   selectedFileName: string | null = null;
   isUploading: boolean = false;
+  currentChannelName: string = '';
 
+  constructor() {
+    this.channelSubscription = this.selectionService.choosenChatTypeId$.subscribe(newChannel => {
+      const currentChannelId = newChannel;
+      this.currentChannelName = this.selectionService.getChannelNameById(currentChannelId);
+    });
+  }
 
   fileToBase64(file: File): Promise<string | ArrayBuffer | null> {
     return new Promise((resolve, reject) => {
@@ -75,6 +84,8 @@ export class ChatInputComponent {
     }
     this.isUploading = true;
 
+    /* Upload for channel messages */
+
     if (this.selectionService.channelOrDM.value === 'channel') {
       const currentUser = await this.DMService.getLoggedInUserId();
       const currentChannel = this.selectionService.choosenChatTypeId.value;
@@ -90,7 +101,11 @@ export class ChatInputComponent {
       await updateDoc(newDoc, { docId: newDocId });
       this.chatContent = '';
       this.deselectFile();
-    } else if (this.selectionService.channelOrDM.value === 'direct-message') {
+    }
+
+    /* Upload for direct messages */
+
+    else if (this.selectionService.channelOrDM.value === 'direct-message') {
       const otherUserId = await this.DMService.getUserId(this.DMService.selectedUserName);
       if (otherUserId) {
         const messageText = this.chatContent;
@@ -129,6 +144,12 @@ export class ChatInputComponent {
 
   chatContentChanged(newValue: string) {
     this.chatContent = newValue;
+  }
+
+  ngOnDestroy() {
+    if (this.channelSubscription) {
+      this.channelSubscription.unsubscribe();
+    }
   }
 
 }

@@ -68,6 +68,11 @@ export class SelectionService {
     }
   }
 
+  getChannelNameById(ChannelId: string){
+      const index = this.channelIds.indexOf(ChannelId);
+      return this.channelNames[index];
+  }
+
   ngOnDestroy() {
     this.unsubChannels();
     this.unsubDM();

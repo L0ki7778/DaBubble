@@ -1,6 +1,6 @@
 <form>
     <textarea #textarea name="message" [(ngModel)]="chatContent"
-        placeholder="Nachricht an #{{ this.selectionService.channelOrDM.value }} " class="input-field"
+        placeholder="Nachricht an #{{ currentChannelName }} " class="input-field"
         *ngIf="this.selectionService.channelOrDM.value === 'channel'">
     </textarea>
     <textarea #textarea name="message" [(ngModel)]="chatContent" (ngModelChange)="chatContentChanged($event)"
