@@ -35,15 +35,14 @@
     <ng-content id="plus-content"></ng-content>
 </div>
 @if(channel){
-<div class="drop-down-list" [ngStyle]="active? {height: this.filteredChannelNames.length * 3 + 'rem'} : {height:'0'}">
+<div class="drop-down-list" [ngStyle]="active? {height: 'auto'} : {height:'0'}">
 
     @for(channel of this.filteredChannelNames; track channel; let index = $index ) {
     <div class="list" (click)="sendChannelId(index)"># {{channel}}</div>
     }
 </div>
 }@else {
-<div class="drop-down-list"
-    [ngStyle]="active? {height: DMService.filteredUserNames.length * 4.1 + 'rem'} : {height:'0'}">
+<div class="drop-down-list" [ngStyle]="active? {height: 'auto'} : {height:'0'}">
     <div *ngIf="showList" (click)="DMService.loadChatHistory(); closeThread()">
         <div *ngFor="let user of DMService.filteredUserNames, let index = index" class="list list-user"
             (click)="DMService.addUserToDirectMessages(user.name); sendDMId(index)">

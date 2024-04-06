@@ -3,6 +3,7 @@
 div {
     font-weight: 700;
     font-size: 20px;
+    overflow-y: auto;
 }
 
 .arrow-img {
@@ -26,7 +27,7 @@ div {
     position: relative;
     width: 100%;
     gap: 8px;
-    margin-left: 15px;
+    margin: 36px 0 0 15px;
     transition: all ease .5s;
 
     &:hover {
@@ -43,12 +44,12 @@ div {
 
 .list {
     margin-left: 2rem;
-    padding: 4px 20px 4px 8px;
+    padding: 4px 12px;
     width: fit-content;
     display: flex;
     align-items: center;
     gap: 14px;
-    margin-top: 14px;
+    margin-top: 18px;
     font-size: 18px;
     font-weight: 400;
 
