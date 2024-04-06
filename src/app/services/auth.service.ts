@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, updateProfile, user } from '@angular/fire/auth';
+import { Auth, User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, updateProfile, user } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Subscription, } from 'rxjs';
 import { UserType } from '../types/user.type';
@@ -85,6 +85,15 @@ export class AuthService {
       this.router.navigate(['main-page']);
     } catch (error) {
       console.error('Error signing in as guest:', error);
+    }
+  }
+
+  async resetPassword(email: string) {
+    try {
+      await sendPasswordResetEmail(this.auth, email);
+      console.log('Password reset email sent successfully');
+    } catch (error) {
+      console.error('Error sending password reset email:', error);
     }
   }
 
