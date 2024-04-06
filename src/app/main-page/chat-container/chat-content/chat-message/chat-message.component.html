@@ -19,13 +19,11 @@
         </div>
         <div class="message-text" *ngIf="!isOwnMessage"
             [ngStyle]="{'background-color': isHovered ? 'white' : '#ECEEFE', 'border-top-right-radius': '30px'}">
-            <p *ngIf="message">{{ message.text }}
-            </p>
+            <p *ngIf="message" [innerHTML]="message.text"></p>
         </div>
         <div class="message-text" *ngIf="isOwnMessage"
             [ngStyle]="{'background-color': '#797EF3', 'color': 'white', 'border-top-left-radius': '30px'}">
-            <p *ngIf="message">{{ message.text }}
-            </p>
+            <p *ngIf="message" [innerHTML]="message.text"></p>
         </div>
         <div class="message-footer" [ngStyle]="{'flex-direction': isOwnMessage ? 'row-reverse' : 'none' }">
             <div class="gap">
