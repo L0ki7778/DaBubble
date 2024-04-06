@@ -3,14 +3,14 @@
 <form [formGroup]="newChannel" (ngSubmit)="onSubmit()">
     <h4>{{"workspaceOverlay.nameHeader" | translate}}</h4>
     <div class="input-field">
-       <span>#</span> <input type="text"  formControlName="name" name="name" placeholder="{{'workspaceOverlay.nameExample' | translate}}">
+       <span>#</span> <input id="name" type="text" formControlName="name" placeholder="{{'workspaceOverlay.nameExample' | translate}}" autocomplete="off">
     </div>
     <div class="inline">
         <h4>{{"workspaceOverlay.descriptionHeader" | translate}} </h4>
         <div>{{"workspaceOverlay.optional" | translate}}</div>
     </div>
     <div class="input-field">
-        <input id="description" type="text" formControlName="description" name="description" placeholder="{{'workspaceOverlay.descriptionExample' | translate}}">
+        <input id="description" type="text" formControlName="description" placeholder="{{'workspaceOverlay.descriptionExample' | translate}}" autocomplete="off">
     </div>
     <button [disabled]="!newChannel.valid">{{"workspaceOverlay.create" | translate}}</button>
 </form>
