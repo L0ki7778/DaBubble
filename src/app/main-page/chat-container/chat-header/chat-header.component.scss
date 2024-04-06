@@ -80,20 +80,6 @@
     }
 }
 
-app-edit-channel-overlay {
-    @include container();
-    display: flex;
-    position: absolute;
-    top: 100%;
-    right: 2rem;
-    left: 2rem;
-    flex-direction: column;
-    padding: 0 2rem 1.5rem;
-    background-color: white;
-    border-radius: 0 2rem 2rem;
-    z-index: 21;
-}
-
 app-members-overlay {
     @include container();
     display: flex;

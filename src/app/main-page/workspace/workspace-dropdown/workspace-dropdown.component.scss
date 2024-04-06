@@ -3,7 +3,6 @@
 div {
     font-weight: 700;
     font-size: 20px;
-    overflow-y: auto;
 }
 
 .arrow-img {
@@ -65,4 +64,38 @@ div {
 .profile-image {
     width: 50px;
     height: 50px;
+}
+
+.add-channel {
+    display: flex;
+    align-items: center;
+    margin-left: 26px;
+    padding: 4px 12px;
+    margin-top: 18px;
+    gap: 8px;
+
+    span {
+        font-size: 18px;
+        font-weight: 400;
+    }
+
+    &:hover {
+        cursor: pointer;
+
+        span {
+            color: var(--purple1);
+            font-weight: 600;
+        }
+
+        .plus-img {
+            background-image: url('../../../../assets/img/general/plus-hover.svg');
+        }
+    }
+}
+
+.plus-img {
+    width: 20px;
+    height: 20px;
+    background-image: url('../../../../assets/img/general/plus.svg');
+    background-size: cover;
 }

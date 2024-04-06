@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, inject } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, ViewChild, inject } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { FormsModule } from '@angular/forms';
@@ -28,6 +28,8 @@ export class EditChannelOverlayComponent {
   authorName: string = '';
 
   @Input() channelId: string = '';
+  @ViewChild('editView') editView: ElementRef | null = null;
+
 
   unsubChannel: any;
 
@@ -55,21 +57,25 @@ export class EditChannelOverlayComponent {
     }
   }
 
-  editChannelName() {
+  editChannelName(event: MouseEvent) {
+    event.stopPropagation();
     this.editName = !this.editName;
   }
 
-  editChannelDescription() {
+  editChannelDescription(event: MouseEvent) {
+    event.stopPropagation();
     this.editDescription = !this.editDescription;
   }
 
-  async saveChannelName() {
-  await updateDoc(doc(this.firestore, "channels", this.channelId), {channelName: this.channelName});
-  this.editName = !this.editName;
+  async saveChannelName(event: MouseEvent) {
+    event.stopPropagation();
+    await updateDoc(doc(this.firestore, "channels", this.channelId), { channelName: this.channelName });
+    this.editName = !this.editName;
   }
 
-  async saveChannelDescription() {
-    await updateDoc(doc(this.firestore, "channels", this.channelId), {description: this.description});
+  async saveChannelDescription(event: MouseEvent) {
+    event.stopPropagation();
+    await updateDoc(doc(this.firestore, "channels", this.channelId), { description: this.description });
     this.editDescription = !this.editDescription;
   }
 
@@ -80,5 +86,14 @@ export class EditChannelOverlayComponent {
   ngOnDestroy() {
     if (this.unsubChannel)
       this.unsubChannel();
+  }
+
+  @HostListener('document:click', ['$event'])
+  onclick(event: Event) {
+    if (this.editView && this.editView.nativeElement.contains(event.target)) {
+      return
+    } else {
+      this.overlay.closeOverlay();
+    }
   }
 }

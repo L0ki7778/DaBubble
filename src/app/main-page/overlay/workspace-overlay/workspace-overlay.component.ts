@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { OverlayService } from '../../../services/overlay.service';
@@ -27,6 +27,8 @@ export class WorkspaceOverlayComponent {
   dmService = inject(DirectMessagesService);
   newChannel: FormGroup = new FormGroup({});
   currentUserId: string = '';
+  @ViewChild('addChannelView') addChannelView: ElementRef | null = null;
+
 
   constructor() {
     this.newChannel = new FormGroup({
@@ -39,7 +41,8 @@ export class WorkspaceOverlayComponent {
     this.currentUserId = await this.dmService.getLoggedInUserId();
   }
 
-  async onSubmit() {
+  async onSubmit(event: MouseEvent) {
+    event.stopPropagation();
     if (this.newChannel.valid) {
       const channelRef = await addDoc(collection(this.firestore, "channels"), {
         channelName: this.newChannel.get('name')?.value,
@@ -53,5 +56,14 @@ export class WorkspaceOverlayComponent {
 
   closeOverlay() {
     this.overlay.closeOverlay()
+  }
+
+  @HostListener('document:click', ['$event'])
+  onclick(event: Event) {
+    if (this.addChannelView && this.addChannelView.nativeElement.contains(event.target)) {
+      return
+    } else {
+      this.overlay.closeOverlay();
+    }
   }
 }

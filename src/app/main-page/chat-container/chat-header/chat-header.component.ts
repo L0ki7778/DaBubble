@@ -96,7 +96,8 @@ export class ChatHeaderComponent {
     }
   }
 
-  openEditChannelOverlay() {
+  openEditChannelOverlay(event: MouseEvent) {
+    event.stopPropagation();
     this.overlayService.toggleEditChannelOverlay();
   }
 

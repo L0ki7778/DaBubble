@@ -1,45 +1,46 @@
+<div #editView class="edit-channel-overlay">
 <h3><span>#</span> Entwicklerteam</h3>
 <div id="channel-name-container">
     <div class="channel-edit-part" [ngClass]="{'h4-translate': editName}">
-
         <h4>
             Channel-Name
         </h4>
         @if(!editName){
-        <h4 id="edit" class="editable edit" (click)="editChannelName()">
+        <h4 id="edit" class="editable edit" (click)="editChannelName($event)">
             Bearbeiten
         </h4>
         }@else {
-        <h4 id="save" (click)="saveChannelName()">
+        <h4 id="save" (click)="saveChannelName($event)">
             Speichern
         </h4>
         }
     </div>
     <div class="border-container" [ngClass]="{'shrink-container': editName,'hover-input':editName}">
-
         <div class="input-field">
             <span>#</span>
-            <input [(ngModel)]="channelName" type="text" placeholder="{{ channelName }}" [disabled]="!editName" [ngClass]="{'hover-input':editName}">
+            <input [(ngModel)]="channelName" type="text" placeholder="{{ channelName }}" [disabled]="!editName"
+                [ngClass]="{'hover-input':editName}">
         </div>
     </div>
 </div>
 <div id="channel-description-container" [ngClass]="{'no-padding':editDescription}">
     <div class="channel-edit-part">
-        
         <h4>
             Beschreibung
         </h4>
         @if(!editDescription){
-            <h4 id="edit-description"  (click)="editChannelDescription()">
-                Bearbeiten
-            </h4>
-            }@else {
-            <h4 id="save-description" (click)="saveChannelDescription()">
-                Speichern
-            </h4>
-            }
+        <h4 id="edit-description" (click)="editChannelDescription($event)">
+            Bearbeiten
+        </h4>
+        }@else {
+        <h4 id="save-description" (click)="saveChannelDescription($event)">
+            Speichern
+        </h4>
+        }
     </div>
-    <input id="description-input-field" type="text" placeholder="{{ description }}" [disabled]="!editDescription" [(ngModel)]="description" [ngClass]="{'visible-description-input':editDescription,'hover-input':editDescription}">
+    <input id="description-input-field" type="text" placeholder="{{ description }}" [disabled]="!editDescription"
+        [(ngModel)]="description"
+        [ngClass]="{'visible-description-input':editDescription,'hover-input':editDescription}">
     <div class="description-input" [ngClass]="{'border-transparent':editDescription}">
     </div>
     <div #descriptionInputContent id="description-content" [ngClass]="{'transparent':editDescription}">
@@ -69,3 +70,4 @@
     </svg>
 
 </button>
+</div>

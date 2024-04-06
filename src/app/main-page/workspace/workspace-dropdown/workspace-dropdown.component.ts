@@ -5,6 +5,7 @@ import { DirectMessagesService } from '../../../services/direct-messages.service
 import { SelectionService } from '../../../services/selection.service';
 import { CollectionReference, Firestore, collection, doc, onSnapshot, query } from '@angular/fire/firestore';
 import { BooleanValueService } from '../../../services/boolean-value.service';
+import { OverlayService } from '../../../services/overlay.service';
 
 
 @Component({
@@ -27,12 +28,13 @@ export class WorkspaceDropdownComponent {
   booleanService = inject(BooleanValueService);
   firestore = inject(Firestore);
   DMService: DirectMessagesService = inject(DirectMessagesService);
+  overlayService = inject(OverlayService)
 
   channelsRef: CollectionReference = collection(this.firestore, "channels");
   channelQuery = query(this.channelsRef);
   private unsubscribeChannel: (() => void) | undefined;
   showList = false;
-  currentUserID: string | null= '';
+  currentUserID: string | null = '';
   filteredChannelNames: string[] = [];
 
 
@@ -43,19 +45,19 @@ export class WorkspaceDropdownComponent {
     this.checkName();
   }
 
-  filterChannels(){
+  filterChannels() {
     this.unsubscribeChannel = onSnapshot(this.channelQuery, (querySnapshot) => {
       this.filteredChannelNames = [];
       querySnapshot.forEach((doc) => {
-        if(doc.data()['members'].includes(this.currentUserID))
-        this.filteredChannelNames.push(doc.data()['channelName'] as string);
+        if (doc.data()['members'].includes(this.currentUserID))
+          this.filteredChannelNames.push(doc.data()['channelName'] as string);
       });
     });
   }
 
   sendChannelId(index: number) {
     this.selectionService.choosenChatTypeId.next(this.selectionService.channelIds[index]);
-    this.selectionService.channelOrDM.next('channel');  
+    this.selectionService.channelOrDM.next('channel');
   }
 
   sendDMId(index: number) {
@@ -74,11 +76,16 @@ export class WorkspaceDropdownComponent {
   }
 
   ngOnDestroy() {
-    if(this.unsubscribeChannel)
-    this.unsubscribeChannel();
+    if (this.unsubscribeChannel)
+      this.unsubscribeChannel();
   }
 
   closeThread() {
     this.booleanService.viewThread.set(false);
+  }
+
+  createCannel(event: MouseEvent){
+    event.stopPropagation();
+    this.overlayService.toggleWorkspaceOverlay();
   }
 }

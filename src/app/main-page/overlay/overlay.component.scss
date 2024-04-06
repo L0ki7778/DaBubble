@@ -1,7 +1,6 @@
 @import './../../mixin.scss';
 
-app-chat-overlay,
-app-workspace-overlay {
+app-chat-overlay {
     position: absolute;
     inset: 0;
     margin: auto;
