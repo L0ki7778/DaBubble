@@ -6,11 +6,11 @@
             Channel-Name
         </h4>
         @if(!editName){
-        <h4 id="edit" class="editable" [ngClass]="{'edit':!firstTime}" (click)="editChannelName()">
+        <h4 id="edit" class="editable edit" (click)="editChannelName()">
             Bearbeiten
         </h4>
         }@else {
-        <h4 id="save" (click)="editChannelName()">
+        <h4 id="save" (click)="saveChannelName()">
             Speichern
         </h4>
         }
@@ -19,7 +19,7 @@
 
         <div class="input-field">
             <span>#</span>
-            <input type="text" placeholder="{{ channelName }}" [disabled]="!editName" [ngClass]="{'hover-input':editName}">
+            <input [(ngModel)]="channelName" type="text" placeholder="{{ channelName }}" [disabled]="!editName" [ngClass]="{'hover-input':editName}">
         </div>
     </div>
 </div>
@@ -34,7 +34,7 @@
                 Bearbeiten
             </h4>
             }@else {
-            <h4 id="save-description" (click)="editChannelDescription()">
+            <h4 id="save-description" (click)="saveChannelDescription()">
                 Speichern
             </h4>
             }

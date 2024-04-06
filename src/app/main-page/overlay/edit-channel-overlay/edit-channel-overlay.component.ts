@@ -4,7 +4,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { FormsModule } from '@angular/forms';
 import { doc, getDoc, onSnapshot } from 'firebase/firestore';
-import { Firestore } from '@angular/fire/firestore';
+import { Firestore, updateDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-edit-channel-overlay',
@@ -20,7 +20,6 @@ export class EditChannelOverlayComponent {
   overlay = inject(OverlayService)
   firestore = inject(Firestore)
 
-  firstTime = true;
   editName: boolean = false;
   editDescription: boolean = false;
   channelName: string = '';
@@ -32,20 +31,20 @@ export class EditChannelOverlayComponent {
 
   unsubChannel: any;
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
-    if(this.channelId)
-    this.unsubChannel = onSnapshot(doc(this.firestore, "channels", this.channelId), (currentChannel) => {
-      if (currentChannel.exists()) {
-        this.channelName = currentChannel.data()['channelName'];
-        this.description = currentChannel.data()['description'];
-        this.authorId = currentChannel.data()['authorId'];
-        if (this.authorId !== '') {
-          this.getAuthorNameFromAuthorId(this.authorId);
+    if (this.channelId)
+      this.unsubChannel = onSnapshot(doc(this.firestore, "channels", this.channelId), (currentChannel) => {
+        if (currentChannel.exists()) {
+          this.channelName = currentChannel.data()['channelName'];
+          this.description = currentChannel.data()['description'];
+          this.authorId = currentChannel.data()['authorId'];
+          if (this.authorId !== '') {
+            this.getAuthorNameFromAuthorId(this.authorId);
+          }
         }
-      }
-    });
+      });
   }
 
   async getAuthorNameFromAuthorId(authorId: string) {
@@ -56,20 +55,23 @@ export class EditChannelOverlayComponent {
     }
   }
 
-  ngAfterViewInit() {
-    this.firstTime = false
-  }
-
-
   editChannelName() {
     this.editName = !this.editName;
   }
-
 
   editChannelDescription() {
     this.editDescription = !this.editDescription;
   }
 
+  async saveChannelName() {
+  await updateDoc(doc(this.firestore, "channels", this.channelId), {channelName: this.channelName});
+  this.editName = !this.editName;
+  }
+
+  async saveChannelDescription() {
+    await updateDoc(doc(this.firestore, "channels", this.channelId), {description: this.description});
+    this.editDescription = !this.editDescription;
+  }
 
   closeOverlay() {
     this.overlay.closeOverlay()
