@@ -57,6 +57,10 @@ footer {
     justify-content: center;
     gap: 10px;
     z-index: 0;
+    bottom: 5%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 
     >p {
         margin: 15px;
@@ -72,11 +76,8 @@ footer {
     }
 }
 
-@media (min-height: 750px) {
+@media (max-height: 750px) {
     footer {
-        position: absolute;
         bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
     }
 }
