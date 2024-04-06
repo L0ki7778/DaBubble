@@ -5,6 +5,7 @@ import { OverlayService } from '../../../services/overlay.service';
 import { addDoc, collection } from 'firebase/firestore';
 import { Firestore } from '@angular/fire/firestore';
 import { SelectionService } from '../../../services/selection.service';
+import { DirectMessagesService } from '../../../services/direct-messages.service';
 
 @Component({
   selector: 'app-workspace-overlay',
@@ -12,7 +13,7 @@ import { SelectionService } from '../../../services/selection.service';
   imports: [
     TranslateModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   templateUrl: './workspace-overlay.component.html',
   styleUrl: './workspace-overlay.component.scss'
@@ -23,17 +24,19 @@ export class WorkspaceOverlayComponent {
   overlay = inject(OverlayService);
   firestore: Firestore = inject(Firestore);
   channelService = inject(SelectionService);
+  dmService = inject(DirectMessagesService);
   newChannel: FormGroup = new FormGroup({});
+  currentUserId: string = '';
 
-  constructor() {  
-
-   }
-
-  ngOnInit() {
+  constructor() {
     this.newChannel = new FormGroup({
-      name: new FormControl('', [Validators.minLength(5), Validators.required]),
+      name: new FormControl('', [Validators.required]),
       description: new FormControl('')
     });
+  }
+
+  async ngOnInit() {
+    this.currentUserId = await this.dmService.getLoggedInUserId();
   }
 
   async onSubmit() {
@@ -41,7 +44,8 @@ export class WorkspaceOverlayComponent {
       const channelRef = await addDoc(collection(this.firestore, "channels"), {
         channelName: this.newChannel.get('name')?.value,
         description: this.newChannel.get('description')?.value,
-        // authorId: localStorage.getItem('uid'),
+        authorId: this.currentUserId,
+        members: [this.currentUserId],
       });
       this.closeOverlay()
     }
