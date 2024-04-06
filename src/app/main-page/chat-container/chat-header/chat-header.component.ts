@@ -115,6 +115,13 @@ export class ChatHeaderComponent {
     this.overlayService.toggleAddMemberOverlay();
   }
 
+  openMemberView(event: MouseEvent) {
+    event.stopPropagation();
+    this.overlayService.toggleMemberView();
+    this.DMService.selectedProfileName = this.DMService.selectedUserName;
+    this.DMService.selectedProfileImage = this.DMService.selectedUserImage;
+  }
+
   ngOnDestroy() {
     if (this.unsubscribeChannel) {
       this.unsubscribeChannel();

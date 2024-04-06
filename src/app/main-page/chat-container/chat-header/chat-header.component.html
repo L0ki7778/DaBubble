@@ -38,7 +38,7 @@
 
 <!-- chat header for direct messages -->
 <div class="chat-container-header" *ngIf="this.selectionService.channelOrDM.value === 'direct-message'">
-    <div class="profile-container">
+    <div class="profile-container" (click)="openMemberView($event)">
         <img class="profile-image" [src]="DMService.selectedUserImage">
         {{ DMService.selectedUserName }}
     </div>
