@@ -22,6 +22,7 @@ app-thread {
 
 app-workspace,
 app-thread {
+    display: flex;
     min-width: 14rem;
     max-width: 20%;
     transition: all ease .25s;
