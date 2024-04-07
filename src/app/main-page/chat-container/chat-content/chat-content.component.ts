@@ -38,7 +38,6 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-
   ngAfterViewInit() {
     this.chatHistoryLoadedSubscription = this.DMService.chatHistoryLoaded$.subscribe(() => {
       setTimeout(() => {
@@ -93,8 +92,10 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
         });
       });
     });
-
     this.messages = newMessages;
+    setTimeout(() => {
+      this.scrollToBottom();
+    }, 1);
   }
 
 

@@ -1,5 +1,5 @@
 <!-- channel-messages-style -->
-<div *ngIf="this.selectionService.channelOrDM.value === 'channel'" class="channel-message-container">
+<div *ngIf="this.selectionService.channelOrDM.value === 'channel'" class="channel-message-container" #chatList>
   <app-chat-message *ngFor="let message of messages"
     [message]="message"></app-chat-message>
 </div>
