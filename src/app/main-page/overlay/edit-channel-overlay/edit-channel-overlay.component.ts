@@ -5,6 +5,8 @@ import { OverlayService } from '../../../services/overlay.service';
 import { FormsModule } from '@angular/forms';
 import { doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { Firestore, updateDoc } from '@angular/fire/firestore';
+import { DirectMessagesService } from '../../../services/direct-messages.service';
+import { SelectionService } from '../../../services/selection.service';
 
 @Component({
   selector: 'app-edit-channel-overlay',
@@ -17,6 +19,8 @@ import { Firestore, updateDoc } from '@angular/fire/firestore';
 })
 export class EditChannelOverlayComponent {
   translateService = inject(TranslateService)
+  dmService = inject(DirectMessagesService);
+  selectionService = inject(SelectionService);
   overlay = inject(OverlayService)
   firestore = inject(Firestore)
 
@@ -26,6 +30,7 @@ export class EditChannelOverlayComponent {
   description: string = '';
   authorId: string = '';
   authorName: string = '';
+  members: string[] = [];
 
   @Input() channelId: string = '';
   @ViewChild('editView') editView: ElementRef | null = null;
@@ -42,6 +47,7 @@ export class EditChannelOverlayComponent {
           this.channelName = currentChannel.data()['channelName'];
           this.description = currentChannel.data()['description'];
           this.authorId = currentChannel.data()['authorId'];
+          this.members = currentChannel.data()['members'];
           if (this.authorId !== '') {
             this.getAuthorNameFromAuthorId(this.authorId);
           }
@@ -83,9 +89,12 @@ export class EditChannelOverlayComponent {
     this.overlay.closeOverlay()
   }
 
-  ngOnDestroy() {
-    if (this.unsubChannel)
-      this.unsubChannel();
+  async leaveChannel() {
+    const loggedInUserId = await this.dmService.getLoggedInUserId();
+    const newMembers = this.members.filter(item => item !== loggedInUserId);
+    const channelRef = doc(this.firestore, 'channels', this.channelId);
+    await updateDoc(channelRef, { members: newMembers });
+    this.closeOverlay();
   }
 
   @HostListener('document:click', ['$event'])
@@ -95,5 +104,10 @@ export class EditChannelOverlayComponent {
     } else {
       this.overlay.closeOverlay();
     }
+  }
+
+  ngOnDestroy() {
+    if (this.unsubChannel)
+      this.unsubChannel();
   }
 }
