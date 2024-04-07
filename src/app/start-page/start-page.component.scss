@@ -57,10 +57,10 @@ footer {
     justify-content: center;
     gap: 10px;
     z-index: 0;
-    bottom: 5%;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    bottom: 0;
 
     >p {
         margin: 15px;
@@ -76,8 +76,7 @@ footer {
     }
 }
 
-@media (max-height: 750px) {
-    footer {
-        bottom: 0;
-    }
-}
+app-reset-password, app-create-account {
+    display: flex;
+    justify-content: center;
+  }

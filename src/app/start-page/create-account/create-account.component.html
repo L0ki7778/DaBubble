@@ -1,19 +1,20 @@
-<div class="absolute">
-    <div class="create-container">
-        <div class="flex-box">
-            <div class="arrow-img" (click)="toggleToLogin()"></div>
-            <h1>Konto erstellen</h1>
-        </div>
-        <p class="info-text">Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DaBubble-Konto.</p>
-        <form (ngSubmit)="saveVariables()" ngNativeValidate>
-            <input required type="text" class="name" placeholder="Name und Nachname" autocomplete="username" [(ngModel)]="name" name="name">
-            <input required type="email" class="email" placeholder="beispielname@email.com" autocomplete="email" [(ngModel)]="email" name="email">
-            <input required type="password" class="password" placeholder="Passwort" autocomplete="current-password" [(ngModel)]="password" name="password" minlength="8">
-            <div class="center-box"><div class="style-checkbox"><input required type="checkbox" id="privacy-policy"></div>
-                <label>Ich stimme der <span class="color-privacy-policy">Datenschutzerklärung</span> zu</label>
-            </div>
-            <button class="next-button">Weiter</button>
-        </form>
+<div class="create-container">
+    <div class="flex-box">
+        <div class="arrow-img" (click)="toggleToLogin()"></div>
+        <h1>Konto erstellen</h1>
     </div>
+    <p class="info-text">Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DaBubble-Konto.</p>
+    <form (ngSubmit)="saveVariables()" ngNativeValidate>
+        <input required type="text" class="name" placeholder="Name und Nachname" autocomplete="username"
+            [(ngModel)]="name" name="name">
+        <input required type="email" class="email" placeholder="beispielname@email.com" autocomplete="email"
+            [(ngModel)]="email" name="email">
+        <input required type="password" class="password" placeholder="Passwort" autocomplete="current-password"
+            [(ngModel)]="password" name="password" minlength="8">
+        <div class="center-box">
+            <div class="style-checkbox"><input required type="checkbox" id="privacy-policy"></div>
+            <label>Ich stimme der <span class="color-privacy-policy">Datenschutzerklärung</span> zu</label>
+        </div>
+        <button class="next-button">Weiter</button>
+    </form>
 </div>
-<div class="mb"></div>

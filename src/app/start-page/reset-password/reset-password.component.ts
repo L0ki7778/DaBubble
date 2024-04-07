@@ -18,6 +18,7 @@ export class ResetPasswordComponent {
   private auth: Auth = inject(Auth);
   email: string = '';
   password: string = '';
+  isTranslated: boolean = true;
 
   toggleToLogin() {
     this.authService.showLogin = true;
@@ -25,9 +26,20 @@ export class ResetPasswordComponent {
   }
 
   resetPassword(email: string) {
-    // this.authService.showEnterNewPassword = true;
-    // this.authService.showResetPassword = false;
-    this.authService.resetPassword(email);
+    this.toggleTranslation();
+    setTimeout(() => {
+      this.authService.showEnterNewPassword = true;
+      this.authService.showResetPassword = false;
+    }, 2000);
+    // this.authService.resetPassword(email);
+  }
+
+  toggleTranslation() {
+    this.isTranslated = !this.isTranslated;
+    const element = document.querySelector('.success-report') as HTMLElement;
+    if (element) {
+      element.style.translate = '0 -20%';
+    }
   }
 
   async sendFormData(emailAddress: string) {
