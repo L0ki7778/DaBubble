@@ -1,11 +1,10 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, updateProfile, user } from '@angular/fire/auth';
+import { Auth, User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, confirmPasswordReset, sendPasswordResetEmail, signInWithEmailAndPassword, updateProfile, user } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Subscription, } from 'rxjs';
 import { UserType } from '../types/user.type';
 import { Firestore, arrayUnion, collection, doc, getDocs, query, setDoc, where, writeBatch } from '@angular/fire/firestore';
 import { SelectionService } from './selection.service';
-import firebase from 'firebase/compat/app';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +27,8 @@ export class AuthService {
   showCreateAccount: boolean = false;
   guestEmail = 'guest@email.com';
   guestPassword = 'Passwort';
+  resetPasswordEmail: string | null = null;
+
 
   user$ = user(this.auth);
   userSubscription: Subscription = new Subscription();
@@ -91,9 +92,19 @@ export class AuthService {
   async resetPassword(email: string) {
     try {
       await sendPasswordResetEmail(this.auth, email);
-      console.log('Password reset email sent successfully');
+      this.resetPasswordEmail = email;
     } catch (error) {
       console.error('Error sending password reset email:', error);
+    }
+  }
+
+  async confirmResetPassword(code: string, newPassword: string) {
+    try {
+      const auth = getAuth();
+      await confirmPasswordReset(auth, code, newPassword);
+      console.log('Password reset successful');
+    } catch (error) {
+      console.error('Error resetting password:', error);
     }
   }
 

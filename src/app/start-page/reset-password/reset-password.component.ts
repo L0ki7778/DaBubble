@@ -28,10 +28,9 @@ export class ResetPasswordComponent {
   resetPassword(email: string) {
     this.toggleTranslation();
     setTimeout(() => {
-      this.authService.showEnterNewPassword = true;
-      this.authService.showResetPassword = false;
+      this.toggleToLogin();
     }, 2000);
-    // this.authService.resetPassword(email);
+    this.authService.resetPassword(email);
   }
 
   toggleTranslation() {
