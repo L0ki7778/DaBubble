@@ -25,8 +25,8 @@ export class ResetPasswordComponent {
   }
 
   resetPassword(email: string) {
-    // this.authService.showEnterNewPassword = true;
-    // this.authService.showResetPassword = false;
+    this.authService.showEnterNewPassword = true;
+    this.authService.showResetPassword = false;
     this.authService.resetPassword(email);
   }
 

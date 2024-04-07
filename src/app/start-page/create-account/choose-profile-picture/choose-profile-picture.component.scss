@@ -143,8 +143,15 @@ h1 {
     right: 3%;
     translate: 140% -20%;
     transition: all 125ms ease-in-out;
+    z-index: 1;
 }
 
 .file {
     display: none;
+}
+
+@media (max-height: 800px) {
+    .content-container {
+        margin-bottom: 80px;
+    }
 }
