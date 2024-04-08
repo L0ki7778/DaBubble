@@ -12,7 +12,7 @@ div {
 
 .drop-down-list {
     transition: all ease .2s;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .drop-down-list-open {

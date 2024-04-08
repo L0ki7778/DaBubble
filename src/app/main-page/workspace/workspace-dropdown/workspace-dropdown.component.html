@@ -35,15 +35,15 @@
     <ng-content id="plus-content"></ng-content>
 </div>
 @if(channel){
-<div class="drop-down-list" [ngStyle]="active? {height: 'auto'} : {height:'0'}">
+<div class="drop-down-list" [ngStyle]="active? {maxHeight: '152px'} : {height:'0'}">
 
     @for(channel of this.filteredChannelNames; track channel; let index = $index ) {
     <div class="list" (click)="sendChannelId(index)"># {{channel}}</div>
     }
-    <div (click)="createCannel($event)" class="add-channel">
-        <div class="plus-img"></div>
-        <span>Channel hinzufügen</span>
-    </div>
+</div>
+<div (click)="createCannel($event)" class="add-channel">
+    <div class="plus-img"></div>
+    <span>Channel hinzufügen</span>
 </div>
 }@else {
 <div class="drop-down-list" [ngStyle]="active? {height: 'auto'} : {height:'0'}">

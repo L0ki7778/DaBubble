@@ -77,7 +77,7 @@ export class AddMemberOverlayComponent {
   }
 
   closeOverlay() {
-    this.overlay.closeOverlay()
+    this.overlay.closeOverlay();
   }
 
   @HostListener('document:click', ['$event'])
