@@ -94,6 +94,7 @@ export class EditChannelOverlayComponent {
     const newMembers = this.members.filter(item => item !== loggedInUserId);
     const channelRef = doc(this.firestore, 'channels', this.channelId);
     await updateDoc(channelRef, { members: newMembers });
+    await this.selectionService.getFirstDocumentId();
     this.closeOverlay();
   }
 

@@ -24,9 +24,9 @@ export class ChatHeaderComponent {
   DMService: DirectMessagesService = inject(DirectMessagesService);
   private firestore: Firestore = inject(Firestore);
   $editObservable = this.overlayService.overlaySubject.asObservable();
-  private overlaySubscription: Subscription;
-  private selectionIdSubscription: Subscription;
-  private selectionTypeSubscription: Subscription;
+  overlaySubscription: Subscription = new Subscription();
+  selectionIdSubscription: Subscription = new Subscription();
+  selectionTypeSubscription: Subscription = new Subscription();
   editChannel: boolean = false;
   memberView: boolean = false;
   showMembers: boolean = false;
@@ -46,7 +46,9 @@ export class ChatHeaderComponent {
 
   imgSrc: string = "../../../../assets/img/main-page/chat/add-members-button.svg";
 
-  constructor() {
+  constructor() { }
+
+  ngOnInit() {
     this.overlaySubscription = this.$editObservable.subscribe(() => {
       this.editChannel = this.overlayService.editChannelOverlay;
       this.showMembers = this.overlayService.membersOverlay;
