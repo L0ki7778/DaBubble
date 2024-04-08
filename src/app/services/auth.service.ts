@@ -27,6 +27,9 @@ export class AuthService {
   guestEmail = 'guest@email.com';
   guestPassword = 'Passwort';
   resetPasswordEmail: string | null = null;
+  userImage: string = 'assets/img/start-page/unknown.svg';
+  userName: any = 'Frederik Beck';
+  userMail: string | null = 'fred.beck@email.com';
 
 
   user$ = user(this.auth);

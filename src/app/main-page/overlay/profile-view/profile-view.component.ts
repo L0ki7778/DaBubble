@@ -18,18 +18,15 @@ export class ProfileViewComponent {
   DMService = inject(DirectMessagesService);
   auth = inject(AuthService);
 
-  userImage: string = 'assets/img/general/avatars/avatar3.svg';
-  userName: any = 'Frederik Beck';
-  userStatus: 'online' | 'offline' = 'online';
-  userMail: string = 'fred.beck@email.com';
-
   ngOnInit() {
     this.findLoggedInUser();
   }
 
-  findLoggedInUser() {
-    const userId: any = this.DMService.getLoggedInUserId();
-    this.userName = this.DMService.getUserNameById(userId.uid);
+  async findLoggedInUser() {
+    const userId: any = await this.DMService.getLoggedInUserId();
+    this.auth.userName = await this.DMService.getUserNameById(userId);
+    this.auth.userImage = await this.DMService.getUserImageById(userId);
+    this.auth.userMail = await this.DMService.getUserEmailByName(this.auth.userName);
   }
 
 
