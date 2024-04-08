@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener, ViewChild, inject } from '@angular/core';
 import { OverlayService } from '../../../services/overlay.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -12,6 +13,7 @@ export class EditProfileComponent {
 
   @ViewChild('editProfile') editProfile: ElementRef | null = null;
   overlay = inject(OverlayService);
+  auth = inject(AuthService);
 
 
   @HostListener('document:click', ['$event'])
