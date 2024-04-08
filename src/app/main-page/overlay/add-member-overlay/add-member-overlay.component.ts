@@ -53,7 +53,8 @@ export class AddMemberOverlayComponent {
     });
   }
 
-  selectUser(userName: string, userId: string) {
+  selectUser(userName: string, userId: string, event: MouseEvent) {
+    event.stopPropagation();
     this.inputData = userName;
     this.selectedUser = true;
     this.filterUsers();
@@ -84,9 +85,8 @@ export class AddMemberOverlayComponent {
   onclick(event: Event) {
     if (this.addMember && this.addMember.nativeElement.contains(event.target)) {
       return
-    }
-    else {
-      return
+    } else {
+      this.overlay.closeOverlay();
     }
   }
 }

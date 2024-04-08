@@ -24,6 +24,9 @@ export class MembersOverlayComponent {
   @Input() channelMemberNames: string[] = [];
   @Input() channelMemberAvatars: string[] = [];
 
+  @ViewChild('membersOverview') membersOverview: ElementRef | null = null;
+
+
   constructor(){
   }
 
@@ -41,5 +44,14 @@ export class MembersOverlayComponent {
 
   closeOverlay() {
     this.overlay.closeOverlay()
+  }
+
+  @HostListener('document:click', ['$event'])
+  onclick(event: Event) {
+    if (this.membersOverview && this.membersOverview.nativeElement.contains(event.target)) {
+      return
+    } else {
+      this.overlay.closeOverlay();
+    }
   }
 }
