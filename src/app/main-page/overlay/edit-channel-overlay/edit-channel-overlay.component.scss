@@ -1,8 +1,15 @@
 @import './../../../mixin.scss';
 
+h3 {
+    font-size: 24px;
+    font-weight: 700;
+}
+
 h4 {
     transition: all ease .25s;
     margin-block: 0;
+    font-size: 18px;
+    font-weight: 700;
 }
 
 .inline {
@@ -14,6 +21,7 @@ h4 {
 span {
     margin: 0 .5rem 0 0;
     font-weight: bold;
+    font-size: 18px;
 }
 
 // .input-field{
@@ -53,6 +61,8 @@ span {
         width: 90%;
         border: unset;
         outline: unset;
+        font-size: 18px;
+        font-weight: 400;
 
         &:disabled {
             background-color: transparent;
@@ -82,8 +92,9 @@ span {
 
 
 #channel-author {
-    font-size: 1.5rem;
-    color: $purple1
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--purple3);
 }
 
 
@@ -135,6 +146,8 @@ span {
     h4:last-of-type {
         z-index: 2;
         color: $purple2;
+        font-size: 18px;
+        font-weight: 600;
 
         &:hover {
             cursor: pointer;
@@ -180,6 +193,8 @@ span {
     outline: unset;
     margin-bottom: -4rem;
     opacity: 0;
+    font-size: 18px;
+    font-weight: 400;
 }
 
 #description {
@@ -196,8 +211,8 @@ span {
 }
 
 .visible-description-input {
-    opacity: 1!important;
-    margin-bottom: -2rem!important;
+    opacity: 1 !important;
+    margin-bottom: -2rem !important;
 }
 
 .no-padding {
@@ -271,6 +286,11 @@ span {
     background-color: white;
     border-radius: 0 2rem 2rem;
     z-index: 21;
+}
+
+.description-text {
+    font-size: 18px;
+    font-weight: 400;
 }
 
 @-webkit-keyframes shift-down {

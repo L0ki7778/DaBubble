@@ -60,13 +60,17 @@ h1 {
 }
 
 input {
-    color: var(--textGray);
+    color: black;
     font-size: 18px;
     font-weight: 500;
     height: 22px;
     border-radius: 30px;
     border: 1px solid #ADB0D9;
     padding: 15px 20px 15px 20px;
+
+    &::placeholder {
+        color: var(--textGray);
+    }
 }
 
 .btn-container {
