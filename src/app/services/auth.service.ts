@@ -12,7 +12,7 @@ import { SelectionService } from './selection.service';
 export class AuthService {
 
   private auth: Auth = inject(Auth);
-  private firestore: Firestore = inject(Firestore);
+  public firestore: Firestore = inject(Firestore);
   private router: Router = inject(Router);
 
   email: string = '';
