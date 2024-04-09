@@ -37,7 +37,6 @@ export class WorkspaceDropdownComponent {
   currentUserID: string | null = '';
   filteredChannelNames: string[] = [];
 
-
   async ngOnInit() {
     this.currentUserID = await this.DMService.getLoggedInUserId()
     this.filterChannels();
