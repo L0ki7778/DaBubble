@@ -182,6 +182,17 @@ form {
     }
 }
 
+.error {
+    border: 1px solid var(--rosaError);
+}
+
+.error-message {
+    color: var(--rosaError);
+    margin-top: -5px;
+}
+
+
+
 @media (max-height: 800px) {
     .d-flex {
         margin-bottom: 100px;

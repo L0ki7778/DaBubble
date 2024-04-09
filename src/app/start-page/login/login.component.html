@@ -3,10 +3,12 @@
         <h1>Anmeldung</h1>
         <p class="info-text">Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest</p>
         <form (ngSubmit)="login()" ngNativeValidate>
-            <input required type="email" class="email" placeholder="beispielname@email.com" autocomplete="email"
-                [(ngModel)]="email" name="email">
-            <input required type="password" class="password" placeholder="Passwort" autocomplete="current-password"
-                [(ngModel)]="password" name="password">
+            <input [class.error]="emailError" required type="email" class="email" placeholder="beispielname@email.com"
+                autocomplete="email" [(ngModel)]="email" name="email">
+            <input [class.error]="passwordError" required type="password" class="password" placeholder="Passwort"
+                autocomplete="current-password" [(ngModel)]="password" name="password">
+            <span *ngIf="passwordError" class="error-message">Falsche E-Mail-Adresse oder Passwort. Bitte versuchen Sie
+                es erneut.</span>
             <p class="forgot-password" (click)="toggleToResetPassword()">Passwort vergessen?</p>
             <div class="separator-box">
                 <div class="separator"></div><span class="or">ODER</span>
@@ -15,7 +17,7 @@
             <button class="loginGoogle">Anmelden mit Google</button>
             <div class="buttons">
                 <button class="login-button">Anmelden</button>
-                <button class="guest-button" (click)="loginAsGuest()">Gäste-Login</button>
+                <button class="guest-button" (click)="loginAsGuest($event)">Gäste-Login</button>
             </div>
         </form>
     </div>

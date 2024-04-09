@@ -69,14 +69,16 @@ export class AuthService {
     }
   }
 
-  async login() {
+  async login(): Promise<boolean> {
     try {
       await signInWithEmailAndPassword(this.auth, this.email, this.password);
       this.router.navigate(['main-page']);
+      return true;
     } catch (error) {
-      console.error('Error signing in:', error);
+      return false;
     }
   }
+
 
   async loginAsGuest() {
     try {

@@ -27,21 +27,33 @@ export class LoginComponent {
 
   email: string = '';
   password: string = '';
-
+  emailError = false;
+  passwordError = false;
 
 
   async login() {
     this.authService.email = this.email;
     this.authService.password = this.password;
-    await this.authService.login();
+    const success = await this.authService.login();
+    if (!success) {
+      this.emailError = true;
+      this.passwordError = true;
+    } else {
+      this.emailError = false;
+      this.passwordError = false;
+    }
   }
 
-  async loginAsGuest() {
+
+  async loginAsGuest(event: Event) {
+    event.preventDefault();
     await this.authService.loginAsGuest();
   }
+
 
   toggleToResetPassword() {
     this.authService.showLogin = false;
     this.authService.showResetPassword = true;
   }
+
 }
