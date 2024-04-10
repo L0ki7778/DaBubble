@@ -7,6 +7,7 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { Firestore, addDoc, collection, doc, onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { OverlayService } from '../../../services/overlay.service';
 import { Subscription } from 'rxjs';
+import { UserMentionComponent } from './user-mention/user-mention.component';
 
 @Component({
   selector: 'app-chat-input',
@@ -15,7 +16,8 @@ import { Subscription } from 'rxjs';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    PickerComponent
+    PickerComponent,
+    UserMentionComponent
   ],
   templateUrl: './chat-input.component.html',
   styleUrl: './chat-input.component.scss'
@@ -29,9 +31,11 @@ export class ChatInputComponent {
 
   @ViewChild('emoji') emoji: ElementRef | null = null;
   @ViewChild('textarea') textarea: ElementRef | any;
+  @ViewChild('userMention') userMention: ElementRef | any;
 
   chatContent: string = '';
   viewEmojiPicker: boolean = false;
+  userMentionView: boolean = false;
   selectedFile: string | ArrayBuffer | null = null;
   selectedFileName: string | null = null;
   isUploading: boolean = false;
@@ -84,8 +88,6 @@ export class ChatInputComponent {
     }
     this.isUploading = true;
 
-    /* Upload for channel messages */
-
     if (this.selectionService.channelOrDM.value === 'channel') {
       const currentUser = await this.DMService.getLoggedInUserId();
       const currentChannel = this.selectionService.choosenChatTypeId.value;
@@ -102,8 +104,6 @@ export class ChatInputComponent {
       this.chatContent = '';
       this.deselectFile();
     }
-
-    /* Upload for direct messages */
 
     else if (this.selectionService.channelOrDM.value === 'direct-message') {
       const otherUserId = await this.DMService.getUserId(this.DMService.selectedUserName);
@@ -132,9 +132,12 @@ export class ChatInputComponent {
   @HostListener('document:click', ['$event'])
   onclick(event: Event) {
     if (this.emoji && this.emoji.nativeElement && this.emoji.nativeElement.contains(event.target)) {
-      return
+      return;
+    } else if (this.userMention && this.userMention.nativeElement && this.userMention.nativeElement.contains(event.target)) {
+      return;
     } else {
       this.viewEmojiPicker = false;
+      this.userMentionView = false;
     }
   }
 
@@ -150,6 +153,11 @@ export class ChatInputComponent {
     if (this.channelSubscription) {
       this.channelSubscription.unsubscribe();
     }
+  }
+
+  showUserMention(event: MouseEvent) {
+    event.stopPropagation();
+    this.userMentionView = true;
   }
 
 }
