@@ -24,7 +24,7 @@ export class AuthService {
   showResetPassword: boolean = false;
   showEnterNewPassword: boolean = false;
   showCreateAccount: boolean = false;
-  guestEmail = 'gueste@email.com';
+  guestEmail = 'guest@email.com';
   guestPassword = 'Passwort';
   resetPasswordEmail: string | null = null;
   userImage: string = 'assets/img/start-page/unknown.svg';

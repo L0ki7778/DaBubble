@@ -16,6 +16,9 @@ export class SelectionService {
   DMIds: string[] = [];
   currentUserID: string = '';
 
+  choosenMessageId = new BehaviorSubject<string>('N6KlVdlZyanHKr0SwCS3');
+  choosenMessageId$ = this.choosenMessageId.asObservable();
+
   choosenChatTypeId = new BehaviorSubject<string>('');
   choosenChatTypeId$ = this.choosenChatTypeId.asObservable();
 

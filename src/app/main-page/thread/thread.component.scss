@@ -10,3 +10,15 @@ app-thread-header {
     border-top-right-radius: 2rem;
     box-sizing: border-box;
 }
+
+.channel-answer-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        width: 0;
+    }
+}

@@ -20,15 +20,13 @@ import { CommonModule } from '@angular/common';
 export class ChatAnswerComponent {
 
   firestore: Firestore = inject(Firestore);
-  overlay = inject(OverlayService);
-  booleanService = inject(BooleanValueService);
   selectionService: SelectionService = inject(SelectionService);
   DMService: DirectMessagesService = inject(DirectMessagesService);
 
 
-  @Input() isOwnMessage: boolean = true;
-  @Input() message: any;
-  @ViewChild('emoji') emoji: ElementRef | null = null;
+  @Input() isOwnAnswer: boolean = true;
+  @Input() answer: any;
+  /* @ViewChild('emoji') emoji: ElementRef | null = null;
   selectionIdSubscription: Subscription;
 
 
@@ -139,5 +137,5 @@ export class ChatAnswerComponent {
 
   isObjectWithCount(value: any): value is { count: number } {
     return typeof value === 'object' && value !== null && 'count' in value;
-  }
+  } */
 }
