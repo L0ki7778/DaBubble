@@ -40,6 +40,7 @@ export class SelectionService {
   }
 
   async ngOnInit() {
+    await this.dmService.fetchUserNames();
     this.currentUserID = await this.dmService.getLoggedInUserId();
     this.loadData();
   }
@@ -74,7 +75,7 @@ export class SelectionService {
       this.channelOrDM.next('channel');
       this.choosenChatTypeId.next(this.channelIds[0]);
     }
-    else if (this.DMIds.length > 0) {
+    else if (this.dmService.filteredUserNames.length > 0) {
       console.log('Message gefunden');
       this.channelOrDM.next('direct-message');
       this.choosenChatTypeId.next(this.DMIds[0]);
