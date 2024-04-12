@@ -73,7 +73,6 @@ export class SelectionService {
   }
 
   async getFirstDocumentId() {
-    const loggedInUserId = await this.dmService.getLoggedInUserId();
     if (this.channelIds.length > 0) {
       this.channelOrDM.next('channel');
       this.choosenChatTypeId.next(this.channelIds[0]);
@@ -83,7 +82,7 @@ export class SelectionService {
       const directMessageDoc = await getDoc(directMessageDocRef);
       if (directMessageDoc.exists()) {
         const members = directMessageDoc.data()['members'];
-        const otherUserId = members.find((id: any) => id !== loggedInUserId);
+        const otherUserId = members.find((id: any) => id !== this.currentUserID);
         if (otherUserId) {
           const otherUserName = await this.dmService.getUserNameById(otherUserId);
           this.dmService.selectedUserName = otherUserName;

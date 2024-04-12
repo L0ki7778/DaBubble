@@ -23,7 +23,6 @@ export class ChatAnswerComponent {
   selectionService: SelectionService = inject(SelectionService);
   DMService: DirectMessagesService = inject(DirectMessagesService);
 
-
   @Input() isOwnAnswer: boolean = true;
   @Input() answer: any;
   /* @ViewChild('emoji') emoji: ElementRef | null = null;
