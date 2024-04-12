@@ -44,7 +44,7 @@ export class SelectionService {
     this.loadData();
   }
 
-  async loadData() {
+  loadData() {
     this.unsubChannels = onSnapshot(this.channelsQuery,
       { includeMetadataChanges: true }, (querySnapshot) => {
         this.channelNames = [];
@@ -57,7 +57,7 @@ export class SelectionService {
         });
         this.getFirstDocumentId();
       });
-    this.unsubDM = onSnapshot(this.directMessagesQuery,{ includeMetadataChanges: true }, (querySnapshot) => {
+    this.unsubDM = onSnapshot(this.directMessagesQuery, { includeMetadataChanges: true }, (querySnapshot) => {
       this.DMIds = [];
       querySnapshot.forEach((doc) => {
         if (doc.data()['members'].includes(this.currentUserID)) {
@@ -68,19 +68,19 @@ export class SelectionService {
     });
   }
 
-  async getFirstDocumentId() {
+  getFirstDocumentId() {
     if (this.channelIds.length > 0) {
+      console.log('Channel gefunden');
       this.channelOrDM.next('channel');
       this.choosenChatTypeId.next(this.channelIds[0]);
     }
+    else if (this.DMIds.length > 0) {
+      console.log('Message gefunden');
+      this.channelOrDM.next('direct-message');
+      this.choosenChatTypeId.next(this.DMIds[0]);
+    }
     else {
-      if (this.DMIds.length > 0) {
-        this.channelOrDM.next('direct-message');
-        this.choosenChatTypeId.next(this.DMIds[0]);
-      }
-      else {
-        console.log('Keine Channel oder Message gefunden');           // Dieser Fall muss noch implementiert werden!!!
-      }
+      console.log('Keine Channel oder Message gefunden');
     }
   }
 

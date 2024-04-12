@@ -13,7 +13,7 @@ export class DirectMessagesService {
 
   private firestore: Firestore = inject(Firestore);
   private authService: AuthService = inject(AuthService);
-  filteredUserNames: { name: string, profileImage: string }[] = [];
+  filteredUserNames: { name: string, profileImage: string, id: string }[] = [];
   messageText: string = '';
   selectedUserName: any;
   selectedUserImage?: string;
@@ -48,7 +48,8 @@ export class DirectMessagesService {
         const userData = doc.data();
         return {
           name: userData['name'],
-          profileImage: userData['image']
+          profileImage: userData['image'],
+          id: doc.id
         };
       });
       const loggedInUserId = await this.getLoggedInUserId();
