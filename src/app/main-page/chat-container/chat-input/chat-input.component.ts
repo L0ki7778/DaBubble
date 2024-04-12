@@ -126,7 +126,7 @@ export class ChatInputComponent {
 
   showEmojiPicker(event: MouseEvent) {
     event.stopPropagation();
-    this.viewEmojiPicker = true;
+    this.viewEmojiPicker = !this.viewEmojiPicker;
   }
 
   @HostListener('document:click', ['$event'])
@@ -157,7 +157,7 @@ export class ChatInputComponent {
 
   showUserMention(event: MouseEvent) {
     event.stopPropagation();
-    this.userMentionView = true;
+    this.userMentionView = !this.userMentionView;
   }
 
 }
