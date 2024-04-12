@@ -1,0 +1,13 @@
+<!--- Rendering Answers of Messages from the channels -->
+<div *ngIf="this.selectionService.channelOrDM.value === 'channel'" class="channel-answer-container" #chatList>
+    <app-chat-answer *ngFor="let answer of answers"
+      [answer]="answer"></app-chat-answer>
+  </div>
+
+
+
+<!--- Rendering Answers of DM -->
+<div *ngIf="this.selectionService.channelOrDM.value === 'direct-message'" class="channel-answer-container" #chatList>
+  <app-chat-answer *ngFor="let answer of answers"
+    [answer]="answer"></app-chat-answer>
+</div>

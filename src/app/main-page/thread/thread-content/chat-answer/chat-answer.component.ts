@@ -1,12 +1,12 @@
 import { Component, ElementRef, HostListener, Input, ViewChild, inject } from '@angular/core';
-import { OverlayService } from '../../../services/overlay.service';
-import { ReactionBarComponent } from '../../chat-container/chat-content/chat-message/reaction-bar/reaction-bar.component';
-import { BooleanValueService } from '../../../services/boolean-value.service';
+import { OverlayService } from '../../../../services/overlay.service';
+import { ReactionBarComponent } from '../../../chat-container/chat-content/chat-message/reaction-bar/reaction-bar.component';
+import { BooleanValueService } from '../../../../services/boolean-value.service';
 import { Firestore, collection, doc, getDoc, getDocs, updateDoc } from '@angular/fire/firestore';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { Subscription } from 'rxjs';
-import { SelectionService } from '../../../services/selection.service';
-import { DirectMessagesService } from '../../../services/direct-messages.service';
+import { SelectionService } from '../../../../services/selection.service';
+import { DirectMessagesService } from '../../../../services/direct-messages.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
