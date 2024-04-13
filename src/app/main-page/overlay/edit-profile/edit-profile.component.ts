@@ -50,6 +50,7 @@ export class EditProfileComponent {
         await reauthenticateWithCredential(currentUser, credential);
         await updateProfile(currentUser, { displayName: newName });
         await updateEmail(currentUser, newEmail);
+        this.auth.updateUserName(newName);
       } else {
         console.error('Kein angemeldeter Benutzer gefunden');
       }

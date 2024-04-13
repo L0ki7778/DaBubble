@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Auth, User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, confirmPasswordReset, sendPasswordResetEmail, signInWithEmailAndPassword, updateProfile, user } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { Subscription, } from 'rxjs';
+import { BehaviorSubject, Subscription, } from 'rxjs';
 import { UserType } from '../types/user.type';
 import { Firestore, arrayUnion, collection, doc, getDocs, query, setDoc, where, writeBatch } from '@angular/fire/firestore';
 import { SelectionService } from './selection.service';
@@ -34,6 +34,12 @@ export class AuthService {
 
   user$ = user(this.auth);
   userSubscription: Subscription = new Subscription();
+  private _userName = new BehaviorSubject<string | null>(null);
+  userName$ = this._userName.asObservable();
+
+  updateUserName(newName: string | null) {
+    this._userName.next(newName);
+  } 
 
   constructor() {
     this.userSubscription = this.user$.subscribe((aUser: User | null) => {

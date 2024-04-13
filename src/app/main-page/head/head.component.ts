@@ -6,6 +6,7 @@ import { OverlayService } from '../../services/overlay.service';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { Firestore, doc, getDoc } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
     selector: 'app-head',
@@ -20,22 +21,36 @@ import { Subscription } from 'rxjs';
 })
 export class HeadComponent {
     overlay = inject(OverlayService);
+    authService = inject(AuthService);
     name: string | null = '';
     imgSrc: string = 'assets/img/start-page/unknown.svg';
     private firestore: Firestore = inject(Firestore);
     auth = getAuth();
     authSubscription: Subscription | null = null;
+    private userNameSubscription: Subscription | null = null;
 
     ngOnInit() {
         this.loggedInUser();
         this.findImageUrl();
+        this.subscribeToUserName();
     }
 
     ngOnDestroy() {
         if (this.authSubscription) {
             this.authSubscription.unsubscribe();
         }
+        if (this.userNameSubscription) {
+            this.userNameSubscription.unsubscribe();
+          }
     }
+
+    private subscribeToUserName() {
+        this.userNameSubscription = this.authService.userName$.subscribe(
+          (newName) => {
+            this.name = newName;
+          }
+        );
+      }
 
     findImageUrl() {
         this.authSubscription = new Subscription(() => {
