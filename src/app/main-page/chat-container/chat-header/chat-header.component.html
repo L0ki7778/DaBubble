@@ -18,8 +18,8 @@
     </div>
     <div class="chat-member-section">
         <app-members-overlay *ngIf="showMembers" [channelMemberIds]="currentChannelMembersIds"
-            [channelMemberNames]="currentChannelMembersNames"
-            [channelMemberAvatars]="currentChannelMembersAvatars"></app-members-overlay>
+            [channelMemberNames]="currentChannelMembersNames" [channelMemberAvatars]="currentChannelMembersAvatars">
+        </app-members-overlay>
         <div class="chat-head-members" (click)="openMembersOverlay($event)">
             <div class="member-icons">
                 @for(member of currentChannelMembersIds; track member; let index = $index ){
@@ -28,7 +28,8 @@
             <span> {{ currentChannelMembersIds.length }} </span>
         </div>
         <app-add-member-overlay *ngIf="showAddMember" [channelName]="currentChannelName" [channelId]="choosenChatTypeId"
-            [channelMemberIds]="currentChannelMembersIds"></app-add-member-overlay>
+            [channelMemberIds]="currentChannelMembersIds">
+        </app-add-member-overlay>
         <img class="add-member-button" [src]="imgSrc"
             (mouseover)="imgSrc = 'assets/img/main-page/chat/add-members-button-hover.svg'"
             (mouseleave)="imgSrc = 'assets/img/main-page/chat/add-members-button.svg'"

@@ -1,4 +1,5 @@
 .user-mention {
+    max-height: 250px;
     position: absolute;
     background-color: white;
     border-radius: 30px;
@@ -7,6 +8,7 @@
     left: 15px;
     box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.3);
     color: black;
+    overflow-y: auto;
 
     img {
         width: 28px;

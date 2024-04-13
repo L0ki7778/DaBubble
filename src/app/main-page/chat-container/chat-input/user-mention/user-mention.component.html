@@ -1,21 +1,10 @@
 <div class="user-mention">
     <ul>
         <h3>Mitglieder</h3>
-        <li>
-            <img src="../../../../../assets/img/general/avatars/avatar1.svg">
-            <span>Laura Müller</span>
-        </li>
-        <li>
-            <img src="../../../../../assets/img/general/avatars/avatar1.svg">
-            <span>Laura Müller</span>
-        </li>
-        <li>
-            <img src="../../../../../assets/img/general/avatars/avatar1.svg">
-            <span>Laura Müller</span>
-        </li>
-        <li>
-            <img src="../../../../../assets/img/general/avatars/avatar1.svg">
-            <span>Laura Müller</span>
+
+        <li *ngFor="let member of currentChannelMembersIds; let index = index" (click)="mentionUser(currentChannelMembersNames[index])" >
+            <img src="{{currentChannelMembersAvatars[index]}}">
+            <span>{{currentChannelMembersNames[index]}}</span>
         </li>
     </ul>
 </div>

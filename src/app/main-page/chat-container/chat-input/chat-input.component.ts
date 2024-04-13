@@ -40,6 +40,7 @@ export class ChatInputComponent {
   selectedFileName: string | null = null;
   isUploading: boolean = false;
   currentChannelName: string = '';
+  mentionedUser: string = '';
 
   constructor() {
     this.channelSubscription = this.selectionService.choosenChatTypeId$.subscribe(newChannel => {
@@ -158,6 +159,10 @@ export class ChatInputComponent {
   showUserMention(event: MouseEvent) {
     event.stopPropagation();
     this.userMentionView = !this.userMentionView;
+  }
+
+  handleUserMentioned(name: string) {
+    this.chatContent += '@' + name + ' ';
   }
 
 }
