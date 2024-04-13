@@ -3,7 +3,7 @@ import { OverlayService } from '../../../services/overlay.service';
 import { AuthService } from '../../../services/auth.service';
 import { updateProfile, updateEmail, User, getAuth } from '@firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { AuthCredential, EmailAuthProvider, reauthenticateWithCredential, signInWithEmailAndPassword } from 'firebase/auth';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
 
 @Component({
@@ -46,6 +46,8 @@ export class EditProfileComponent {
     const userDocRef = doc(this.auth.firestore, 'users', loggedInUserId);
     try {
       if (currentUser) {
+        const credential = await this.promptForCredentials();
+        await reauthenticateWithCredential(currentUser, credential);
         await updateProfile(currentUser, { displayName: newName });
         await updateEmail(currentUser, newEmail);
       } else {
@@ -55,6 +57,27 @@ export class EditProfileComponent {
       this.close();
     } catch (error) {
       console.error('Fehler beim Aktualisieren der Benutzerprofilinformationen:', error);
+    }
+  }
+
+  async promptForCredentials(): Promise<AuthCredential> {
+    const loggedInUserId = await this.DMService.getLoggedInUserId();
+    const userDocRef = doc(this.auth.firestore, 'users', loggedInUserId);
+    try {
+      const userDoc = await getDoc(userDocRef);
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        const email = userData['email'];
+        const password = userData['password'];
+        const credential = EmailAuthProvider.credential(email, password);
+        return credential;
+      } else {
+        console.error('Benutzerinformationen nicht gefunden');
+        throw new Error('Benutzerinformationen nicht gefunden');
+      }
+    } catch (error) {
+      console.error('Fehler beim Abrufen der Anmeldeinformationen:', error);
+      throw error;
     }
   }
 }

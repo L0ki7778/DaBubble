@@ -25,28 +25,13 @@ export class ResetPasswordComponent {
     this.authService.showResetPassword = false;
   }
 
+  toggleToEnterNewPassword() {
+    this.authService.showResetPassword = false;
+    this.authService.showEnterNewPassword = true;
+  }
+
   resetPassword(email: string) {
-    this.toggleTranslation();
-    setTimeout(() => {
-      this.toggleToLogin();
-    }, 2000);
     this.authService.resetPassword(email);
-  }
-
-  toggleTranslation() {
-    this.isTranslated = !this.isTranslated;
-    const element = document.querySelector('.success-report') as HTMLElement;
-    if (element) {
-      element.style.translate = '0 -20%';
-    }
-  }
-
-  async sendFormData(emailAddress: string) {
-    const formData = new FormData();
-    formData.append('email', emailAddress);
-    await fetch('https://anton-osipov.de/send_mail_dabubble.php', {
-      method: 'POST',
-      body: formData
-    });
+    this.toggleToEnterNewPassword();
   }
 }

@@ -26,7 +26,7 @@ export class AuthService {
   showCreateAccount: boolean = false;
   guestEmail = 'guest@email.com';
   guestPassword = 'Passwort';
-  resetPasswordEmail: string | null = null;
+  resetPasswordEmail: any= null;
   userImage: string = 'assets/img/start-page/unknown.svg';
   userName: any = 'Frederik Beck';
   userMail: string | null = 'fred.beck@email.com';
@@ -90,12 +90,7 @@ export class AuthService {
   }
 
   async resetPassword(email: string) {
-    try {
-      await sendPasswordResetEmail(this.auth, email);
       this.resetPasswordEmail = email;
-    } catch (error) {
-      console.error('Error sending password reset email:', error);
-    }
   }
 
   async confirmResetPassword(code: string, newPassword: string) {
