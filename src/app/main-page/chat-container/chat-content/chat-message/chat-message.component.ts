@@ -3,7 +3,7 @@ import { Component, ElementRef, HostListener, Input, ViewChild, inject } from '@
 import { OverlayService } from '../../../../services/overlay.service';
 import { ReactionBarComponent } from './reaction-bar/reaction-bar.component';
 import { BooleanValueService } from '../../../../services/boolean-value.service';
-import { Firestore, doc, getDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, collection, doc, getDoc, onSnapshot, query, updateDoc } from '@angular/fire/firestore';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { Subscription } from 'rxjs';
 import { SelectionService } from '../../../../services/selection.service';
@@ -27,13 +27,17 @@ export class ChatMessageComponent {
   @ViewChild('emoji') emoji: ElementRef | null = null;
 
   selectionIdSubscription: Subscription;
+  unsubscribeMessageAnswers: (() => void) | undefined;
 
   isOwnMessage: boolean = false;
+  answersExist: boolean = false;
   isHovered: boolean = false;
   viewEmojiPicker: boolean = false;
   user: any = {};
+  answers: any[] = [];
   choosenChatId: string = '';
   currentUserId: string | null = null;
+  currentMessageId: string = '';
 
   constructor() {
     this.selectionIdSubscription = this.selectionService.choosenChatTypeId.subscribe(newId => {
@@ -57,6 +61,36 @@ export class ChatMessageComponent {
           console.log('No such document!');
         }
       });
+      this.currentMessageId = this.message['docId'];
+      this.subscribeMessageAnswerChanges();
+    }
+  }
+
+  subscribeMessageAnswerChanges() {
+    if (this.unsubscribeMessageAnswers) {
+      this.unsubscribeMessageAnswers();
+    }
+    if (this.currentMessageId && this.currentMessageId !== '') {
+      const messageDocRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages', this.currentMessageId, 'answers');
+      const q = query(messageDocRef);
+      this.unsubscribeMessageAnswers = onSnapshot(q, { includeMetadataChanges: true }, (answersSnapshot: any) => {
+        answersSnapshot.docs.forEach((answer: any) => {
+          console.log(answer);
+          
+          this.answers.push(answer._document.data.value.mapValue.fields);
+        });
+      });
+      console.log(this.answers);
+      
+      if (this.answers.length !== 0) {
+        this.answersExist = true;
+      }
+      else {
+        this.answersExist = false;
+      }
+      console.log(this.answersExist);
+    } else {
+      return
     }
   }
 
@@ -141,5 +175,11 @@ export class ChatMessageComponent {
 
   isObjectWithCount(value: any): value is { count: number } {
     return typeof value === 'object' && value !== null && 'count' in value;
+  }
+
+  ngOnDestroy() {
+    if (this.unsubscribeMessageAnswers) {
+      this.unsubscribeMessageAnswers();
+    }
   }
 }

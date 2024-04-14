@@ -26,7 +26,7 @@
             <p *ngIf="message" [innerHTML]="message.text"></p>
         </div>
         <div class="message-footer" [ngStyle]="{'flex-direction': isOwnMessage ? 'row-reverse' : 'none' }">
-            <div class="gap">
+            <div class="gap" *ngIf="answersExist">
                 <span (click)="showThread()" class="message-answers">2 Antworten</span>
                 <span class="message-time">Letzte Antwort 17:25 Uhr</span>
             </div>
