@@ -1,12 +1,12 @@
 <div #mention class="user-mention">
     <ul>
         <h3>Mitglieder</h3>
-
-        <li *ngFor="let member of filterMembers(); let index = index" (click)="mentionUser(filterMembers()[index])">
-            <img src="{{currentChannelMembersAvatars[index]}}">
-            <span>{{filterMembers()[index]}}</span>
-        </li>
-
-        <input type="text" [(ngModel)]="searchTerm">
+        
+        <li *ngFor="let member of filteredMembers; let index = index"
+        (click)="mentionUser(filteredMembers[index])">
+        <img src="{{currentChannelMembersAvatars[index]}}">
+        <span>{{filteredMembers[index]}}</span>
+    </li>
+    
     </ul>
 </div>

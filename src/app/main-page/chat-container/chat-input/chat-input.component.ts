@@ -33,7 +33,6 @@ export class ChatInputComponent {
 
   @ViewChild('emoji') emoji: ElementRef | null = null;
   @ViewChild('textarea') textarea: ElementRef | any;
-  // @ViewChild('userMention') userMention: ElementRef | any;
 
   chatContent: string = '';
   viewEmojiPicker: boolean = false;
@@ -43,6 +42,9 @@ export class ChatInputComponent {
   isUploading: boolean = false;
   currentChannelName: string = '';
   mentionedUser: string = '';
+  previousValue: string = '';
+  searchTerm: string = '';
+  atSignActive: boolean = false;
   userMention = this.booleanService.userMention;
 
   constructor() {
@@ -137,7 +139,7 @@ export class ChatInputComponent {
   onclick(event: Event) {
     if (this.emoji && this.emoji.nativeElement && this.emoji.nativeElement.contains(event.target)) {
       return;
-     } else {
+    } else {
       this.viewEmojiPicker = false;
     }
   }
@@ -160,11 +162,30 @@ export class ChatInputComponent {
     event.stopPropagation();
     let currentValue = this.booleanService.userMention();
     this.booleanService.userMention.set(currentValue ? false : true);
-}
+  }
 
 
   handleUserMentioned(name: string) {
     this.chatContent += '@' + name + ' ';
   }
+
+
+  checkForAtSign(event: KeyboardEvent) {
+    const input = event.target as HTMLInputElement;
+    if (event.key === '@') {
+      this.searchTerm = '';
+      this.booleanService.userMention.set(true);
+      this.atSignActive = true;
+    } else if (this.atSignActive) {
+      if (event.key === ' ') {
+        this.booleanService.userMention.set(false);
+        this.atSignActive = false;
+      } else {
+        this.searchTerm = input.value.slice(input.value.lastIndexOf('@') + 1);
+      }
+    }
+    this.previousValue = input.value;
+  }
+  
 
 }

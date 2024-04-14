@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, Output, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild, inject } from '@angular/core';
 import { DirectMessagesService } from '../../../../services/direct-messages.service';
 import { CollectionReference, Firestore, collection, doc, onSnapshot } from '@angular/fire/firestore';
 import { OverlayService } from '../../../../services/overlay.service';
@@ -37,17 +37,19 @@ export class UserMentionComponent {
   choosenChatType: string = 'channel';
   currentChannelName: string = '';
   mentionName: string = '';
-  searchTerm: string = '';
   currentChannelMembersIds: string[] = [];
   currentChannelMembersNames: string[] = [];
   currentChannelMembersAvatars: string[] = [];
   private unsubscribeUsers: any[] = [];
   private unsubscribeChannel: (() => void) | undefined;
+  @Input() searchTerm: string;
   @Output() userMentioned = new EventEmitter<string>();
   @ViewChild('mention') mention: ElementRef | null = null;
 
 
-
+  constructor() {
+    this.searchTerm = '';
+  }
 
   ngOnInit() {
     this.overlaySubscription = this.$editObservable.subscribe(() => {
@@ -99,13 +101,25 @@ export class UserMentionComponent {
     }
   }
 
-
-  mentionUser(name: string) {
-    this.userMentioned.emit(name);
+  ngOnDestroy() {
+    this.overlaySubscription.unsubscribe();
+    this.selectionIdSubscription.unsubscribe();
+    this.selectionTypeSubscription.unsubscribe();
+    this.unsubscribeUsers.forEach(unsubscribe => unsubscribe());
+    if (this.unsubscribeChannel) {
+      this.unsubscribeChannel();
+    }
   }
 
 
-  filterMembers() {
+
+  mentionUser(name: string) {
+    this.userMentioned.emit(name);
+    this.booleanService.userMention.set(false);
+  }
+
+
+  get filteredMembers() {
     if (this.searchTerm) {
       return this.currentChannelMembersNames.filter(member =>
         member.toLowerCase().includes(this.searchTerm.toLowerCase())
@@ -114,6 +128,7 @@ export class UserMentionComponent {
       return this.currentChannelMembersNames;
     }
   }
+
 
 
   @HostListener('document:click', ['$event'])
