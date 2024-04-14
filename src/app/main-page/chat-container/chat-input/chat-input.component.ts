@@ -8,6 +8,7 @@ import { Firestore, addDoc, collection, doc, onSnapshot, updateDoc } from '@angu
 import { OverlayService } from '../../../services/overlay.service';
 import { Subscription } from 'rxjs';
 import { UserMentionComponent } from './user-mention/user-mention.component';
+import { BooleanValueService } from '../../../services/boolean-value.service';
 
 @Component({
   selector: 'app-chat-input',
@@ -23,6 +24,7 @@ import { UserMentionComponent } from './user-mention/user-mention.component';
   styleUrl: './chat-input.component.scss'
 })
 export class ChatInputComponent {
+  booleanService = inject(BooleanValueService);
   firestore: Firestore = inject(Firestore);
   DMService: DirectMessagesService = inject(DirectMessagesService);
   selectionService: SelectionService = inject(SelectionService);
@@ -31,7 +33,7 @@ export class ChatInputComponent {
 
   @ViewChild('emoji') emoji: ElementRef | null = null;
   @ViewChild('textarea') textarea: ElementRef | any;
-  @ViewChild('userMention') userMention: ElementRef | any;
+  // @ViewChild('userMention') userMention: ElementRef | any;
 
   chatContent: string = '';
   viewEmojiPicker: boolean = false;
@@ -41,6 +43,7 @@ export class ChatInputComponent {
   isUploading: boolean = false;
   currentChannelName: string = '';
   mentionedUser: string = '';
+  userMention = this.booleanService.userMention;
 
   constructor() {
     this.channelSubscription = this.selectionService.choosenChatTypeId$.subscribe(newChannel => {
@@ -134,11 +137,8 @@ export class ChatInputComponent {
   onclick(event: Event) {
     if (this.emoji && this.emoji.nativeElement && this.emoji.nativeElement.contains(event.target)) {
       return;
-    } else if (this.userMention && this.userMention.nativeElement && this.userMention.nativeElement.contains(event.target)) {
-      return;
-    } else {
+     } else {
       this.viewEmojiPicker = false;
-      this.userMentionView = false;
     }
   }
 
@@ -158,8 +158,10 @@ export class ChatInputComponent {
 
   showUserMention(event: MouseEvent) {
     event.stopPropagation();
-    this.userMentionView = !this.userMentionView;
-  }
+    let currentValue = this.booleanService.userMention();
+    this.booleanService.userMention.set(currentValue ? false : true);
+}
+
 
   handleUserMentioned(name: string) {
     this.chatContent += '@' + name + ' ';

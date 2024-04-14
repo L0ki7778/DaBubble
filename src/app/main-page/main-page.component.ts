@@ -29,10 +29,10 @@ import { CloseWorkspaceComponent } from './workspace/close-workspace/close-works
 export class MainPageComponent {
   overlayService = inject(OverlayService);
   booleanService = inject(BooleanValueService);
-  workspaceOpen= true;
-  @ViewChild('WorkspaceComponent',{read : ElementRef}) workspaceComponentRef: ElementRef  | undefined;
+  workspaceOpen = true;
+  @ViewChild('WorkspaceComponent', { read: ElementRef }) workspaceComponentRef: ElementRef | undefined;
 
-  overlay:any;
+  overlay: any;
   viewThread = this.booleanService.viewThread;
 
 
@@ -43,23 +43,23 @@ export class MainPageComponent {
   }
 
   handleWorkspace() {
-    if(this.workspaceComponentRef) {
-      const workspaceElement :HTMLElement = this.workspaceComponentRef.nativeElement;
-     if(workspaceElement.style.width === '0px'){
-      this.workspaceOpen = true;
-       workspaceElement.style.width = '';
-       workspaceElement.style.margin = '';
-       workspaceElement.style.opacity = '';
-       setTimeout(()=>{
-         workspaceElement.style.minWidth = '';
-       },250)
-     }else{
-       this.workspaceOpen = false;
-       workspaceElement.style.width = '0';
-       workspaceElement.style.minWidth = 'unset';
-       workspaceElement.style.margin = '0 -2rem';
-       workspaceElement.style.opacity = '0';
-     }
+    if (this.workspaceComponentRef) {
+      const workspaceElement: HTMLElement = this.workspaceComponentRef.nativeElement;
+      if (workspaceElement.style.width === '0px') {
+        this.workspaceOpen = true;
+        workspaceElement.style.width = '';
+        workspaceElement.style.margin = '';
+        workspaceElement.style.opacity = '';
+        setTimeout(() => {
+          workspaceElement.style.minWidth = '';
+        }, 250)
+      } else {
+        this.workspaceOpen = false;
+        workspaceElement.style.width = '0';
+        workspaceElement.style.minWidth = 'unset';
+        workspaceElement.style.margin = '0 -2rem';
+        workspaceElement.style.opacity = '0';
+      }
     }
   }
 }

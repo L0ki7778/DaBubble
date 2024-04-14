@@ -1,19 +1,23 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Output, ViewChild, inject } from '@angular/core';
 import { DirectMessagesService } from '../../../../services/direct-messages.service';
 import { CollectionReference, Firestore, collection, doc, onSnapshot } from '@angular/fire/firestore';
 import { OverlayService } from '../../../../services/overlay.service';
 import { SelectionService } from '../../../../services/selection.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { BooleanValueService } from '../../../../services/boolean-value.service';
+
 
 @Component({
   selector: 'app-user-mention',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './user-mention.component.html',
   styleUrl: './user-mention.component.scss'
 })
 export class UserMentionComponent {
+  booleanService = inject(BooleanValueService);
   overlayService = inject(OverlayService);
   selectionService = inject(SelectionService);
   DMService: DirectMessagesService = inject(DirectMessagesService);
@@ -33,12 +37,15 @@ export class UserMentionComponent {
   choosenChatType: string = 'channel';
   currentChannelName: string = '';
   mentionName: string = '';
+  searchTerm: string = '';
   currentChannelMembersIds: string[] = [];
   currentChannelMembersNames: string[] = [];
   currentChannelMembersAvatars: string[] = [];
   private unsubscribeUsers: any[] = [];
   private unsubscribeChannel: (() => void) | undefined;
   @Output() userMentioned = new EventEmitter<string>();
+  @ViewChild('mention') mention: ElementRef | null = null;
+
 
 
 
@@ -97,4 +104,24 @@ export class UserMentionComponent {
     this.userMentioned.emit(name);
   }
 
+
+  filterMembers() {
+    if (this.searchTerm) {
+      return this.currentChannelMembersNames.filter(member =>
+        member.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    } else {
+      return this.currentChannelMembersNames;
+    }
+  }
+
+
+  @HostListener('document:click', ['$event'])
+  onclick(event: Event) {
+    if (this.mention && this.mention.nativeElement && this.mention.nativeElement.contains(event.target)) {
+      return
+    } else {
+      this.booleanService.userMention.set(false);
+    }
+  }
 }

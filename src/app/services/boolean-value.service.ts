@@ -9,4 +9,5 @@ export class BooleanValueService {
 
   viewThread = signal(false);
   profileView = signal(false);
+  userMention = signal(false);
 }
