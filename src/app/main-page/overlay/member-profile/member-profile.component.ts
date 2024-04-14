@@ -25,7 +25,7 @@ export class MemberProfileComponent {
   unsubUser: any;
   @ViewChild('memberView') memberView: ElementRef | null = null;
 
-  memberId: string = '';
+  memberId: any;
   userImage: string = 'assets/img/general/avatars/avatar3.svg';
   userName: string = 'Frederik Beck';
   userStatus: 'online' | 'offline' = 'online';
@@ -35,8 +35,7 @@ export class MemberProfileComponent {
 
   constructor() {
     if (this.selectionService.channelOrDM.value === 'channel') {
-      this.memberId = this.selectionService.selectedMemberId.value;
-
+      this.memberId = this.selectionService.selectedMemberId;
       this.unsubUser = onSnapshot(doc(this.usersRef, this.memberId), { includeMetadataChanges: true }, (user) => {
         if (user.exists() && user.data()) {
           this.userImage = user.data()['image'];
