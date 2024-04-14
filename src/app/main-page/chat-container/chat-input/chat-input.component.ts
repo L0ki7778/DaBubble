@@ -166,8 +166,14 @@ export class ChatInputComponent {
 
 
   handleUserMentioned(name: string) {
-    this.chatContent += '@' + name + ' ';
+    let lastAt = this.chatContent.lastIndexOf('@');
+    if (lastAt != -1) {
+      this.chatContent = this.chatContent.substring(0, lastAt) + '@' + name + ' ';
+    } else {
+      this.chatContent += '@' + name + ' ';
+    }
   }
+  
 
 
   checkForAtSign(event: KeyboardEvent) {
