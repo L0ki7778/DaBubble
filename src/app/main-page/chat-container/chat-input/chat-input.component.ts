@@ -172,12 +172,13 @@ export class ChatInputComponent {
 
   checkForAtSign(event: KeyboardEvent) {
     const input = event.target as HTMLInputElement;
-    if (event.key === '@') {
+
+    if (event.key === '@' && (this.previousValue === '' || this.previousValue.endsWith(' '))) {
       this.searchTerm = '';
       this.booleanService.userMention.set(true);
       this.atSignActive = true;
     } else if (this.atSignActive) {
-      if (event.key === ' ') {
+      if (event.key === ' ' || (event.key === 'Backspace' && this.previousValue.endsWith('@'))) {
         this.booleanService.userMention.set(false);
         this.atSignActive = false;
       } else {
@@ -186,6 +187,5 @@ export class ChatInputComponent {
     }
     this.previousValue = input.value;
   }
-  
 
 }
