@@ -38,6 +38,7 @@ export class ChatMessageComponent {
   choosenChatId: string = '';
   currentUserId: string | null = null;
   currentMessageId: string = '';
+  lastAnswerTime: string = '';
 
   constructor() {
     this.selectionIdSubscription = this.selectionService.choosenChatTypeId.subscribe(newId => {
@@ -76,11 +77,10 @@ export class ChatMessageComponent {
       this.unsubscribeMessageAnswers = onSnapshot(q, { includeMetadataChanges: true }, (answersSnapshot: any) => {
         this.answers = [];
         answersSnapshot.docs.forEach((answer: any) => {
-          console.log('Daten einzelner Antworten', answer.data());
           this.answers.push(answer.data());
           this.checkIfAnswersExist();
+          this.extractHoursAndMinutesFromUnixTime(this.answers[0].postTime)
         });
-        console.log('Answers Array', this.answers);
       });
     } else {
       return
@@ -94,7 +94,6 @@ export class ChatMessageComponent {
     else {
       this.answersExist = false;
     }
-    console.log('Existieren Answers?', this.answersExist);
   }
 
   async getCurrentUserId() {
@@ -127,6 +126,7 @@ export class ChatMessageComponent {
 
   showThread() {
     this.booleanService.viewThread.set(true);
+    this.selectionService.choosenMessageId.next(this.currentMessageId);
   }
 
   showEmojiPicker(event: MouseEvent) {
@@ -173,6 +173,17 @@ export class ChatMessageComponent {
         updateDoc(docRef, { reactions });
       }
     });
+  }
+
+  extractHoursAndMinutesFromUnixTime(unixTimeMs: number) {
+    const date = new Date(unixTimeMs);
+    const options: Intl.DateTimeFormatOptions = {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false // Verwende 24-Stunden-Format
+    };
+    const formattedDateTime = date.toLocaleString('de-DE', options);
+    this.lastAnswerTime = formattedDateTime;
   }
 
 
