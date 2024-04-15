@@ -7,27 +7,31 @@ import { RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { ChooseProfilePictureComponent } from './create-account/choose-profile-picture/choose-profile-picture.component';
 import { EnterNewPasswordComponent } from './enter-new-password/enter-new-password.component';
+import { OverlayService } from '../services/overlay.service';
+import { UploadWarningComponent } from "../main-page/overlay/upload-warning/upload-warning.component";
 
 @Component({
-  selector: 'app-start-page',
-  standalone: true,
-  imports: [
-    LoginComponent,
-    CreateAccountComponent,
-    ResetPasswordComponent,
-    EnterNewPasswordComponent,
-    ChooseProfilePictureComponent,
-    CommonModule,
-    RouterLink
-  ],
-  templateUrl: './start-page.component.html',
-  styleUrl: './start-page.component.scss'
+    selector: 'app-start-page',
+    standalone: true,
+    templateUrl: './start-page.component.html',
+    styleUrl: './start-page.component.scss',
+    imports: [
+        LoginComponent,
+        CreateAccountComponent,
+        ResetPasswordComponent,
+        EnterNewPasswordComponent,
+        ChooseProfilePictureComponent,
+        CommonModule,
+        RouterLink,
+        UploadWarningComponent
+    ]
 })
 export class StartPageComponent {
 
   endAnimation: boolean = false;
 
   authService: AuthService = inject(AuthService);
+  overlay: OverlayService = inject(OverlayService);
 
   toggleToCreateAccount() {
     this.authService.showLogin = !this.authService.showLogin;

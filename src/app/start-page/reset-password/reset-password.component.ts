@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { Auth } from '@angular/fire/auth';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { collection, query, where, getDocs } from '@angular/fire/firestore';
+import { OverlayService } from '../../services/overlay.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -13,9 +14,7 @@ import { AuthService } from '../../services/auth.service';
 export class ResetPasswordComponent {
 
   authService: AuthService = inject(AuthService);
-
-
-  private auth: Auth = inject(Auth);
+  overlayService: OverlayService = inject(OverlayService);
   email: string = '';
   password: string = '';
   isTranslated: boolean = true;
@@ -33,5 +32,20 @@ export class ResetPasswordComponent {
   resetPassword(email: string) {
     this.authService.resetPassword(email);
     this.toggleToEnterNewPassword();
+  }
+
+  async checkEmailAndResetPassword(email: any) {
+    const usersCollection = collection(this.authService.firestore, 'users');
+    const usersQuery = query(usersCollection, where('email', '==', email));
+    try {
+      const querySnapshot = await getDocs(usersQuery);
+      if (querySnapshot.empty) {
+        this.overlayService.toggleWarning();
+      } else {
+        this.resetPassword(email);
+      }
+    } catch (error) {
+      console.error('Fehler beim Überprüfen der E-Mail-Adresse:', error);
+    }
   }
 }
