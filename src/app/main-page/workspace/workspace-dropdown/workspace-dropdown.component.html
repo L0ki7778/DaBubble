@@ -35,7 +35,7 @@
     <ng-content id="plus-content"></ng-content>
 </div>
 @if(channel){
-<div class="drop-down-list" [ngStyle]="active? {maxHeight: '152px'} : {height:'0'}">
+<div class="drop-down-list" [ngStyle]="active? {height: 'auto'} : {height:'0'}">
 
     @for(channel of this.filteredChannelNames; track channel; let index = $index ) {
     <div class="list-channel"

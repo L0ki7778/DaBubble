@@ -7,14 +7,16 @@ app-workspace-dropdown {
     display: contents;
 }
 
-
+section {
+    overflow: hidden auto;
+}
 
 #plus {
     transform: scale(1.1);
     border-radius: 50%;
     transition: all ease .025s;
     position: absolute;
-    right:23px;
+    right: 23px;
 
     &:hover {
         cursor: pointer;
@@ -32,4 +34,8 @@ app-workspace-dropdown {
     position: absolute;
     left: 2rem;
     gap: 1rem
+}
+
+::-webkit-scrollbar {
+    width: 2px;
 }
