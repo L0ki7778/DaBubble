@@ -70,28 +70,31 @@ export class ChatMessageComponent {
     if (this.unsubscribeMessageAnswers) {
       this.unsubscribeMessageAnswers();
     }
-    if (this.currentMessageId && this.currentMessageId !== '') {
+    else if (this.currentMessageId && this.currentMessageId !== '') {
       const messageDocRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages', this.currentMessageId, 'answers');
       const q = query(messageDocRef);
       this.unsubscribeMessageAnswers = onSnapshot(q, { includeMetadataChanges: true }, (answersSnapshot: any) => {
+        this.answers = [];
         answersSnapshot.docs.forEach((answer: any) => {
-          console.log(answer);
-          
-          this.answers.push(answer._document.data.value.mapValue.fields);
+          console.log('Daten einzelner Antworten', answer.data());
+          this.answers.push(answer.data());
+          this.checkIfAnswersExist();
         });
+        console.log('Answers Array', this.answers);
       });
-      console.log(this.answers);
-      
-      if (this.answers.length !== 0) {
-        this.answersExist = true;
-      }
-      else {
-        this.answersExist = false;
-      }
-      console.log(this.answersExist);
     } else {
       return
     }
+  }
+
+  checkIfAnswersExist() {
+    if (this.answers.length !== 0) {
+      this.answersExist = true;
+    }
+    else {
+      this.answersExist = false;
+    }
+    console.log('Existieren Answers?', this.answersExist);
   }
 
   async getCurrentUserId() {
