@@ -1,6 +1,8 @@
 import { Component, ElementRef, Input, ViewChild, inject } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
 
 @Component({
   selector: 'app-choose-profile-picture',
@@ -23,6 +25,11 @@ export class ChooseProfilePictureComponent {
     'assets/img/start-page/women2.svg',
     'assets/img/start-page/men4.svg'
   ]
+  selectedFile: string | ArrayBuffer | null = null;
+  originalFile: File | null = null;
+  selectedProfilePictureUrl: string | null = null;
+  isProfilePictureFromFile: boolean = false;
+
 
   toggleToCreateAccount() {
     this.authService.showChooseProfilePicture = false;
@@ -32,6 +39,15 @@ export class ChooseProfilePictureComponent {
   async register() {
     this.toggleTranslation();
     this.makeContentBrighter();
+    if (this.selectedFile) {
+      const file = this.dataURIToBlob(this.selectedFile.toString());
+      const filePath = `profile_pictures/${this.originalFile?.name}`;
+      const storage = getStorage();
+      const storageRef = ref(storage, filePath);
+      await uploadBytes(storageRef, file);
+      const uploadedFileUrl = await getDownloadURL(storageRef);
+      this.authService.selectedProfilePic = uploadedFileUrl;
+    }
     await this.authService.register();
     setTimeout(() => {
       this.authService.showChooseProfilePicture = false;
@@ -58,16 +74,51 @@ export class ChooseProfilePictureComponent {
 
   selectProfilePic(iconUrl: string) {
     this.authService.selectedProfilePic = iconUrl;
+    this.selectedFile = null;
+    this.originalFile = null;
   }
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
+      this.originalFile = file;
+      this.fileToBase64(file)
+        .then(result => {
+          this.selectedFile = result;
+          this.updateProfilePicture();
+        })
+        .catch(error => {
+          console.error('Fehler beim Lesen der Datei:', error);
+        });
+    }
+  }
+
+  fileToBase64(file: File): Promise<string | ArrayBuffer | null> {
+    return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.onload = () => {
-        this.authService.selectedProfilePic = reader.result as string;
-      };
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
       reader.readAsDataURL(file);
+    });
+  }
+
+  dataURIToBlob(dataURI: string) {
+    const byteString = atob(dataURI.split(',')[1]);
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], { type: mimeString });
+  }
+
+  updateProfilePicture() {
+    if (this.selectedFile) {
+      const base64Image = this.selectedFile.toString().split(',')[1];
+      this.authService.selectedProfilePic = `data:image/png;base64,${base64Image}`;
+    } else {
+      this.authService.selectedProfilePic = 'assets/img/start-page/unknown.svg';
     }
   }
 

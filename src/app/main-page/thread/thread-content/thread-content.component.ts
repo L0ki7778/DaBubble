@@ -49,7 +49,6 @@ export class ThreadContentComponent {
         answersSnapshot.docs.forEach((answer: any) => {
           this.answers.push(answer.data());
         });
-        console.log(this.answers);
       });
     } else {
       return

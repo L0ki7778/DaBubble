@@ -45,7 +45,6 @@ export class EnterNewPasswordComponent {
         const auth = getAuth();
         const emailCredential = await this.getEmailCredential();
         await updatePassword(emailCredential.user, this.newPassword);
-        console.log('New password set successfully');
         const userDocRef = await this.getUserDocRef(this.authService.resetPasswordEmail);
         await updateDoc(userDocRef, { password: this.newPassword });
       } catch (error) {
