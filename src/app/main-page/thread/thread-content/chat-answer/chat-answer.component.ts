@@ -20,12 +20,14 @@ import { CommonModule } from '@angular/common';
 export class ChatAnswerComponent {
 
   firestore: Firestore = inject(Firestore);
+  overlay = inject(OverlayService);
+  booleanService = inject(BooleanValueService);
   selectionService: SelectionService = inject(SelectionService);
   DMService: DirectMessagesService = inject(DirectMessagesService);
 
   @Input() isOwnAnswer: boolean = true;
   @Input() answer: any;
-  /* @ViewChild('emoji') emoji: ElementRef | null = null;
+  @ViewChild('emoji') emoji: ElementRef | null = null;
   selectionIdSubscription: Subscription;
 
 
@@ -45,8 +47,8 @@ export class ChatAnswerComponent {
 
 
   ngOnInit() {
-    if (this.message && this.message.authorId) {
-      const docRef = doc(this.firestore, 'users', this.message.authorId);
+    if (this.answer && this.answer.authorId) {
+      const docRef = doc(this.firestore, 'users', this.answer.authorId);
 
       getDoc(docRef).then((doc) => {
         if (doc.exists()) {
@@ -104,7 +106,7 @@ export class ChatAnswerComponent {
 
   addEmoji(event: any) {
     const emoji = event.emoji.native;
-    const docRef = doc(this.firestore, 'channels', this.choosenChatId, 'messages', this.message.docId);
+    const docRef = doc(this.firestore, 'channels', this.choosenChatId, 'messages', this.answer.docId);
 
     getDoc(docRef).then((docSnapshot) => {
       if (docSnapshot.exists()) {
@@ -136,5 +138,5 @@ export class ChatAnswerComponent {
 
   isObjectWithCount(value: any): value is { count: number } {
     return typeof value === 'object' && value !== null && 'count' in value;
-  } */
+  }
 }
