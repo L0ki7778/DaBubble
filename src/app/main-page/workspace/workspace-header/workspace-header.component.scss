@@ -1,10 +1,12 @@
 @import '../../../mixin.scss';
 
 #workspace-header {
-    @include dFlex(space-between, center);
+    display: flex;
+    align-items: center;
     font-weight: 700;
     font-size: 24px;
     padding-top: 2rem;
+    gap: 24px;
 
     div:hover{
         cursor: default;

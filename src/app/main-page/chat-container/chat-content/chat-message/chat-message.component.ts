@@ -38,6 +38,7 @@ export class ChatMessageComponent {
   choosenChatId: string = '';
   currentUserId: string | null = null;
   currentMessageId: string = '';
+  lastAnswerTime: string = '';
 
   constructor() {
     this.selectionIdSubscription = this.selectionService.choosenChatTypeId.subscribe(newId => {
@@ -70,27 +71,28 @@ export class ChatMessageComponent {
     if (this.unsubscribeMessageAnswers) {
       this.unsubscribeMessageAnswers();
     }
-    if (this.currentMessageId && this.currentMessageId !== '') {
+    else if (this.currentMessageId && this.currentMessageId !== '') {
       const messageDocRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages', this.currentMessageId, 'answers');
       const q = query(messageDocRef);
       this.unsubscribeMessageAnswers = onSnapshot(q, { includeMetadataChanges: true }, (answersSnapshot: any) => {
+        this.answers = [];
         answersSnapshot.docs.forEach((answer: any) => {
-          console.log(answer);
-          
-          this.answers.push(answer._document.data.value.mapValue.fields);
+          this.answers.push(answer.data());
+          this.checkIfAnswersExist();
+          this.extractHoursAndMinutesFromUnixTime(this.answers[0].postTime)
         });
       });
-      console.log(this.answers);
-      
-      if (this.answers.length !== 0) {
-        this.answersExist = true;
-      }
-      else {
-        this.answersExist = false;
-      }
-      console.log(this.answersExist);
     } else {
       return
+    }
+  }
+
+  checkIfAnswersExist() {
+    if (this.answers.length !== 0) {
+      this.answersExist = true;
+    }
+    else {
+      this.answersExist = false;
     }
   }
 
@@ -124,6 +126,7 @@ export class ChatMessageComponent {
 
   showThread() {
     this.booleanService.viewThread.set(true);
+    this.selectionService.choosenMessageId.next(this.currentMessageId);
   }
 
   showEmojiPicker(event: MouseEvent) {
@@ -170,6 +173,17 @@ export class ChatMessageComponent {
         updateDoc(docRef, { reactions });
       }
     });
+  }
+
+  extractHoursAndMinutesFromUnixTime(unixTimeMs: number) {
+    const date = new Date(unixTimeMs);
+    const options: Intl.DateTimeFormatOptions = {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false // Verwende 24-Stunden-Format
+    };
+    const formattedDateTime = date.toLocaleString('de-DE', options);
+    this.lastAnswerTime = formattedDateTime;
   }
 
 

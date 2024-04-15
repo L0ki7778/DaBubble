@@ -1,5 +1,8 @@
 <app-workspace-header></app-workspace-header>
-<app-workspace-dropdown [channel]="true" [name]="'Channels'">
-    <img id="plus" (click)="createCannel($event)" src="assets/img/main-page/workspace/workspace-plus.svg" alt="">
-</app-workspace-dropdown>
-<app-workspace-dropdown [name]="'Direktnachrichten'"></app-workspace-dropdown>
+<section>
+    <app-workspace-dropdown [channel]="true" [name]="'Channels'">
+        <img id="plus" (click)="createCannel($event)" src="assets/img/main-page/workspace/workspace-plus.svg" alt="">
+    </app-workspace-dropdown>
+    <app-workspace-dropdown [name]="'Direktnachrichten'">
+    </app-workspace-dropdown>
+</section>

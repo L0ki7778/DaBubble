@@ -30,16 +30,12 @@ export class ThreadContentComponent {
     if (this.selectionService.channelOrDM.value === 'channel') {
       this.selectionMessageIdSubscription = this.selectionService.choosenMessageId.subscribe(newId => {
         this.choosenMessageId = newId;
-        if (this.choosenMessageId != '') {
+        if (this.choosenMessageId !== '') {
           this.answers = [];
           this.subscribeMessageAnswerChanges();
         }
       });
     }
-  }
-
-  ngOnInit() {
-
   }
 
   subscribeMessageAnswerChanges() {
@@ -51,10 +47,9 @@ export class ThreadContentComponent {
       const q = query(messageDocRef);
       this.unsubscribeMessageAnswers = onSnapshot(q, { includeMetadataChanges: true }, (answersSnapshot) => {
         answersSnapshot.docs.forEach((answer: any) => {
-          this.answers.push(answer._document.data.value.mapValue.fields);
+          this.answers.push(answer.data());
         });
       });
-      console.log(this.answers);
     } else {
       return
     }
