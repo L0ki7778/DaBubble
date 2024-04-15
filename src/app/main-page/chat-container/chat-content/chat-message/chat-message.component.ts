@@ -175,14 +175,43 @@ export class ChatMessageComponent {
     });
   }
 
+
   extractHoursAndMinutesFromUnixTime(unixTimeMs: number) {
+    const now = new Date();
     const date = new Date(unixTimeMs);
-    const options: Intl.DateTimeFormatOptions = {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false // Verwende 24-Stunden-Format
-    };
-    const formattedDateTime = date.toLocaleString('de-DE', options);
+    const diffInMs = now.getTime() - date.getTime();
+    const diffInHours = diffInMs / (1000 * 60 * 60);
+    const diffInDays = diffInHours / 24;
+    const diffInWeeks = diffInDays / 7;
+    const diffInMonths = diffInDays / 30;
+    const diffInYears = diffInDays / 365;
+
+    let formattedDateTime = '';
+    if (diffInHours < 24) {
+      const options: Intl.DateTimeFormatOptions = {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      };
+      formattedDateTime = date.toLocaleString('de-DE', options) + ' Uhr';
+    } else if (diffInDays <= 1) {
+      formattedDateTime = `vor 1 Tag`;
+    } else if (diffInDays < 7) {
+      formattedDateTime = `vor ${Math.round(diffInDays)} Tagen`;
+    } else if (diffInDays < 14) {
+      formattedDateTime = `vor 1 Woche`;
+    } else if (diffInDays < 28) {
+      formattedDateTime = `vor ${Math.round(diffInWeeks)} Wochen`;
+    } else if (diffInDays < 60) {
+      formattedDateTime = `vor 1 Monat`;
+    } else if (diffInDays < 365) {
+      formattedDateTime = `vor ${Math.round(diffInMonths)} Monaten`;
+    } else if (diffInDays < 730) {
+      formattedDateTime = `vor 1 Jahr`;
+    } else {
+      formattedDateTime = `vor ${Math.round(diffInYears)} Jahren`;
+    }
+
     this.lastAnswerTime = formattedDateTime;
   }
 
