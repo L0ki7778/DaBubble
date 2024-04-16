@@ -1,18 +1,18 @@
 import { Component, ElementRef, HostListener, Input, ViewChild, inject } from '@angular/core';
 import { OverlayService } from '../../../../services/overlay.service';
-import { ReactionBarComponent } from '../../../chat-container/chat-content/chat-message/reaction-bar/reaction-bar.component';
 import { BooleanValueService } from '../../../../services/boolean-value.service';
-import { Firestore, collection, doc, getDoc, getDocs, updateDoc } from '@angular/fire/firestore';
+import { Firestore, doc, getDoc, updateDoc } from '@angular/fire/firestore';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { Subscription } from 'rxjs';
 import { SelectionService } from '../../../../services/selection.service';
 import { DirectMessagesService } from '../../../../services/direct-messages.service';
 import { CommonModule } from '@angular/common';
+import { ThreadReactionBarComponent } from './thread-reaction-bar/thread-reaction-bar.component';
 
 @Component({
   selector: 'app-chat-answer',
   standalone: true,
-  imports: [CommonModule, ReactionBarComponent, PickerComponent],
+  imports: [CommonModule, ThreadReactionBarComponent, PickerComponent],
   templateUrl: './chat-answer.component.html',
   styleUrl: './chat-answer.component.scss'
 })
@@ -25,7 +25,7 @@ export class ChatAnswerComponent {
   selectionService: SelectionService = inject(SelectionService);
   DMService: DirectMessagesService = inject(DirectMessagesService);
 
-  @Input() isOwnAnswer: boolean = true;
+  @Input() isOwnAnswer: boolean = false;
   @Input() answer: any;
   @ViewChild('emoji') emoji: ElementRef | null = null;
   selectionIdSubscription: Subscription;
@@ -85,10 +85,6 @@ export class ChatAnswerComponent {
     this.DMService.selectedUserImage = this.user.image;
   }
 
-  showThread() {
-    this.booleanService.viewThread.set(true);
-  }
-
   showEmojiPicker(event: MouseEvent) {
     event.stopPropagation();
     this.viewEmojiPicker = true;
@@ -105,7 +101,7 @@ export class ChatAnswerComponent {
 
 
   addEmoji(event: any) {
-    const emoji = event.emoji.native;
+    /* const emoji = event.emoji.native;
     const docRef = doc(this.firestore, 'channels', this.choosenChatId, 'messages', this.answer.docId);
 
     getDoc(docRef).then((docSnapshot) => {
@@ -132,7 +128,7 @@ export class ChatAnswerComponent {
 
         updateDoc(docRef, { reactions });
       }
-    });
+    }); */
   }
 
 

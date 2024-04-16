@@ -1,4 +1,28 @@
 <div *ngIf="this.selectionService.channelOrDM.value === 'channel'" class="channel-answer-container" #chatList>
-    <app-chat-answer *ngFor="let answer of answers"
-      [answer]="answer"></app-chat-answer>
+<!-- Message to Answer -->
+  <div class="answer-container" [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'none'}">
+    <img *ngIf="messageUser.image" class="avatar-icon" (click)="openMemberView($event)" src="{{ messageUser.image }}"
+      class="avatar-icon">
+    <div class="answer-box" [ngStyle]="{'align-items': isOwnAnswer ? 'end' : 'start'}">
+      <div class="answer-header" [ngStyle]="{'flex-direction': isOwnAnswer ? 'row' : 'row-reverse'}">
+        <div>
+          <span (click)="openMemberView($event)" class="answer-author">
+            {{ messageUser.name }}
+          </span>
+          <span class="answer-time" *ngIf="message">
+            {{ message.posthour }} Uhr
+          </span>
+        </div>
+      </div>
+      <div class="answer-text" *ngIf="!isOwnAnswer" style="background-color:white; border-top-right-radius: 30px">
+        <p *ngIf="answer" [innerHTML]="message.text"></p>
+      </div>
+      <div class="answer-text" *ngIf="isOwnAnswer"
+        [ngStyle]="{'background-color': '#797EF3', 'color': 'white', 'border-top-left-radius': '30px'}">
+        <p *ngIf="message" [innerHTML]="message.text"></p>
+      </div>
+    </div>
   </div>
+<!-- Answers -->
+  <app-chat-answer *ngFor="let answer of answers" [answer]="answer"></app-chat-answer>
+</div>
