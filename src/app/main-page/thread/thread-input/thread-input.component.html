@@ -1,14 +1,8 @@
 <form>
-    <textarea #textarea name="message" [(ngModel)]="chatContent" placeholder="Antworten..."
-        class="input-field" *ngIf="this.selectionService.channelOrDM.value === 'channel'">
+    <textarea #textarea name="message" [(ngModel)]="answerContent" placeholder="Antworten..."
+        class="input-field">
     </textarea>
-
-
-    <textarea #textarea name="message" [(ngModel)]="chatContent" (ngModelChange)="chatContentChanged($event)"
-        placeholder="Nachricht an {{ this.DMService.selectedUserName }} " class="input-field"
-        *ngIf="this.selectionService.channelOrDM.value === 'direct-message'">
-    </textarea>
-
+    
     <div class="command-section">
         <div class="icon-menu">
             <div class="icon-fixer">
@@ -46,7 +40,7 @@
 
         </div>
 
-        <svg *ngIf="!isUploading" [attr.disabled]="isUploading ? '' : null" (click)="onSubmit(chatContent)"
+        <svg *ngIf="!isUploading" [attr.disabled]="isUploading ? '' : null" (click)="onSubmit(answerContent)"
             id="send-message-btn" type="submit" width="23" height="20" viewBox="0 0 23 20" fill="none"
             xmlns="http://www.w3.org/2000/svg" class="send-btn">
             <path

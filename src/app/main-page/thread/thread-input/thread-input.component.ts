@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { UserMentionComponent } from '../../chat-container/chat-input/user-mention/user-mention.component';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 
 @Component({
   selector: 'app-thread-input',
@@ -33,7 +34,7 @@ export class ThreadInputComponent {
   @ViewChild('emoji') emoji: ElementRef | null = null;
   @ViewChild('textarea') textarea: ElementRef | any;
 
-  chatContent: string = '';
+  answerContent: string = '';
   viewEmojiPicker: boolean = false;
   userMentionView: boolean = false;
   selectedFile: string | ArrayBuffer | null = null;
@@ -45,6 +46,7 @@ export class ThreadInputComponent {
   searchTerm: string = '';
   atSignActive: boolean = false;
   userMention = this.booleanService.userMention;
+  originalFile: File | null = null;
 
   constructor() {
     this.channelSubscription = this.selectionService.choosenChatTypeId$.subscribe(newChannel => {
@@ -86,46 +88,50 @@ export class ThreadInputComponent {
   }
 
 
-  async onSubmit(chatContent: string) {
-    const trimmedChatContent = chatContent.trim();
+  async onSubmit(answerContent: string) {
+    const trimmedChatContent = answerContent.trim();
     if ((!trimmedChatContent && !this.selectedFile) || this.isUploading) {
       return;
     }
     this.isUploading = true;
-
-    if (this.selectionService.channelOrDM.value === 'channel') {
-      const currentUser = await this.DMService.getLoggedInUserId();
-      const currentChannel = this.selectionService.choosenChatTypeId.value;
-      const messageText = this.chatContent;
-      const messageImage = this.selectedFile ? `<div class="image-box"><img src="${this.selectedFile}"></div>` : '';
-      const messageContent = `<div class="message-wrapper">${messageImage}<div class="text-container">${messageText}</div></div>`;
-      const newDoc: any = await addDoc(collection(this.firestore, "channels", currentChannel, "messages"), {
-        authorId: currentUser,
-        postTime: new Date().getTime(),
-        text: messageContent
-      });
-      const newDocId = newDoc.id;
-      await updateDoc(newDoc, { docId: newDocId });
-      this.chatContent = '';
-      this.deselectFile();
+    let messageImage = '';
+    let uploadedFileUrl = '';
+    if (this.selectedFile) {
+      const file = this.dataURIToBlob(this.selectedFile.toString());
+      const filePath = `uploads/${this.originalFile?.name}`;
+      const storage = getStorage();
+      const storageRef = ref(storage, filePath);
+      await uploadBytes(storageRef, file);
+      uploadedFileUrl = await getDownloadURL(storageRef);
+      messageImage = `<div class="image-box"><img src="${uploadedFileUrl}"></div>`;
     }
-
-    else if (this.selectionService.channelOrDM.value === 'direct-message') {
-      const otherUserId = await this.DMService.getUserId(this.DMService.selectedUserName);
-      if (otherUserId) {
-        const messageText = this.chatContent;
-        const messageImage = this.selectedFile ? `<div class="image-box"><img src="${this.selectedFile}"></div>` : '';
-        const messageContent = `<div class="message-wrapper">${messageImage}<div class="text-container">${messageText}</div></div>`;
-        await this.DMService.addUserToDirectMessagesWithIds(otherUserId, messageContent);
-        await this.DMService.loadChatHistory();
-        this.chatContent = '';
-        this.deselectFile();
-      } else {
-        console.error('Error getting user ID');
-      }
-    }
+    const currentUser = await this.DMService.getLoggedInUserId();
+    const currentChannel = this.selectionService.choosenChatTypeId.value;
+    const currentMessage = this.selectionService.choosenMessageId.value;
+    const messageText = this.answerContent;
+    const messageContent = `<div class="message-wrapper">${messageImage}<div class="text-container">${messageText}</div></div>`;
+    const newDoc: any = await addDoc(collection(this.firestore, "channels", currentChannel, "messages", currentMessage, "answers"), {
+      authorId: currentUser,
+      postTime: new Date().getTime(),
+      text: messageContent
+    });
+    const newDocId = newDoc.id;
+    await updateDoc(newDoc, { docId: newDocId });
+    this.answerContent = '';
+    this.deselectFile();
 
     this.isUploading = false;
+  }
+
+  dataURIToBlob(dataURI: string) {
+    const byteString = atob(dataURI.split(',')[1]);
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], { type: mimeString });
   }
 
 
@@ -144,11 +150,11 @@ export class ThreadInputComponent {
   }
 
   addEmoji(event: any) {
-    this.chatContent += event.emoji.native;
+    this.answerContent += event.emoji.native;
   }
 
-  chatContentChanged(newValue: string) {
-    this.chatContent = newValue;
+  answerContentChanged(newValue: string) {
+    this.answerContent = newValue;
   }
 
   ngOnDestroy() {
