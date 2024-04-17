@@ -1,11 +1,21 @@
 <div *ngIf="this.selectionService.channelOrDM.value === 'channel'" class="channel-answer-container" #chatList>
   <!-- Message to Answer -->
-  <div class="answer-container" [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'none'}">
+  <div class="answer-container" (mouseover)="onHover()" (mouseleave)="onLeave()" [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'none'}">
     <img *ngIf="messageUser.image" class="avatar-icon" (click)="openMemberView($event)" src="{{ messageUser.image }}"
       class="avatar-icon">
     <div class="answer-box" [ngStyle]="{'align-items': isOwnAnswer ? 'end' : 'start'}">
       <div class="answer-header" [ngStyle]="{'flex-direction': isOwnAnswer ? 'row' : 'row-reverse'}">
-        <div>
+        <div *ngIf="isHovered"
+          [ngStyle]="{'border-radius': isOwnAnswer ? '25px 25px 0px 25px' : '25px 25px 25px 0px', 'flex-direction': isOwnAnswer ? 'none' : 'row-reverse'}"
+          class="reaction-bar-container">
+          <div (click)="showEmojiPicker($event)" class="smiley-img">
+            <emoji-mart (emojiClick)="addEmoji($event)" #emoji *ngIf="viewEmojiPicker"
+              [style]="{ position: 'absolute', bottom: '-325px', right: '20px' }"></emoji-mart>
+          </div>
+          <div *ngIf="isOwnAnswer" (click)="showOption($event)" class="edit-img"></div>
+          <span #edit *ngIf="viewOption" class="edit-message" (click)="startEditing()">Nachricht bearbeiten</span>
+        </div>
+        <div style="gap: 20px">
           <span (click)="openMemberView($event)" class="answer-author">
             {{ messageUser.name }}
           </span>
@@ -14,13 +24,26 @@
           </span>
         </div>
       </div>
-      <div class="answer-text" *ngIf="!isOwnAnswer" style="background-color:#ECEEFE; border-top-right-radius: 30px">
+      <div class="answer-text" *ngIf="!isOwnAnswer" [ngStyle]="{'background-color': isHovered ? 'white' : '#ECEEFE', 'border-top-right-radius': '30px'}">
         <p *ngIf="message" [innerHTML]="message.text"></p>
       </div>
       <div class="answer-text" *ngIf="isOwnAnswer"
-        style="background-color: #797EF3; color: white; border-top-left-radius: 30px">
+      [ngStyle]="{'background-color': '#797EF3', 'color': 'white', 'border-top-left-radius': '30px'}">
         <p *ngIf="message" [innerHTML]="message.text"></p>
-      </div> 
+      </div>
+      <div class="answer-footer" [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'none' }">
+        <div *ngIf="message" class="reactions">
+          <p *ngFor="let reaction of message.reactions | keyvalue" (click)="addEmoji({emoji: {native: reaction.key}})">
+            {{ reaction.key }}
+            <span *ngIf="isObjectWithCount(reaction.value)">{{ reaction.value.count }}</span>
+          </p>
+          <div (click)="showEmojiPicker($event)" class="smiley-img">
+            <emoji-mart (emojiClick)="addEmoji($event)" #emoji *ngIf="viewEmojiPicker"
+              [style]="{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', 'z-index': '9' }">
+            </emoji-mart>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <!-- Answers -->

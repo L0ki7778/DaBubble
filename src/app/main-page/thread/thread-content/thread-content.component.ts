@@ -1,22 +1,26 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { ChatAnswerComponent } from './chat-answer/chat-answer.component';
-import { Firestore, collection, doc, getDoc, onSnapshot, orderBy, query } from '@angular/fire/firestore';
+import { Firestore, collection, doc, getDoc, onSnapshot, orderBy, query, updateDoc } from '@angular/fire/firestore';
 import { SelectionService } from '../../../services/selection.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
 import { OverlayService } from '../../../services/overlay.service';
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
+import { ReactionBarComponent } from '../../chat-container/chat-content/chat-message/reaction-bar/reaction-bar.component';
 
 @Component({
   selector: 'app-thread-content',
   standalone: true,
-  imports: [ChatAnswerComponent, CommonModule],
+  imports: [ChatAnswerComponent, CommonModule, PickerComponent, ReactionBarComponent],
   templateUrl: './thread-content.component.html',
   styleUrl: './thread-content.component.scss'
 })
 export class ThreadContentComponent {
 
   @Input() answer: any;
+  @Output() editingStarted = new EventEmitter<{ messageId: string, messageText: string }>();
+  viewEmojiPicker: boolean = false;
   firestore = inject(Firestore);
   selectionService = inject(SelectionService);
   DMService = inject(DirectMessagesService);
@@ -26,6 +30,9 @@ export class ThreadContentComponent {
   messageUser: any = {};
   currentUserId: string = '';
   answers: any[] = [];
+  viewOption: boolean = false;
+  isHovered: boolean = false;
+
 
   selectionMessageIdSubscription?: Subscription;
   unsubscribeMessageAnswers: (() => void) | undefined;
@@ -38,10 +45,10 @@ export class ThreadContentComponent {
     this.choosenChatId = this.selectionService.choosenChatTypeId.value;
     if (this.selectionService.channelOrDM.value === 'channel') {
       this.selectionMessageIdSubscription = this.selectionService.choosenMessageId.subscribe(newId => {
-        if(this.subscribeMessageAnswerChanges() !== undefined){
+        if (this.subscribeMessageAnswerChanges() !== undefined) {
           this.subscribeMessageAnswerChanges();
         }
-        if(this.subscribeMessageToAnswer() !== undefined){
+        if (this.subscribeMessageToAnswer() !== undefined) {
           this.subscribeMessageToAnswer();
         }
         this.choosenMessageId = newId;
@@ -84,7 +91,7 @@ export class ThreadContentComponent {
           const minutes = postDate.getMinutes().toString().padStart(2, '0');
           const formattedPostTime = `${hours}:${minutes}`;
           const formattedPostDate = postDate.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' });
-          
+
           this.message = {
             text: messageSnapshot.data()['text'],
             posthour: formattedPostTime,
@@ -146,6 +153,25 @@ export class ThreadContentComponent {
     }
   }
 
+  showOption(event: MouseEvent) {
+    event.stopPropagation();
+    this.viewOption = true;
+  }
+
+  startEditing() {
+    if (this.message) {
+      this.editingStarted.emit({ messageId: this.message.docId, messageText: this.message.text });
+    }
+  }
+
+  onHover(): void {
+    this.isHovered = true;
+  }
+
+  onLeave(): void {
+    this.isHovered = false;
+  }
+
   openMemberView(event: MouseEvent) {
     event.stopPropagation();
     this.overlay.toggleMemberView();
@@ -153,6 +179,46 @@ export class ThreadContentComponent {
     this.DMService.selectedProfileImage = this.messageUser.image;
     this.DMService.selectedUserName = this.messageUser.name;
     this.DMService.selectedUserImage = this.messageUser.image;
+  }
+
+  showEmojiPicker(event: MouseEvent) {
+    event.stopPropagation();
+    this.viewEmojiPicker = true;
+  }
+
+  addEmoji(event: any) {
+    const emoji = event.emoji.native;
+    const docRef = doc(this.firestore, 'channels', this.choosenChatId, 'messages', this.answer.docId);
+
+    getDoc(docRef).then((docSnapshot) => {
+      if (docSnapshot.exists()) {
+        const data = docSnapshot.data();
+        let reactions = data['reactions'] || {};
+
+        if (reactions[emoji]) {
+          const userIndex = reactions[emoji].users.indexOf(this.currentUserId);
+          if (userIndex > -1) {
+            reactions[emoji].count -= 1;
+            reactions[emoji].users.splice(userIndex, 1);
+
+            if (reactions[emoji].count === 0) {
+              delete reactions[emoji];
+            }
+          } else {
+            reactions[emoji].count += 1;
+            reactions[emoji].users.push(this.currentUserId);
+          }
+        } else {
+          reactions[emoji] = { count: 1, users: [this.currentUserId] };
+        }
+
+        updateDoc(docRef, { reactions });
+      }
+    });
+  }
+
+  isObjectWithCount(value: any): value is { count: number } {
+    return typeof value === 'object' && value !== null && 'count' in value;
   }
 
   ngOnDestroy() {
