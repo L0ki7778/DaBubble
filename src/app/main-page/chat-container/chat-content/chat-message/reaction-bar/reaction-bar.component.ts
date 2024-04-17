@@ -38,7 +38,6 @@ export class ReactionBarComponent {
   currentUserId: string | null = null;
   unsubscribe: any;
 
-
   constructor() {
     this.selectionIdSubscription = this.selectionService.choosenChatTypeId.subscribe(newId => {
       this.choosenChatId = newId;
@@ -83,7 +82,10 @@ export class ReactionBarComponent {
   }
 
   showThread() {
+    if(this.message){
     this.booleanService.viewThread.set(true);
+    this.selectionService.choosenMessageId.next(this.message.docId);
+    }
   }
 
 
