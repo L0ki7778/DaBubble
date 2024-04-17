@@ -101,7 +101,7 @@ export class ChatAnswerComponent {
 
 
   addEmoji(event: any) {
-    /* const emoji = event.emoji.native;
+    const emoji = event.emoji.native;
     const docRef = doc(this.firestore, 'channels', this.choosenChatId, 'messages', this.answer.docId);
 
     getDoc(docRef).then((docSnapshot) => {
@@ -128,7 +128,7 @@ export class ChatAnswerComponent {
 
         updateDoc(docRef, { reactions });
       }
-    }); */
+    });
   }
 
 
