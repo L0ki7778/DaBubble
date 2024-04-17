@@ -156,40 +156,4 @@ export class ThreadInputComponent {
       this.channelSubscription.unsubscribe();
     }
   }
-
-  showUserMention(event: MouseEvent) {
-    event.stopPropagation();
-    let currentValue = this.booleanService.userMention();
-    this.booleanService.userMention.set(currentValue ? false : true);
-  }
-
-
-  handleUserMentioned(name: string) {
-    let lastAt = this.chatContent.lastIndexOf('@');
-    if (lastAt != -1) {
-      this.chatContent = this.chatContent.substring(0, lastAt) + '@' + name + ' ';
-    } else {
-      this.chatContent += '@' + name + ' ';
-    }
-  }
-
-
-
-  checkForAtSign(event: KeyboardEvent) {
-    const input = event.target as HTMLInputElement;
-
-    if (event.key === '@' && (this.previousValue === '' || this.previousValue.endsWith(' '))) {
-      this.searchTerm = '';
-      this.booleanService.userMention.set(true);
-      this.atSignActive = true;
-    } else if (this.atSignActive) {
-      if (event.key === ' ' || (event.key === 'Backspace' && this.previousValue.endsWith('@'))) {
-        this.booleanService.userMention.set(false);
-        this.atSignActive = false;
-      } else {
-        this.searchTerm = input.value.slice(input.value.lastIndexOf('@') + 1);
-      }
-    }
-    this.previousValue = input.value;
-  }
 }
