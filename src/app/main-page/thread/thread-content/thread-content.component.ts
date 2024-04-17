@@ -38,6 +38,12 @@ export class ThreadContentComponent {
     this.choosenChatId = this.selectionService.choosenChatTypeId.value;
     if (this.selectionService.channelOrDM.value === 'channel') {
       this.selectionMessageIdSubscription = this.selectionService.choosenMessageId.subscribe(newId => {
+        if(this.subscribeMessageAnswerChanges() !== undefined){
+          this.subscribeMessageAnswerChanges();
+        }
+        if(this.subscribeMessageToAnswer() !== undefined){
+          this.subscribeMessageToAnswer();
+        }
         this.choosenMessageId = newId;
         if (this.choosenMessageId !== '') {
           this.answers = [];
