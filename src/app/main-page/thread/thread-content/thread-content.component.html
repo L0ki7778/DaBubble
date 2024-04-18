@@ -9,8 +9,6 @@
           [ngStyle]="{'border-radius': isOwnAnswer ? '25px 25px 0px 25px' : '25px 25px 25px 0px', 'flex-direction': isOwnAnswer ? 'none' : 'row-reverse'}"
           class="reaction-bar-container">
           <div (click)="showEmojiPicker($event)" class="smiley-img">
-            <emoji-mart (emojiClick)="addEmoji($event)" #emoji *ngIf="viewEmojiPicker"
-              [style]="{ position: 'absolute', bottom: '-325px', right: '20px' }"></emoji-mart>
           </div>
           <div *ngIf="isOwnAnswer" (click)="showOption($event)" class="edit-img"></div>
           <span #edit *ngIf="viewOption" class="edit-message" (click)="startEditing()">Nachricht bearbeiten</span>

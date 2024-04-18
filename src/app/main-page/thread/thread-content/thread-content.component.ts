@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output, inject } from '@angular/core';
 import { ChatAnswerComponent } from './chat-answer/chat-answer.component';
 import { Firestore, collection, doc, getDoc, onSnapshot, orderBy, query, updateDoc } from '@angular/fire/firestore';
 import { SelectionService } from '../../../services/selection.service';
@@ -20,6 +20,10 @@ export class ThreadContentComponent {
 
   @Input() answer: any;
   @Output() editingStarted = new EventEmitter<{ messageId: string, messageText: string }>();
+
+  edit: ElementRef | null = null;
+  emoji: ElementRef | null = null;
+
   viewEmojiPicker: boolean = false;
   firestore = inject(Firestore);
   selectionService = inject(SelectionService);
@@ -140,6 +144,17 @@ export class ThreadContentComponent {
       });
     } else {
       return
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  onclick(event: Event) {
+    if ((this.edit && this.edit.nativeElement && this.edit.nativeElement.contains(event.target)) ||
+      (this.emoji && this.emoji.nativeElement && this.emoji.nativeElement.contains(event.target))) {
+      return
+    } else {
+      this.viewOption = false;
+      this.viewEmojiPicker = false;
     }
   }
 
