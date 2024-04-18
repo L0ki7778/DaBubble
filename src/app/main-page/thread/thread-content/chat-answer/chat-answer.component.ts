@@ -66,6 +66,12 @@ export class ChatAnswerComponent {
 
   async getCurrentUserId() {
     this.currentUserId = await this.DMService.getLoggedInUserId();
+    if (this.currentUserId === this.answer.authorId) {
+      this.isOwnAnswer = true;
+    }
+    else {
+      this.isOwnAnswer = false
+    }
   }
 
   onHover(): void {
