@@ -64,29 +64,28 @@ export class ThreadInputComponent {
     });
   }
 
+  async uploadFile(file: File): Promise<string> {
+    const filePath = `uploads/${file.name}`;
+    const storage = getStorage();
+    const storageRef = ref(storage, filePath);
+    await uploadBytes(storageRef, file);
+    return await getDownloadURL(storageRef);
+  }
 
   async onFileSelected(event: any) {
-    const selectedEventFile = event.target.files[0];
-    if (selectedEventFile) {
-      if (selectedEventFile.size > 1024 * 1024) {
-        this.overlayService.toggleWarning();
-        event.target.value = '';
-        return;
-      }
-
-      this.selectedFile = await this.fileToBase64(selectedEventFile);
-      this.selectedFileName = selectedEventFile.name;
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      this.selectedFile = await this.fileToBase64(selectedFile);
+      this.selectedFileName = selectedFile.name;
+      this.originalFile = selectedFile;
     }
     event.target.value = '';
   }
-
-
 
   deselectFile() {
     this.selectedFile = null;
     this.selectedFileName = null;
   }
-
 
   async onSubmit(answerContent: string) {
     const trimmedChatContent = answerContent.trim();
@@ -122,6 +121,7 @@ export class ThreadInputComponent {
 
     this.isUploading = false;
   }
+
 
   dataURIToBlob(dataURI: string) {
     const byteString = atob(dataURI.split(',')[1]);
