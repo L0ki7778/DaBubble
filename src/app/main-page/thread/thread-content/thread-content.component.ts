@@ -226,8 +226,8 @@ export class ThreadContentComponent {
         } else {
           reactions[emoji] = { count: 1, users: [this.currentUserId] };
         }
-
         updateDoc(docRef, { reactions });
+        this.viewEmojiPicker = false;
       }
     });
   }
