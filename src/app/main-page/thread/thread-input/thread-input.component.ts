@@ -151,6 +151,7 @@ export class ThreadInputComponent {
 
   addEmoji(event: any) {
     this.answerContent += event.emoji.native;
+    this.viewEmojiPicker = false;
   }
 
   answerContentChanged(newValue: string) {
