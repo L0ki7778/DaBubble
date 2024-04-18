@@ -1,4 +1,4 @@
-<span class="date-label">{{ DMService.getFormattedDate(message.postTime.toDate()) }}</span>
+<span class="date-label" [style.top]="imageTag ? '2%' : null">{{ DMService.getFormattedDate(message.postTime.toDate()) }}</span>
 <div class="message-container" (mouseover)="onHover()" (mouseleave)="onLeave()"
   [ngStyle]="{'flex-direction': isOwnMessage(message) ? 'row-reverse' : 'none'}">
   <img (click)="openMemberView($event)" [src]="message.authorImage" class="avatar-icon">
@@ -7,7 +7,8 @@
       <div class="d-flex" [ngStyle]="{'flex-direction': isOwnMessage(message) ? 'row-reverse' : 'row'}">
         <span (click)="openMemberView($event)" class="message-author">{{ message.authorName }}</span>
         <span class="message-time">{{ (message.postTime.toDate() | date:'HH:mm') }} Uhr</span>
-        <app-reaction-bar [privateMessage]="message" [isOwnMessage]="isOwnMessage(message)" [messageId]="message.id" [messageText]="message.text"
+        <app-reaction-bar [privateMessage]="message" [isOwnMessage]="isOwnMessage(message)" [messageId]="message.id"
+          [messageText]="message.text"
           (editingStarted)="startEditing($event.messageId, $event.messageText)"></app-reaction-bar>
       </div>
     </div>
@@ -45,17 +46,16 @@
     </div>
 
     <div *ngIf="message" class="reactions">
-      <p *ngFor="let reaction of message.reactions | keyvalue"
-          (click)="addReaction({emoji: {native: reaction.key}})">
-          {{ reaction.key }}
-          <span *ngIf="isObjectWithCount(reaction.value)">{{ reaction.value.count }}</span>
+      <p *ngFor="let reaction of message.reactions | keyvalue" (click)="addReaction({emoji: {native: reaction.key}})">
+        {{ reaction.key }}
+        <span *ngIf="isObjectWithCount(reaction.value)">{{ reaction.value.count }}</span>
       </p>
       <div (click)="showEmojiPicker($event)" class="smiley-img">
-          <emoji-mart (emojiClick)="addReaction($event)" #emoji *ngIf="viewEmojiPicker"
-              [style]="{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', 'z-index': '9' }">
-          </emoji-mart>
+        <emoji-mart (emojiClick)="addReaction($event)" #emoji *ngIf="viewEmojiPicker"
+          [style]="{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', 'z-index': '9' }">
+        </emoji-mart>
       </div>
-  </div>
+    </div>
 
     <!-- <div class="message-header" [ngStyle]="{'flex-direction': isOwnMessage(message) ? 'row-reverse' : 'none' }">
       <span (click)="showThread()" class="message-answers">2 Antworten</span><span class="message-time">Letzte Antwort 17:25 Uhr</span>

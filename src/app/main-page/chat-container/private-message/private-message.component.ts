@@ -35,10 +35,15 @@ export class PrivateMessageComponent {
   viewEmojiPicker: boolean = false;
   isHovered: boolean = false;
   unsubscribe: any;
+  imageTag: boolean = false;
 
 
   constructor() {
     this.getCurrentUserId();
+  }
+
+  ngOnInit() {
+    this.checkForImageTag();
   }
 
 
@@ -196,6 +201,13 @@ export class PrivateMessageComponent {
       }
     } catch (error) {
       console.error('Error adding reaction:', error);
+    }
+  }
+
+
+  checkForImageTag() {
+    if (this.message.text.includes('<img')) {
+      this.imageTag = true;
     }
   }
 
