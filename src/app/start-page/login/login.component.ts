@@ -44,7 +44,6 @@ export class LoginComponent {
     }
   }
 
-
   async loginAsGuest(event: Event) {
     event.preventDefault();
     await this.authService.loginAsGuest();
