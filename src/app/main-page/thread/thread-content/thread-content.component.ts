@@ -188,7 +188,7 @@ export class ThreadContentComponent {
 
   addEmoji(event: any) {
     const emoji = event.emoji.native;
-    const docRef = doc(this.firestore, "channels", this.choosenChatId, "messages", this.choosenMessageId, "answers", this.answer.docId);
+    const docRef = doc(this.firestore, "channels", this.choosenChatId, "messages", this.choosenMessageId);
 
     getDoc(docRef).then((docSnapshot) => {
       if (docSnapshot.exists()) {
