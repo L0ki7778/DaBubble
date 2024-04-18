@@ -110,7 +110,7 @@ export class ChatInputComponent {
     if (this.selectionService.channelOrDM.value === 'channel') {
       const currentUser = await this.DMService.getLoggedInUserId();
       const currentChannel = this.selectionService.choosenChatTypeId.value;
-      const messageText = this.chatContent;
+      const messageText = this.chatContent.replace(/\n/g, '<br>');
       const messageContent = `<div class="message-wrapper">${messageImage}<div class="text-container">${messageText}</div></div>`;
       const newDoc: any = await addDoc(collection(this.firestore, "channels", currentChannel, "messages"), {
         authorId: currentUser,
@@ -124,7 +124,7 @@ export class ChatInputComponent {
     } else if (this.selectionService.channelOrDM.value === 'direct-message') {
       const otherUserId = await this.DMService.getUserId(this.DMService.selectedUserName);
       if (otherUserId) {
-        const messageText = this.chatContent;
+        const messageText = this.chatContent.replace(/\n/g, '<br>');
         const messageContent = `<div class="message-wrapper">${messageImage}<div class="text-container">${messageText}</div></div>`;
         await this.DMService.addUserToDirectMessagesWithIds(otherUserId, messageContent);
         await this.DMService.loadChatHistory();
@@ -136,6 +136,7 @@ export class ChatInputComponent {
     }
     this.isUploading = false;
   }
+
 
   dataURIToBlob(dataURI: string) {
     const byteString = atob(dataURI.split(',')[1]);
@@ -192,7 +193,7 @@ export class ChatInputComponent {
       this.chatContent += '@' + name + ' ';
     }
   }
-  
+
 
 
   checkForAtSign(event: KeyboardEvent) {
