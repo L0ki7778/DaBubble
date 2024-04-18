@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { UserMentionComponent } from '../../chat-container/chat-input/user-mention/user-mention.component';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 
 @Component({
   selector: 'app-thread-input',
@@ -33,7 +34,7 @@ export class ThreadInputComponent {
   @ViewChild('emoji') emoji: ElementRef | null = null;
   @ViewChild('textarea') textarea: ElementRef | any;
 
-  chatContent: string = '';
+  answerContent: string = '';
   viewEmojiPicker: boolean = false;
   userMentionView: boolean = false;
   selectedFile: string | ArrayBuffer | null = null;
@@ -45,6 +46,7 @@ export class ThreadInputComponent {
   searchTerm: string = '';
   atSignActive: boolean = false;
   userMention = this.booleanService.userMention;
+  originalFile: File | null = null;
 
   constructor() {
     this.channelSubscription = this.selectionService.choosenChatTypeId$.subscribe(newChannel => {
@@ -62,70 +64,74 @@ export class ThreadInputComponent {
     });
   }
 
+  async uploadFile(file: File): Promise<string> {
+    const filePath = `uploads/${file.name}`;
+    const storage = getStorage();
+    const storageRef = ref(storage, filePath);
+    await uploadBytes(storageRef, file);
+    return await getDownloadURL(storageRef);
+  }
 
   async onFileSelected(event: any) {
-    const selectedEventFile = event.target.files[0];
-    if (selectedEventFile) {
-      if (selectedEventFile.size > 1024 * 1024) {
-        this.overlayService.toggleWarning();
-        event.target.value = '';
-        return;
-      }
-
-      this.selectedFile = await this.fileToBase64(selectedEventFile);
-      this.selectedFileName = selectedEventFile.name;
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      this.selectedFile = await this.fileToBase64(selectedFile);
+      this.selectedFileName = selectedFile.name;
+      this.originalFile = selectedFile;
     }
     event.target.value = '';
   }
-
-
 
   deselectFile() {
     this.selectedFile = null;
     this.selectedFileName = null;
   }
 
-
-  async onSubmit(chatContent: string) {
-    const trimmedChatContent = chatContent.trim();
+  async onSubmit(answerContent: string) {
+    const trimmedChatContent = answerContent.trim();
     if ((!trimmedChatContent && !this.selectedFile) || this.isUploading) {
       return;
     }
     this.isUploading = true;
-
-    if (this.selectionService.channelOrDM.value === 'channel') {
-      const currentUser = await this.DMService.getLoggedInUserId();
-      const currentChannel = this.selectionService.choosenChatTypeId.value;
-      const messageText = this.chatContent;
-      const messageImage = this.selectedFile ? `<div class="image-box"><img src="${this.selectedFile}"></div>` : '';
-      const messageContent = `<div class="message-wrapper">${messageImage}<div class="text-container">${messageText}</div></div>`;
-      const newDoc: any = await addDoc(collection(this.firestore, "channels", currentChannel, "messages"), {
-        authorId: currentUser,
-        postTime: new Date().getTime(),
-        text: messageContent
-      });
-      const newDocId = newDoc.id;
-      await updateDoc(newDoc, { docId: newDocId });
-      this.chatContent = '';
-      this.deselectFile();
+    let messageImage = '';
+    let uploadedFileUrl = '';
+    if (this.selectedFile) {
+      const file = this.dataURIToBlob(this.selectedFile.toString());
+      const filePath = `uploads/${this.originalFile?.name}`;
+      const storage = getStorage();
+      const storageRef = ref(storage, filePath);
+      await uploadBytes(storageRef, file);
+      uploadedFileUrl = await getDownloadURL(storageRef);
+      messageImage = `<div class="image-box"><img src="${uploadedFileUrl}"></div>`;
     }
-
-    else if (this.selectionService.channelOrDM.value === 'direct-message') {
-      const otherUserId = await this.DMService.getUserId(this.DMService.selectedUserName);
-      if (otherUserId) {
-        const messageText = this.chatContent;
-        const messageImage = this.selectedFile ? `<div class="image-box"><img src="${this.selectedFile}"></div>` : '';
-        const messageContent = `<div class="message-wrapper">${messageImage}<div class="text-container">${messageText}</div></div>`;
-        await this.DMService.addUserToDirectMessagesWithIds(otherUserId, messageContent);
-        await this.DMService.loadChatHistory();
-        this.chatContent = '';
-        this.deselectFile();
-      } else {
-        console.error('Error getting user ID');
-      }
-    }
+    const currentUser = await this.DMService.getLoggedInUserId();
+    const currentChannel = this.selectionService.choosenChatTypeId.value;
+    const currentMessage = this.selectionService.choosenMessageId.value;
+    const messageText = this.answerContent;
+    const messageContent = `<div class="message-wrapper">${messageImage}<div class="text-container">${messageText}</div></div>`;
+    const newDoc: any = await addDoc(collection(this.firestore, "channels", currentChannel, "messages", currentMessage, "answers"), {
+      authorId: currentUser,
+      postTime: new Date().getTime(),
+      text: messageContent
+    });
+    const newDocId = newDoc.id;
+    await updateDoc(newDoc, { docId: newDocId });
+    this.answerContent = '';
+    this.deselectFile();
 
     this.isUploading = false;
+  }
+
+
+  dataURIToBlob(dataURI: string) {
+    const byteString = atob(dataURI.split(',')[1]);
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], { type: mimeString });
   }
 
 
@@ -144,52 +150,17 @@ export class ThreadInputComponent {
   }
 
   addEmoji(event: any) {
-    this.chatContent += event.emoji.native;
+    this.answerContent += event.emoji.native;
+    this.viewEmojiPicker = false;
   }
 
-  chatContentChanged(newValue: string) {
-    this.chatContent = newValue;
+  answerContentChanged(newValue: string) {
+    this.answerContent = newValue;
   }
 
   ngOnDestroy() {
     if (this.channelSubscription) {
       this.channelSubscription.unsubscribe();
     }
-  }
-
-  showUserMention(event: MouseEvent) {
-    event.stopPropagation();
-    let currentValue = this.booleanService.userMention();
-    this.booleanService.userMention.set(currentValue ? false : true);
-  }
-
-
-  handleUserMentioned(name: string) {
-    let lastAt = this.chatContent.lastIndexOf('@');
-    if (lastAt != -1) {
-      this.chatContent = this.chatContent.substring(0, lastAt) + '@' + name + ' ';
-    } else {
-      this.chatContent += '@' + name + ' ';
-    }
-  }
-
-
-
-  checkForAtSign(event: KeyboardEvent) {
-    const input = event.target as HTMLInputElement;
-
-    if (event.key === '@' && (this.previousValue === '' || this.previousValue.endsWith(' '))) {
-      this.searchTerm = '';
-      this.booleanService.userMention.set(true);
-      this.atSignActive = true;
-    } else if (this.atSignActive) {
-      if (event.key === ' ' || (event.key === 'Backspace' && this.previousValue.endsWith('@'))) {
-        this.booleanService.userMention.set(false);
-        this.atSignActive = false;
-      } else {
-        this.searchTerm = input.value.slice(input.value.lastIndexOf('@') + 1);
-      }
-    }
-    this.previousValue = input.value;
   }
 }

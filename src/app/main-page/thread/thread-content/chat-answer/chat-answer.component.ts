@@ -66,6 +66,12 @@ export class ChatAnswerComponent {
 
   async getCurrentUserId() {
     this.currentUserId = await this.DMService.getLoggedInUserId();
+    if (this.currentUserId === this.answer.authorId) {
+      this.isOwnAnswer = true;
+    }
+    else {
+      this.isOwnAnswer = false
+    }
   }
 
   onHover(): void {
@@ -101,8 +107,8 @@ export class ChatAnswerComponent {
 
 
   addEmoji(event: any) {
-    /* const emoji = event.emoji.native;
-    const docRef = doc(this.firestore, 'channels', this.choosenChatId, 'messages', this.answer.docId);
+    const emoji = event.emoji.native;
+    const docRef = doc(this.firestore, "channels", this.choosenChatId, "messages", this.selectionService.choosenMessageId.value, "answers", this.answer.docId);
 
     getDoc(docRef).then((docSnapshot) => {
       if (docSnapshot.exists()) {
@@ -128,7 +134,7 @@ export class ChatAnswerComponent {
 
         updateDoc(docRef, { reactions });
       }
-    }); */
+    });
   }
 
 

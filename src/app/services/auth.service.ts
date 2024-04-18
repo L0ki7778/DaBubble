@@ -1,10 +1,9 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, confirmPasswordReset, sendPasswordResetEmail, signInWithEmailAndPassword, updateProfile, user } from '@angular/fire/auth';
+import { Auth, User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, confirmPasswordReset, sendPasswordResetEmail, signInWithEmailAndPassword, updateProfile, user, GoogleAuthProvider, signInWithPopup } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subscription, } from 'rxjs';
 import { UserType } from '../types/user.type';
 import { Firestore, arrayUnion, collection, doc, getDocs, query, setDoc, where, writeBatch } from '@angular/fire/firestore';
-import { SelectionService } from './selection.service';
 
 @Injectable({
   providedIn: 'root'
@@ -92,6 +91,15 @@ export class AuthService {
       this.router.navigate(['main-page']);
     } catch (error) {
       console.error('Error signing in as guest:', error);
+    }
+  }
+
+  async loginWithGoogle() {
+    try {
+      const provider = new GoogleAuthProvider();
+      const userCredential = await signInWithPopup(this.auth, provider);
+    } catch (error) {
+      console.error('Fehler bei der Google-Anmeldung:', error);
     }
   }
 

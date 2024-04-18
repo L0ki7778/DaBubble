@@ -4,7 +4,8 @@
         class="avatar-icon">
     <div class="answer-box" [ngStyle]="{'align-items': isOwnAnswer ? 'end' : 'start'}">
         <div class="answer-header" [ngStyle]="{'flex-direction': isOwnAnswer ? 'row' : 'row-reverse'}">
-            <app-thread-reaction-bar *ngIf="isHovered" [answer]="answer" [isOwnAnswer]="isOwnAnswer"></app-thread-reaction-bar>
+            <app-thread-reaction-bar *ngIf="isHovered" [answer]="answer"
+                [isOwnAnswer]="isOwnAnswer"></app-thread-reaction-bar>
             <div>
                 <span (click)="openMemberView($event)" class="answer-author">
                     {{ user.name }}
@@ -29,13 +30,12 @@
                     {{ reaction.key }}
                     <span *ngIf="isObjectWithCount(reaction.value)">{{ reaction.value.count }}</span>
                 </p>
-                <!-- <div (click)="showEmojiPicker($event)" class="smiley-img">
+                <div (click)="showEmojiPicker($event)" class="smiley-img">
                     <emoji-mart (emojiClick)="addEmoji($event)" #emoji *ngIf="viewEmojiPicker"
                         [style]="{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', 'z-index': '9' }">
                     </emoji-mart>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>
 </div>
-
