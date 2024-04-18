@@ -1,6 +1,5 @@
 .content-container {
-    height: 500px;
-    width: 500px;
+    padding: 48px 72px;
     border-radius: 30px;
     background-color: white;
     display: flex;
@@ -8,6 +7,7 @@
     align-items: center;
     margin-top: 30px;
     position: relative;
+    gap: 8px;
 
     >span {
         font-size: 20px;
@@ -44,8 +44,8 @@
     height: 24px;
     width: 24px;
     position: absolute;
-    left: 30px;
-    top: 34px;
+    left: 38px;
+    top: 60px;
     cursor: pointer;
     background-image: url("/assets/img/start-page/arrow-black.svg");
     background-repeat: no-repeat;
@@ -60,6 +60,7 @@
 h1 {
     color: var(--purple1);
     font-size: 35px;
+    margin-top: 0;
 }
 
 .name {
@@ -90,7 +91,7 @@ h1 {
     margin-top: 20px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 24px;
 
     >span {
         font-size: 20px;
