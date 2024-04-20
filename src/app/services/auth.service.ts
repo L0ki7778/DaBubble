@@ -1,9 +1,10 @@
-import { Injectable, inject } from '@angular/core';
-import { Auth, User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, confirmPasswordReset, sendPasswordResetEmail, signInWithEmailAndPassword, updateProfile, user, GoogleAuthProvider, signInWithPopup } from '@angular/fire/auth';
+import { Injectable, NgZone, inject } from '@angular/core';
+import { Auth, User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, confirmPasswordReset, signInWithEmailAndPassword, updateProfile, user, GoogleAuthProvider, signInWithRedirect, signInWithPopup } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subscription, } from 'rxjs';
 import { UserType } from '../types/user.type';
-import { Firestore, arrayUnion, collection, doc, getDocs, query, setDoc, where, writeBatch } from '@angular/fire/firestore';
+import { Firestore, doc, setDoc } from '@angular/fire/firestore';
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class AuthService {
   showCreateAccount: boolean = false;
   guestEmail = 'guest@email.com';
   guestPassword = 'Passwort';
-  resetPasswordEmail: any= null;
+  resetPasswordEmail: any = null;
   userImage: string = 'assets/img/start-page/unknown.svg';
   userName: any = 'Frederik Beck';
   userMail: string | null = 'fred.beck@email.com';
@@ -38,9 +39,9 @@ export class AuthService {
 
   updateUserName(newName: string | null) {
     this._userName.next(newName);
-  } 
+  }
 
-  constructor() {
+  constructor(private ngZone: NgZone) {
     this.userSubscription = this.user$.subscribe((aUser: User | null) => {
     })
   }
@@ -66,7 +67,6 @@ export class AuthService {
       console.log('Registered user:', user);
       await updateProfile(user, { displayName: this.name });
       const userObject: UserType = this.createUserObject();
-      console.log('User object:', userObject);
       const userDocRef = doc(this.firestore, 'users', user.uid);
       await setDoc(userDocRef, userObject);
     } catch (error) {
@@ -98,13 +98,39 @@ export class AuthService {
     try {
       const provider = new GoogleAuthProvider();
       const userCredential = await signInWithPopup(this.auth, provider);
+      const user = userCredential.user;
+      const photoURL = user.photoURL || 'assets/img/start-page/unknown.svg';
+      const profilePictureUrl = await this.uploadProfilePicture(photoURL, user.uid);
+      const userObject = {
+        name: user.displayName,
+        email: user.email,
+        image: profilePictureUrl,
+        uid: user.uid,
+      };
+      const userDocRef = doc(this.firestore, 'users', user.uid);
+      await setDoc(userDocRef, userObject);
+      this.ngZone.run(() => this.router.navigate(['/main-page']));
     } catch (error) {
       console.error('Fehler bei der Google-Anmeldung:', error);
     }
   }
 
+  async uploadProfilePicture(photoURL: any, userId: string) {
+    try {
+      const response = await fetch(photoURL);
+      const blob = await response.blob();
+      const storage = getStorage();
+      const storageRef = ref(storage, `profile-pictures/${userId}`);
+      const uploadResult = await uploadBytesResumable(storageRef, blob);
+      return await getDownloadURL(uploadResult.ref);
+    } catch (error) {
+      console.error('Error uploading profile picture:', error);
+      return null;
+    }
+  }
+
   async resetPassword(email: string) {
-      this.resetPasswordEmail = email;
+    this.resetPasswordEmail = email;
   }
 
   async confirmResetPassword(code: string, newPassword: string) {

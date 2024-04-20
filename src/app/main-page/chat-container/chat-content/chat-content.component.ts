@@ -79,9 +79,7 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
         const hours = postDate.getHours().toString().padStart(2, '0');
         const minutes = postDate.getMinutes().toString().padStart(2, '0');
         const formattedPostTime = `${hours}:${minutes}`;
-
         const formattedPostDate = postDate.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' });
-
         newMessages.push({
           text: doc.data()['text'],
           posthour: formattedPostTime,
