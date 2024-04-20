@@ -1,10 +1,11 @@
 import { Injectable, NgZone, inject } from '@angular/core';
-import { Auth, User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, confirmPasswordReset, signInWithEmailAndPassword, updateProfile, user, GoogleAuthProvider, signInWithRedirect, signInWithPopup } from '@angular/fire/auth';
+import { Auth, User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, confirmPasswordReset, signInWithEmailAndPassword, updateProfile, user, GoogleAuthProvider, signInWithPopup } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subscription, } from 'rxjs';
 import { UserType } from '../types/user.type';
 import { Firestore, doc, setDoc } from '@angular/fire/firestore';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
+import { Location } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class AuthService {
   private auth: Auth = inject(Auth);
   public firestore: Firestore = inject(Firestore);
   private router: Router = inject(Router);
+  private location: Location = inject(Location);
 
   email: string = '';
   password: string = '';
@@ -158,7 +160,8 @@ export class AuthService {
   async logout() {
     try {
       await this.auth.signOut();
-      this.router.navigate(['']);
+        this.location.replaceState('/');
+        window.location.reload();
     } catch (error) {
       console.error('Error logging out:', error);
     }
@@ -167,6 +170,4 @@ export class AuthService {
   ngOnDestroy() {
     this.userSubscription.unsubscribe();
   }
-
-
 }
