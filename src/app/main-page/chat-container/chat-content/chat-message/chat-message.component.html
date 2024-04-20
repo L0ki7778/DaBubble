@@ -1,4 +1,4 @@
-<span class="date-label" *ngIf="message">
+<span class="date-label" *ngIf="message" [style.top]="imageTag ? '2%' : null">
     {{ message.postDay }}
 </span>
 <div class="message-container" (mouseover)="onHover()" (mouseleave)="onLeave()"

@@ -107,7 +107,7 @@ export class ThreadInputComponent {
     const currentUser = await this.DMService.getLoggedInUserId();
     const currentChannel = this.selectionService.choosenChatTypeId.value;
     const currentMessage = this.selectionService.choosenMessageId.value;
-    const messageText = this.answerContent;
+    const messageText = this.answerContent.replace(/\n/g, '<br>');
     const messageContent = `<div class="message-wrapper">${messageImage}<div class="text-container">${messageText}</div></div>`;
     const newDoc: any = await addDoc(collection(this.firestore, "channels", currentChannel, "messages", currentMessage, "answers"), {
       authorId: currentUser,
@@ -121,6 +121,7 @@ export class ThreadInputComponent {
 
     this.isUploading = false;
   }
+
 
 
   dataURIToBlob(dataURI: string) {
