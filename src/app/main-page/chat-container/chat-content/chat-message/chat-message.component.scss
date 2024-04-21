@@ -8,7 +8,6 @@
 
     &:hover {
         background-color: $bgColor;
-        cursor: pointer;
     }
 
     &:hover app-reaction-bar {
@@ -164,7 +163,7 @@ app-reaction-bar {
     text-align: left;
 
     &:hover {
-        transition: ease-in 150ms;
+        transition: ease-in 1s;
         cursor: pointer;
         color: $purple1;
         font-weight: 700;

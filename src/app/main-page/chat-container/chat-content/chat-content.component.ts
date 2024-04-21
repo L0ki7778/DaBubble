@@ -42,6 +42,7 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
     this.chatHistoryLoadedSubscription = this.DMService.chatHistoryLoaded$.subscribe(() => {
       setTimeout(() => {
         this.scrollToBottom();
+        this.waitForImagesToLoad();
       }, 1);
     });
   }
@@ -49,6 +50,13 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
   scrollToBottom() {
     if (this.chatList) {
       this.renderer.setProperty(this.chatList.nativeElement, 'scrollTop', this.chatList.nativeElement.scrollHeight);
+    }
+  }
+
+  waitForImagesToLoad() {
+    const images = this.chatList.nativeElement.getElementsByTagName('img');
+    for (let i = 0; i < images.length; i++) {
+      images[i].onload = () => this.scrollToBottom();
     }
   }
 
