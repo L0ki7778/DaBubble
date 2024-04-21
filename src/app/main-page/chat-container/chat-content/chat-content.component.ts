@@ -72,7 +72,6 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
     let newMessages: any[] = [];
     const collRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
     const q = query(collRef, orderBy('postTime'));
-
     await getDocs(q).then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         const postDate = new Date(doc.data()['postTime']);

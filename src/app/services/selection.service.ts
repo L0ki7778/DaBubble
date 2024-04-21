@@ -73,7 +73,19 @@ export class SelectionService {
   }
 
   async getFirstDocumentId() {
-    if (this.channelIds.length > 0) {
+    const usersCollection = collection(this.firestore, 'users');
+    const usersDocs = await getDocs(usersCollection); 
+    if (this.channelIds.length === 0 && this.DMIds.length === 0) {
+      if (usersDocs.docs.length > 0) {
+        const firstUserDoc = usersDocs.docs[0];
+        const otherUserName = firstUserDoc.data()['name'];
+        this.channelOrDM.next('direct-message');
+        this.dmService.selectedUserName = otherUserName;
+        this.dmService.loadChatHistory();
+      } else {
+        console.warn('Es wurden keine Benutzer in der Datenbank gefunden.');
+      }
+    } else if (this.channelIds.length > 0) {
       this.channelOrDM.next('channel');
       this.choosenChatTypeId.next(this.channelIds[0]);
     } else if (this.DMIds.length > 0) {

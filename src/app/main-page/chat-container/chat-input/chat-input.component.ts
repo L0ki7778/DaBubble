@@ -66,14 +66,6 @@ export class ChatInputComponent {
     });
   }
 
-  // async uploadFile(file: File): Promise<string> {
-  //   const filePath = `uploads/${file.name}`;
-  //   const storage = getStorage();
-  //   const storageRef = ref(storage, filePath);
-  //   await uploadBytes(storageRef, file);
-  //   return await getDownloadURL(storageRef);
-  // }
-
   async onFileSelected(event: any) {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
@@ -206,8 +198,6 @@ export class ChatInputComponent {
       this.chatContent += '@' + name + ' ';
     }
   }
-
-
 
   checkForAtSign(event: KeyboardEvent) {
     const input = event.target as HTMLInputElement;
