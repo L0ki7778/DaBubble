@@ -38,7 +38,7 @@ export class ChatInputComponent {
   chatContent: string = '';
   viewEmojiPicker: boolean = false;
   userMentionView: boolean = false;
-  selectedFile: string | ArrayBuffer | null = null;
+  selectedFile: any = null;
   selectedFileName: string | null = null;
   selectedFileUrl: string | null = null;
   isUploading: boolean = false;
@@ -66,13 +66,13 @@ export class ChatInputComponent {
     });
   }
 
-  async uploadFile(file: File): Promise<string> {
-    const filePath = `uploads/${file.name}`;
-    const storage = getStorage();
-    const storageRef = ref(storage, filePath);
-    await uploadBytes(storageRef, file);
-    return await getDownloadURL(storageRef);
-  }
+  // async uploadFile(file: File): Promise<string> {
+  //   const filePath = `uploads/${file.name}`;
+  //   const storage = getStorage();
+  //   const storageRef = ref(storage, filePath);
+  //   await uploadBytes(storageRef, file);
+  //   return await getDownloadURL(storageRef);
+  // }
 
   async onFileSelected(event: any) {
     const selectedFile = event.target.files[0];
@@ -96,10 +96,20 @@ export class ChatInputComponent {
       return;
     }
     this.isUploading = true;
+    const { messageImage, uploadedFileUrl } = await this.uploadFile(this.selectedFile);
+    if (this.selectionService.channelOrDM.value === 'channel') {
+      await this.handleChannelMessage(trimmedChatContent, messageImage, uploadedFileUrl);
+    } else if (this.selectionService.channelOrDM.value === 'direct-message') {
+      await this.handleDirectMessage(trimmedChatContent, messageImage, uploadedFileUrl);
+    }
+    this.isUploading = false;
+  }
+  
+  async uploadFile(selectedFile?: string) {
     let messageImage = '';
     let uploadedFileUrl = '';
-    if (this.selectedFile) {
-      const file = this.dataURIToBlob(this.selectedFile.toString());
+    if (selectedFile) {
+      const file = this.dataURIToBlob(selectedFile.toString());
       const filePath = `uploads/${this.originalFile?.name}`;
       const storage = getStorage();
       const storageRef = ref(storage, filePath);
@@ -107,34 +117,37 @@ export class ChatInputComponent {
       uploadedFileUrl = await getDownloadURL(storageRef);
       messageImage = `<div class="image-box"><img src="${uploadedFileUrl}"></div>`;
     }
-    if (this.selectionService.channelOrDM.value === 'channel') {
-      const currentUser = await this.DMService.getLoggedInUserId();
-      const currentChannel = this.selectionService.choosenChatTypeId.value;
-      const messageText = this.chatContent.replace(/\n/g, '<br>');
+    return { messageImage, uploadedFileUrl };
+  }
+  
+  async handleChannelMessage(trimmedChatContent: string, messageImage: string, uploadedFileUrl: string) {
+    const currentUser = await this.DMService.getLoggedInUserId();
+    const currentChannel = this.selectionService.choosenChatTypeId.value;
+    const messageText = trimmedChatContent.replace(/\n/g, '<br>');
+    const messageContent = `<div class="message-wrapper">${messageImage}<div class="text-container">${messageText}</div></div>`;
+    const newDoc: any = await addDoc(collection(this.firestore, "channels", currentChannel, "messages"), {
+      authorId: currentUser,
+      postTime: new Date().getTime(),
+      text: messageContent
+    });
+    const newDocId = newDoc.id;
+    await updateDoc(newDoc, { docId: newDocId });
+    this.chatContent = '';
+    this.deselectFile();
+  }
+  
+  async handleDirectMessage(trimmedChatContent: string, messageImage: string, uploadedFileUrl: string) {
+    const otherUserId = await this.DMService.getUserId(this.DMService.selectedUserName);
+    if (otherUserId) {
+      const messageText = trimmedChatContent.replace(/\n/g, '<br>');
       const messageContent = `<div class="message-wrapper">${messageImage}<div class="text-container">${messageText}</div></div>`;
-      const newDoc: any = await addDoc(collection(this.firestore, "channels", currentChannel, "messages"), {
-        authorId: currentUser,
-        postTime: new Date().getTime(),
-        text: messageContent
-      });
-      const newDocId = newDoc.id;
-      await updateDoc(newDoc, { docId: newDocId });
+      await this.DMService.addUserToDirectMessagesWithIds(otherUserId, messageContent);
+      await this.DMService.loadChatHistory();
       this.chatContent = '';
       this.deselectFile();
-    } else if (this.selectionService.channelOrDM.value === 'direct-message') {
-      const otherUserId = await this.DMService.getUserId(this.DMService.selectedUserName);
-      if (otherUserId) {
-        const messageText = this.chatContent.replace(/\n/g, '<br>');
-        const messageContent = `<div class="message-wrapper">${messageImage}<div class="text-container">${messageText}</div></div>`;
-        await this.DMService.addUserToDirectMessagesWithIds(otherUserId, messageContent);
-        await this.DMService.loadChatHistory();
-        this.chatContent = '';
-        this.deselectFile();
-      } else {
-        console.error('Error getting user ID');
-      }
+    } else {
+      console.error('Error getting user ID');
     }
-    this.isUploading = false;
   }
 
 
@@ -198,7 +211,6 @@ export class ChatInputComponent {
 
   checkForAtSign(event: KeyboardEvent) {
     const input = event.target as HTMLInputElement;
-
     if (event.key === '@' && (this.previousValue === '' || this.previousValue.endsWith(' '))) {
       this.searchTerm = '';
       this.booleanService.userMention.set(true);
@@ -213,5 +225,4 @@ export class ChatInputComponent {
     }
     this.previousValue = input.value;
   }
-
 }
