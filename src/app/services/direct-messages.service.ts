@@ -23,7 +23,7 @@ export class DirectMessagesService {
   showPrivateChat: boolean = false;
   chatMessages: any[] = [];
   locale = 'de-DE';
-  private chatHistoryLoaded = new Subject<void>();
+  public chatHistoryLoaded = new Subject<void>();
   public chatHistoryLoaded$ = this.chatHistoryLoaded.asObservable();
 
   constructor(@Inject(LOCALE_ID) private localeId: string) {
