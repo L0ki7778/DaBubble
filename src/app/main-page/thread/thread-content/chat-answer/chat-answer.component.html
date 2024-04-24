@@ -10,7 +10,7 @@
                 <div (click)="showEmojiPicker($event)" class="smiley-img">
                 </div>
                 <div *ngIf="isOwnAnswer" (click)="showOption($event)" class="edit-img"></div>
-                <span #edit *ngIf="viewOption" class="edit-message" (click)="startEditing()">Nachricht bearbeiten</span>
+                <span #edit *ngIf="viewOption" class="edit-answer" (click)="startEditing()">Nachricht bearbeiten</span>
             </div>
             <div>
                 <span (click)="openMemberView($event)" class="answer-author">

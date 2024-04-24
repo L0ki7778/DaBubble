@@ -73,13 +73,6 @@
     align-items: flex-end;
     justify-content: space-between;
     position: relative;
-
-    div {
-        display: flex;
-        justify-content: start;
-        align-items: center;
-        gap: 20px;
-    }
 }
 
 .answer-footer {
@@ -137,6 +130,15 @@
     }
 }
 
+.edit-img {
+    background-image: url('../../../../../assets/img/general/edit.svg');
+
+    &:hover {
+        background-image: url('../../../../../assets/img/general/edit-hover.svg');
+
+    }
+}
+
 .answer-author {
     font-size: 18px;
     font-weight: 700;
@@ -178,4 +180,24 @@
 
 .answer-right {
     @include dFlex();
+}
+
+.edit-answer {
+    position: absolute;
+    right: -200px;
+    top: 21px;
+    padding: 10px 20px;
+    border-radius: 0px 30px 30px 30px;
+    background-color: white;
+    box-shadow: 0px 6px 14px 0px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+    font-size: 20px;
+    font-weight: 500;
+
+    &:hover {
+        cursor: pointer;
+        background-color: var(--bgColor);
+        border: 4px solid white;
+        color: var(--purple3);
+    }
 }
