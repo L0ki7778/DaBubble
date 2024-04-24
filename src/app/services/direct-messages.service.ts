@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { PrivateMessageType } from '../types/private-message.type';
 import { formatDate } from '@angular/common';
 import { Subject } from 'rxjs';
+import { GoogleAuthProvider, getAuth } from 'firebase/auth';
 
 
 @Injectable({
@@ -25,6 +26,7 @@ export class DirectMessagesService {
   locale = 'de-DE';
   public chatHistoryLoaded = new Subject<void>();
   public chatHistoryLoaded$ = this.chatHistoryLoaded.asObservable();
+  isLoggedInWithgoogle = false;
 
   constructor(@Inject(LOCALE_ID) private localeId: string) {
   }
@@ -54,7 +56,8 @@ export class DirectMessagesService {
       });
       const loggedInUserId = await this.getLoggedInUserId();
       const loggedInUserName = await this.getUserNameById(loggedInUserId);
-      this.filteredUserNames = users.filter(user =>  user.name !== loggedInUserName);    } catch (error) {
+      this.filteredUserNames = users.filter(user => user.name !== loggedInUserName);
+    } catch (error) {
       console.error('Error fetching user names:', error);
     }
   }
@@ -81,6 +84,19 @@ export class DirectMessagesService {
     }
   }
 
+  isLoggedInWithGoogle() {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if (user) {
+      const providers = user.providerData.filter(
+        (provider) => provider.providerId === GoogleAuthProvider.PROVIDER_ID
+      );
+      this.isLoggedInWithgoogle = providers.length > 0;
+    }else {
+      this.isLoggedInWithgoogle = false;
+    }
+  }
+
   async getUserNameById(authorId: string): Promise<string> {
     try {
       const userDoc = await getDoc(doc(this.firestore, 'users', authorId));
@@ -97,7 +113,7 @@ export class DirectMessagesService {
     }
   }
 
-  async getUserEmailByName(userName: any ): Promise<string | null> {
+  async getUserEmailByName(userName: any): Promise<string | null> {
     try {
       const userId = await this.getUserIdProfile(userName);
       if (!userId) return null;
@@ -195,7 +211,7 @@ export class DirectMessagesService {
       console.error('Error loading chat history:', error);
     }
   }
-  
+
   async retrieveChatDocumentReference() {
     const loggedInUserId = await this.getLoggedInUserId();
     const otherUserId = await this.getUserId(this.selectedUserName);
@@ -210,7 +226,7 @@ export class DirectMessagesService {
     });
     return existingChatWithBothUsers;
   }
-  
+
   async retrieveAndEnrichMessageData(existingChatWithBothUsers: QueryDocumentSnapshot<DocumentData, DocumentData>) {
     const messagesCollectionRef = collection(existingChatWithBothUsers.ref, 'chat-messages');
     const messagesSnapshot = await getDocs(messagesCollectionRef);

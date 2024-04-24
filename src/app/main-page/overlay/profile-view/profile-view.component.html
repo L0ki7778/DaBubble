@@ -8,7 +8,7 @@
     </div>
     <div class="space-between">
         <span class="name">{{ this.auth.userName }}</span>
-        <span (click)="openEditProfile($event)" class="edit">Bearbeiten</span>
+        <span *ngIf="!this.DMService.isLoggedInWithgoogle" (click)="openEditProfile($event)" class="edit">Bearbeiten</span>
     </div>
     <div class="active-container">
         <img src="assets/img/general/Online.svg">

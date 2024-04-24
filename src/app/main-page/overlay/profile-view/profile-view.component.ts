@@ -20,6 +20,7 @@ export class ProfileViewComponent {
 
   ngOnInit() {
     this.findLoggedInUser();
+    this.DMService.isLoggedInWithGoogle();
   }
 
   async findLoggedInUser() {
@@ -28,7 +29,6 @@ export class ProfileViewComponent {
     this.auth.userImage = await this.DMService.getUserImageById(userId);
     this.auth.userMail = await this.DMService.getUserEmailByName(this.auth.userName);
   }
-
 
   @HostListener('document:click', ['$event'])
   onclick(event: Event) {

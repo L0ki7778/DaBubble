@@ -86,7 +86,6 @@ export class AuthService {
     }
   }
 
-
   async loginAsGuest() {
     try {
       await signInWithEmailAndPassword(this.auth, this.guestEmail, this.guestPassword);
@@ -101,7 +100,7 @@ export class AuthService {
       const provider = new GoogleAuthProvider();
       const userCredential = await signInWithPopup(this.auth, provider);
       const user = userCredential.user;
-      const photoURL = user.photoURL || 'assets/img/start-page/unknown.svg';
+      const photoURL = user.photoURL;
       const profilePictureUrl = await this.uploadProfilePicture(photoURL, user.uid);
       const userObject = {
         name: user.displayName,
@@ -117,7 +116,7 @@ export class AuthService {
     }
   }
 
-  async uploadProfilePicture(photoURL: any, userId: string) {
+  async uploadProfilePicture(photoURL: any, userId: string): Promise<string> {
     try {
       const response = await fetch(photoURL);
       const blob = await response.blob();
@@ -126,11 +125,9 @@ export class AuthService {
       const uploadResult = await uploadBytesResumable(storageRef, blob);
       return await getDownloadURL(uploadResult.ref);
     } catch (error) {
-      console.error('Error uploading profile picture:', error);
-      return null;
+      return 'assets/img/start-page/unknown.svg';
     }
   }
-
   async resetPassword(email: string) {
     this.resetPasswordEmail = email;
   }

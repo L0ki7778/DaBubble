@@ -23,11 +23,9 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
   private selectionIdSubscription: Subscription;
   private unsubscribeChannelMessages: (() => void) | undefined;
   private chatHistoryLoadedSubscription!: Subscription;
-
   choosenChatId: string = '';
   isLoading: boolean = false;
   messages: any[] = [];
-
 
   constructor(private renderer: Renderer2) {
     this.selectionIdSubscription = this.selectionService.choosenChatTypeId.subscribe(newId => {
@@ -75,7 +73,6 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-
   async loadChannelMessages() {
     let newMessages: any[] = [];
     const collRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
@@ -103,7 +100,6 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
     }, 1);
     this.DMService.chatHistoryLoaded.next();
   }
-
 
   ngOnDestroy() {
     this.chatHistoryLoadedSubscription.unsubscribe();
