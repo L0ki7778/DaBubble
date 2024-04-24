@@ -55,6 +55,7 @@ export class ChatAnswerComponent {
           this.user = {
             name: doc.data()['name'],
             image: doc.data()['image'],
+            id: doc.id
           };
         } else {
           console.log('No such document!');
@@ -85,6 +86,7 @@ export class ChatAnswerComponent {
   openMemberView(event: MouseEvent) {
     event.stopPropagation();
     this.overlay.toggleMemberView();
+    this.selectionService.selectedMemberId = this.user.id;
     this.DMService.selectedProfileName = this.user.name;
     this.DMService.selectedProfileImage = this.user.image;
     this.DMService.selectedUserName = this.user.name;
