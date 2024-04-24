@@ -11,15 +11,29 @@
         cursor: pointer;
     }
 
-    &:hover app-reaction-bar {
+    &:hover app-thread-reaction-bar {
         opacity: 1;
     }
 }
 
-app-reaction-bar {
-    opacity: 0;
-    transition: all ease-in-out 0.2s;
+.reaction-bar-container {
     position: absolute;
+    gap: none;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 3px 15px 3px 20px;
+    border: 1px solid var(--lightPurple);
+    border-radius: 25px 25px 0px 25px;
+
+    div {
+        min-width: 40px;
+        min-height: 40px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
 }
 
 .date-label {

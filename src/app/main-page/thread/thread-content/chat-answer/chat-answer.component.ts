@@ -7,12 +7,11 @@ import { Subscription } from 'rxjs';
 import { SelectionService } from '../../../../services/selection.service';
 import { DirectMessagesService } from '../../../../services/direct-messages.service';
 import { CommonModule } from '@angular/common';
-import { ThreadReactionBarComponent } from './thread-reaction-bar/thread-reaction-bar.component';
 
 @Component({
   selector: 'app-chat-answer',
   standalone: true,
-  imports: [CommonModule, ThreadReactionBarComponent, PickerComponent],
+  imports: [CommonModule, PickerComponent],
   templateUrl: './chat-answer.component.html',
   styleUrl: './chat-answer.component.scss'
 })
@@ -32,6 +31,7 @@ export class ChatAnswerComponent {
 
 
   isHovered: boolean = false;
+  viewOption: boolean = false;
   viewEmojiPicker: boolean = false;
   user: any = {};
   choosenChatId: string = '';
@@ -55,6 +55,7 @@ export class ChatAnswerComponent {
           this.user = {
             name: doc.data()['name'],
             image: doc.data()['image'],
+            id: doc.id
           };
         } else {
           console.log('No such document!');
@@ -85,10 +86,19 @@ export class ChatAnswerComponent {
   openMemberView(event: MouseEvent) {
     event.stopPropagation();
     this.overlay.toggleMemberView();
+    this.selectionService.selectedMemberId = this.user.id;
     this.DMService.selectedProfileName = this.user.name;
     this.DMService.selectedProfileImage = this.user.image;
     this.DMService.selectedUserName = this.user.name;
     this.DMService.selectedUserImage = this.user.image;
+  }
+
+  showOption(event: MouseEvent) {
+    event.stopPropagation();
+    this.viewOption = true;
+  }
+
+  startEditing() {
   }
 
   showEmojiPicker(event: MouseEvent) {

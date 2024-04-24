@@ -4,8 +4,14 @@
         class="avatar-icon">
     <div class="answer-box" [ngStyle]="{'align-items': isOwnAnswer ? 'end' : 'start'}">
         <div class="answer-header" [ngStyle]="{'flex-direction': isOwnAnswer ? 'row' : 'row-reverse'}">
-            <app-thread-reaction-bar *ngIf="isHovered" [answer]="answer"
-                [isOwnAnswer]="isOwnAnswer"></app-thread-reaction-bar>
+            <div *ngIf="isHovered"
+                [ngStyle]="{'border-radius': isOwnAnswer ? '25px 25px 0px 25px' : '25px 25px 25px 0px', 'flex-direction': isOwnAnswer ? 'none' : 'row-reverse'}"
+                class="reaction-bar-container">
+                <div (click)="showEmojiPicker($event)" class="smiley-img">
+                </div>
+                <div *ngIf="isOwnAnswer" (click)="showOption($event)" class="edit-img"></div>
+                <span #edit *ngIf="viewOption" class="edit-message" (click)="startEditing()">Nachricht bearbeiten</span>
+            </div>
             <div>
                 <span (click)="openMemberView($event)" class="answer-author">
                     {{ user.name }}

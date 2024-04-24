@@ -174,9 +174,6 @@ export class ThreadContentComponent {
   }
 
   startEditing() {
-    if (this.message) {
-      this.editingStarted.emit({ messageId: this.message.docId, messageText: this.message.text });
-    }
   }
 
   onHover(): void {
@@ -190,6 +187,7 @@ export class ThreadContentComponent {
   openMemberView(event: MouseEvent) {
     event.stopPropagation();
     this.overlay.toggleMemberView();
+    this.selectionService.selectedMemberId = this.messageUser.id;
     this.DMService.selectedProfileName = this.messageUser.name;
     this.DMService.selectedProfileImage = this.messageUser.image;
     this.DMService.selectedUserName = this.messageUser.name;
