@@ -174,9 +174,6 @@ export class ThreadContentComponent {
   }
 
   startEditing() {
-    if (this.message) {
-      this.editingStarted.emit({ messageId: this.message.docId, messageText: this.message.text });
-    }
   }
 
   onHover(): void {
