@@ -1,6 +1,7 @@
 <div *ngIf="this.selectionService.channelOrDM.value === 'channel'" class="channel-answer-container" #chatList>
   <!-- Message to Answer -->
-  <div class="answer-container" (mouseover)="onHover()" (mouseleave)="onLeave()" [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'none'}">
+  <div class="answer-container" (mouseover)="onHover()" (mouseleave)="onLeave()"
+    [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'none'}">
     <img *ngIf="messageUser.image" class="avatar-icon" (click)="openMemberView($event)" src="{{ messageUser.image }}"
       class="avatar-icon">
     <div class="answer-box" [ngStyle]="{'align-items': isOwnAnswer ? 'end' : 'start'}">
@@ -13,20 +14,22 @@
           <div *ngIf="isOwnAnswer" (click)="showOption($event)" class="edit-img"></div>
           <span #edit *ngIf="viewOption" class="edit-message" (click)="startEditing()">Nachricht bearbeiten</span>
         </div>
-        <div style="gap: 20px">
-          <span (click)="openMemberView($event)" class="answer-author">
+        <div [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'row'}">
+          <span (click)="openMemberView($event)" class="answer-author"
+            [ngStyle]="{'text-align': isOwnAnswer ? 'right' : 'left'}">
             {{ messageUser.name }}
           </span>
-          <span class="answer-time" *ngIf="message">
+          <span class="answer-time" *ngIf="message" [ngStyle]="{'text-align': isOwnAnswer ? 'right' : 'left'}">
             {{ message.posthour }} Uhr
           </span>
         </div>
       </div>
-      <div class="answer-text" *ngIf="!isOwnAnswer" [ngStyle]="{'background-color': isHovered ? 'white' : '#ECEEFE', 'border-top-right-radius': '30px'}">
+      <div class="answer-text" *ngIf="!isOwnAnswer"
+        [ngStyle]="{'background-color': isHovered ? 'white' : '#ECEEFE', 'border-top-right-radius': '30px'}">
         <p *ngIf="message" [innerHTML]="message.text"></p>
       </div>
       <div class="answer-text" *ngIf="isOwnAnswer"
-      [ngStyle]="{'background-color': '#797EF3', 'color': 'white', 'border-top-left-radius': '30px'}">
+        [ngStyle]="{'background-color': '#797EF3', 'color': 'white', 'border-top-left-radius': '30px'}">
         <p *ngIf="message" [innerHTML]="message.text"></p>
       </div>
       <div class="answer-footer" [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'none' }">

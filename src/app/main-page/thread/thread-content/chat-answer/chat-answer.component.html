@@ -12,11 +12,12 @@
                 <div *ngIf="isOwnAnswer" (click)="showOption($event)" class="edit-img"></div>
                 <span #edit *ngIf="viewOption" class="edit-answer" (click)="startEditing()">Nachricht bearbeiten</span>
             </div>
-            <div>
-                <span (click)="openMemberView($event)" class="answer-author">
+            <div [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'row'}" style="display: flex;">
+                <span (click)="openMemberView($event)" class="answer-author"
+                    [ngStyle]="{'text-align': isOwnAnswer ? 'right' : 'left'}">
                     {{ user.name }}
                 </span>
-                <span class="answer-time" *ngIf="answer">
+                <span class="answer-time" *ngIf="answer" [ngStyle]="{'text-align': isOwnAnswer ? 'right' : 'left'}">
                     {{ answer.posthour }} Uhr
                 </span>
             </div>
