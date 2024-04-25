@@ -1,7 +1,7 @@
 <div *ngIf="this.selectionService.channelOrDM.value === 'channel'" class="channel-answer-container" #chatList>
   <!-- Message to Answer -->
   <div class="answer-container" (mouseover)="onHover()" (mouseleave)="onLeave()"
-    [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'none'}">
+    [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'row'}">
     <img *ngIf="messageUser.image" class="avatar-icon" (click)="openMemberView($event)" src="{{ messageUser.image }}"
       class="avatar-icon">
     <div class="answer-box" [ngStyle]="{'align-items': isOwnAnswer ? 'end' : 'start'}">
