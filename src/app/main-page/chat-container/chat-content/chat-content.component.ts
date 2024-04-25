@@ -95,9 +95,6 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
       });
     });
     this.messages = newMessages;
-    setTimeout(() => {
-      this.scrollToBottom();
-    }, 1);
     this.DMService.chatHistoryLoaded.next();
   }
 
