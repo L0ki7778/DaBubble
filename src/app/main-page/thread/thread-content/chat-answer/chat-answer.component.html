@@ -1,3 +1,6 @@
+<span class="date-label" *ngIf="answer">
+    {{ answer.postDay }}
+</span>
 <div class="answer-container" (mouseover)="onHover()" (mouseleave)="onLeave()"
     [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'none'}">
     <img *ngIf="user.image" class="avatar-icon" (click)="openMemberView($event)" src="{{ user.image }}"
@@ -12,7 +15,7 @@
                 <div *ngIf="isOwnAnswer" (click)="showOption($event)" class="edit-img"></div>
                 <span #edit *ngIf="viewOption" class="edit-answer" (click)="startEditing()">Nachricht bearbeiten</span>
             </div>
-            <div [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'row'}" style="display: flex;">
+            <div [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'row'}" style="display: flex; justify-content: space-around; align-items: center; gap: 20px;">
                 <span (click)="openMemberView($event)" class="answer-author"
                     [ngStyle]="{'text-align': isOwnAnswer ? 'right' : 'left'}">
                     {{ user.name }}

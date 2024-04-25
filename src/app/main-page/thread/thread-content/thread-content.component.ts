@@ -45,6 +45,7 @@ export class ThreadContentComponent {
   choosenMessageId: string = '';
   isOwnAnswer: boolean = false;
 
+
   constructor() {
     this.choosenChatId = this.selectionService.choosenChatTypeId.value;
     if (this.selectionService.channelOrDM.value === 'channel') {

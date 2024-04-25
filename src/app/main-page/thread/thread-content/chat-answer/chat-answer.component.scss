@@ -10,10 +10,6 @@
         background-color: $bgColor;
         cursor: pointer;
     }
-
-    &:hover app-thread-reaction-bar {
-        opacity: 1;
-    }
 }
 
 .reaction-bar-container {
@@ -38,7 +34,7 @@
 
 .date-label {
     position: relative;
-    top: 5%;
+    top: 49%;
     background-color: white;
     border: 1px solid $lightPurple;
     padding: 2px 15px;
@@ -47,7 +43,9 @@
     font-weight: 400;
     line-height: 25px;
     letter-spacing: 0em;
-    text-align: center;
+    justify-self: center;
+    display: flex;
+    width: fit-content;
 }
 
 .avatar-icon {

@@ -147,7 +147,6 @@ export class ChatAnswerComponent {
     });
   }
 
-
   isObjectWithCount(value: any): value is { count: number } {
     return typeof value === 'object' && value !== null && 'count' in value;
   }
