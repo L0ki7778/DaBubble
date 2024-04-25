@@ -245,23 +245,7 @@ export class ChatMessageComponent {
   }
 
   async saveEditedMessage(messageId: string | undefined) {
-    // try {
-    //   const existingChatWithBothUsers = await this.DMService.retrieveChatDocumentReference();
-    //   if (existingChatWithBothUsers) {
-    //     const messagesCollectionRef = collection(existingChatWithBothUsers.ref, 'chat-messages');
-    //     const messageDocRef = doc(messagesCollectionRef, messageId);
-    //     const originalMessageSnapshot = await getDoc(messageDocRef);
-    //     const originalMessageContent = originalMessageSnapshot.data()?.['text'];
-    //     const updatedMessageContent = this.assembleMessageContent(this.editingMessageText, originalMessageContent);
-    //     await updateDoc(messageDocRef, { text: updatedMessageContent });
-    //     this.editingMessageId = null;
-    //     this.editingMessageText = '';
-    //     await this.DMService.loadChatHistory();
-    //   }
-    // } catch (error) {
-    //   console.error('Error updating message:', error);
-    // }
-    console.log('Erfolgreich Nachricht geändert');
+    //Hier die Logik zum speichern einfügen
   }
 
 
