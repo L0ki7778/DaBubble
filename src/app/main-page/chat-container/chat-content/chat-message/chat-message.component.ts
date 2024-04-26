@@ -244,8 +244,13 @@ export class ChatMessageComponent {
     return `<div class="message-wrapper">${messageImage}${textContainer}</div>`;
   }
 
-  async saveEditedMessage(messageId: string | undefined) {
-    //Hier die Logik zum speichern einfügen
+  async saveEditedMessage() {
+    if (this.choosenChatId && this.currentMessageId) {
+      const messageRef = doc(this.firestore, "channels", this.choosenChatId, "messages", this.currentMessageId);
+      await updateDoc(messageRef, {
+        text: this.editingMessageText
+      })
+    }
   }
 
 

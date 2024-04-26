@@ -249,3 +249,17 @@ app-reaction-bar {
         border: 1px solid var(--purple2);
     }
 }
+
+.emoji-btn {
+    &:hover {
+        cursor: pointer;
+        background-color: $bgColor;
+        border-radius: 100%;
+        padding: 4px;
+    
+        path {
+            fill: $purple3;
+            transition: ease-in 150ms;
+        }
+    }
+}
