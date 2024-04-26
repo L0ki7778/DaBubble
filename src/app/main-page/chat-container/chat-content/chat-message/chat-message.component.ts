@@ -247,8 +247,13 @@ export class ChatMessageComponent {
   async saveEditedMessage() {
     if (this.choosenChatId && this.currentMessageId) {
       const messageRef = doc(this.firestore, "channels", this.choosenChatId, "messages", this.currentMessageId);
+
+      const originalMessageSnapshot = await getDoc(messageRef);
+      const originalMessageContent = originalMessageSnapshot.data()?.['text'];
+      const updatedMessageContent = this.assembleMessageContent(this.editingMessageText, originalMessageContent);
+
       await updateDoc(messageRef, {
-        text: this.editingMessageText
+        text: updatedMessageContent
       })
     }
   }
