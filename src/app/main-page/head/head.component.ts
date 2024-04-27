@@ -7,6 +7,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { Firestore, doc, getDoc } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
+import { DirectMessagesService } from '../../services/direct-messages.service';
 
 @Component({
     selector: 'app-head',
@@ -22,6 +23,7 @@ import { AuthService } from '../../services/auth.service';
 export class HeadComponent {
     overlay = inject(OverlayService);
     authService = inject(AuthService);
+    DMService = inject(DirectMessagesService);
     name: string | null = '';
     imgSrc: string = 'assets/img/start-page/unknown.svg';
     private firestore: Firestore = inject(Firestore);
@@ -33,6 +35,10 @@ export class HeadComponent {
         this.loggedInUser();
         this.findImageUrl();
         this.subscribeToUserName();
+    }
+
+    hideSearchList() {
+        this.DMService.showDropdown = false;
     }
 
     ngOnDestroy() {
