@@ -20,6 +20,6 @@ export class ThreadHeaderComponent {
 
 
   hideThread() {
-    this.booleanService.viewThread.set(false);
+    this.booleanService.toggleViewThread(false);
   }
 }

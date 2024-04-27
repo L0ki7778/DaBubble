@@ -79,7 +79,7 @@ export class WorkspaceDropdownComponent {
   }
 
   closeThread() {
-    this.booleanService.viewThread.set(false);
+    this.booleanService.toggleViewThread(false);
   }
 
   createCannel(event: MouseEvent){

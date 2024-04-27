@@ -9,6 +9,8 @@ import { CommonModule } from '@angular/common';
 import { ThreadHeaderComponent } from './thread/thread-header/thread-header.component';
 import { BooleanValueService } from '../services/boolean-value.service';
 import { CloseWorkspaceComponent } from './workspace/close-workspace/close-workspace.component';
+import { Subscription } from 'rxjs';
+import { DirectMessagesService } from '../services/direct-messages.service';
 
 @Component({
   selector: 'app-main-page',
@@ -29,17 +31,34 @@ import { CloseWorkspaceComponent } from './workspace/close-workspace/close-works
 export class MainPageComponent {
   overlayService = inject(OverlayService);
   booleanService = inject(BooleanValueService);
+  DMService = inject(DirectMessagesService);
   workspaceOpen = true;
   @ViewChild('WorkspaceComponent', { read: ElementRef }) workspaceComponentRef: ElementRef | undefined;
 
   overlay: any;
-  viewThread = this.booleanService.viewThread;
+  showThread: boolean = false;
+  private subscription!: Subscription;
 
+  ngOnInit() {
+    this.subscription = this.booleanService.viewThreadObservable.subscribe(
+      value => {
+        this.showThread = value;
+      }
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
   constructor() {
     this.overlayService.overlaySubject.subscribe(() => {
       this.overlay = this.overlayService.overlay;
     });
+  }
+
+  hideSearchList() {
+    this.DMService.showDropdown = false;
   }
 
   handleWorkspace() {

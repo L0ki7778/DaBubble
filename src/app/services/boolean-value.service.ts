@@ -1,4 +1,5 @@
 import { Injectable, signal } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -6,8 +7,14 @@ import { Injectable, signal } from '@angular/core';
 export class BooleanValueService {
 
   constructor() { }
-
-  viewThread = signal(false);
+  viewThread: boolean = false;
+  private viewThreadSource = new Subject<boolean>();
+  viewThreadObservable = this.viewThreadSource.asObservable();
   profileView = signal(false);
   userMention = signal(false);
+
+  toggleViewThread(value: boolean) {
+    this.viewThread = value;
+    this.viewThreadSource.next(value);
+  }
 }

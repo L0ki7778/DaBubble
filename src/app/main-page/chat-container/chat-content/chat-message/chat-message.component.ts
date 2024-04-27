@@ -131,7 +131,7 @@ export class ChatMessageComponent {
   }
 
   showThread() {
-    this.booleanService.viewThread.set(true);
+    this.booleanService.toggleViewThread(true);
     this.selectionService.choosenMessageId.next(this.currentMessageId);
   }
 

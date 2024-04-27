@@ -95,7 +95,7 @@ export class PrivateMessageComponent {
 
 
   showThread() {
-    this.booleanService.viewThread.set(true);
+    this.booleanService.toggleViewThread(true);
   }
 
   startEditing(messageId: string, messageText: string) {

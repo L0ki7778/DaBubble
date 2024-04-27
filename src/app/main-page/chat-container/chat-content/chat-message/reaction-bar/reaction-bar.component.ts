@@ -83,8 +83,8 @@ export class ReactionBarComponent {
 
   showThread() {
     if(this.message){
-    this.booleanService.viewThread.set(true);
-    this.selectionService.choosenMessageId.next(this.message.docId);
+      this.booleanService.toggleViewThread(true);
+      this.selectionService.choosenMessageId.next(this.message.docId);
     }
   }
 

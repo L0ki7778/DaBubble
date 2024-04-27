@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject, inject } from '@angular/core';
-import { CollectionReference, Firestore, collection, onSnapshot, query } from 'firebase/firestore';
+import { Component, inject, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { CollectionReference, collection, onSnapshot, query } from 'firebase/firestore';
 import { SelectionService } from '../../../services/selection.service';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
 import { BooleanValueService } from '../../../services/boolean-value.service';
@@ -15,9 +15,8 @@ import { BooleanValueService } from '../../../services/boolean-value.service';
 export class SearchBarComponent {
 
   DMService: DirectMessagesService = inject(DirectMessagesService);
-  booleanService = Inject(BooleanValueService)
+  booleanService = inject(BooleanValueService)
   firestore = this.DMService.firestore;
-  showDropdown: boolean = false;
   filteredChannelNames: string[] = [];
   channelsRef: CollectionReference = collection(this.firestore, "channels");
   channelQuery = query(this.channelsRef);
@@ -41,6 +40,10 @@ export class SearchBarComponent {
     });
   }
 
+  showDropdownMenu() {
+    this.DMService.showDropdown = true;
+  }
+
   sendChannelId(index: number) {
     this.selectionService.choosenChatTypeId.next(this.selectionService.channelIds[index]);
     this.selectionService.channelOrDM.next('channel');
@@ -51,16 +54,13 @@ export class SearchBarComponent {
     this.selectionService.channelOrDM.next('direct-message');
   }
 
-  showDropdownMenu() {
-    this.showDropdown = true;
-  }
-
   ngOnDestroy() {
     if (this.unsubscribeChannel)
       this.unsubscribeChannel();
   }
 
   closeThread() {
-    this.booleanService.viewThread.set(false);
+    this.booleanService.toggleViewThread(false);
+    this.DMService.showDropdown = false;
   }
 }

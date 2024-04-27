@@ -29,6 +29,7 @@ export class DirectMessagesService {
   public chatHistoryLoadedThread = new Subject<void>();
   public chatHistoryLoadedThread$ = this.chatHistoryLoaded.asObservable();
   isLoggedInWithgoogle = false;
+  showDropdown = false;
 
   constructor(@Inject(LOCALE_ID) private localeId: string) {
   }
