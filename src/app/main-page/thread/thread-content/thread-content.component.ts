@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output, inject } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild, inject, Renderer2 } from '@angular/core';
 import { ChatAnswerComponent } from './chat-answer/chat-answer.component';
 import { Firestore, collection, doc, getDoc, onSnapshot, orderBy, query, updateDoc } from '@angular/fire/firestore';
 import { SelectionService } from '../../../services/selection.service';
@@ -24,18 +24,23 @@ export class ThreadContentComponent {
   edit: ElementRef | null = null;
   emoji: ElementRef | null = null;
 
-  viewEmojiPicker: boolean = false;
   firestore = inject(Firestore);
   selectionService = inject(SelectionService);
   DMService = inject(DirectMessagesService);
   overlay = inject(OverlayService);
 
+  viewEmojiPicker: boolean = false;
   message: any;
   messageUser: any = {};
   currentUserId: string = '';
   answers: any[] = [];
   viewOption: boolean = false;
   isHovered: boolean = false;
+
+  private selectionIdSubscription: Subscription;
+  private unsubscribeChannelMessages: (() => void) | undefined;
+  private chatHistoryLoadedSubscription!: Subscription;
+  @ViewChild('chatThread') chatThread!: ElementRef;
 
 
   selectionMessageIdSubscription?: Subscription;
@@ -46,7 +51,7 @@ export class ThreadContentComponent {
   isOwnAnswer: boolean = false;
 
 
-  constructor() {
+  constructor(private renderer: Renderer2) {
     this.choosenChatId = this.selectionService.choosenChatTypeId.value;
     if (this.selectionService.channelOrDM.value === 'channel') {
       this.selectionMessageIdSubscription = this.selectionService.choosenMessageId.subscribe(newId => {
@@ -64,30 +69,52 @@ export class ThreadContentComponent {
         }
       });
     }
+    this.selectionIdSubscription = this.selectionService.choosenChatTypeId.subscribe(newId => {
+      this.choosenChatId = newId;
+      if (this.choosenChatId != '') {
+        this.subscribeChannelMessagesChanges();
+      }
+    });
   }
 
 
-  // ngAfterViewInit() {
-  //   this.chatHistoryLoadedSubscription = this.DMService.chatHistoryLoaded$.subscribe(() => {
-  //     setTimeout(() => {
-  //       this.scrollToBottom();
-  //       this.waitForImagesToLoad();
-  //     }, 1);
-  //   });
-  // }
+  ngAfterViewInit() {
+    this.chatHistoryLoadedSubscription = this.DMService.chatHistoryLoaded$.subscribe(() => {
+      setTimeout(() => {
+        this.scrollToBottom();
+        this.waitForImagesToLoad();
+      }, 1);
+    });
+  }
 
-  // scrollToBottom() {
-  //   if (this.chatList) {
-  //     this.renderer.setProperty(this.chatList.nativeElement, 'scrollTop', this.chatList.nativeElement.scrollHeight);
-  //   }
-  // }
+  scrollToBottom() {
+    if (this.chatThread) {
+      this.renderer.setProperty(this.chatThread.nativeElement, 'scrollTop', this.chatThread.nativeElement.scrollHeight);
+    }
+  }
 
-  // waitForImagesToLoad() {
-  //   const images = this.chatList.nativeElement.getElementsByTagName('img');
-  //   for (let i = 0; i < images.length; i++) {
-  //     images[i].onload = () => this.scrollToBottom();
-  //   }
-  // }
+  waitForImagesToLoad() {
+    const images = this.chatThread.nativeElement.getElementsByTagName('img');
+    for (let i = 0; i < images.length; i++) {
+      images[i].onload = () => this.scrollToBottom();
+    }
+  }
+
+
+  subscribeChannelMessagesChanges() {
+    if (this.unsubscribeChannelMessages) {
+      this.unsubscribeChannelMessages();
+    }
+    if (this.choosenChatId && this.choosenChatId !== '') {
+      const channelsRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
+      const channelQuery = query(channelsRef);
+      this.unsubscribeChannelMessages = onSnapshot(channelQuery, { includeMetadataChanges: true }, (querySnapshot) => {
+        this.loadMessageUser();
+      });
+    } else {
+      return
+    }
+  }
 
 
   loadMessageUser() {
@@ -266,6 +293,10 @@ export class ThreadContentComponent {
     if (this.unsubscribeMessageToAnswer) {
       this.unsubscribeMessageToAnswer();
     }
+    this.chatHistoryLoadedSubscription.unsubscribe();
+    this.selectionIdSubscription.unsubscribe();
+    if (this.unsubscribeChannelMessages) {
+      this.unsubscribeChannelMessages();
+    }
   }
-
 }
