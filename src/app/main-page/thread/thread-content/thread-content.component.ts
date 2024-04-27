@@ -66,6 +66,30 @@ export class ThreadContentComponent {
     }
   }
 
+
+  // ngAfterViewInit() {
+  //   this.chatHistoryLoadedSubscription = this.DMService.chatHistoryLoaded$.subscribe(() => {
+  //     setTimeout(() => {
+  //       this.scrollToBottom();
+  //       this.waitForImagesToLoad();
+  //     }, 1);
+  //   });
+  // }
+
+  // scrollToBottom() {
+  //   if (this.chatList) {
+  //     this.renderer.setProperty(this.chatList.nativeElement, 'scrollTop', this.chatList.nativeElement.scrollHeight);
+  //   }
+  // }
+
+  // waitForImagesToLoad() {
+  //   const images = this.chatList.nativeElement.getElementsByTagName('img');
+  //   for (let i = 0; i < images.length; i++) {
+  //     images[i].onload = () => this.scrollToBottom();
+  //   }
+  // }
+
+
   loadMessageUser() {
     if (this.message && this.message.authorId) {
       const docRef = doc(this.firestore, 'users', this.message.authorId);
