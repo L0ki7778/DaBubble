@@ -158,24 +158,20 @@ export class PrivateMessageComponent {
   async addReaction(event: any) {
     const emoji = event.emoji.native;
     const messageId = this.message.id;
-
     try {
       const existingChatWithBothUsers = await this.DMService.retrieveChatDocumentReference();
       if (existingChatWithBothUsers) {
         const messagesCollectionRef = collection(existingChatWithBothUsers.ref, 'chat-messages');
         const messageDocRef = doc(messagesCollectionRef, messageId);
-
         const messageSnapshot = await getDoc(messageDocRef);
         if (messageSnapshot.exists()) {
           const data = messageSnapshot.data();
           let reactions = data['reactions'] || {};
-
           if (reactions[emoji]) {
             const userIndex = reactions[emoji].users.indexOf(this.currentUserId);
             if (userIndex > -1) {
               reactions[emoji].count -= 1;
               reactions[emoji].users.splice(userIndex, 1);
-
               if (reactions[emoji].count === 0) {
                 delete reactions[emoji];
               }
@@ -186,17 +182,14 @@ export class PrivateMessageComponent {
           } else {
             reactions[emoji] = { count: 1, users: [this.currentUserId] };
           }
-
           await updateDoc(messageDocRef, { reactions });
         }
-
         this.unsubscribe = onSnapshot(messageDocRef, (docSnapshot) => {
           if (docSnapshot.exists()) {
             const data = docSnapshot.data();
             this.message.reactions = data['reactions'];
           }
         });
-
         this.viewEmojiPicker = false;
       }
     } catch (error) {

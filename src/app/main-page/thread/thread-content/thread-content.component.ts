@@ -39,7 +39,6 @@ export class ThreadContentComponent {
 
   private selectionIdSubscription: Subscription;
   private unsubscribeChannelMessages: (() => void) | undefined;
-  private chatHistoryLoadedSubscription!: Subscription;
   @ViewChild('chatThread') chatThread!: ElementRef;
 
 
@@ -79,12 +78,10 @@ export class ThreadContentComponent {
 
 
   ngAfterViewInit() {
-    this.chatHistoryLoadedSubscription = this.DMService.chatHistoryLoaded$.subscribe(() => {
       setTimeout(() => {
         this.scrollToBottom();
         this.waitForImagesToLoad();
       }, 1);
-    });
   }
 
   scrollToBottom() {
@@ -293,7 +290,6 @@ export class ThreadContentComponent {
     if (this.unsubscribeMessageToAnswer) {
       this.unsubscribeMessageToAnswer();
     }
-    this.chatHistoryLoadedSubscription.unsubscribe();
     this.selectionIdSubscription.unsubscribe();
     if (this.unsubscribeChannelMessages) {
       this.unsubscribeChannelMessages();

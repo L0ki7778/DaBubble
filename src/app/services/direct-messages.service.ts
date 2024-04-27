@@ -12,7 +12,7 @@ import { GoogleAuthProvider, getAuth } from 'firebase/auth';
 })
 export class DirectMessagesService {
 
-  private firestore: Firestore = inject(Firestore);
+  public firestore: Firestore = inject(Firestore);
   private authService: AuthService = inject(AuthService);
   filteredUserNames: { name: string, profileImage: string, id: string }[] = [];
   messageText: string = '';
@@ -26,6 +26,8 @@ export class DirectMessagesService {
   locale = 'de-DE';
   public chatHistoryLoaded = new Subject<void>();
   public chatHistoryLoaded$ = this.chatHistoryLoaded.asObservable();
+  public chatHistoryLoadedThread = new Subject<void>();
+  public chatHistoryLoadedThread$ = this.chatHistoryLoaded.asObservable();
   isLoggedInWithgoogle = false;
 
   constructor(@Inject(LOCALE_ID) private localeId: string) {

@@ -29,7 +29,6 @@ export class WorkspaceDropdownComponent {
   firestore = inject(Firestore);
   DMService: DirectMessagesService = inject(DirectMessagesService);
   overlayService = inject(OverlayService)
-
   channelsRef: CollectionReference = collection(this.firestore, "channels");
   channelQuery = query(this.channelsRef);
   private unsubscribeChannel: (() => void) | undefined;
@@ -38,7 +37,7 @@ export class WorkspaceDropdownComponent {
   filteredChannelNames: string[] = [];
 
   async ngOnInit() {
-    this.currentUserID = await this.DMService.getLoggedInUserId()
+    this.currentUserID = await this.DMService.getLoggedInUserId();
     this.filterChannels();
     this.DMService.fetchUserNames();
     this.checkName();
