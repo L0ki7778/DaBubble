@@ -26,7 +26,7 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
   choosenChatId: string = '';
   isLoading: boolean = false;
   messages: any[] = [];
-  
+
 
   constructor(private renderer: Renderer2) {
     this.selectionIdSubscription = this.selectionService.choosenChatTypeId.subscribe(newId => {
@@ -74,27 +74,38 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  formatPostTime(postDate: Date) {
+    const hours = postDate.getHours().toString().padStart(2, '0');
+    const minutes = postDate.getMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
+  }
+
+  formatPostDate(postDate: Date) {
+    return postDate.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' });
+  }
+
+  createMessage(doc: any) {
+    const postDate = new Date(doc.data()['postTime']);
+    return {
+      text: doc.data()['text'],
+      posthour: this.formatPostTime(postDate),
+      postDay: this.formatPostDate(postDate),
+      reactions: doc.data()['reactions'],
+      authorId: doc.data()['authorId'],
+      docId: doc.data()['docId']
+    };
+  }
+
   async loadChannelMessages() {
-    let newMessages: any[] = [];
+    const newMessages: any[] = [];
     const collRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
     const q = query(collRef, orderBy('postTime'));
-    await getDocs(q).then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        const postDate = new Date(doc.data()['postTime']);
-        const hours = postDate.getHours().toString().padStart(2, '0');
-        const minutes = postDate.getMinutes().toString().padStart(2, '0');
-        const formattedPostTime = `${hours}:${minutes}`;
-        const formattedPostDate = postDate.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' });
-        newMessages.push({
-          text: doc.data()['text'],
-          posthour: formattedPostTime,
-          postDay: formattedPostDate,
-          reactions: doc.data()['reactions'],
-          authorId: doc.data()['authorId'],
-          docId: doc.data()['docId']
-        });
-      });
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      newMessages.push(this.createMessage(doc));
     });
+
     this.messages = newMessages;
     this.DMService.chatHistoryLoaded.next();
   }

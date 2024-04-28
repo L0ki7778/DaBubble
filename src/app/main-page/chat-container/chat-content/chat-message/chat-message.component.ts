@@ -148,7 +148,6 @@ export class ChatMessageComponent {
     }
   }
 
-
   addEmoji(event: any) {
     const emoji = event.emoji.native;
     const docRef = doc(this.firestore, 'channels', this.choosenChatId, 'messages', this.message.docId);
@@ -180,8 +179,7 @@ export class ChatMessageComponent {
     });
   }
 
-
-  extractHoursAndMinutesFromUnixTime(unixTimeMs: number) {
+  getTimeDifferences(unixTimeMs: number) {
     const now = new Date();
     const date = new Date(unixTimeMs);
     const diffInMs = now.getTime() - date.getTime();
@@ -191,6 +189,10 @@ export class ChatMessageComponent {
     const diffInMonths = diffInDays / 30;
     const diffInYears = diffInDays / 365;
 
+    return { date, diffInHours, diffInDays, diffInWeeks, diffInMonths, diffInYears };
+}
+
+formatDateTime(date: Date, diffInHours: number, diffInDays: number, diffInWeeks: number, diffInMonths: number, diffInYears: number) {
     let formattedDateTime = '';
     if (diffInHours < 24) {
       const options: Intl.DateTimeFormatOptions = {
@@ -199,26 +201,25 @@ export class ChatMessageComponent {
         hour12: false
       };
       formattedDateTime = date.toLocaleString('de-DE', options) + ' Uhr';
-    } else if (diffInDays <= 1) {
-      formattedDateTime = `vor 1 Tag`;
-    } else if (diffInDays < 7) {
-      formattedDateTime = `vor ${Math.round(diffInDays)} Tagen`;
-    } else if (diffInDays < 14) {
-      formattedDateTime = `vor 1 Woche`;
-    } else if (diffInDays < 28) {
-      formattedDateTime = `vor ${Math.round(diffInWeeks)} Wochen`;
-    } else if (diffInDays < 60) {
-      formattedDateTime = `vor 1 Monat`;
-    } else if (diffInDays < 365) {
-      formattedDateTime = `vor ${Math.round(diffInMonths)} Monaten`;
-    } else if (diffInDays < 730) {
-      formattedDateTime = `vor 1 Jahr`;
     } else {
-      formattedDateTime = `vor ${Math.round(diffInYears)} Jahren`;
+      const diff = [
+        { value: diffInYears, singular: 'Jahr', plural: 'Jahren' },
+        { value: diffInMonths, singular: 'Monat', plural: 'Monaten' },
+        { value: diffInWeeks, singular: 'Woche', plural: 'Wochen' },
+        { value: diffInDays, singular: 'Tag', plural: 'Tagen' }
+      ].find(d => d.value >= 1) || { value: 0, singular: '', plural: '' };
+
+      formattedDateTime = `vor ${Math.round(diff.value) > 1 ? Math.round(diff.value) + ' ' + diff.plural : '1 ' + diff.singular}`;
     }
 
-    this.lastAnswerTime = formattedDateTime;
-  }
+    return formattedDateTime;
+}
+
+extractHoursAndMinutesFromUnixTime(unixTimeMs: number) {
+    const { date, diffInHours, diffInDays, diffInWeeks, diffInMonths, diffInYears } = this.getTimeDifferences(unixTimeMs);
+    this.lastAnswerTime = this.formatDateTime(date, diffInHours, diffInDays, diffInWeeks, diffInMonths, diffInYears);
+}
+
 
   startEditing(messageId: string, messageText: string) {
     this.editMessage = true;
