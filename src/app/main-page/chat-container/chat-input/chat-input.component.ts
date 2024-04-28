@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
 import { SelectionService } from '../../../services/selection.service';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
-import { Firestore, addDoc, collection, doc, onSnapshot, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, updateDoc } from '@angular/fire/firestore';
 import { OverlayService } from '../../../services/overlay.service';
 import { Subscription } from 'rxjs';
 import { UserMentionComponent } from './user-mention/user-mention.component';
@@ -50,6 +50,7 @@ export class ChatInputComponent {
   userMention = this.booleanService.userMention;
   originalFile: File | null = null;
 
+
   constructor() {
     this.channelSubscription = this.selectionService.choosenChatTypeId$.subscribe(newChannel => {
       const currentChannelId = newChannel;
@@ -81,7 +82,6 @@ export class ChatInputComponent {
     this.selectedFileName = null;
   }
 
-
   async onSubmit(chatContent: string) {
     const trimmedChatContent = chatContent.trim();
     if ((!trimmedChatContent && !this.selectedFile) || this.isUploading) {
@@ -96,7 +96,7 @@ export class ChatInputComponent {
     }
     this.isUploading = false;
   }
-  
+
   async uploadFile(selectedFile?: string) {
     let messageImage = '';
     let uploadedFileUrl = '';
@@ -111,7 +111,7 @@ export class ChatInputComponent {
     }
     return { messageImage, uploadedFileUrl };
   }
-  
+
   async handleChannelMessage(trimmedChatContent: string, messageImage: string, uploadedFileUrl: string) {
     const currentUser = await this.DMService.getLoggedInUserId();
     const currentChannel = this.selectionService.choosenChatTypeId.value;
@@ -127,7 +127,7 @@ export class ChatInputComponent {
     this.chatContent = '';
     this.deselectFile();
   }
-  
+
   async handleDirectMessage(trimmedChatContent: string, messageImage: string, uploadedFileUrl: string) {
     const otherUserId = await this.DMService.getUserId(this.DMService.selectedUserName);
     if (otherUserId) {
@@ -141,7 +141,6 @@ export class ChatInputComponent {
       console.error('Error getting user ID');
     }
   }
-
 
   dataURIToBlob(dataURI: string) {
     const byteString = atob(dataURI.split(',')[1]);
@@ -189,7 +188,6 @@ export class ChatInputComponent {
     this.booleanService.userMention.set(currentValue ? false : true);
   }
 
-
   handleUserMentioned(name: string) {
     let lastAt = this.chatContent.lastIndexOf('@');
     if (lastAt != -1) {
@@ -215,4 +213,5 @@ export class ChatInputComponent {
     }
     this.previousValue = input.value;
   }
+
 }

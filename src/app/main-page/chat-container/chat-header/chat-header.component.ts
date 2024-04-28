@@ -46,7 +46,6 @@ export class ChatHeaderComponent {
 
   imgSrc: string = "../../../../assets/img/main-page/chat/add-members-button.svg";
 
-  constructor() { }
 
   ngOnInit() {
     this.overlaySubscription = this.$editObservable.subscribe(() => {

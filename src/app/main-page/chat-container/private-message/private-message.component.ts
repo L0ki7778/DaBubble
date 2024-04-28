@@ -1,11 +1,11 @@
-import { CommonModule, formatDate } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, Input, inject, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { BooleanValueService } from '../../../services/boolean-value.service';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
 import { PrivateMessageType } from '../../../types/private-message.type';
 import { ReactionBarComponent } from '../chat-content/chat-message/reaction-bar/reaction-bar.component';
-import { collection, doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore';
+import { DocumentSnapshot, collection, doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore';
 import { FormsModule } from '@angular/forms';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { Firestore } from '@angular/fire/firestore';
@@ -46,13 +46,11 @@ export class PrivateMessageComponent {
     this.checkForImageTag();
   }
 
-
   ngOnDestroy() {
     if (this.unsubscribe) {
       this.unsubscribe();
     }
   }
-
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
@@ -68,7 +66,6 @@ export class PrivateMessageComponent {
     return emojiPicker && emojiPicker.contains(target);
   }
 
-
   async getCurrentUserId() {
     this.currentUserId = await this.DMService.getLoggedInUserId();
   }
@@ -76,7 +73,6 @@ export class PrivateMessageComponent {
   isOwnMessage(message: PrivateMessageType): boolean {
     return this.currentUserId !== null && message.authorId === this.currentUserId;
   }
-
 
   onHover(): void {
     this.isHovered = true;
@@ -92,7 +88,6 @@ export class PrivateMessageComponent {
     this.DMService.selectedProfileName = this.message.authorName;
     this.DMService.selectedProfileImage = this.message.authorImage;
   }
-
 
   showThread() {
     this.booleanService.toggleViewThread(true);
@@ -149,54 +144,71 @@ export class PrivateMessageComponent {
     this.editingMessageText += event.emoji.native;
   }
 
-
   isObjectWithCount(value: any): value is { count: number } {
     return typeof value === 'object' && value !== null && 'count' in value;
   }
 
+  async getExistingChat() {
+    return await this.DMService.retrieveChatDocumentReference();
+  }
+
+  async getMessageSnapshot(existingChatWithBothUsers: any, messageId: string) {
+    const messagesCollectionRef = collection(existingChatWithBothUsers.ref, 'chat-messages');
+    const messageDocRef = doc(messagesCollectionRef, messageId);
+    return { messageSnapshot: await getDoc(messageDocRef), messageDocRef };
+  }
+
+  async updateReactions(emoji: string, reactions: any, messageDocRef: any) {
+    if (reactions[emoji]) {
+      const userIndex = reactions[emoji].users.indexOf(this.currentUserId);
+      if (userIndex > -1) {
+        reactions[emoji].count -= 1;
+        reactions[emoji].users.splice(userIndex, 1);
+        if (reactions[emoji].count === 0) {
+          delete reactions[emoji];
+        }
+      } else {
+        reactions[emoji].count += 1;
+        reactions[emoji].users.push(this.currentUserId);
+      }
+    } else {
+      reactions[emoji] = { count: 1, users: [this.currentUserId] };
+    }
+
+    await updateDoc(messageDocRef, { reactions });
+  }
+
+  async subscribeToMessageUpdates(messageDocRef: any) {
+    this.unsubscribe = onSnapshot(messageDocRef, (docSnapshot: DocumentSnapshot) => {
+      if (docSnapshot.exists()) {
+        const data = docSnapshot.data();
+        this.message.reactions = data['reactions'];
+      }
+    });
+  }
 
   async addReaction(event: any) {
     const emoji = event.emoji.native;
     const messageId = this.message.id;
+
     try {
-      const existingChatWithBothUsers = await this.DMService.retrieveChatDocumentReference();
+      const existingChatWithBothUsers = await this.getExistingChat();
       if (existingChatWithBothUsers) {
-        const messagesCollectionRef = collection(existingChatWithBothUsers.ref, 'chat-messages');
-        const messageDocRef = doc(messagesCollectionRef, messageId);
-        const messageSnapshot = await getDoc(messageDocRef);
+        const { messageSnapshot, messageDocRef } = await this.getMessageSnapshot(existingChatWithBothUsers, messageId);
         if (messageSnapshot.exists()) {
           const data = messageSnapshot.data();
           let reactions = data['reactions'] || {};
-          if (reactions[emoji]) {
-            const userIndex = reactions[emoji].users.indexOf(this.currentUserId);
-            if (userIndex > -1) {
-              reactions[emoji].count -= 1;
-              reactions[emoji].users.splice(userIndex, 1);
-              if (reactions[emoji].count === 0) {
-                delete reactions[emoji];
-              }
-            } else {
-              reactions[emoji].count += 1;
-              reactions[emoji].users.push(this.currentUserId);
-            }
-          } else {
-            reactions[emoji] = { count: 1, users: [this.currentUserId] };
-          }
-          await updateDoc(messageDocRef, { reactions });
+
+          await this.updateReactions(emoji, reactions, messageDocRef);
+          await this.subscribeToMessageUpdates(messageDocRef);
+
+          this.viewEmojiPicker = false;
         }
-        this.unsubscribe = onSnapshot(messageDocRef, (docSnapshot) => {
-          if (docSnapshot.exists()) {
-            const data = docSnapshot.data();
-            this.message.reactions = data['reactions'];
-          }
-        });
-        this.viewEmojiPicker = false;
       }
     } catch (error) {
       console.error('Error adding reaction:', error);
     }
   }
-
 
   checkForImageTag() {
     if (this.message.text.includes('<img')) {

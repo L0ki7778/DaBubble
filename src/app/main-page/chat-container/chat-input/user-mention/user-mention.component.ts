@@ -111,13 +111,10 @@ export class UserMentionComponent {
     }
   }
 
-
-
   mentionUser(name: string) {
     this.userMentioned.emit(name);
     this.booleanService.userMention.set(false);
   }
-
 
   get filteredMembers() {
     if (this.searchTerm) {
@@ -129,8 +126,6 @@ export class UserMentionComponent {
     }
   }
 
-
-
   @HostListener('document:click', ['$event'])
   onclick(event: Event) {
     if (this.mention && this.mention.nativeElement && this.mention.nativeElement.contains(event.target)) {
@@ -139,4 +134,5 @@ export class UserMentionComponent {
       this.booleanService.userMention.set(false);
     }
   }
+
 }

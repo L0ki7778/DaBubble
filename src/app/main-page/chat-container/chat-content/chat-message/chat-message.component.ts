@@ -45,6 +45,7 @@ export class ChatMessageComponent {
   lastAnswerTime: string = '';
   imageTag: boolean = false;
 
+
   constructor() {
     this.selectionIdSubscription = this.selectionService.choosenChatTypeId.subscribe(newId => {
       this.choosenChatId = newId;
@@ -190,9 +191,9 @@ export class ChatMessageComponent {
     const diffInYears = diffInDays / 365;
 
     return { date, diffInHours, diffInDays, diffInWeeks, diffInMonths, diffInYears };
-}
+  }
 
-formatDateTime(date: Date, diffInHours: number, diffInDays: number, diffInWeeks: number, diffInMonths: number, diffInYears: number) {
+  formatDateTime(date: Date, diffInHours: number, diffInDays: number, diffInWeeks: number, diffInMonths: number, diffInYears: number) {
     let formattedDateTime = '';
     if (diffInHours < 24) {
       const options: Intl.DateTimeFormatOptions = {
@@ -213,13 +214,12 @@ formatDateTime(date: Date, diffInHours: number, diffInDays: number, diffInWeeks:
     }
 
     return formattedDateTime;
-}
+  }
 
-extractHoursAndMinutesFromUnixTime(unixTimeMs: number) {
+  extractHoursAndMinutesFromUnixTime(unixTimeMs: number) {
     const { date, diffInHours, diffInDays, diffInWeeks, diffInMonths, diffInYears } = this.getTimeDifferences(unixTimeMs);
     this.lastAnswerTime = this.formatDateTime(date, diffInHours, diffInDays, diffInWeeks, diffInMonths, diffInYears);
-}
-
+  }
 
   startEditing(messageId: string, messageText: string) {
     this.editMessage = true;
@@ -258,7 +258,6 @@ extractHoursAndMinutesFromUnixTime(unixTimeMs: number) {
     }
   }
 
-
   isObjectWithCount(value: any): value is { count: number } {
     return typeof value === 'object' && value !== null && 'count' in value;
   }
@@ -268,4 +267,5 @@ extractHoursAndMinutesFromUnixTime(unixTimeMs: number) {
       this.unsubscribeMessageAnswers();
     }
   }
+
 }
