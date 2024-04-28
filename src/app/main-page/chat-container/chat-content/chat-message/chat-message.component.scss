@@ -2,27 +2,22 @@
 
 .message-container {
     @include dFlex(start, center);
-    border-top: 1px solid $lightPurple;
-    padding: 2rem 1.5rem;
+    padding: 0 1.5rem 2rem 1.5rem;
     gap: 30px;
-
-    &:hover {
-        background-color: $bgColor;
-    }
-
-    &:hover app-reaction-bar {
-        opacity: 1;
-    }
 }
 
 app-reaction-bar {
-    opacity: 0;
     transition: all ease-in-out 0.2s;
 }
 
+.date-box {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-image: linear-gradient(to bottom, transparent 49%, $lightPurple 50%, transparent 51%);
+}
+
 .date-label {
-    position: relative;
-    top: 5%;
     background-color: white;
     border: 1px solid $lightPurple;
     padding: 2px 15px;
@@ -32,6 +27,10 @@ app-reaction-bar {
     line-height: 25px;
     letter-spacing: 0em;
     text-align: center;
+
+    &:hover{
+        cursor:default;
+    }
 }
 
 .avatar-icon {
@@ -229,6 +228,7 @@ app-reaction-bar {
     cursor: pointer;
     border: 1px solid var(--purple1);
     background-color: white;
+
     &:hover {
         background-color: var(--purple1);
         color: var(--bgColor);
@@ -244,6 +244,7 @@ app-reaction-bar {
     font-size: 18px;
     cursor: pointer;
     border: 1px solid var(--purple1);
+
     &:hover {
         background-color: var(--purple2);
         border: 1px solid var(--purple2);
@@ -256,7 +257,7 @@ app-reaction-bar {
         background-color: $bgColor;
         border-radius: 100%;
         padding: 4px;
-    
+
         path {
             fill: $purple3;
             transition: ease-in 150ms;

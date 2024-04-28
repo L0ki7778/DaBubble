@@ -69,7 +69,6 @@ export class ChatMessageComponent {
       });
       this.currentMessageId = this.message['docId'];
       this.subscribeMessageAnswerChanges();
-      this.checkForImageTag();
     }
   }
 
@@ -266,13 +265,6 @@ export class ChatMessageComponent {
   ngOnDestroy() {
     if (this.unsubscribeMessageAnswers) {
       this.unsubscribeMessageAnswers();
-    }
-  }
-
-
-  checkForImageTag() {
-    if (this.message.text.includes('<img')) {
-      this.imageTag = true;
     }
   }
 }

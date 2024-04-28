@@ -33,12 +33,16 @@ app-thread {
     min-width: 15%;
     max-width: 20%;
     transition: all ease .25s;
+    padding: 0 !important;
+    padding-bottom: 2rem !important;
 }
 
 app-chat-container {
     display: flex;
     align-items: center;
     transition: all ease .25s;
+    padding: 0 !important;
+    padding-bottom: 2rem !important;
 }
 
 app-overlay {
