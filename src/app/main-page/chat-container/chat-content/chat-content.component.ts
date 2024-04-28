@@ -117,4 +117,5 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
       this.unsubscribeChannelMessages();
     }
   }
+
 }

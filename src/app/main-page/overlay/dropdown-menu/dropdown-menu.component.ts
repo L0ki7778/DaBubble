@@ -16,7 +16,6 @@ export class DropdownMenuComponent {
   overlay = inject(OverlayService);
   booleanService = inject(BooleanValueService);
   authService: AuthService = inject(AuthService);
-
   @ViewChild('profileMenu') profileMenu: ElementRef | null = null;
 
 
@@ -29,7 +28,6 @@ export class DropdownMenuComponent {
     }
   }
 
-
   openProfileView(event: MouseEvent) {
     event.stopPropagation();
     this.overlay.closeOverlay();
@@ -39,4 +37,5 @@ export class DropdownMenuComponent {
   logout() {
     this.authService.logout();
   }
+
 }

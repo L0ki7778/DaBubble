@@ -23,18 +23,17 @@ export class AddMemberOverlayComponent {
   selectedUser: boolean = false;
   selectedUserId: string = '';
   userSelectionValid: boolean = false;
-
   @Input() channelMemberIds: string[] = [];
   @Input() channelName: string = '';
   @Input() channelId: string = '';
-
   @ViewChild('addMember') addMember: ElementRef | null = null;
+
 
   constructor() {
     const unsubscribeUsers = onSnapshot(this.usersQuery, { includeMetadataChanges: true }, (usersQuerySnapshot) => {
       this.noMemberUsers = [];
       usersQuerySnapshot.forEach((user) => {
-        if (!this.channelMemberIds.includes(user.id)) {   // filtert die bereits hinzugefügten Users aus 
+        if (!this.channelMemberIds.includes(user.id)) {
           this.noMemberUsers.push({ id: user.id, name: user.data()['name'], image: user.data()['image'] });
         }
       });
@@ -66,9 +65,9 @@ export class AddMemberOverlayComponent {
   async addSelectedUser() {
     this.userSelectionValid = false;
     const channelRef = doc(this.firestore, "channels", this.channelId);
-    if(this.selectedUserId !== ''){
-    await updateDoc(channelRef, { members: arrayUnion(this.selectedUserId) });
-    this.closeOverlay();
+    if (this.selectedUserId !== '') {
+      await updateDoc(channelRef, { members: arrayUnion(this.selectedUserId) });
+      this.closeOverlay();
     }
   }
 
@@ -89,4 +88,5 @@ export class AddMemberOverlayComponent {
       this.overlay.closeOverlay();
     }
   }
+
 }

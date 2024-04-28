@@ -31,6 +31,7 @@ export class HeadComponent {
     authSubscription: Subscription | null = null;
     private userNameSubscription: Subscription | null = null;
 
+
     ngOnInit() {
         this.loggedInUser();
         this.findImageUrl();
@@ -47,16 +48,16 @@ export class HeadComponent {
         }
         if (this.userNameSubscription) {
             this.userNameSubscription.unsubscribe();
-          }
+        }
     }
 
     private subscribeToUserName() {
         this.userNameSubscription = this.authService.userName$.subscribe(
-          (newName) => {
-            this.name = newName;
-          }
+            (newName) => {
+                this.name = newName;
+            }
         );
-      }
+    }
 
     findImageUrl() {
         this.authSubscription = new Subscription(() => {
@@ -94,4 +95,5 @@ export class HeadComponent {
         });
         this.authSubscription.add(unsubscribe);
     }
+
 }

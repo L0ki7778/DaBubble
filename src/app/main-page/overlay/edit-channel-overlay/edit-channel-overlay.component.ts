@@ -23,22 +23,17 @@ export class EditChannelOverlayComponent {
   selectionService = inject(SelectionService);
   overlay = inject(OverlayService)
   firestore = inject(Firestore)
-
   editName: boolean = false;
   editDescription: boolean = false;
   channelName: string = '';
   description: string = '';
   authorId: string = '';
+  unsubChannel: any;
   authorName: string = '';
   members: string[] = [];
-
   @Input() channelId: string = '';
   @ViewChild('editView') editView: ElementRef | null = null;
 
-
-  unsubChannel: any;
-
-  constructor() { }
 
   ngOnInit() {
     if (this.channelId)
@@ -111,4 +106,5 @@ export class EditChannelOverlayComponent {
     if (this.unsubChannel)
       this.unsubChannel();
   }
+
 }

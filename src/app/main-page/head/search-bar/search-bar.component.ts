@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CollectionReference, collection, onSnapshot, query } from 'firebase/firestore';
 import { SelectionService } from '../../../services/selection.service';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
@@ -23,6 +23,7 @@ export class SearchBarComponent {
   private unsubscribeChannel: (() => void) | undefined;
   currentUserID: string | null = '';
   selectionService = inject(SelectionService);
+
 
   async ngOnInit() {
     this.filterChannels();
@@ -63,4 +64,5 @@ export class SearchBarComponent {
     this.booleanService.toggleViewThread(false);
     this.DMService.showDropdown = false;
   }
+
 }

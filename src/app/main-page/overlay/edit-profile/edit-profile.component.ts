@@ -22,6 +22,7 @@ export class EditProfileComponent {
   @ViewChild('nameInput') nameInput!: ElementRef;
   @ViewChild('emailInput') emailInput!: ElementRef;
 
+
   @HostListener('document:click', ['$event'])
   onclick(event: Event) {
     if (this.editProfile && this.editProfile.nativeElement.contains(event.target)) {
@@ -54,7 +55,7 @@ export class EditProfileComponent {
       } else {
         console.error('Kein angemeldeter Benutzer gefunden');
       }
-      await setDoc(userDocRef, { name: newName, email: newEmail }, { merge: true }); 
+      await setDoc(userDocRef, { name: newName, email: newEmail }, { merge: true });
       this.close();
     } catch (error) {
       console.error('Fehler beim Aktualisieren der Benutzerprofilinformationen:', error);
@@ -81,4 +82,5 @@ export class EditProfileComponent {
       throw error;
     }
   }
+
 }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, inject } from '@angular/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { CommonModule } from '@angular/common';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
@@ -23,8 +23,6 @@ export class MemberProfileComponent {
   firestore = inject(Firestore);
   usersRef: CollectionReference = collection(this.firestore, "users");
   unsubUser: any;
-  @ViewChild('memberView') memberView: ElementRef | null = null;
-
   memberId: any;
   userImage: string = 'assets/img/general/avatars/avatar3.svg';
   userName: string = 'Frederik Beck';
@@ -32,27 +30,37 @@ export class MemberProfileComponent {
   userMail: any = '';
   isSameUser: boolean = false;
   isDataLoaded = false;
+  @ViewChild('memberView') memberView: ElementRef | null = null;
+
 
   constructor() {
     if (this.selectionService.channelOrDM.value === 'channel') {
       this.memberId = this.selectionService.selectedMemberId;
-      this.unsubUser = onSnapshot(doc(this.usersRef, this.memberId), { includeMetadataChanges: true }, (user) => {
-        if (user.exists() && user.data()) {
-          this.userImage = user.data()['image'];
-          this.userMail = user.data()['email'];
-          this.userName = user.data()['name'];
-        }
-      });
-
-      this.checkIfSameUser()
+      this.fetchUserDetails(this.memberId);
+      this.checkIfSameUser();
     }
     if (this.selectionService.channelOrDM.value === 'direct-message') {
-      this.DMService.getUserEmailByName(this.DMService.selectedProfileName)
-        .then(email => this.userMail = email || 'unknown@example.com')
-        .catch(error => console.error('Error fetching user email:', error));
-      this.DMService.isSameUser()
-        .then(isSame => this.isSameUser = isSame)
-        .catch(error => console.error('Error checking if same user:', error));
+      this.fetchUserEmail();
+      this.checkIfSameUser();
+    }
+  }
+
+  async fetchUserDetails(memberId: string) {
+    this.unsubUser = onSnapshot(doc(this.usersRef, memberId), { includeMetadataChanges: true }, (user) => {
+      if (user.exists() && user.data()) {
+        this.userImage = user.data()['image'];
+        this.userMail = user.data()['email'];
+        this.userName = user.data()['name'];
+      }
+    });
+  }
+
+  async fetchUserEmail() {
+    try {
+      const email = await this.DMService.getUserEmailByName(this.DMService.selectedProfileName);
+      this.userMail = email || 'unknown@example.com';
+    } catch (error) {
+      console.error('Error fetching user email:', error);
     }
   }
 
@@ -89,4 +97,5 @@ export class MemberProfileComponent {
       this.unsubUser();
     }
   }
+  
 }
