@@ -62,23 +62,38 @@ export class MainPageComponent {
   }
 
   handleWorkspace() {
-    if (this.workspaceComponentRef) {
-      const workspaceElement: HTMLElement = this.workspaceComponentRef.nativeElement;
-      if (workspaceElement.style.width === '0px') {
-        this.workspaceOpen = true;
-        workspaceElement.style.width = '';
-        workspaceElement.style.margin = '';
-        workspaceElement.style.opacity = '';
-        setTimeout(() => {
-          workspaceElement.style.minWidth = '';
-        }, 250)
-      } else {
-        this.workspaceOpen = false;
-        workspaceElement.style.width = '0';
-        workspaceElement.style.minWidth = 'unset';
-        workspaceElement.style.margin = '0 -2rem';
-        workspaceElement.style.opacity = '0';
-      }
-    }
+    if (!this.workspaceComponentRef) return;
+
+    const workspaceElement: HTMLElement = this.workspaceComponentRef.nativeElement;
+    const isOpen = workspaceElement.style.width === '0px';
+
+    isOpen ? this.openWorkspace(workspaceElement) : this.closeWorkspace(workspaceElement);
   }
+
+  setWorkspaceStyles(workspaceElement: HTMLElement, styles: Partial<CSSStyleDeclaration>) {
+    Object.assign(workspaceElement.style, styles);
+  }
+
+  openWorkspace(workspaceElement: HTMLElement) {
+    this.workspaceOpen = true;
+    this.setWorkspaceStyles(workspaceElement, {
+      width: '',
+      margin: '',
+      opacity: ''
+    });
+    setTimeout(() => {
+      workspaceElement.style.minWidth = '';
+    }, 250);
+  }
+
+  closeWorkspace(workspaceElement: HTMLElement) {
+    this.workspaceOpen = false;
+    this.setWorkspaceStyles(workspaceElement, {
+      width: '0',
+      minWidth: 'unset',
+      margin: '0 -2rem',
+      opacity: '0'
+    });
+  }
+
 }

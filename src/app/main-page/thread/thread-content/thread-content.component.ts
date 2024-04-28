@@ -79,8 +79,8 @@ export class ThreadContentComponent {
 
   ngAfterViewInit() {
       setTimeout(() => {
-        this.scrollToBottom();
         this.waitForImagesToLoad();
+        this.scrollToBottom();
       }, 1);
   }
 

@@ -26,6 +26,7 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
   choosenChatId: string = '';
   isLoading: boolean = false;
   messages: any[] = [];
+  
 
   constructor(private renderer: Renderer2) {
     this.selectionIdSubscription = this.selectionService.choosenChatTypeId.subscribe(newId => {
