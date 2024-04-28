@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild, inject } from '@angular/core';
 import { BooleanValueService } from '../../../../../services/boolean-value.service';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
-import { Firestore, collection, doc, getDoc, onSnapshot, updateDoc } from '@angular/fire/firestore';
+import { DocumentSnapshot, Firestore, collection, doc, getDoc, onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { SelectionService } from '../../../../../services/selection.service';
 import { DirectMessagesService } from '../../../../../services/direct-messages.service';
@@ -38,6 +38,7 @@ export class ReactionBarComponent {
   currentUserId: string | null = null;
   unsubscribe: any;
 
+
   constructor() {
     this.selectionIdSubscription = this.selectionService.choosenChatTypeId.subscribe(newId => {
       this.choosenChatId = newId;
@@ -45,24 +46,20 @@ export class ReactionBarComponent {
     this.getCurrentUserId();
   }
 
-
   ngOnDestroy() {
     if (this.unsubscribe) {
       this.unsubscribe();
     }
   }
 
-
   async getCurrentUserId() {
     this.currentUserId = await this.DMService.getLoggedInUserId();
   }
-
 
   showOption(event: MouseEvent) {
     event.stopPropagation();
     this.viewOption = true;
   }
-
 
   @HostListener('document:click', ['$event'])
   onclick(event: Event) {
@@ -82,12 +79,11 @@ export class ReactionBarComponent {
   }
 
   showThread() {
-    if(this.message){
+    if (this.message) {
       this.booleanService.toggleViewThread(true);
       this.selectionService.choosenMessageId.next(this.message.docId);
     }
   }
-
 
   showEmojiPicker(event: MouseEvent) {
     event.stopPropagation();
@@ -102,7 +98,6 @@ export class ReactionBarComponent {
       this.addEmojiPrivateMessage(event);
     }
   }
-
 
   addEmojiChannel(event: any) {
     const emoji = event.emoji.native;
@@ -135,6 +130,41 @@ export class ReactionBarComponent {
     });
   }
 
+  async updateReactions(emoji: string, reactions: any, messageDocRef: any) {
+    if (reactions[emoji]) {
+      const userIndex = reactions[emoji].users.indexOf(this.currentUserId);
+      if (userIndex > -1) {
+        reactions[emoji].count -= 1;
+        reactions[emoji].users.splice(userIndex, 1);
+
+        if (reactions[emoji].count === 0) {
+          delete reactions[emoji];
+        }
+      } else {
+        reactions[emoji].count += 1;
+        reactions[emoji].users.push(this.currentUserId);
+      }
+    } else {
+      reactions[emoji] = { count: 1, users: [this.currentUserId] };
+    }
+
+    await updateDoc(messageDocRef, { reactions });
+  }
+
+  async getMessageSnapshot(existingChatWithBothUsers: any, messageId: string) {
+    const messagesCollectionRef = collection(existingChatWithBothUsers.ref, 'chat-messages');
+    const messageDocRef = doc(messagesCollectionRef, messageId);
+    return { messageSnapshot: await getDoc(messageDocRef), messageDocRef };
+  }
+
+  async subscribeToMessageUpdates(messageDocRef: any) {
+    this.unsubscribe = onSnapshot(messageDocRef, (docSnapshot: DocumentSnapshot) => {
+      if (docSnapshot.exists()) {
+        const data = docSnapshot.data();
+        this.privateMessage.reactions = data['reactions'];
+      }
+    });
+  }
 
   async addEmojiPrivateMessage(event: any) {
     const emoji = event.emoji.native;
@@ -143,42 +173,16 @@ export class ReactionBarComponent {
     try {
       const existingChatWithBothUsers = await this.DMService.retrieveChatDocumentReference();
       if (existingChatWithBothUsers) {
-        const messagesCollectionRef = collection(existingChatWithBothUsers.ref, 'chat-messages');
-        const messageDocRef = doc(messagesCollectionRef, messageId);
-
-        const messageSnapshot = await getDoc(messageDocRef);
+        const { messageSnapshot, messageDocRef } = await this.getMessageSnapshot(existingChatWithBothUsers, messageId);
         if (messageSnapshot.exists()) {
           const data = messageSnapshot.data();
           let reactions = data['reactions'] || {};
 
-          if (reactions[emoji]) {
-            const userIndex = reactions[emoji].users.indexOf(this.currentUserId);
-            if (userIndex > -1) {
-              reactions[emoji].count -= 1;
-              reactions[emoji].users.splice(userIndex, 1);
+          await this.updateReactions(emoji, reactions, messageDocRef);
+          await this.subscribeToMessageUpdates(messageDocRef);
 
-              if (reactions[emoji].count === 0) {
-                delete reactions[emoji];
-              }
-            } else {
-              reactions[emoji].count += 1;
-              reactions[emoji].users.push(this.currentUserId);
-            }
-          } else {
-            reactions[emoji] = { count: 1, users: [this.currentUserId] };
-          }
-
-          await updateDoc(messageDocRef, { reactions });
+          this.viewEmojiPicker = false;
         }
-
-        this.unsubscribe = onSnapshot(messageDocRef, (docSnapshot) => {
-          if (docSnapshot.exists()) {
-            const data = docSnapshot.data();
-            this.privateMessage.reactions = data['reactions'];
-          }
-        });
-
-        this.viewEmojiPicker = false;
       }
     } catch (error) {
       console.error('Error adding reaction:', error);
