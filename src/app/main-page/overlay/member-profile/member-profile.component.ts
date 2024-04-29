@@ -23,7 +23,7 @@ export class MemberProfileComponent {
   firestore = inject(Firestore);
   usersRef: CollectionReference = collection(this.firestore, "users");
   unsubUser: any;
-  memberId: any;
+  memberId?: string;
   userImage: string = 'assets/img/general/avatars/avatar3.svg';
   userName: string = 'Frederik Beck';
   userStatus: 'online' | 'offline' = 'online';
@@ -35,7 +35,7 @@ export class MemberProfileComponent {
 
   constructor() {
     if (this.selectionService.channelOrDM.value === 'channel') {
-      this.memberId = this.selectionService.selectedMemberId;
+      this.memberId = this.selectionService.selectedMemberId.value;
       this.fetchUserDetails(this.memberId);
       this.checkIfSameUser();
     }
