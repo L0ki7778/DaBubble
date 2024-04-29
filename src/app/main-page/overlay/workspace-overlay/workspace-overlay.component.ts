@@ -66,4 +66,5 @@ export class WorkspaceOverlayComponent {
       this.overlay.closeOverlay();
     }
   }
+
 }

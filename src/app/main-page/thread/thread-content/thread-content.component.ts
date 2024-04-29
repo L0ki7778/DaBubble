@@ -20,15 +20,12 @@ export class ThreadContentComponent {
 
   @Input() answer: any;
   @Output() editingStarted = new EventEmitter<{ messageId: string, messageText: string }>();
-
   edit: ElementRef | null = null;
   emoji: ElementRef | null = null;
-
   firestore = inject(Firestore);
   selectionService = inject(SelectionService);
   DMService = inject(DirectMessagesService);
   overlay = inject(OverlayService);
-
   viewEmojiPicker: boolean = false;
   message: any;
   messageUser: any = {};
@@ -36,18 +33,15 @@ export class ThreadContentComponent {
   answers: any[] = [];
   viewOption: boolean = false;
   isHovered: boolean = false;
-
-  private selectionIdSubscription: Subscription;
-  private unsubscribeChannelMessages: (() => void) | undefined;
-  @ViewChild('chatThread') chatThread!: ElementRef;
-
-
-  selectionMessageIdSubscription?: Subscription;
-  unsubscribeMessageAnswers: (() => void) | undefined;
-  unsubscribeMessageToAnswer: (() => void) | undefined;
   choosenChatId: string = '';
   choosenMessageId: string = '';
   isOwnAnswer: boolean = false;
+  private selectionIdSubscription: Subscription;
+  private unsubscribeChannelMessages: (() => void) | undefined;
+  @ViewChild('chatThread') chatThread!: ElementRef;
+  selectionMessageIdSubscription?: Subscription;
+  unsubscribeMessageAnswers: (() => void) | undefined;
+  unsubscribeMessageToAnswer: (() => void) | undefined;
 
 
   constructor(private renderer: Renderer2) {
@@ -76,12 +70,11 @@ export class ThreadContentComponent {
     });
   }
 
-
   ngAfterViewInit() {
-      setTimeout(() => {
-        this.waitForImagesToLoad();
-        this.scrollToBottom();
-      }, 1);
+    setTimeout(() => {
+      this.waitForImagesToLoad();
+      this.scrollToBottom();
+    }, 1);
   }
 
   scrollToBottom() {
@@ -97,7 +90,6 @@ export class ThreadContentComponent {
     }
   }
 
-
   subscribeChannelMessagesChanges() {
     if (this.unsubscribeChannelMessages) {
       this.unsubscribeChannelMessages();
@@ -112,7 +104,6 @@ export class ThreadContentComponent {
       return
     }
   }
-
 
   loadMessageUser() {
     if (this.message && this.message.authorId) {
@@ -131,6 +122,28 @@ export class ThreadContentComponent {
     }
   }
 
+  formatPostTime(postDate: Date) {
+    const hours = postDate.getHours().toString().padStart(2, '0');
+    const minutes = postDate.getMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
+  }
+
+  formatPostDate(postDate: Date) {
+    return postDate.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' });
+  }
+
+  setMessageData(messageSnapshot: any) {
+    const postDate = new Date(messageSnapshot.data()['postTime']);
+    this.message = {
+      text: messageSnapshot.data()['text'],
+      posthour: this.formatPostTime(postDate),
+      postDay: this.formatPostDate(postDate),
+      reactions: messageSnapshot.data()['reactions'],
+      authorId: messageSnapshot.data()['authorId'],
+      docId: messageSnapshot.data()['docId']
+    }
+  }
+
   subscribeMessageToAnswer() {
     if (this.unsubscribeMessageToAnswer) {
       this.unsubscribeMessageToAnswer();
@@ -139,21 +152,7 @@ export class ThreadContentComponent {
       const messageDocRef = doc(this.firestore, 'channels', this.choosenChatId, 'messages', this.choosenMessageId);
       this.unsubscribeMessageAnswers = onSnapshot(messageDocRef, { includeMetadataChanges: true }, (messageSnapshot) => {
         if (messageSnapshot.exists()) {
-          const postDate = new Date(messageSnapshot.data()['postTime']);
-          const hours = postDate.getHours().toString().padStart(2, '0');
-          const minutes = postDate.getMinutes().toString().padStart(2, '0');
-          const formattedPostTime = `${hours}:${minutes}`;
-          const formattedPostDate = postDate.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' });
-
-          this.message = {
-            text: messageSnapshot.data()['text'],
-            posthour: formattedPostTime,
-            postDay: formattedPostDate,
-            reactions: messageSnapshot.data()['reactions'],
-            authorId: messageSnapshot.data()['authorId'],
-            docId: messageSnapshot.data()['docId']
-          }
-          messageSnapshot.data();
+          this.setMessageData(messageSnapshot);
           this.getCurrentUserId();
           this.loadMessageUser();
         }
@@ -163,6 +162,17 @@ export class ThreadContentComponent {
     }
   }
 
+  pushAnswerData(answer: any) {
+    const postDate = new Date(answer.data()['postTime']);
+    this.answers.push({
+      text: answer.data()['text'],
+      posthour: this.formatPostTime(postDate),
+      postDay: this.formatPostDate(postDate),
+      reactions: answer.data()['reactions'],
+      authorId: answer.data()['authorId'],
+      docId: answer.data()['docId']
+    });
+  }
 
   subscribeMessageAnswerChanges() {
     if (this.unsubscribeMessageAnswers) {
@@ -174,27 +184,14 @@ export class ThreadContentComponent {
       this.unsubscribeMessageAnswers = onSnapshot(q, { includeMetadataChanges: true }, (answersSnapshot) => {
         this.answers = [];
         answersSnapshot.docs.forEach((answer: any) => {
-          const postDate = new Date(answer.data()['postTime']);
-          const hours = postDate.getHours().toString().padStart(2, '0');
-          const minutes = postDate.getMinutes().toString().padStart(2, '0');
-          const formattedPostTime = `${hours}:${minutes}`;
-
-          const formattedPostDate = postDate.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' });
-
-          this.answers.push({
-            text: answer.data()['text'],
-            posthour: formattedPostTime,
-            postDay: formattedPostDate,
-            reactions: answer.data()['reactions'],
-            authorId: answer.data()['authorId'],
-            docId: answer.data()['docId']
-          });
+          this.pushAnswerData(answer);
         });
       });
     } else {
       return
     }
   }
+
 
   @HostListener('document:click', ['$event'])
   onclick(event: Event) {
@@ -295,4 +292,5 @@ export class ThreadContentComponent {
       this.unsubscribeChannelMessages();
     }
   }
+
 }

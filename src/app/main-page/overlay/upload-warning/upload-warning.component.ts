@@ -10,15 +10,12 @@ import { OverlayService } from '../../../services/overlay.service';
 })
 export class UploadWarningComponent {
   overlay = inject(OverlayService);
-
   @ViewChild('warningView') warningView: ElementRef | null = null;
-
 
 
   closeWarning() {
     this.overlay.closeOverlay();
   }
-
 
   @HostListener('document:click', ['$event'])
   onclick(event: Event) {
@@ -28,4 +25,5 @@ export class UploadWarningComponent {
       this.overlay.closeOverlay();
     }
   }
+
 }

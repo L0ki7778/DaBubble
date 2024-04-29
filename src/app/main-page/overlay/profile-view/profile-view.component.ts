@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, inject } from '@angular/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { CommonModule } from '@angular/common';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
@@ -17,6 +17,7 @@ export class ProfileViewComponent {
   overlay = inject(OverlayService);
   DMService = inject(DirectMessagesService);
   auth = inject(AuthService);
+
 
   ngOnInit() {
     this.findLoggedInUser();
@@ -40,16 +41,15 @@ export class ProfileViewComponent {
     }
   }
 
-
   close() {
     this.overlay.closeOverlay();
     setTimeout(() => this.overlay.toggleDropdownMenu(), 1);
   }
-
 
   openEditProfile(event: MouseEvent) {
     event.stopPropagation();
     this.overlay.closeOverlay();
     setTimeout(() => this.overlay.toggleEditProfile(), 1);
   }
+
 }
