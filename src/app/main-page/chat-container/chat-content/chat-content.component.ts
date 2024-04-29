@@ -48,7 +48,6 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
 
   scrollToBottom() {
     if (this.chatList) {
-      console.log('DM Service scroll to bottom triggered');
       this.renderer.setProperty(this.chatList.nativeElement, 'scrollTop', this.chatList.nativeElement.scrollHeight);
     }
   }

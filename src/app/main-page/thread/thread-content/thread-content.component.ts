@@ -86,7 +86,6 @@ export class ThreadContentComponent {
 
   scrollToBottom() {
     if (this.chatThread) {
-      console.log('Thread scroll to bottom triggered');
       this.renderer.setProperty(this.chatThread.nativeElement, 'scrollTop', this.chatThread.nativeElement.scrollHeight);
     }
   }
