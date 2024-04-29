@@ -23,19 +23,16 @@ export class ChatAnswerComponent {
   booleanService = inject(BooleanValueService);
   selectionService: SelectionService = inject(SelectionService);
   DMService: DirectMessagesService = inject(DirectMessagesService);
-
-  @Input() isOwnAnswer: boolean = false;
-  @Input() answer: any;
-  @ViewChild('emoji') emoji: ElementRef | null = null;
-  selectionIdSubscription: Subscription;
-
-
   isHovered: boolean = false;
   viewOption: boolean = false;
   viewEmojiPicker: boolean = false;
   user: any = {};
   choosenChatId: string = '';
   currentUserId: string | null = null;
+  @Input() isOwnAnswer: boolean = false;
+  @Input() answer: any;
+  @ViewChild('emoji') emoji: ElementRef | null = null;
+  selectionIdSubscription: Subscription;
 
 
   constructor() {
@@ -44,7 +41,6 @@ export class ChatAnswerComponent {
     });
     this.getCurrentUserId();
   }
-
 
   ngOnInit() {
     if (this.answer && this.answer.authorId) {
@@ -63,7 +59,6 @@ export class ChatAnswerComponent {
       });
     }
   }
-
 
   async getCurrentUserId() {
     this.currentUserId = await this.DMService.getLoggedInUserId();
@@ -115,7 +110,6 @@ export class ChatAnswerComponent {
     }
   }
 
-
   addEmoji(event: any) {
     const emoji = event.emoji.native;
     const docRef = doc(this.firestore, "channels", this.choosenChatId, "messages", this.selectionService.choosenMessageId.value, "answers", this.answer.docId);
@@ -150,4 +144,5 @@ export class ChatAnswerComponent {
   isObjectWithCount(value: any): value is { count: number } {
     return typeof value === 'object' && value !== null && 'count' in value;
   }
+
 }
