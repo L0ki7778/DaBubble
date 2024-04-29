@@ -48,6 +48,7 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
 
   scrollToBottom() {
     if (this.chatList) {
+      console.log('DM Service scroll to bottom triggered');
       this.renderer.setProperty(this.chatList.nativeElement, 'scrollTop', this.chatList.nativeElement.scrollHeight);
     }
   }
@@ -98,10 +99,10 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
 
   async loadChannelMessages() {
     const newMessages: any[] = [];
-    const collRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
-    const q = query(collRef, orderBy('postTime'));
+    const messagesRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages');
+    const messagesQuery = query(messagesRef, orderBy('postTime'));
 
-    const querySnapshot = await getDocs(q);
+    const querySnapshot = await getDocs(messagesQuery);
     querySnapshot.forEach((doc) => {
       newMessages.push(this.createMessage(doc));
     });
