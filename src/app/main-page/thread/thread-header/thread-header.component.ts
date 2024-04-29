@@ -1,5 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
-import { OverlayService } from '../../../services/overlay.service';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MainPageComponent } from '../../main-page.component';
 import { BooleanValueService } from '../../../services/boolean-value.service';
@@ -22,4 +21,5 @@ export class ThreadHeaderComponent {
   hideThread() {
     this.booleanService.toggleViewThread(false);
   }
+
 }

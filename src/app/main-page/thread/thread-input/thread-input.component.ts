@@ -30,10 +30,8 @@ export class ThreadInputComponent {
   selectionService: SelectionService = inject(SelectionService);
   overlayService = inject(OverlayService);
   channelSubscription: Subscription;
-
   @ViewChild('emoji') emoji: ElementRef | null = null;
   @ViewChild('textarea') textarea: ElementRef | any;
-
   answerContent: string = '';
   viewEmojiPicker: boolean = false;
   userMentionView: boolean = false;
@@ -47,6 +45,7 @@ export class ThreadInputComponent {
   atSignActive: boolean = false;
   userMention = this.booleanService.userMention;
   originalFile: File | null = null;
+
 
   constructor() {
     this.channelSubscription = this.selectionService.choosenChatTypeId$.subscribe(newChannel => {
@@ -87,28 +86,23 @@ export class ThreadInputComponent {
     this.selectedFileName = null;
   }
 
-  async onSubmit(answerContent: string) {
-    const trimmedChatContent = answerContent.trim();
-    if ((!trimmedChatContent && !this.selectedFile) || this.isUploading) {
-      return;
+  async uploadImage() {
+    if (!this.selectedFile) {
+      return '';
     }
-    this.isUploading = true;
-    let messageImage = '';
-    let uploadedFileUrl = '';
-    if (this.selectedFile) {
-      const file = this.dataURIToBlob(this.selectedFile.toString());
-      const filePath = `uploads/${this.originalFile?.name}`;
-      const storage = getStorage();
-      const storageRef = ref(storage, filePath);
-      await uploadBytes(storageRef, file);
-      uploadedFileUrl = await getDownloadURL(storageRef);
-      messageImage = `<div class="image-box"><img src="${uploadedFileUrl}"></div>`;
-    }
+    const file = this.dataURIToBlob(this.selectedFile.toString());
+    const filePath = `uploads/${this.originalFile?.name}`;
+    const storage = getStorage();
+    const storageRef = ref(storage, filePath);
+    await uploadBytes(storageRef, file);
+    const uploadedFileUrl = await getDownloadURL(storageRef);
+    return `<div class="image-box"><img src="${uploadedFileUrl}"></div>`;
+  }
+
+  async addAnswer(messageContent: string) {
     const currentUser = await this.DMService.getLoggedInUserId();
     const currentChannel = this.selectionService.choosenChatTypeId.value;
     const currentMessage = this.selectionService.choosenMessageId.value;
-    const messageText = this.answerContent.replace(/\n/g, '<br>');
-    const messageContent = `<div class="message-wrapper">${messageImage}<div class="text-container">${messageText}</div></div>`;
     const newDoc: any = await addDoc(collection(this.firestore, "channels", currentChannel, "messages", currentMessage, "answers"), {
       authorId: currentUser,
       postTime: new Date().getTime(),
@@ -116,13 +110,22 @@ export class ThreadInputComponent {
     });
     const newDocId = newDoc.id;
     await updateDoc(newDoc, { docId: newDocId });
-    this.answerContent = '';
-    this.deselectFile();
-
-    this.isUploading = false;
   }
 
-
+  async onSubmit(answerContent: string) {
+    const trimmedChatContent = answerContent.trim();
+    if ((!trimmedChatContent && !this.selectedFile) || this.isUploading) {
+      return;
+    }
+    this.isUploading = true;
+    const messageImage = await this.uploadImage();
+    const messageText = this.answerContent.replace(/\n/g, '<br>');
+    const messageContent = `<div class="message-wrapper">${messageImage}<div class="text-container">${messageText}</div></div>`;
+    await this.addAnswer(messageContent);
+    this.answerContent = '';
+    this.deselectFile();
+    this.isUploading = false;
+  }
 
   dataURIToBlob(dataURI: string) {
     const byteString = atob(dataURI.split(',')[1]);
@@ -134,7 +137,6 @@ export class ThreadInputComponent {
     }
     return new Blob([ab], { type: mimeString });
   }
-
 
   showEmojiPicker(event: MouseEvent) {
     event.stopPropagation();
@@ -164,4 +166,5 @@ export class ThreadInputComponent {
       this.channelSubscription.unsubscribe();
     }
   }
+
 }
