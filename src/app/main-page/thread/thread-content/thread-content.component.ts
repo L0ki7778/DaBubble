@@ -186,6 +186,7 @@ export class ThreadContentComponent {
         answersSnapshot.docs.forEach((answer: any) => {
           this.pushAnswerData(answer);
         });
+        this.ngAfterViewInit();
       });
     } else {
       return
