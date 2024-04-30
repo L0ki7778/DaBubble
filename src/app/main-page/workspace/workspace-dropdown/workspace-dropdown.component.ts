@@ -22,7 +22,6 @@ export class WorkspaceDropdownComponent {
   @Input() channel = false;
   @Input() active = true;
   @ViewChild('arrow') arrow: HTMLImageElement | undefined;
-
   selectionService = inject(SelectionService);
   authService: AuthService = inject(AuthService);
   booleanService = inject(BooleanValueService);
@@ -35,6 +34,7 @@ export class WorkspaceDropdownComponent {
   showList = false;
   currentUserID: string | null = '';
   filteredChannelNames: string[] = [];
+
 
   async ngOnInit() {
     this.currentUserID = await this.DMService.getLoggedInUserId();
@@ -82,8 +82,9 @@ export class WorkspaceDropdownComponent {
     this.booleanService.toggleViewThread(false);
   }
 
-  createCannel(event: MouseEvent){
+  createCannel(event: MouseEvent) {
     event.stopPropagation();
     this.overlayService.toggleWorkspaceOverlay();
   }
+
 }

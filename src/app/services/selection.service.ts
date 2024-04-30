@@ -1,9 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { Firestore, getDocs } from '@angular/fire/firestore';
-import { collection, query, where, onSnapshot, CollectionReference, doc, getDoc } from "firebase/firestore";
-import { BehaviorSubject, timestamp } from 'rxjs';
+import { collection, query, onSnapshot, CollectionReference, doc, getDoc } from "firebase/firestore";
+import { BehaviorSubject } from 'rxjs';
 import { DirectMessagesService } from './direct-messages.service';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,14 +27,12 @@ export class SelectionService {
   selectedMemberId = new BehaviorSubject<string>('');
   selectedMemberId$ = this.selectedMemberId.asObservable();
 
-
   channelsRef: CollectionReference = collection(this.firestore, "channels");
   channelsQuery = query(this.channelsRef);
   directMessagesRef: CollectionReference = collection(this.firestore, "direct-messages");
   directMessagesQuery = query(this.directMessagesRef);
   unsubChannels: any;
   unsubDM: any;
-
 
 
   constructor() {
@@ -48,7 +45,7 @@ export class SelectionService {
     this.loadData();
   }
 
-  loadData() {
+  loadChannels() {
     this.unsubChannels = onSnapshot(this.channelsQuery,
       { includeMetadataChanges: true }, (querySnapshot) => {
         this.channelNames = [];
@@ -61,6 +58,9 @@ export class SelectionService {
         });
         this.getFirstDocumentId();
       });
+  }
+
+  loadDirectMessages() {
     this.unsubDM = onSnapshot(this.directMessagesQuery, { includeMetadataChanges: true }, (querySnapshot) => {
       this.DMIds = [];
       querySnapshot.forEach((doc) => {
@@ -72,9 +72,14 @@ export class SelectionService {
     });
   }
 
+  loadData() {
+    this.loadChannels();
+    this.loadDirectMessages();
+  }
+
   async getFirstDocumentId() {
     const usersCollection = collection(this.firestore, 'users');
-    const usersDocs = await getDocs(usersCollection); 
+    const usersDocs = await getDocs(usersCollection);
     if (this.channelIds.length === 0 && this.DMIds.length === 0) {
       if (usersDocs.docs.length > 0) {
         const firstUserDoc = usersDocs.docs[0];
@@ -120,5 +125,3 @@ export class SelectionService {
   }
 
 }
-
-

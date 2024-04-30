@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, inject, signal } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { HeadComponent } from './head/head.component';
 import { ChatContainerComponent } from './chat-container/chat-container.component';
 import { ThreadComponent } from './thread/thread.component';
@@ -33,11 +33,17 @@ export class MainPageComponent {
   booleanService = inject(BooleanValueService);
   DMService = inject(DirectMessagesService);
   workspaceOpen = true;
-  @ViewChild('WorkspaceComponent', { read: ElementRef }) workspaceComponentRef: ElementRef | undefined;
-
   overlay: any;
   showThread: boolean = false;
   private subscription!: Subscription;
+  @ViewChild('WorkspaceComponent', { read: ElementRef }) workspaceComponentRef: ElementRef | undefined;
+
+
+  constructor() {
+    this.overlayService.overlaySubject.subscribe(() => {
+      this.overlay = this.overlayService.overlay;
+    });
+  }
 
   ngOnInit() {
     this.subscription = this.booleanService.viewThreadObservable.subscribe(
@@ -49,12 +55,6 @@ export class MainPageComponent {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-  }
-
-  constructor() {
-    this.overlayService.overlaySubject.subscribe(() => {
-      this.overlay = this.overlayService.overlay;
-    });
   }
 
   hideSearchList() {

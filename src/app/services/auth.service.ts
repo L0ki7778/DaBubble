@@ -16,7 +16,6 @@ export class AuthService {
   public firestore: Firestore = inject(Firestore);
   private router: Router = inject(Router);
   private location: Location = inject(Location);
-
   email: string = '';
   password: string = '';
   name: string = '';
@@ -32,20 +31,19 @@ export class AuthService {
   userImage: string = 'assets/img/start-page/unknown.svg';
   userName: any = 'Frederik Beck';
   userMail: string | null = 'fred.beck@email.com';
-
-
   user$ = user(this.auth);
   userSubscription: Subscription = new Subscription();
   private _userName = new BehaviorSubject<string | null>(null);
   userName$ = this._userName.asObservable();
 
-  updateUserName(newName: string | null) {
-    this._userName.next(newName);
-  }
 
   constructor(private ngZone: NgZone) {
     this.userSubscription = this.user$.subscribe((aUser: User | null) => {
     })
+  }
+
+  updateUserName(newName: string | null) {
+    this._userName.next(newName);
   }
 
   private createUserObject(): UserType {
@@ -128,6 +126,7 @@ export class AuthService {
       return 'assets/img/start-page/unknown.svg';
     }
   }
+
   async resetPassword(email: string) {
     this.resetPasswordEmail = email;
   }
@@ -157,8 +156,8 @@ export class AuthService {
   async logout() {
     try {
       await this.auth.signOut();
-        this.location.replaceState('/');
-        window.location.reload();
+      this.location.replaceState('/');
+      window.location.reload();
     } catch (error) {
       console.error('Error logging out:', error);
     }
@@ -167,4 +166,5 @@ export class AuthService {
   ngOnDestroy() {
     this.userSubscription.unsubscribe();
   }
+
 }

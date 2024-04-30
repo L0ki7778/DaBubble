@@ -8,5 +8,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './close-workspace.component.scss'
 })
 export class CloseWorkspaceComponent {
-@Input() workspaceOpen = true;
+  @Input() workspaceOpen = true;
+
 }

@@ -44,7 +44,6 @@ export class OverlayService {
     this.overlaySubject.next();
   }
 
-
   toggleEditChannelOverlay() {
     this.editChannelOverlay = !this.overlay;
     this.overlaySubject.next();
@@ -89,4 +88,5 @@ export class OverlayService {
     this.warning = !this.warning;
     this.overlaySubject.next();
   }
+  
 }

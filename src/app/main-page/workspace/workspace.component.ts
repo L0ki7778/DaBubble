@@ -16,9 +16,10 @@ import { WorkspaceHeaderComponent } from './workspace-header/workspace-header.co
 export class WorkspaceComponent {
 
   overlayService = inject(OverlayService)
-  
-  createCannel(event: MouseEvent){
+
+  createCannel(event: MouseEvent) {
     event.stopPropagation();
     this.overlayService.toggleWorkspaceOverlay();
   }
+
 }

@@ -15,6 +15,12 @@ export class DirectMessagesService {
   public firestore: Firestore = inject(Firestore);
   private authService: AuthService = inject(AuthService);
   filteredUserNames: { name: string, profileImage: string, id: string }[] = [];
+  public chatHistoryLoaded = new Subject<void>();
+  public chatHistoryLoaded$ = this.chatHistoryLoaded.asObservable();
+  public chatHistoryLoadedThread = new Subject<void>();
+  public chatHistoryLoadedThread$ = this.chatHistoryLoaded.asObservable();
+  isLoggedInWithgoogle = false;
+  showDropdown = false;
   messageText: string = '';
   selectedUserName: any;
   selectedUserImage?: string;
@@ -24,12 +30,7 @@ export class DirectMessagesService {
   showPrivateChat: boolean = false;
   chatMessages: any[] = [];
   locale = 'de-DE';
-  public chatHistoryLoaded = new Subject<void>();
-  public chatHistoryLoaded$ = this.chatHistoryLoaded.asObservable();
-  public chatHistoryLoadedThread = new Subject<void>();
-  public chatHistoryLoadedThread$ = this.chatHistoryLoaded.asObservable();
-  isLoggedInWithgoogle = false;
-  showDropdown = false;
+
 
   constructor(@Inject(LOCALE_ID) private localeId: string) {
   }
@@ -95,7 +96,7 @@ export class DirectMessagesService {
         (provider) => provider.providerId === GoogleAuthProvider.PROVIDER_ID
       );
       this.isLoggedInWithgoogle = providers.length > 0;
-    }else {
+    } else {
       this.isLoggedInWithgoogle = false;
     }
   }
@@ -279,11 +280,11 @@ export class DirectMessagesService {
         return userData['image'];
       } else {
         console.log(`User with ID ${authorId} not found`);
-        return 'default_image.png'; // oder ein anderes Standardbild
+        return 'default_image.png';
       }
     } catch (error) {
       console.error('Error fetching user image:', error);
-      return 'default_image.png'; // oder ein anderes Standardbild
+      return 'default_image.png';
     }
   }
 
@@ -294,4 +295,5 @@ export class DirectMessagesService {
       });
     });
   }
+
 }

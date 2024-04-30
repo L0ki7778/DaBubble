@@ -5,8 +5,6 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class BooleanValueService {
-
-  constructor() { }
   viewThread: boolean = false;
   private viewThreadSource = new Subject<boolean>();
   viewThreadObservable = this.viewThreadSource.asObservable();
@@ -17,4 +15,5 @@ export class BooleanValueService {
     this.viewThread = value;
     this.viewThreadSource.next(value);
   }
+
 }
