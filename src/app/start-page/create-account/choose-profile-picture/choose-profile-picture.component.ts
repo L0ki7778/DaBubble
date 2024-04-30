@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -16,7 +16,6 @@ export class ChooseProfilePictureComponent {
   authService: AuthService = inject(AuthService);
   isTranslated: boolean = true;
   @ViewChild('fileInput', { static: false }) fileInput: ElementRef | undefined;
-
   profileIcons: any = [
     'assets/img/start-page/women1.svg',
     'assets/img/start-page/men1.svg',

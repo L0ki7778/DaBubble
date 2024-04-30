@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { EmailAuthProvider, getAuth, signInWithEmailAndPassword, updatePassword } from 'firebase/auth';
-import { Firestore, collection, doc, getDoc, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
+import { Firestore, collection, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
 import { DirectMessagesService } from '../../services/direct-messages.service';
 import { StartPageComponent } from '../start-page.component';
 import { CommonModule } from '@angular/common';
@@ -20,12 +20,12 @@ export class EnterNewPasswordComponent {
   authService: AuthService = inject(AuthService);
   firestore: Firestore = inject(Firestore);
   DMService: DirectMessagesService = inject(DirectMessagesService);
-
   email: string | null = null;
   newPassword: string = '';
   confirmPassword: string = '';
   isTranslated: boolean = true;
   passwordsMatch: boolean = false;
+
 
   constructor() {
     this.email = this.authService.resetPasswordEmail;
@@ -101,4 +101,5 @@ export class EnterNewPasswordComponent {
     this.authService.showLogin = true;
     this.authService.showEnterNewPassword = false;
   }
+
 }

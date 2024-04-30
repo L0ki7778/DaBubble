@@ -16,8 +16,6 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-
-  
   title = 'dabubble';
 
 
@@ -27,4 +25,5 @@ export class AppComponent {
     const browserLanguage = translate.getBrowserLang();
     translate.use(browserLanguage?.match(/en|de/) ? browserLanguage : 'en');
   }
+
 }

@@ -23,7 +23,6 @@ export class LoginComponent {
   private auth: Auth = inject(Auth);
   private router: Router = inject(Router);
   authService: AuthService = inject(AuthService);
-
   email: string = '';
   password: string = '';
   emailError = false;
@@ -47,7 +46,6 @@ export class LoginComponent {
     event.preventDefault();
     await this.authService.loginAsGuest();
   }
-
 
   toggleToResetPassword() {
     this.authService.showLogin = false;

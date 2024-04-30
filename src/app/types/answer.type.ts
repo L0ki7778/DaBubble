@@ -1,7 +1,7 @@
 export type AnswerType = {
-    authorId: string;               // Doc.ID des verfassenden Users
-    postTime: number;               // Zeitpunkt des sendens der Nachricht
-    text: string;                   // Text/Inahalt der Nachricht
+    authorId: string;
+    postTime: number;
+    text: string;
 
     // authorName: string | null;      Name des verfassenden Users
     // authorImage: string | null;     Bild des verfassednen Users

@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LoginComponent } from './login/login.component';
 import { CommonModule } from '@angular/common';
 import { CreateAccountComponent } from './create-account/create-account.component';
@@ -11,27 +11,30 @@ import { OverlayService } from '../services/overlay.service';
 import { UploadWarningComponent } from "../main-page/overlay/upload-warning/upload-warning.component";
 
 @Component({
-    selector: 'app-start-page',
-    standalone: true,
-    templateUrl: './start-page.component.html',
-    styleUrl: './start-page.component.scss',
-    imports: [
-        LoginComponent,
-        CreateAccountComponent,
-        ResetPasswordComponent,
-        EnterNewPasswordComponent,
-        ChooseProfilePictureComponent,
-        CommonModule,
-        RouterLink,
-        UploadWarningComponent
-    ]
+  selector: 'app-start-page',
+  standalone: true,
+  templateUrl: './start-page.component.html',
+  styleUrl: './start-page.component.scss',
+  imports: [
+    LoginComponent,
+    CreateAccountComponent,
+    ResetPasswordComponent,
+    EnterNewPasswordComponent,
+    ChooseProfilePictureComponent,
+    CommonModule,
+    RouterLink,
+    UploadWarningComponent
+  ]
 })
 export class StartPageComponent {
-
   endAnimation: boolean = false;
-
   authService: AuthService = inject(AuthService);
   overlay: OverlayService = inject(OverlayService);
+
+
+  ngOnInit() {
+    setTimeout(() => this.endAnimation = true, 3000);
+  }
 
   toggleToCreateAccount() {
     this.authService.showLogin = !this.authService.showLogin;
@@ -47,7 +50,4 @@ export class StartPageComponent {
     this.authService.showChooseProfilePicture = this.authService.showChooseProfilePicture;
   }
 
-  ngOnInit() {
-    setTimeout(() => this.endAnimation = true, 3000);
-  }
 }

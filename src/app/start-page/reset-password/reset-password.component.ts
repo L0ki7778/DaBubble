@@ -19,6 +19,7 @@ export class ResetPasswordComponent {
   password: string = '';
   isTranslated: boolean = true;
 
+
   toggleToLogin() {
     this.authService.showLogin = true;
     this.authService.showResetPassword = false;
@@ -48,4 +49,5 @@ export class ResetPasswordComponent {
       console.error('Fehler beim Überprüfen der E-Mail-Adresse:', error);
     }
   }
+
 }

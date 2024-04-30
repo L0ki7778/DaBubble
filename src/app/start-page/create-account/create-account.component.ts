@@ -1,8 +1,4 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { Auth, User, user, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from '@angular/fire/auth';
-import { Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 
@@ -16,11 +12,10 @@ import { AuthService } from '../../services/auth.service';
 export class CreateAccountComponent {
 
   authService: AuthService = inject(AuthService);
-
   email: string = '';
   password: string = '';
   name: string = '';
-  
+
   async saveVariables() {
     this.authService.email = this.email;
     this.authService.password = this.password;
@@ -29,7 +24,8 @@ export class CreateAccountComponent {
   }
 
   toggleToLogin() {
-      this.authService.showLogin = true;
-      this.authService.showCreateAccount = false;
-    }
+    this.authService.showLogin = true;
+    this.authService.showCreateAccount = false;
   }
+
+}

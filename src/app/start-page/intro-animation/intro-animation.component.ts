@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
 export class IntroAnimationComponent {
   animation: boolean = true;
 
+
   ngOnInit() {
     setTimeout(() => this.animation = false, 2400);
   }
