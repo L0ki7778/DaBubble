@@ -3,7 +3,8 @@ header {
     justify-content: space-between;
     align-items: center;
     margin: 16px auto;
-    width: 98dvw;
+    width: 97dvw;
+    gap: 9%;
 }
 
 app-search-bar {
@@ -13,12 +14,10 @@ app-search-bar {
 .head-logo {
     height: 70px;
     width: 240px;
-    padding-right: 199px;
 }
 
 .user-container {
     height: 70px;
-    margin-left: 58px;
     display: flex;
     justify-content: space-between;
     align-items: center;
