@@ -77,39 +77,54 @@ export class SelectionService {
     this.loadDirectMessages();
   }
 
-  async getFirstDocumentId() {
+  async getFirstUser() {
     const usersCollection = collection(this.firestore, 'users');
     const usersDocs = await getDocs(usersCollection);
+    if (usersDocs.docs.length > 0) {
+      const firstUserDoc = usersDocs.docs[0];
+      return firstUserDoc.data()['name'];
+    } else {
+      console.warn('Es wurden keine Benutzer in der Datenbank gefunden.');
+      return null;
+    }
+  }
+
+  async getOtherUserName() {
+    const directMessageDocRef = doc(this.firestore, 'direct-messages', this.DMIds[0]);
+    const directMessageDoc = await getDoc(directMessageDocRef);
+    if (directMessageDoc.exists()) {
+      const members = directMessageDoc.data()['members'];
+      const otherUserId = members.find((id: any) => id !== this.currentUserID);
+      if (otherUserId) {
+        return await this.dmService.getUserNameById(otherUserId);
+      } else {
+        console.warn('Es wurde keine andere Benutzer-ID in diesem Chat gefunden.');
+        return null;
+      }
+    } else {
+      console.warn('Das Direct-Message-Dokument wurde nicht gefunden.');
+      return null;
+    }
+  }
+
+  async getFirstDocumentId() {
     if (this.channelIds.length === 0 && this.DMIds.length === 0) {
-      if (usersDocs.docs.length > 0) {
-        const firstUserDoc = usersDocs.docs[0];
-        const otherUserName = firstUserDoc.data()['name'];
+      const otherUserName = await this.getFirstUser();
+      if (otherUserName) {
         this.channelOrDM.next('direct-message');
         this.dmService.selectedUserName = otherUserName;
         this.dmService.loadChatHistory();
-      } else {
-        console.warn('Es wurden keine Benutzer in der Datenbank gefunden.');
       }
     } else if (this.channelIds.length > 0) {
       this.channelOrDM.next('channel');
       this.choosenChatTypeId.next(this.channelIds[0]);
     } else if (this.DMIds.length > 0) {
       this.channelOrDM.next('direct-message');
-      const directMessageDocRef = doc(this.firestore, 'direct-messages', this.DMIds[0]);
-      const directMessageDoc = await getDoc(directMessageDocRef);
-      if (directMessageDoc.exists()) {
-        const members = directMessageDoc.data()['members'];
-        const otherUserId = members.find((id: any) => id !== this.currentUserID);
-        if (otherUserId) {
-          const otherUserName = await this.dmService.getUserNameById(otherUserId);
-          this.dmService.selectedUserName = otherUserName;
-          this.choosenChatTypeId.next(this.DMIds[0]);
-          this.dmService.loadChatHistory();
-        } else {
-          console.warn('Es wurde keine andere Benutzer-ID in diesem Chat gefunden.');
-        }
-      } else {
-        console.warn('Das Direct-Message-Dokument wurde nicht gefunden.');
+      const otherUserName = await this.getOtherUserName();
+      if (otherUserName) {
+        this.dmService.selectedUserName = otherUserName;
+        this.choosenChatTypeId.next(this.DMIds[0]);
+        this.dmService.loadChatHistory();
       }
     }
   }
