@@ -7,11 +7,12 @@ import { Subscription } from 'rxjs';
 import { SelectionService } from '../../../../services/selection.service';
 import { DirectMessagesService } from '../../../../services/direct-messages.service';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-chat-answer',
   standalone: true,
-  imports: [CommonModule, PickerComponent],
+  imports: [CommonModule, PickerComponent, FormsModule],
   templateUrl: './chat-answer.component.html',
   styleUrl: './chat-answer.component.scss'
 })
@@ -33,6 +34,9 @@ export class ChatAnswerComponent {
   @Input() answer: any;
   @ViewChild('emoji') emoji: ElementRef | null = null;
   selectionIdSubscription: Subscription;
+  editAnswer: boolean = false;
+  editingAnswerId: string | null = null;
+  editingAnswerText: string = '';
 
 
   constructor() {
@@ -93,7 +97,43 @@ export class ChatAnswerComponent {
     this.viewOption = true;
   }
 
-  startEditing() {
+  startEditing(answerId: string, answerText: string) {
+    this.editAnswer = true;
+    this.editingAnswerId = answerId;
+    this.editingAnswerText = this.extractTextFromAnswerContent(answerText);
+  }
+
+  cancelEditing() {
+    this.editingAnswerId = null;
+    this.editingAnswerText = '';
+    this.editAnswer = false;
+  }
+
+  extractTextFromAnswerContent(answerContent: string): string {
+    const textContainer = answerContent.match(/<div class="text-container">(.*?)<\/div>/s);
+    return textContainer ? textContainer[1].trim() : answerContent;
+  }
+
+  assembleAnswerContent(answerText: string, originalAnswerContent: string): string {
+    const answerImage = originalAnswerContent.match(/<div class="image-box">.*?<\/div>/s)?.[0] || '';
+    const textContainer = `<div class="text-container">${answerText}</div>`;
+    return `<div class="message-wrapper">${answerImage}${textContainer}</div>`;
+  }
+
+  async saveEditedAnswer() {
+    if (this.choosenChatId && this.selectionService.choosenMessageId.value && this.answer.docId) {
+      const answerRef = doc(this.firestore, "channels", this.choosenChatId, "messages", this.selectionService.choosenMessageId.value, "answers", this.answer.docId);
+
+      const originalMessageSnapshot = await getDoc(answerRef);
+      const originalMessageContent = originalMessageSnapshot.data()?.['text'];
+      const updatedMessageContent = this.assembleAnswerContent(this.editingAnswerText, originalMessageContent);
+
+      await updateDoc(answerRef, {
+        text: updatedMessageContent
+      })
+      
+      this.cancelEditing();
+    }
   }
 
   showEmojiPicker(event: MouseEvent) {

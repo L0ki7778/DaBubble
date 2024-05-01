@@ -8,18 +8,18 @@ import { DirectMessagesService } from '../../../services/direct-messages.service
 import { OverlayService } from '../../../services/overlay.service';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { ReactionBarComponent } from '../../chat-container/chat-content/chat-message/reaction-bar/reaction-bar.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-thread-content',
   standalone: true,
-  imports: [ChatAnswerComponent, CommonModule, PickerComponent, ReactionBarComponent],
+  imports: [ChatAnswerComponent, CommonModule, PickerComponent, ReactionBarComponent, FormsModule],
   templateUrl: './thread-content.component.html',
   styleUrl: './thread-content.component.scss'
 })
 export class ThreadContentComponent {
 
   @Input() answer: any;
-  @Output() editingStarted = new EventEmitter<{ messageId: string, messageText: string }>();
   edit: ElementRef | null = null;
   emoji: ElementRef | null = null;
   firestore = inject(Firestore);
@@ -36,6 +36,9 @@ export class ThreadContentComponent {
   choosenChatId: string = '';
   choosenMessageId: string = '';
   isOwnAnswer: boolean = false;
+  editMessage: boolean = false;
+  editingMessageId: string | null = null;
+  editingMessageText: string = '';
   private selectionIdSubscription: Subscription;
   private unsubscribeChannelMessages: (() => void) | undefined;
   @ViewChild('chatThread') chatThread!: ElementRef;
@@ -220,7 +223,42 @@ export class ThreadContentComponent {
     this.viewOption = true;
   }
 
-  startEditing() {
+  startEditing(messageId: string, messageText: string) {
+    this.editMessage = true;
+    this.editingMessageId = messageId;
+    this.editingMessageText = this.extractTextFromMessageContent(messageText);
+  }
+
+  cancelEditing() {
+    this.editingMessageId = null;
+    this.editingMessageText = '';
+    this.editMessage = false;
+  }
+
+  extractTextFromMessageContent(messageContent: string): string {
+    const textContainer = messageContent.match(/<div class="text-container">(.*?)<\/div>/s);
+    return textContainer ? textContainer[1].trim() : messageContent;
+  }
+
+  assembleMessageContent(messageText: string, originalMessageContent: string): string {
+    const messageImage = originalMessageContent.match(/<div class="image-box">.*?<\/div>/s)?.[0] || '';
+    const textContainer = `<div class="text-container">${messageText}</div>`;
+    return `<div class="message-wrapper">${messageImage}${textContainer}</div>`;
+  }
+
+  async saveEditedMessage() {
+    if (this.choosenChatId && this.selectionService.choosenMessageId.value) {
+      const messageRef = doc(this.firestore, "channels", this.choosenChatId, "messages", this.selectionService.choosenMessageId.value);
+
+      const originalMessageSnapshot = await getDoc(messageRef);
+      const originalMessageContent = originalMessageSnapshot.data()?.['text'];
+      const updatedMessageContent = this.assembleMessageContent(this.editingMessageText, originalMessageContent);
+
+      await updateDoc(messageRef, {
+        text: updatedMessageContent
+      })
+      this.cancelEditing();
+    }
   }
 
   onHover(): void {
