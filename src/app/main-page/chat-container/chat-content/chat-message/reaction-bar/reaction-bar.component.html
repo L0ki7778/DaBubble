@@ -1,4 +1,4 @@
-<div [ngStyle]="{'border-radius': isOwnMessage ? '25px 25px 0px 25px' : '25px 25px 25px 0px', 'flex-direction': isOwnMessage ? 'none' : 'row-reverse'}"
+<div [ngStyle]="{'border-radius': isOwnMessage ? '25px 25px 0px 25px' : '25px 25px 25px 0px'}"
     class="reaction-bar-container">
     <div (click)="showEmojiPicker($event)" class="smiley-img">
         <emoji-mart (emojiClick)="addEmoji($event)" #emoji *ngIf="viewEmojiPicker"

@@ -16,7 +16,8 @@
                 <div (click)="showEmojiPicker($event)" class="smiley-img">
                 </div>
                 <div *ngIf="isOwnAnswer" (click)="showOption($event)" class="edit-img"></div>
-                <span #edit *ngIf="viewOption" class="edit-answer" (click)="startEditing(answer.docId, answer.text)">Nachricht bearbeiten</span>
+                <span #edit *ngIf="viewOption" class="edit-answer"
+                    (click)="startEditing(answer.docId, answer.text)">Nachricht bearbeiten</span>
             </div>
             <div [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'row'}"
                 style="display: flex; justify-content: space-around; align-items: center; gap: 20px;">

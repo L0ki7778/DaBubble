@@ -101,6 +101,7 @@ export class ChatAnswerComponent {
     this.editAnswer = true;
     this.editingAnswerId = answerId;
     this.editingAnswerText = this.extractTextFromAnswerContent(answerText);
+    this.viewOption = false;
   }
 
   cancelEditing() {

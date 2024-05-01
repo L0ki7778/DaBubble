@@ -155,6 +155,12 @@ form {
     animation: spin 2s linear infinite;
 }
 
+.line {
+    height: 40px;
+    width: 1px;
+    background-color: var(--lightPurple);
+}
+
 
 @keyframes spin {
     0% {

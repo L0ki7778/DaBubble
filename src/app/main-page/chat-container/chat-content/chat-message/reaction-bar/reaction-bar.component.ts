@@ -76,6 +76,7 @@ export class ReactionBarComponent {
     if (this.messageId && this.messageText) {
       this.editingStarted.emit({ messageId: this.messageId, messageText: this.messageText });
     }
+    this.viewOption = false;
   }
 
   showThread() {

@@ -1,4 +1,4 @@
-<input type="text" placeholder="Code learning durchsuchen" (click)="showDropdownMenu()">
+<input type="text" placeholder="DABubble durchsuchen" (click)="showDropdownMenu()">
 <div class="dropdown-menu" *ngIf="this.DMService.showDropdown">
     <div class="headline">Channels</div>
     @for(channel of this.filteredChannelNames; track channel; let index = $index ) {
