@@ -5,7 +5,7 @@
 </div>
 <div class="message-container" (mouseover)="onHover()" (mouseleave)="onLeave()"
     [ngStyle]="{'flex-direction': isOwnMessage ? 'row-reverse' : 'none', 'background-color': isHovered ? '#ECEEFE' : 'white'}">
-    <img *ngIf="user.image" class="avatar-icon" (click)="openMemberView($event)" src="{{ user.image }}"
+    <img [ngStyle]="{'margin': isOwnMessage ? '16px 24px 0 0' : '16px 0 0 24px'}" *ngIf="user.image" class="avatar-icon" (click)="openMemberView($event)" src="{{ user.image }}"
         class="avatar-icon">
     <div class="message-box" [ngStyle]="{'align-items': isOwnMessage ? 'end' : 'start'}">
         <div class="message-header" [ngStyle]="{'flex-direction': isOwnMessage ? 'row' : 'row-reverse'}">
@@ -54,7 +54,7 @@
                         *ngIf="answers.length > 1">Antworten</span></span>
                 <span class="message-time">Letzte Antwort {{lastAnswerTime}}</span>
             </div>
-            <div *ngIf="message" class="reactions">
+            <div [ngStyle]="{'margin': isOwnMessage ? '0 0 0 24px' : '0 24px 0 0'}" *ngIf="message" class="reactions">
                 <p *ngFor="let reaction of message.reactions | keyvalue"
                     (click)="addEmoji({emoji: {native: reaction.key}})">
                     {{ reaction.key }}

@@ -3,8 +3,9 @@
 .message-container {
     @include dFlex(unset, end);
     border-top: 1px solid $lightPurple;
-    padding: 2rem 1.5rem;
+    padding: 0 0 10px 0;
     gap: 30px;
+    margin: 24px 0;
 
     &:hover {
         background-color: $bgColor;

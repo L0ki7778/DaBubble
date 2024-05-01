@@ -2,8 +2,9 @@
 
 .answer-container {
     @include dFlex(start, center);
-    padding: 1rem 1.5rem;
+    padding: 0 0 10px 0;
     gap: 30px;
+    margin: 24px 0;
 }
 
 .reaction-bar-container {

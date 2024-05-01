@@ -8,9 +8,8 @@
   </div>
   <div class="answer-container" (mouseover)="onHover()" (mouseleave)="onLeave()"
     [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'row', 'background-color': isHovered ? '#ECEEFE' : 'white'}">
-    <img *ngIf="messageUser.image" class="avatar-icon" (click)="openMemberView($event)" src="{{ messageUser.image }}"
-      class="avatar-icon">
-    <div class="answer-box" [ngStyle]="{'align-items': isOwnAnswer ? 'end' : 'start'}">
+    <img [ngStyle]="{'margin': isOwnAnswer ? '16px 24px 0 0' : '16px 0 0 24px'}" *ngIf="messageUser.image" class="avatar-icon" (click)="openMemberView($event)" src="{{ messageUser.image }}">
+    <div class="answer-box" [ngStyle]="{'align-items': isOwnAnswer ? 'end' : 'start', 'margin': isOwnAnswer ? '0 24px 0 0' : '0 0 0 24px'}">
       <div class="answer-header" [ngStyle]="{'flex-direction': isOwnAnswer ? 'row' : 'row-reverse'}">
         <div *ngIf="isHovered"
           [ngStyle]="{'border-radius': isOwnAnswer ? '25px 25px 0px 25px' : '25px 25px 25px 0px', 'flex-direction': isOwnAnswer ? 'none' : 'row-reverse'}"
@@ -18,7 +17,8 @@
           <div (click)="showEmojiPicker($event)" class="smiley-img">
           </div>
           <div *ngIf="isOwnAnswer" (click)="showOption($event)" class="edit-img"></div>
-          <span #edit *ngIf="viewOption" class="edit-message" (click)="startEditing(message.docId, message.text)">Nachricht
+          <span #edit *ngIf="viewOption" class="edit-message"
+            (click)="startEditing(message.docId, message.text)">Nachricht
             bearbeiten</span>
         </div>
         <div [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'row'}"

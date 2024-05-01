@@ -1,7 +1,7 @@
 <span class="date-label" [style.top]="imageTag ? '2%' : null">{{ DMService.getFormattedDate(message.postTime.toDate()) }}</span>
 <div class="message-container" (mouseover)="onHover()" (mouseleave)="onLeave()"
   [ngStyle]="{'flex-direction': isOwnMessage(message) ? 'row-reverse' : 'none'}">
-  <img (click)="openMemberView($event)" [src]="message.authorImage" class="avatar-icon">
+  <img [ngStyle]="{'margin': isOwnMessage(message) ? '16px 24px 0 0' : '16px 0 0 24px'}" (click)="openMemberView($event)" [src]="message.authorImage" class="avatar-icon">
   <div class="message-box" [ngStyle]="{'align-items': isOwnMessage(message) ? 'end' : 'start'}">
     <div class="message-header" [ngStyle]="{'flex-direction': isOwnMessage(message) ? 'row-reverse' : 'row'}">
       <div class="d-flex" [ngStyle]="{'flex-direction': isOwnMessage(message) ? 'row-reverse' : 'row'}">
@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <div *ngIf="message" class="reactions">
+    <div [ngStyle]="{'margin': isOwnMessage(message) ? '0 0 0 24px' : '0 24px 0 0'}" *ngIf="message" class="reactions">
       <p *ngFor="let reaction of message.reactions | keyvalue" (click)="addReaction({emoji: {native: reaction.key}})">
         {{ reaction.key }}
         <span *ngIf="isObjectWithCount(reaction.value)">{{ reaction.value.count }}</span>

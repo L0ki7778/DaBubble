@@ -2,8 +2,9 @@
 
 .message-container {
     @include dFlex(start, center);
-    padding: 0 1.5rem 2rem 1.5rem;
+    padding: 0 0 10px 0;
     gap: 30px;
+    margin: 24px 0;
 }
 
 app-reaction-bar {
@@ -38,6 +39,7 @@ app-reaction-bar {
     height: 50px;
     width: 50px;
     margin-top: 16px;
+    margin-right: 24px;
     border-radius: 100%;
     cursor: pointer;
 }
