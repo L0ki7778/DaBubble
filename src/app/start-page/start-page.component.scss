@@ -39,11 +39,12 @@ header {
         font-size: 18px;
         color: var(--purple2);
         text-align: center;
+        padding: 4px 12px;
 
         &:hover {
             cursor: pointer;
-            outline: 1px solid var(--purple2);
-            border-radius: 14px;
+            outline: 1px solid var(--lightPurple);
+            border-radius: 25px;
             font-weight: 500;
             color: var(--purple1);
         }
@@ -60,16 +61,16 @@ footer {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 0;
+    bottom: 1.5%;
 
     >p {
         margin: 15px;
-        padding: 0 10px;
+        padding: 4px 12px;
 
         &:hover {
             cursor: pointer;
-            outline: 1px solid var(--purple2);
-            border-radius: 14px;
+            outline: 1px solid var(--lightPurple);
+            border-radius: 25px;
             font-weight: 500;
             color: var(--purple1);
         }
