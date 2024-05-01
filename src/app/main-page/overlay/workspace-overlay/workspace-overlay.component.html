@@ -4,7 +4,7 @@
     <form [formGroup]="newChannel" (ngSubmit)="onSubmit($event)">
         <h4>{{"workspaceOverlay.nameHeader" | translate}}</h4>
         <div class="input-field">
-            <span>#</span> <input id="name" type="text" formControlName="name"
+            <span>#</span> <input id="name" type="text" formControlName="name" maxlength="24"
                 placeholder="{{'workspaceOverlay.nameExample' | translate}}" autocomplete="off">
         </div>
         <div class="inline">
