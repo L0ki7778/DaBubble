@@ -229,6 +229,7 @@
     justify-content: space-between;
     position: relative;
     bottom: 66px;
+    gap: 20px
 }
 
 .icon-fixer {
@@ -239,7 +240,7 @@
 }
 
 .edit-buttons {
-    gap: 30px;
+    gap: 10px;
     display: flex;
     justify-content: flex-end;
 }
@@ -247,9 +248,9 @@
 .cancel-button {
     color: var(--purple1);
     border-radius: 25px;
-    padding: 7px 15px 7px 15px;
+    padding: 5px 10px;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     border: 1px solid var(--purple1);
     background-color: white;
@@ -263,10 +264,10 @@
 .save-button {
     background-color: var(--purple1);
     border-radius: 25px;
-    padding: 7px 15px 7px 15px;
+    padding: 5px 10px;
     color: var(--bgColor);
     font-weight: 600;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     border: 1px solid var(--purple1);
 

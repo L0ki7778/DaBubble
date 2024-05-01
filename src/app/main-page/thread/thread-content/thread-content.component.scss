@@ -241,8 +241,8 @@ app-chat-answer {
 .edit-input-field {
     background-color: white;
     color: black;
-    border-top-left-radius: 30px;
     width: 100%;
+    border-top-left-radius: 30px;
     border: 1px solid var(--lightPurple);
     outline: none;
     resize: none;
@@ -260,6 +260,7 @@ app-chat-answer {
     justify-content: space-between;
     position: relative;
     bottom: 66px;
+    gap: 20px;
 }
 
 .icon-fixer {
@@ -270,7 +271,7 @@ app-chat-answer {
 }
 
 .edit-buttons {
-    gap: 30px;
+    gap: 10px;
     display: flex;
     justify-content: flex-end;
 }
@@ -278,9 +279,9 @@ app-chat-answer {
 .cancel-button {
     color: var(--purple1);
     border-radius: 25px;
-    padding: 7px 15px 7px 15px;
+    padding: 5px 10px ;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     border: 1px solid var(--purple1);
     background-color: white;
@@ -294,10 +295,10 @@ app-chat-answer {
 .save-button {
     background-color: var(--purple1);
     border-radius: 25px;
-    padding: 7px 15px 7px 15px;
+    padding: 5px 10px;
     color: var(--bgColor);
     font-weight: 600;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     border: 1px solid var(--purple1);
 
