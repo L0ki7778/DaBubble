@@ -22,7 +22,7 @@ input {
 
 .dropdown-menu {
     position: absolute;
-    min-width: 250px;
+    padding: 32px;
     background-color: white;
     margin-top: 16px;
     z-index: 1;
@@ -37,12 +37,10 @@ input {
 .headline {
     font-weight: bold;
     font-size: 20px;
-    margin-top: 20px;
-    margin-left: 40px;
+    margin-bottom: 12px;
 }
 
 .list {
-    margin-left: 40px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -63,7 +61,7 @@ input {
     }
 }
 
-.padding-user{
+.padding-user {
     padding: 5px 15px;
 }
 
@@ -72,7 +70,7 @@ input {
 }
 
 .active-dm {
-    border-radius: 35px;
+    border-radius: 30px;
     opacity: 0px;
     background-color: #ECEEFE;
     color: var(--purple3);
@@ -85,7 +83,7 @@ input {
 
 .active-channel {
     gap: 10px;
-    border-radius: 20px;
+    border-radius: 30px;
     opacity: 0px;
     background: #ECEEFE;
     color: var(--purple3);
