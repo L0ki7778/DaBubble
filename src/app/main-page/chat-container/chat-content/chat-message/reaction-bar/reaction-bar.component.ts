@@ -79,10 +79,8 @@ export class ReactionBarComponent {
   }
 
   showThread() {
-    if (this.message) {
       this.booleanService.toggleViewThread(true);
       this.selectionService.choosenMessageId.next(this.message.docId);
-    }
   }
 
   showEmojiPicker(event: MouseEvent) {

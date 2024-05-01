@@ -9,7 +9,7 @@
         class="avatar-icon">
     <div class="message-box" [ngStyle]="{'align-items': isOwnMessage ? 'end' : 'start'}">
         <div class="message-header" [ngStyle]="{'flex-direction': isOwnMessage ? 'row' : 'row-reverse'}">
-            <app-reaction-bar [privateMessage]="message" [isOwnMessage]="isOwnMessage"
+            <app-reaction-bar [privateMessage]="message" [message]="message" [isOwnMessage]="isOwnMessage"
                 [messageId]="this.message.authorId" [messageText]="message.text"
                 [ngStyle]="{'opacity': isHovered ? '1' : '0'}"
                 (editingStarted)="startEditing($event.messageId, $event.messageText)"></app-reaction-bar>
