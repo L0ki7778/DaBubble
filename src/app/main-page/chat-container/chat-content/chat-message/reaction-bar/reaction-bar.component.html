@@ -2,7 +2,7 @@
     class="reaction-bar-container">
     <div (click)="showEmojiPicker($event)" class="smiley-img">
         <emoji-mart (emojiClick)="addEmoji($event)" #emoji *ngIf="viewEmojiPicker"
-            [style]="{ position: 'absolute', bottom: '-325px', right: '20px' }"></emoji-mart>
+            [style]="{ position: 'absolute', bottom: '-200px', left: '-10px', 'z-index': '9' }"></emoji-mart>
     </div>
     <div *ngIf="this.selectionService.channelOrDM.value === 'channel'" (click)="showThread()" class="answer-img"></div>
     <div *ngIf="isOwnMessage" (click)="showOption($event)" class="edit-img"></div>
