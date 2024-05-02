@@ -4,7 +4,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { FormsModule } from '@angular/forms';
 import { doc, getDoc, onSnapshot } from 'firebase/firestore';
-import { Firestore, updateDoc } from '@angular/fire/firestore';
+import { Firestore, deleteDoc, updateDoc } from '@angular/fire/firestore';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
 import { SelectionService } from '../../../services/selection.service';
 
@@ -88,7 +88,12 @@ export class EditChannelOverlayComponent {
     const loggedInUserId = await this.dmService.getLoggedInUserId();
     const newMembers = this.members.filter(item => item !== loggedInUserId);
     const channelRef = doc(this.firestore, 'channels', this.channelId);
-    await updateDoc(channelRef, { members: newMembers });
+    if (newMembers.length === 0) {
+      await deleteDoc(channelRef);
+    }
+    else {
+      await updateDoc(channelRef, { members: newMembers });
+    }
     await this.selectionService.getFirstDocumentId();
     this.closeOverlay();
   }
