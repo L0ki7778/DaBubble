@@ -37,6 +37,7 @@ export class ChatMessageComponent {
   answersExist: boolean = false;
   isHovered: boolean = false;
   viewEmojiPicker: boolean = false;
+  viewEditEmojiPicker: boolean = false;
   user: any = {};
   answers: any[] = [];
   choosenChatId: string = '';
@@ -140,13 +141,23 @@ export class ChatMessageComponent {
     this.viewEmojiPicker = true;
   }
 
+  showEditEmojiPicker(event: MouseEvent) {
+    event.stopPropagation();
+    this.viewEditEmojiPicker = true;
+  }
+
   @HostListener('document:click', ['$event'])
   onclick(event: Event) {
     if (this.emoji && this.emoji.nativeElement && this.emoji.nativeElement.contains(event.target)) {
       return
     } else {
       this.viewEmojiPicker = false;
+      this.viewEditEmojiPicker = false;
     }
+  }
+
+  addEditedEmoji(event: any) {
+    this.editingMessageText += event.emoji.native;
   }
 
   addEmoji(event: any) {
