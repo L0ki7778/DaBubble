@@ -116,9 +116,9 @@ export class ChatAnswerComponent {
   }
 
   assembleAnswerContent(answerText: string, originalAnswerContent: string): string {
-    const answerImage = originalAnswerContent.match(/<div class="image-box">.*?<\/div>/s)?.[0] || '';
-    const textContainer = `<div class="text-container">${answerText}</div>`;
-    return `<div class="message-wrapper">${answerImage}${textContainer}</div>`;
+    const messageImage = originalAnswerContent.match(/<div class="image-box">.*?<\/div>/s)?.[0] || '';
+    const textContainer = `<div class="text-container">${answerText.replace(/\n/g, '<br>')}</div>`;
+    return `<div class="message-wrapper">${messageImage}${textContainer}</div>`;
   }
 
   async saveEditedAnswer() {

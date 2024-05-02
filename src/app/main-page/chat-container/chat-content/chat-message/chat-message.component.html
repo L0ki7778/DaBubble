@@ -32,7 +32,7 @@
             <p *ngIf="message" [innerHTML]="message.text"></p>
         </div>
         <div class="full-width" *ngIf="isOwnMessage && editMessage">
-            <input [(ngModel)]="editingMessageText" [value]="message.text" class="message-text edit-input-field">
+            <textarea [(ngModel)]="editingMessageText" [value]="message.text" class="message-text edit-input-field"></textarea>
             <div class="flex-box">
                 <div #emoji class="icon-fixer">
                     <svg (click)="showEditEmojiPicker($event)" width="20" height="20" viewBox="0 0 20 20" fill="none"

@@ -237,12 +237,14 @@ export class ThreadContentComponent {
 
   extractTextFromMessageContent(messageContent: string): string {
     const textContainer = messageContent.match(/<div class="text-container">(.*?)<\/div>/s);
-    return textContainer ? textContainer[1].trim() : messageContent;
+    let extractedText = textContainer ? textContainer[1].trim() : messageContent;
+    extractedText = extractedText.replace(/<br\/?>/g, '\n');
+    return extractedText;
   }
 
   assembleMessageContent(messageText: string, originalMessageContent: string): string {
     const messageImage = originalMessageContent.match(/<div class="image-box">.*?<\/div>/s)?.[0] || '';
-    const textContainer = `<div class="text-container">${messageText}</div>`;
+    const textContainer = `<div class="text-container">${messageText.replace(/\n/g, '<br>')}</div>`;
     return `<div class="message-wrapper">${messageImage}${textContainer}</div>`;
   }
 
