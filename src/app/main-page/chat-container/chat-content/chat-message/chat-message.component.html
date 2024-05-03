@@ -1,6 +1,5 @@
 <div class="date-box">
-    <span class="date-label" *ngIf="message" [ngStyle]="{'background-color': isHovered ? '#ECEEFE' : 'white'}"
-        (mouseover)="onHover()" (mouseleave)="onLeave()">
+    <span class="date-label" *ngIf="message" (mouseover)="onHover()" (mouseleave)="onLeave()">
         {{ message.postDay }}
     </span>
 </div>
