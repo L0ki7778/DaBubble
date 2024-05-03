@@ -15,9 +15,9 @@
         <span class="message-time">{{ (message.postTime.toDate() | date:'HH:mm') }} Uhr</span>
       </div>
       <app-reaction-bar [privateMessage]="message" [isOwnMessage]="isOwnMessage(message)" [messageId]="message.id"
-      [messageText]="message.text" [ngStyle]="{'opacity': isHovered ? '1' : '0'}"
-      (editingStarted)="startEditing($event.messageId, $event.messageText)">
-    </app-reaction-bar>
+        [messageText]="message.text" [ngStyle]="{'opacity': isHovered ? '1' : '0'}"
+        (editingStarted)="startEditing($event.messageId, $event.messageText)">
+      </app-reaction-bar>
     </div>
     <div *ngIf="!isOwnMessage(message) || (isOwnMessage(message) && !editMessage)">
       <div class="message-text" *ngIf="!isOwnMessage(message)"
@@ -31,9 +31,10 @@
         <p></p>
       </div>
     </div>
-    <div class="full-width" *ngIf="isOwnMessage(message) && editMessage">
-      <textarea [(ngModel)]="editingMessageText" [value]="message.text" class="message-text edit-input-field"></textarea>
-      <div class="flex-box">
+    <div class="edit-container" *ngIf="isOwnMessage(message) && editMessage">
+      <textarea [(ngModel)]="editingMessageText" [value]="message.text"
+        class="message-text edit-input-field"></textarea>
+      <div class="edit-btn">
         <div #emoji class="icon-fixer">
           <svg (click)="showEmojiPicker($event)" width="20" height="20" viewBox="0 0 20 20" fill="none"
             xmlns="http://www.w3.org/2000/svg" class="emoji-btn">
