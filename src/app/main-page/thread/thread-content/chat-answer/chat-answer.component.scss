@@ -5,6 +5,10 @@
     padding: 0 0 10px 0;
     gap: 30px;
     margin: 24px 0;
+
+    :hover .reaction-bar-container {
+        animation: slideInFromRight 0.2s ease-in-out;
+    }
 }
 
 .reaction-bar-container {
@@ -46,8 +50,8 @@
     letter-spacing: 0em;
     text-align: center;
 
-    &:hover{
-        cursor:default;
+    &:hover {
+        cursor: default;
     }
 }
 
@@ -294,5 +298,16 @@
             fill: $purple3;
             transition: ease-in 150ms;
         }
+    }
+}
+
+
+@keyframes slideInFromRight {
+    0% {
+        transform: translateX(40%);
+    }
+
+    100% {
+        transform: translateX(0);
     }
 }

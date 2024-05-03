@@ -12,7 +12,8 @@
             <app-reaction-bar [privateMessage]="message" [message]="message" [isOwnMessage]="isOwnMessage"
                 [messageId]="this.message.authorId" [messageText]="message.text"
                 [ngStyle]="{'opacity': isHovered ? '1' : '0'}"
-                (editingStarted)="startEditing($event.messageId, $event.messageText)"></app-reaction-bar>
+                (editingStarted)="startEditing($event.messageId, $event.messageText)">
+            </app-reaction-bar>
             <div>
                 <span (click)="openMemberView($event)" class="message-author">
                     {{ user.name }}

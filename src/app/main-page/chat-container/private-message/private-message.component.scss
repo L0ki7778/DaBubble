@@ -12,6 +12,7 @@
 
     &:hover app-reaction-bar {
         opacity: 1;
+        animation: slideInFromRight 0.2s ease-in-out;
     }
 }
 
@@ -38,8 +39,8 @@ app-reaction-bar {
     letter-spacing: 0em;
     text-align: center;
 
-    &:hover{
-        cursor:default;
+    &:hover {
+        cursor: default;
     }
 }
 
@@ -186,6 +187,7 @@ app-reaction-bar {
     cursor: pointer;
     border: 1px solid var(--purple1);
     background-color: white;
+
     &:hover {
         background-color: var(--purple1);
         color: var(--bgColor);
@@ -201,6 +203,7 @@ app-reaction-bar {
     font-size: 18px;
     cursor: pointer;
     border: 1px solid var(--purple1);
+
     &:hover {
         background-color: var(--purple2);
         border: 1px solid var(--purple2);
@@ -258,5 +261,16 @@ app-reaction-bar {
     &:hover {
         cursor: pointer;
         background-image: url('../../../../assets/img/general/smiley-hover.svg');
+    }
+}
+
+
+@keyframes slideInFromRight {
+    0% {
+        transform: translateX(40%);
+    }
+
+    100% {
+        transform: translateX(0);
     }
 }

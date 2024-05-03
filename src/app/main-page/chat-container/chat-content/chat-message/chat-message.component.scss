@@ -5,6 +5,10 @@
     padding: 0 0 10px 0;
     gap: 30px;
     margin: 24px 0;
+
+    :hover app-reaction-bar {
+        animation: slideInFromRight 0.2s ease-in-out;
+    }
 }
 
 app-reaction-bar {
@@ -271,5 +275,16 @@ app-reaction-bar {
             fill: $purple3;
             transition: ease-in 150ms;
         }
+    }
+}
+
+
+@keyframes slideInFromRight {
+    0% {
+        transform: translateX(40%);
+    }
+
+    100% {
+        transform: translateX(0);
     }
 }

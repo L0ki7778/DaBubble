@@ -17,6 +17,10 @@
     padding: 0 0 10px 0;
     gap: 30px;
     margin: 24px 0;
+
+    :hover .reaction-bar-container {
+        animation: slideInFromRight 0.2s ease-in-out;
+    }
 }
 
 app-chat-answer {
@@ -42,8 +46,8 @@ app-chat-answer {
     letter-spacing: 0em;
     text-align: center;
 
-    &:hover{
-        cursor:default;
+    &:hover {
+        cursor: default;
     }
 }
 
@@ -285,7 +289,7 @@ app-chat-answer {
 .cancel-button {
     color: var(--purple1);
     border-radius: 25px;
-    padding: 5px 10px ;
+    padding: 5px 10px;
     font-weight: 600;
     font-size: 16px;
     cursor: pointer;
@@ -325,5 +329,16 @@ app-chat-answer {
             fill: $purple3;
             transition: ease-in 150ms;
         }
+    }
+}
+
+
+@keyframes slideInFromRight {
+    0% {
+        transform: translateX(40%);
+    }
+
+    100% {
+        transform: translateX(0);
     }
 }
