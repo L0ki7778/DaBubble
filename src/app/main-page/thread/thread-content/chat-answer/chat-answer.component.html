@@ -6,8 +6,10 @@
 </div>
 <div class="answer-container" (mouseover)="onHover()" (mouseleave)="onLeave()"
     [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'none', 'background-color': isHovered ? '#ECEEFE' : 'white'}">
-    <img [ngStyle]="{'margin': isOwnAnswer ? '16px 24px 0 0' : '16px 0 0 24px'}" *ngIf="user.image" class="avatar-icon" (click)="openMemberView($event)" src="{{ user.image }}">
-    <div class="answer-box" [ngStyle]="{'align-items': isOwnAnswer ? 'end' : 'start', 'margin': isOwnAnswer ? '0 0 0 24px' : '0 24px 0 0'}">
+    <img [ngStyle]="{'margin': isOwnAnswer ? '16px 24px 0 0' : '16px 0 0 24px'}" *ngIf="user.image" class="avatar-icon"
+        (click)="openMemberView($event)" src="{{ user.image }}">
+    <div class="answer-box"
+        [ngStyle]="{'align-items': isOwnAnswer ? 'end' : 'start', 'margin': isOwnAnswer ? '0 0 0 24px' : '0 24px 0 0'}">
         <div class="answer-header" [ngStyle]="{'flex-direction': isOwnAnswer ? 'row' : 'row-reverse'}">
             <div *ngIf="isHovered"
                 [ngStyle]="{'border-radius': isOwnAnswer ? '25px 25px 0px 25px' : '25px 25px 25px 0px', 'flex-direction': isOwnAnswer ? 'none' : 'row-reverse'}"
@@ -37,9 +39,10 @@
             [ngStyle]="{'background-color': '#797EF3', 'color': 'white', 'border-top-left-radius': '30px'}">
             <p *ngIf="answer" [innerHTML]="answer.text"></p>
         </div>
-        <div class="full-width" *ngIf="isOwnAnswer && editAnswer">
-            <textarea [(ngModel)]="editingAnswerText" [value]="answer.text" class="answer-text edit-input-field"></textarea>
-            <div class="flex-box">
+        <div class="edit-container" *ngIf="isOwnAnswer && editAnswer">
+            <textarea [(ngModel)]="editingAnswerText" [value]="answer.text"
+                class="answer-text edit-input-field"></textarea>
+            <div class="edit-btn">
                 <div #emoji class="icon-fixer">
                     <svg (click)="showEmojiPicker($event)" width="20" height="20" viewBox="0 0 20 20" fill="none"
                         xmlns="http://www.w3.org/2000/svg" class="emoji-btn">

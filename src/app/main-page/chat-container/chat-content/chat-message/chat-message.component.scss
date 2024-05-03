@@ -191,8 +191,8 @@ app-reaction-bar {
     padding: 10px;
     box-sizing: border-box;
 
-    &:focus {
-        border: 1.5px solid var(--purple3);
+    &:hover {
+        border-color: var(--purple3);
     }
 }
 
