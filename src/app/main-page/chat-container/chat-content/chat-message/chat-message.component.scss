@@ -29,8 +29,8 @@ app-reaction-bar {
     letter-spacing: 0em;
     text-align: center;
 
-    &:hover{
-        cursor:default;
+    &:hover {
+        cursor: default;
     }
 }
 
@@ -181,32 +181,38 @@ app-reaction-bar {
     @include dFlex();
 }
 
-.full-width {
+.edit-container {
     width: 100%;
-}
-
-.edit-input-field {
-    background-color: white;
-    color: black;
     border-top-left-radius: 30px;
-    width: 100%;
     border: 1px solid var(--lightPurple);
-    outline: none;
-    resize: none;
-    padding-bottom: 80px;
-    display: flex;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    background-color: white;
+    padding: 10px;
+    box-sizing: border-box;
 
     &:focus {
         border: 1.5px solid var(--purple3);
     }
 }
 
-.flex-box {
+.edit-input-field {
+    background-color: white;
+    height: 64px;
+    color: black;
+    width: 100%;
+    outline: none;
+    resize: none;
+    display: flex;
+    box-sizing: border-box;
+    border: none;
+    padding: 4px 18px 0px 18px;
+}
+
+.edit-btn {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: relative;
-    bottom: 66px;
 }
 
 .icon-fixer {
