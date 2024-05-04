@@ -6,6 +6,7 @@ body {
     min-height: 100vh;
     max-width: 100vw;
     display: flex;
+    justify-content: center;
     overflow: hidden;
     position: relative;
 }
@@ -13,7 +14,9 @@ body {
 app-root {
     height: 100%;
     width: 100%;
+    max-width: 1920px;
     display: flex;
+    position: relative;
 }
 
 * {
