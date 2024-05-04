@@ -6,7 +6,7 @@
     overflow: hidden;
 }
 
-app-head{
+app-head {
     display: flex;
     width: 100%
 }
@@ -37,7 +37,7 @@ app-thread {
     display: flex;
     align-items: center;
     min-width: 15%;
-    max-width: 25%;
+    max-width: 27%;
     transition: all ease .25s;
     padding: 0 !important;
     padding-bottom: 2rem !important;
@@ -65,7 +65,7 @@ app-close-workspace {
     position: absolute;
     left: 0rem;
     z-index: 2;
-    bottom: 0;
+    bottom: 10%;
     margin: auto;
     transform-origin: top left;
     transform: rotate(-90deg);

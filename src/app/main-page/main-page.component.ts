@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, inject } from '@angular/core';
 import { HeadComponent } from './head/head.component';
 import { ChatContainerComponent } from './chat-container/chat-container.component';
 import { ThreadComponent } from './thread/thread.component';
@@ -35,6 +35,7 @@ export class MainPageComponent {
   workspaceOpen = true;
   overlay: any;
   showThread: boolean = false;
+  isScreenSmall = false;
   private subscription!: Subscription;
   @ViewChild('WorkspaceComponent', { read: ElementRef }) workspaceComponentRef: ElementRef | undefined;
 
@@ -51,6 +52,17 @@ export class MainPageComponent {
         this.showThread = value;
       }
     );
+    this.checkScreenSize();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.checkScreenSize();
+  }
+
+
+  checkScreenSize() {
+    this.isScreenSmall = window.innerWidth < 1300;
   }
 
   ngOnDestroy() {
