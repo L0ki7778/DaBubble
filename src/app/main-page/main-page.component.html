@@ -1,8 +1,9 @@
 <app-head></app-head>
-    <app-close-workspace (click)="handleWorkspace(); hideSearchList()" [workspaceOpen]="workspaceOpen"></app-close-workspace>
-    <div id="main-content" (click)="hideSearchList()">
-        <app-workspace #WorkspaceComponent></app-workspace>
-        <app-chat-container></app-chat-container>
-        <app-thread *ngIf="showThread"></app-thread>
-    </div>
-    <app-overlay *ngIf="overlay"></app-overlay>
+<app-close-workspace (click)="handleWorkspace(); hideSearchList()"
+    [workspaceOpen]="workspaceOpen"></app-close-workspace>
+<div id="main-content" (click)="hideSearchList()">
+    <app-workspace #WorkspaceComponent></app-workspace>
+    <app-chat-container></app-chat-container>
+    <app-thread *ngIf="showThread"></app-thread>
+</div>
+<app-overlay *ngIf="overlay"></app-overlay>
