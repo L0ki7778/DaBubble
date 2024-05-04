@@ -13,7 +13,8 @@
             [(ngModel)]="password" name="password" minlength="8">
         <div class="center-box">
             <div class="style-checkbox"><input required type="checkbox" id="privacy-policy"></div>
-            <label>Ich stimme der <span class="color-privacy-policy">Datenschutzerklärung</span> zu</label>
+            <label>Ich stimme der <span (click)="openInNewTab()"
+                    class="color-privacy-policy">Datenschutzerklärung</span> zu</label>
         </div>
         <button class="next-button">Weiter</button>
     </form>

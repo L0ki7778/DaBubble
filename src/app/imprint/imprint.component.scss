@@ -1,5 +1,5 @@
 .impressum {
-    padding: 80px 56px 72px 56px;
+    padding: 80px 72px 72px 72px;
     border-radius: 30px;
     width: 60vw;
     height: 50vh;
@@ -16,11 +16,14 @@
 
 .content {
     width: 100vw;
+    height: 100vh;
+    display: flex;
 }
 
 .center {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 h1 {
