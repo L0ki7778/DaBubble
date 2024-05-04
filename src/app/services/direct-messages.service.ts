@@ -15,6 +15,7 @@ export class DirectMessagesService {
   public firestore: Firestore = inject(Firestore);
   private authService: AuthService = inject(AuthService);
   filteredUserNames: { name: string, profileImage: string, id: string }[] = [];
+  filteredUserNamesSearchBar: { name: string, profileImage: string, id: string }[] = [];
   public chatHistoryLoaded = new Subject<void>();
   public chatHistoryLoaded$ = this.chatHistoryLoaded.asObservable();
   public chatHistoryLoadedThread = new Subject<void>();
@@ -98,6 +99,26 @@ export class DirectMessagesService {
       this.isLoggedInWithgoogle = providers.length > 0;
     } else {
       this.isLoggedInWithgoogle = false;
+    }
+  }
+
+  async fetchUserNamesSearchBar() {
+    try {
+      const usersCollection = collection(this.firestore, 'users');
+      const usersSnapshot = await getDocs(usersCollection);
+      const users = usersSnapshot.docs.map((doc) => {
+        const userData = doc.data();
+        return {
+          name: userData['name'],
+          profileImage: userData['image'],
+          id: doc.id
+        };
+      });
+      const loggedInUserId = await this.getLoggedInUserId();
+      const loggedInUserName = await this.getUserNameById(loggedInUserId);
+      this.filteredUserNamesSearchBar = users.filter(user => user.name !== loggedInUserName);
+    } catch (error) {
+      console.error('Error fetching user names:', error);
     }
   }
 

@@ -1,4 +1,4 @@
-<input type="text" placeholder="DABubble durchsuchen" (click)="showDropdownMenu()">
+<input type="text" placeholder="DABubble durchsuchen" (click)="showDropdownMenu()" (input)="filterChannelsAndUsers()" [(ngModel)]="searchValue">
 <div class="dropdown-menu" *ngIf="this.DMService.showDropdown">
     <div class="headline">Channels</div>
     @for(channel of this.filteredChannelNames; track channel; let index = $index ) {
@@ -14,7 +14,7 @@
     }
     <div class="headline">User</div>
     <div (click)="DMService.loadChatHistory(); closeThread()" class="mb-14">
-        <div *ngFor="let user of DMService.filteredUserNames, let index = index" class="list padding-user"
+        <div *ngFor="let user of DMService.filteredUserNamesSearchBar, let index = index" class="list padding-user"
             (click)="DMService.addUserToDirectMessages(user.name); sendDMId(index)"
              [ngClass]="{ 'active-dm': ((user.name === this.DMService.selectedUserName) && (this.selectionService.channelOrDM.value === 'direct-message'))}">
             <img [src]="user.profileImage" class="profile-image"> {{ user.name }}
