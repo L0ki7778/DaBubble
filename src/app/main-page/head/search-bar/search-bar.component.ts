@@ -5,14 +5,26 @@ import { SelectionService } from '../../../services/selection.service';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
 import { BooleanValueService } from '../../../services/boolean-value.service';
 import { FormsModule } from '@angular/forms';
+import { trigger, transition, style, animate } from '@angular/animations';
 
+export const fadeAnimation = trigger('fadeAnimation', [
+  transition(':enter', [
+    style({ opacity: 0 }),
+    animate('300ms', style({ opacity: 1 }))
+  ]),
+  transition(':leave', [
+    animate('300ms', style({ opacity: 0 }))
+  ])
+]);
 @Component({
   selector: 'app-search-bar',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './search-bar.component.html',
-  styleUrl: './search-bar.component.scss'
+  styleUrl: './search-bar.component.scss',
+  animations: [fadeAnimation]
 })
+
 export class SearchBarComponent {
 
   DMService: DirectMessagesService = inject(DirectMessagesService);
@@ -26,6 +38,7 @@ export class SearchBarComponent {
   selectionService = inject(SelectionService);
   searchValue: string = '';
 
+  
 
   async ngOnInit() {
     this.filterChannels();

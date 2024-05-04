@@ -12,11 +12,16 @@ input {
     background-repeat: no-repeat;
     background-position: right;
     background-origin: content-box;
+    outline: none;
 
     &::placeholder {
         color: var(--textGray);
         font-size: 24px;
         font-weight: 300;
+    }
+
+    &:focus {
+        border: 1px solid var(--purple1);
     }
 }
 
