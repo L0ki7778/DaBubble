@@ -116,7 +116,9 @@ export class ChatAnswerComponent {
 
   extractTextFromAnswerContent(answerContent: string): string {
     const textContainer = answerContent.match(/<div class="text-container">(.*?)<\/div>/s);
-    return textContainer ? textContainer[1].trim() : answerContent;
+    let extractedText = textContainer ? textContainer[1].trim() : answerContent;
+    extractedText = extractedText.replace(/<br\/?>/g, '\n');
+    return extractedText;
   }
 
   assembleAnswerContent(answerText: string, originalAnswerContent: string): string {
