@@ -6,6 +6,11 @@
     overflow: hidden;
 }
 
+app-head{
+    display: flex;
+    width: 100%
+}
+
 app-workspace,
 app-chat-container,
 app-thread {
@@ -17,8 +22,8 @@ app-thread {
 #main-content {
     @include dFlex(space-evenly, flex-start);
     height: calc(90dvh - 6.5%);
-    gap: 1rem;
-    padding: 0 1rem;
+    gap: 16px;
+    padding: 0 16px;
 }
 
 app-workspace {
@@ -58,7 +63,6 @@ app-overlay {
 app-close-workspace {
     filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.2));
     position: absolute;
-    top: 50%;
     left: 0rem;
     z-index: 2;
     bottom: 0;
