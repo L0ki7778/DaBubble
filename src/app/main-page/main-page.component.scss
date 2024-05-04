@@ -22,8 +22,8 @@ app-thread {
 #main-content {
     @include dFlex(space-evenly, flex-start);
     height: calc(90dvh - 6.5%);
-    gap: 1rem;
-    padding: 0 1rem;
+    gap: 16px;
+    padding: 0 16px;
 }
 
 app-workspace {
