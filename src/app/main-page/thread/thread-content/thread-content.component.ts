@@ -27,6 +27,7 @@ export class ThreadContentComponent {
   DMService = inject(DirectMessagesService);
   overlay = inject(OverlayService);
   viewEmojiPicker: boolean = false;
+  viewEditEmojiPicker: boolean = false;
   message: any;
   messageUser: any = {};
   currentUserId: string = '';
@@ -205,6 +206,7 @@ export class ThreadContentComponent {
     } else {
       this.viewOption = false;
       this.viewEmojiPicker = false;
+      this.viewEditEmojiPicker = false;
     }
   }
 
@@ -286,6 +288,11 @@ export class ThreadContentComponent {
     this.viewEmojiPicker = true;
   }
 
+  showEditEmojiPicker(event: MouseEvent) {
+    event.stopPropagation();
+    this.viewEditEmojiPicker = true;
+  }
+
   addEmoji(event: any) {
     const emoji = event.emoji.native;
     const docRef = doc(this.firestore, "channels", this.choosenChatId, "messages", this.choosenMessageId);
@@ -315,6 +322,10 @@ export class ThreadContentComponent {
         this.viewEmojiPicker = false;
       }
     });
+  }
+
+  addEditedEmoji(event: any) {
+    this.editingMessageText += event.emoji.native;
   }
 
   isObjectWithCount(value: any): value is { count: number } {

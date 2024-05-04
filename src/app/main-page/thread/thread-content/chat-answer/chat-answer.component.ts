@@ -25,8 +25,9 @@ export class ChatAnswerComponent {
   selectionService: SelectionService = inject(SelectionService);
   DMService: DirectMessagesService = inject(DirectMessagesService);
   isHovered: boolean = false;
-  viewOption: boolean = false;
-  viewEmojiPicker: boolean = false;
+  viewAnswerOption: boolean = false;
+  viewEmojiPickerAnswer: boolean = false;
+  viewEditEmojiPickerAnswer: boolean = false;
   user: any = {};
   choosenChatId: string = '';
   currentUserId: string | null = null;
@@ -37,6 +38,8 @@ export class ChatAnswerComponent {
   editAnswer: boolean = false;
   editingAnswerId: string | null = null;
   editingAnswerText: string = '';
+  edit: ElementRef | null = null;
+
 
 
   constructor() {
@@ -92,22 +95,23 @@ export class ChatAnswerComponent {
     this.DMService.selectedUserImage = this.user.image;
   }
 
-  showOption(event: MouseEvent) {
+  showAnswerOption(event: MouseEvent) {
     event.stopPropagation();
-    this.viewOption = true;
+    this.viewAnswerOption = true;
   }
 
   startEditing(answerId: string, answerText: string) {
     this.editAnswer = true;
     this.editingAnswerId = answerId;
     this.editingAnswerText = this.extractTextFromAnswerContent(answerText);
-    this.viewOption = false;
+    this.viewAnswerOption = false;
   }
 
   cancelEditing() {
     this.editingAnswerId = null;
     this.editingAnswerText = '';
     this.editAnswer = false;
+    this.viewAnswerOption = false;
   }
 
   extractTextFromAnswerContent(answerContent: string): string {
@@ -132,26 +136,33 @@ export class ChatAnswerComponent {
       await updateDoc(answerRef, {
         text: updatedMessageContent
       })
-      
+
       this.cancelEditing();
     }
   }
 
-  showEmojiPicker(event: MouseEvent) {
+  showEmojiPickerAnswer(event: MouseEvent) {
     event.stopPropagation();
-    this.viewEmojiPicker = true;
+    this.viewEmojiPickerAnswer = true;
+  }
+
+  showEditEmojiPickerAnswer(event: MouseEvent) {
+    event.stopPropagation();
+    this.viewEditEmojiPickerAnswer = true;
   }
 
   @HostListener('document:click', ['$event'])
   onclick(event: Event) {
-    if (this.emoji && this.emoji.nativeElement && this.emoji.nativeElement.contains(event.target)) {
+    if ((this.edit && this.edit.nativeElement && this.edit.nativeElement.contains(event.target)) ||
+      (this.emoji && this.emoji.nativeElement && this.emoji.nativeElement.contains(event.target))) {
       return
     } else {
-      this.viewEmojiPicker = false;
+      this.viewEmojiPickerAnswer = false
+      this.viewEditEmojiPickerAnswer = false;
     }
   }
 
-  addEmoji(event: any) {
+  addEmojiAnswer(event: any) {
     const emoji = event.emoji.native;
     const docRef = doc(this.firestore, "channels", this.choosenChatId, "messages", this.selectionService.choosenMessageId.value, "answers", this.answer.docId);
 
@@ -180,6 +191,10 @@ export class ChatAnswerComponent {
         updateDoc(docRef, { reactions });
       }
     });
+  }
+
+  addEditedEmojiAnswer(event: any) {
+    this.editingAnswerText += event.emoji.native;
   }
 
   isObjectWithCount(value: any): value is { count: number } {

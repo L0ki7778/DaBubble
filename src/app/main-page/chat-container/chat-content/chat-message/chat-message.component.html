@@ -49,6 +49,9 @@
                 </div>
             </div>
         </div>
+        <emoji-mart (emojiClick)="addEditedEmoji($event)" #emoji *ngIf="viewEditEmojiPicker"
+            [style]="{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', 'z-index': '9' }">
+        </emoji-mart>
         <div class="message-footer" [ngStyle]="{'flex-direction': isOwnMessage ? 'row-reverse' : 'none' }">
             <div class="gap" *ngIf="answersExist">
                 <span (click)="showThread()" class="message-answers">{{ answers.length }} <span
@@ -64,9 +67,6 @@
                 </p>
                 <div (click)="showEmojiPicker($event)" class="smiley-img">
                     <emoji-mart (emojiClick)="addEmoji($event)" #emoji *ngIf="viewEmojiPicker"
-                        [style]="{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', 'z-index': '9' }">
-                    </emoji-mart>
-                    <emoji-mart (emojiClick)="addEditedEmoji($event)" *ngIf="viewEditEmojiPicker"
                         [style]="{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', 'z-index': '9' }">
                     </emoji-mart>
                 </div>
