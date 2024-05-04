@@ -6,6 +6,11 @@
     overflow: hidden;
 }
 
+app-head{
+    display: flex;
+    width: 100%
+}
+
 app-workspace,
 app-chat-container,
 app-thread {
