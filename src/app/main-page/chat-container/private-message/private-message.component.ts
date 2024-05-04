@@ -32,7 +32,8 @@ export class PrivateMessageComponent {
   editMessage: boolean = false;
   editingMessageId: string | null = null;
   editingMessageText: string = '';
-  viewEmojiPicker: boolean = false;
+  viewEmojiPickerEdit: boolean = false;
+  viewEmojiPickerReaction: boolean = false;
   isHovered: boolean = false;
   unsubscribe: any;
   imageTag: boolean = false;
@@ -57,7 +58,8 @@ export class PrivateMessageComponent {
     if (this.isClickInsideEmojiPicker(event)) {
       return;
     }
-    this.viewEmojiPicker = false;
+    this.viewEmojiPickerEdit = false;
+    this.viewEmojiPickerReaction = false;
   }
 
   isClickInsideEmojiPicker(event: MouseEvent): boolean {
@@ -137,9 +139,14 @@ export class PrivateMessageComponent {
     }
   }
 
-  showEmojiPicker(event: MouseEvent) {
+  showEmojiPickerEdit(event: MouseEvent) {
     event.stopPropagation();
-    this.viewEmojiPicker = true;
+    this.viewEmojiPickerEdit = true;
+  }
+
+  showEmojiPickerReaction(event: MouseEvent) {
+    event.stopPropagation();
+    this.viewEmojiPickerReaction = true;
   }
 
   addEmoji(event: any) {
@@ -204,7 +211,7 @@ export class PrivateMessageComponent {
           await this.updateReactions(emoji, reactions, messageDocRef);
           await this.subscribeToMessageUpdates(messageDocRef);
 
-          this.viewEmojiPicker = false;
+          this.viewEmojiPickerReaction = false;
         }
       }
     } catch (error) {
