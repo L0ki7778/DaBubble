@@ -1,9 +1,9 @@
 <header>
-    <div *ngIf="endAnimation" class="logo-box">
+    <div *ngIf="authService.endAnimation" class="logo-box">
         <img src="/assets/img/start-page/logo.svg" alt="logo" class="logo">
         <h1>DABubble</h1>
     </div>
-    <div *ngIf="!endAnimation"></div>
+    <div *ngIf="!authService.endAnimation"></div>
     <div class="create-account" *ngIf="authService.showLogin">
         <p>Neu bei DABubble?</p>
         <span (click)="toggleToCreateAccount()">Konto erstellen</span>
@@ -16,5 +16,5 @@
 <app-choose-profile-picture *ngIf="authService.showChooseProfilePicture"></app-choose-profile-picture>
 <app-upload-warning *ngIf="overlay.warning"></app-upload-warning>
 <footer>
-    <p [routerLink]="['imprint']">Impressum</p>
+    <p [routerLink]="['imprint']" (click)="preventAnimation()">Impressum</p>
     <p [routerLink]="['privacy-policy']">Datenschutz</p>

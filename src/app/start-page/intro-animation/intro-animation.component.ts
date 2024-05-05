@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-intro-animation',
@@ -10,9 +11,10 @@ import { Component } from '@angular/core';
 })
 export class IntroAnimationComponent {
   animation: boolean = true;
+  authService = inject(AuthService);
 
 
   ngOnInit() {
-    setTimeout(() => this.animation = false, 2400);
+    setTimeout(() => this.authService.animation = false, 2400);
   }
 }

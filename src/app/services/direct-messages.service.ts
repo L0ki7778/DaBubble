@@ -81,7 +81,6 @@ export class DirectMessagesService {
         this.selectedUserImage = userDoc.data()['image'];
         return userId;
       } else
-        console.log(`User ${userName} not found`);
       return null;
     } catch (error) {
       console.error('Error fetching user ID:', error);
@@ -129,7 +128,6 @@ export class DirectMessagesService {
         const userData = userDoc.data();
         return userData['name'];
       } else {
-        console.log(`User with ID ${authorId} not found`);
         return 'Unknown User';
       }
     } catch (error) {
@@ -160,7 +158,6 @@ export class DirectMessagesService {
         const userId = userDoc.id;
         return userId;
       } else
-        console.log(`User ${userName} not found`);
       return null;
     } catch (error) {
       console.error('Error fetching user ID:', error);
@@ -300,7 +297,6 @@ export class DirectMessagesService {
         const userData = userDoc.data();
         return userData['image'];
       } else {
-        console.log(`User with ID ${authorId} not found`);
         return 'default_image.png';
       }
     } catch (error) {

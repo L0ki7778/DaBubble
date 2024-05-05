@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ImprintPrivacyHeaderComponent } from './imprint-privacy-header/imprint-privacy-header.component';
 import { RouterLink } from '@angular/router';
+import { DirectMessagesService } from '../services/direct-messages.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-imprint',
@@ -11,4 +13,11 @@ import { RouterLink } from '@angular/router';
 })
 export class ImprintComponent {
 
+  authService = inject(AuthService);
+
+  preventAnimation() {
+    this.authService.endAnimation = true;
+    this.authService.animation = false;
+    this.authService.showSlideAnimation = false;
+  }
 }

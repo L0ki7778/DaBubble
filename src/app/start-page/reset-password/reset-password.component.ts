@@ -50,4 +50,10 @@ export class ResetPasswordComponent {
     }
   }
 
+  preventAnimation() {
+    this.authService.endAnimation = true;
+    this.authService.animation = false;
+    this.authService.showSlideAnimation = false;
+  }
+
 }

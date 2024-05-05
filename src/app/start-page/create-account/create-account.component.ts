@@ -15,6 +15,8 @@ export class CreateAccountComponent {
   email: string = '';
   password: string = '';
   name: string = '';
+  hideCreateContainer: boolean = false;
+  showPrivacyPolicy: boolean = false;
 
 
   constructor(private router: Router) { }
@@ -31,8 +33,19 @@ export class CreateAccountComponent {
     this.authService.showCreateAccount = false;
   }
 
-  openInNewTab() {
-    window.open(this.router.createUrlTree(['/privacy-policy']).toString(), '_blank');
+  toggleToPrivacyPolicy() {
+    this.hideCreateContainer = true;
+    this.showPrivacyPolicy = true;
   }
 
+  toggleToCreateAccount() {
+    this.hideCreateContainer = false;
+    this.showPrivacyPolicy = false;
+  }
+
+  preventAnimation() {
+    this.authService.endAnimation = true;
+    this.authService.animation = false;
+    this.authService.showSlideAnimation = false;
+  }
 }

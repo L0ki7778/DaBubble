@@ -60,8 +60,6 @@ export class ChatAnswerComponent {
             image: doc.data()['image'],
             id: doc.id
           };
-        } else {
-          console.log('No such document!');
         }
       });
     }

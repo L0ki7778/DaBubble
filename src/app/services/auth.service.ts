@@ -22,9 +22,13 @@ export class AuthService {
   selectedProfilePic: string = 'assets/img/start-page/unknown.svg';
   showLogin = true;
   showChooseProfilePicture: boolean = false;
+  endAnimation: boolean = false;
+  animation: boolean = true;
+  showSlideAnimation: boolean = true;
   showResetPassword: boolean = false;
   showEnterNewPassword: boolean = false;
   showCreateAccount: boolean = false;
+  showHeader: boolean = true;
   guestEmail = 'guest@email.com';
   guestPassword = 'Passwort';
   resetPasswordEmail: any = null;
@@ -64,7 +68,6 @@ export class AuthService {
     try {
       const userCredential = await createUserWithEmailAndPassword(this.auth, this.email, this.password);
       const user = userCredential.user;
-      console.log('Registered user:', user);
       await updateProfile(user, { displayName: this.name });
       const userObject: UserType = this.createUserObject();
       const userDocRef = doc(this.firestore, 'users', user.uid);
@@ -135,7 +138,6 @@ export class AuthService {
     try {
       const auth = getAuth();
       await confirmPasswordReset(auth, code, newPassword);
-      console.log('Password reset successful');
     } catch (error) {
       console.error('Error resetting password:', error);
     }

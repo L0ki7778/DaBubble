@@ -65,8 +65,6 @@ export class ChatMessageComponent {
             image: doc.data()['image'],
             id: doc.id
           };
-        } else {
-          console.log('No such document!');
         }
       });
       this.currentMessageId = this.message['docId'];

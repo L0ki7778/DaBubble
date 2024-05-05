@@ -27,27 +27,34 @@ import { UploadWarningComponent } from "../main-page/overlay/upload-warning/uplo
   ]
 })
 export class StartPageComponent {
-  endAnimation: boolean = false;
   authService: AuthService = inject(AuthService);
   overlay: OverlayService = inject(OverlayService);
 
 
   ngOnInit() {
-    setTimeout(() => this.endAnimation = true, 3000);
+    setTimeout(() => this.authService.endAnimation = true, 3000);
   }
 
   toggleToCreateAccount() {
     this.authService.showLogin = !this.authService.showLogin;
+    this.authService.showHeader = !this.authService.showHeader;
     this.authService.showCreateAccount = !this.authService.showCreateAccount;
   }
 
   toggleToResetPassword() {
     this.authService.showLogin = !this.authService.showLogin;
+    this.authService.showHeader = !this.authService.showHeader;
     this.authService.showResetPassword = !this.authService.showResetPassword;
   }
 
   toggleToChooseProfilePicture() {
     this.authService.showChooseProfilePicture = this.authService.showChooseProfilePicture;
+  }
+
+  preventAnimation() {
+    this.authService.endAnimation = true;
+    this.authService.animation = false;
+    this.authService.showSlideAnimation = false;
   }
 
 }

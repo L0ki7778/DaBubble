@@ -37,8 +37,8 @@ export class EnterNewPasswordComponent {
 
   async setNewPassword() {
     if (this.newPassword === this.confirmPassword) {
-      try {
         this.toggleTranslation();
+        this.preventAnimation();
         setTimeout(() => {
           this.toggleToLogin();
         }, 2000);
@@ -47,12 +47,7 @@ export class EnterNewPasswordComponent {
         await updatePassword(emailCredential.user, this.newPassword);
         const userDocRef = await this.getUserDocRef(this.authService.resetPasswordEmail);
         await updateDoc(userDocRef, { password: this.newPassword });
-      } catch (error) {
-        console.error('Error setting new password:', error);
       }
-    } else {
-      console.error('Passwords do not match');
-    }
   }
 
   async getEmailCredential() {
@@ -100,6 +95,12 @@ export class EnterNewPasswordComponent {
   toggleToLogin() {
     this.authService.showLogin = true;
     this.authService.showEnterNewPassword = false;
+  }
+
+  preventAnimation() {
+    this.authService.endAnimation = true;
+    this.authService.animation = false;
+    this.authService.showSlideAnimation = false;
   }
 
 }
