@@ -6,4 +6,4 @@
     <app-chat-container *ngIf="!isScreenSmall || !showThread"></app-chat-container>
     <app-thread *ngIf="showThread" [ngStyle]="(isScreenSmall && showThread) ? {'max-width': '100%'} : {}"></app-thread>
 </div>
-<app-overlay *ngIf="overlay"></app-overlay>
+<app-overlay style="z-index: 200;" *ngIf="overlay"></app-overlay>

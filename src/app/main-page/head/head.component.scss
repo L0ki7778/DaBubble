@@ -1,20 +1,19 @@
 header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 16px;
     width: 100%;
-    gap: 9%;
+    gap: 50px;
 }
 
-app-search-bar {
+.function-container {
+    display: flex;
+    justify-content: space-between;
     width: 100%;
 }
 
 .head-logo {
     height: 70px;
-    width: 240px;
-    margin-right: calc(14% - 240px);
 }
 
 .user-container {
@@ -50,4 +49,27 @@ app-search-bar {
     height: 70px;
     width: 70px;
     border-radius: 50%;
+}
+
+@media only screen and (max-width: 1200px) {
+    .user-container {
+        height: 55px;
+        gap: 10px;
+
+        span {
+            font-size: 28px;
+        }
+    }
+
+    .arrow-img {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .profile-img {
+        height: 55px;
+        width: 55px;
+        border-radius: 50%;
+    }
+    
 }

@@ -1,9 +1,11 @@
 <header>
     <img class="head-logo" src="assets/img/general/dabubble-logo.svg" (click)="hideSearchList()">
-    <app-search-bar></app-search-bar>
-    <div (click)="openDropdownMenu($event); hideSearchList()" class="user-container">
-        <span>{{ name }}</span>
-        <img class="profile-img" [src]="imgSrc">
-        <div class="arrow-img"></div>
+    <div class="function-container">
+        <app-search-bar></app-search-bar>
+        <div (click)="openDropdownMenu($event); hideSearchList()" class="user-container">
+            <span>{{ name }}</span>
+            <img class="profile-img" [src]="imgSrc">
+            <div class="arrow-img"></div>
+        </div>
     </div>
 </header>
