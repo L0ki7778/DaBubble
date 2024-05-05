@@ -3,13 +3,14 @@ header {
     align-items: center;
     padding: 16px;
     width: 100%;
-    gap: 50px;
+    gap: 6.5%;
 }
 
 .function-container {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    gap: 4%;
 }
 
 .head-logo {
@@ -51,7 +52,14 @@ header {
     border-radius: 50%;
 }
 
-@media only screen and (max-width: 1200px) {
+
+@media screen and (min-width: 1700px) {
+    header {
+        gap: 8.5%;
+    }
+}
+
+@media screen and (max-width: 1200px) {
     .user-container {
         height: 55px;
         gap: 10px;
@@ -65,11 +73,10 @@ header {
         width: 25px;
         height: 25px;
     }
-    
+
     .profile-img {
         height: 55px;
         width: 55px;
         border-radius: 50%;
     }
-    
 }
