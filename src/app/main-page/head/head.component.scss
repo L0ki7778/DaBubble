@@ -1,7 +1,7 @@
 header {
     display: flex;
     align-items: center;
-    padding: 16px;
+    padding: 16px 20px;
     width: 100%;
     gap: 6.5%;
 }
@@ -53,12 +53,7 @@ header {
 }
 
 
-@media screen and (min-width: 1700px) {
-    header {
-        gap: 8.5%;
-    }
-}
-
+// max-width
 @media screen and (max-width: 1200px) {
     .user-container {
         height: 55px;
@@ -78,5 +73,69 @@ header {
         height: 55px;
         width: 55px;
         border-radius: 50%;
+    }
+
+    .head-logo {
+        height: 65px;
+    }
+
+    header {
+        gap: 3.5%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .user-container {
+        span {
+            display: none;
+        }
+    }
+
+    .arrow-img {
+        display: none;
+    }
+
+    header {
+        justify-content: space-between;
+        gap: unset;
+    }
+
+    .function-container {
+        width: auto;
+    }
+
+    .head-logo {
+        height: 60px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .head-logo {
+        height: 50px;
+    }
+
+    .profile-img {
+        height: 50px;
+        width: 50px;
+    }
+}
+
+
+// min-width
+@media screen and (min-width: 1700px) {
+    header {
+        gap: 8.5% !important;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    header {
+        gap: 2.5%;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    header {
+        gap: 5%;
     }
 }

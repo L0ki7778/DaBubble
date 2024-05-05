@@ -28,6 +28,10 @@ export class DropdownMenuComponent {
     }
   }
 
+  close() {
+    this.overlay.closeOverlay();
+  }
+
   openProfileView(event: MouseEvent) {
     event.stopPropagation();
     this.overlay.closeOverlay();

@@ -1,6 +1,10 @@
 <nav #profileMenu>
+  <div class="line-container">
+    <img (click)="close()" src="assets/img/general/line.svg">
+  </div>
+
   <ul>
-    <li (click)="openProfileView($event)">Profil</li>
-    <li (click)="logout()" class="logout">Log out</li>
+    <li (click)="openProfileView($event)" class="hover"><img src="assets/img/general/account_circle.svg">Profil</li>
+    <li (click)="logout()" class="hover"><img src="assets/img/general/logout.svg">Log out</li>
   </ul>
 </nav>
