@@ -11,14 +11,6 @@ app-head {
     width: 100%
 }
 
-app-workspace,
-app-chat-container,
-app-thread {
-    @include container();
-    @include scaleElement();
-    position: relative;
-}
-
 #main-content {
     @include dFlex(space-evenly, flex-start);
     height: calc(90dvh - 6.5%);
@@ -27,25 +19,35 @@ app-thread {
 }
 
 app-workspace {
+    @include container();
+    @include scaleElement();
     display: flex;
     min-width: min-content;
     max-width: 20%;
     transition: all ease .25s;
+    position: relative;
 }
 
 app-thread {
+    @include container();
+    @include scaleElement();
+    position: relative;
     display: flex;
-    align-items: center;
-    min-width: 15%;
-    max-width: 27%;
+    flex-direction: column;
     transition: all ease .25s;
     padding: 0 !important;
     padding-bottom: 2rem !important;
+    min-width: 15%;
+    max-width: 27%;
+    transition: all ease .25s;
 }
 
 app-chat-container {
+    @include container();
+    @include scaleElement();
+    position: relative;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     transition: all ease .25s;
     padding: 0 !important;
     padding-bottom: 2rem !important;
