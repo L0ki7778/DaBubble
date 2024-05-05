@@ -6,6 +6,7 @@ app-chat-header {
     box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
     border-radius: 2rem 2rem 0 0;
     background-color: white;
+    z-index: 100;
 }
 
 form{
@@ -42,4 +43,5 @@ app-chat-input {
     // padding: 20px;
     width: 100%;
     position: relative;
+    margin-bottom: 1.5rem;
 }

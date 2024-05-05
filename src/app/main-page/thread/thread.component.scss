@@ -9,6 +9,7 @@ app-thread-header {
     border-top-left-radius: 2rem;
     border-top-right-radius: 2rem;
     box-sizing: border-box;
+    z-index: 100;
 }
 
 app-thread-content {
@@ -28,4 +29,5 @@ app-thread-content {
 app-thread-input {
     width: 100%;
     position: relative;
+    margin-bottom: 1.5rem;
 }
