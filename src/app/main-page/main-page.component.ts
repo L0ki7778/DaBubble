@@ -62,7 +62,7 @@ export class MainPageComponent {
 
 
   checkScreenSize() {
-    this.isScreenSmall = window.innerWidth < 1250;
+    this.isScreenSmall = window.innerWidth < 1280;
   }
 
   ngOnDestroy() {
