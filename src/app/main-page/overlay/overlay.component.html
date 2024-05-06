@@ -1,5 +1,6 @@
 <app-workspace-overlay *ngIf="workspaceOverlay" style="z-index: 201;"></app-workspace-overlay>
-<app-dropdown-menu *ngIf="isDropdownMenuVisible" style="z-index: 201;"></app-dropdown-menu>
+<app-dropdown-menu *ngIf="isDropdownMenuVisible" style="z-index: 201;"
+    [@slideAnimation]="isSmallScreen ? 'active' : 'inactive'"></app-dropdown-menu>
 <app-profile-view *ngIf="profileView" style="z-index: 201;"></app-profile-view>
 <app-edit-profile *ngIf="editProfileView" style="z-index: 201;"></app-edit-profile>
 <app-member-profile *ngIf="memberView" style="z-index: 201;"></app-member-profile>

@@ -16,6 +16,7 @@ export const fadeAnimation = trigger('fadeAnimation', [
     animate('300ms', style({ opacity: 0 }))
   ])
 ]);
+
 @Component({
   selector: 'app-search-bar',
   standalone: true,
@@ -38,7 +39,7 @@ export class SearchBarComponent {
   selectionService = inject(SelectionService);
   searchValue: string = '';
 
-  
+
 
   async ngOnInit() {
     this.filterChannels();

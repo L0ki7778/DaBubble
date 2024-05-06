@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { OverlayService } from '../../services/overlay.service';
 import { WorkspaceOverlayComponent } from './workspace-overlay/workspace-overlay.component';
 import { CommonModule } from '@angular/common';
@@ -9,6 +9,18 @@ import { BooleanValueService } from '../../services/boolean-value.service';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { MemberProfileComponent } from './member-profile/member-profile.component';
 import { UploadWarningComponent } from './upload-warning/upload-warning.component';
+import { animate, style, transition, trigger } from '@angular/animations';
+
+export const slideAnimation = trigger('slideAnimation', [
+  transition(':enter', [
+    style({ transform: 'translateY(100%)' }),
+    animate('3000ms', style({ transform: 'translateY(0)' }))
+  ]),
+  transition(':leave', [
+    animate('3000ms', style({ transform: 'translateY(100%)' }))
+  ])
+]);
+
 
 @Component({
   selector: 'app-overlay',
@@ -24,7 +36,8 @@ import { UploadWarningComponent } from './upload-warning/upload-warning.componen
     UploadWarningComponent
   ],
   templateUrl: './overlay.component.html',
-  styleUrl: './overlay.component.scss'
+  styleUrl: './overlay.component.scss',
+  animations: [slideAnimation]
 })
 export class OverlayComponent {
   overlay = inject(OverlayService);
@@ -38,4 +51,18 @@ export class OverlayComponent {
   editProfileView = this.overlay.editProfileView;
   memberView = this.overlay.memberView;
   warning = this.overlay.warning;
+  isSmallScreen = false;
+
+
+  constructor() {
+    this.isSmallScreen = window.innerWidth <= 900;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.isSmallScreen = (event.target as Window).innerWidth <= 900;
+    console.log('Is small screen:', this.isSmallScreen);  // Hinzufügen dieser Zeile
+  }
+
+
 }
