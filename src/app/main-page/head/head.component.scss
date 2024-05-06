@@ -28,6 +28,8 @@ header {
     span {
         font-size: 32px;
         font-weight: 700;
+        overflow: hidden;
+        text-overflow: ellipsis;
         white-space: nowrap;
     }
 
@@ -84,6 +86,18 @@ header {
     }
 }
 
+@media screen and (max-width: 1250px) {
+    .user-container span {
+        max-width: 330px;
+    }
+}
+
+@media screen and (max-width: 1030px) {
+    .user-container span {
+        max-width: 202px;
+    }
+}
+
 @media screen and (max-width: 900px) {
     .user-container {
         span {
@@ -128,14 +142,14 @@ header {
     }
 }
 
-@media screen and (min-width: 1200px) {
-    header {
-        gap: 2.5%;
-    }
-}
-
 @media screen and (min-width: 1400px) {
     header {
         gap: 5%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    header {
+        gap: 2.5%;
     }
 }

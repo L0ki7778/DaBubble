@@ -61,7 +61,6 @@ export class OverlayComponent {
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
     this.isSmallScreen = (event.target as Window).innerWidth <= 900;
-    console.log('Is small screen:', this.isSmallScreen);  // Hinzufügen dieser Zeile
   }
 
 
