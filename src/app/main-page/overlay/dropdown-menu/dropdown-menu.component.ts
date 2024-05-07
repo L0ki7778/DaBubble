@@ -12,18 +12,18 @@ import { AuthService } from '../../../services/auth.service';
   styleUrl: './dropdown-menu.component.scss',
 })
 export class DropdownMenuComponent {
-
   overlay = inject(OverlayService);
   booleanService = inject(BooleanValueService);
   authService: AuthService = inject(AuthService);
   @ViewChild('profileMenu') profileMenu: ElementRef | null = null;
 
+  
   @HostListener('document:click', ['$event'])
   onclick(event: Event) {
     if (this.profileMenu && this.profileMenu.nativeElement.contains(event.target)) {
       return
     } else {
-      if(window.innerWidth < 900) {
+      if (window.innerWidth < 900) {
         document.querySelector('nav')!.classList.add('nav-closed-mobile');
         setTimeout(() => {
           this.overlay.closeOverlay();
