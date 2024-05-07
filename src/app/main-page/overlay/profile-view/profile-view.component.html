@@ -6,9 +6,12 @@
     <div class="user-img-container">
         <img src="{{ this.auth.userImage }}">
     </div>
-    <div class="space-between">
+    <div class="space-between gap">
         <span class="name">{{ this.auth.userName }}</span>
-        <span *ngIf="!this.DMService.isLoggedInWithgoogle" (click)="openEditProfile($event)" class="edit">Bearbeiten</span>
+        <span *ngIf="!this.DMService.isLoggedInWithgoogle" (click)="openEditProfile($event)"
+            class="edit">Bearbeiten</span>
+        <img *ngIf="!this.DMService.isLoggedInWithgoogle" (click)="openEditProfile($event)" class="edit-img"
+            style="display: none;" src="assets/img/general/user-edit.svg">
     </div>
     <div class="active-container">
         <img src="assets/img/general/Online.svg">

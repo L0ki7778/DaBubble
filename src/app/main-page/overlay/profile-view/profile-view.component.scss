@@ -1,5 +1,5 @@
 .profile-view-container {
-    width: 360px;
+    min-width: 360px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -94,5 +94,38 @@ h1 {
         font-weight: 500;
         text-decoration: none;
         color: #1381FF;
+    }
+}
+
+.gap {
+    gap: 22px;
+}
+
+.edit-img:hover {
+    transform: scale(1.2);
+}
+
+
+// max-width
+@media screen and (max-width: 900px) {
+    .profile-view-container {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 30px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .edit {
+        display: none;
+    }
+
+    .edit-img {
+        display: inline !important;
+    }
+
+    .profile-view-container {
+        padding: 25px 20px;
     }
 }
