@@ -1,19 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, HostListener, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, HostBinding, HostListener, ViewChild, inject } from '@angular/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { BooleanValueService } from '../../../services/boolean-value.service';
 import { AuthService } from '../../../services/auth.service';
-import { animate, style, transition, trigger } from '@angular/animations';
-
-export const slideAnimation = trigger('slideAnimation', [
-  transition(':enter', [
-    style({ transform: 'translateY(100%)' }),
-    animate('150ms', style({ transform: 'translateY(0)' }))
-  ]),
-  transition(':leave', [
-    animate('150ms', style({ transform: 'translateY(100%)' }))
-  ])
-]);
 
 @Component({
   selector: 'app-dropdown-menu',
@@ -21,7 +10,6 @@ export const slideAnimation = trigger('slideAnimation', [
   imports: [CommonModule],
   templateUrl: './dropdown-menu.component.html',
   styleUrl: './dropdown-menu.component.scss',
-  animations: [slideAnimation]
 })
 export class DropdownMenuComponent {
 
@@ -29,32 +17,24 @@ export class DropdownMenuComponent {
   booleanService = inject(BooleanValueService);
   authService: AuthService = inject(AuthService);
   @ViewChild('profileMenu') profileMenu: ElementRef | null = null;
-  isSmallScreen = false;
-
-
-  ngOnInit() {
-    this.checkScreenSize();
-  }
-
-  checkScreenSize() {
-    this.isSmallScreen = window.innerWidth < 900;
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    this.checkScreenSize();
-  }
-
-  get slideAnimationState() {
-    return this.isSmallScreen ? 'active' : 'inactive';
-  }
 
   @HostListener('document:click', ['$event'])
   onclick(event: Event) {
     if (this.profileMenu && this.profileMenu.nativeElement.contains(event.target)) {
       return
     } else {
-      this.overlay.closeOverlay();
+      if(window.innerWidth < 900) {
+        document.querySelector('nav')!.classList.add('nav-closed-mobile');
+        setTimeout(() => {
+          this.overlay.closeOverlay();
+        }, 125);
+      }
+      else {
+        document.querySelector('nav')!.classList.add('nav-closed');
+        setTimeout(() => {
+          this.overlay.closeOverlay();
+        }, 125);
+      }
     }
   }
 

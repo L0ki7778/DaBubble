@@ -5,19 +5,15 @@
     </div>
     <p class="info-text">Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DaBubble-Konto.</p>
     <form (ngSubmit)="saveVariables()" ngNativeValidate>
-        <input required type="text" class="name" placeholder="Name und Nachname" autocomplete="username"
-            [(ngModel)]="name" name="name" maxlength="18">
-        <input required type="email" class="email" placeholder="beispielname@email.com" autocomplete="email"
-            [(ngModel)]="email" name="email">
-        <input required type="password" class="password" placeholder="Passwort" autocomplete="current-password"
-            [(ngModel)]="password" name="password" minlength="8">
-        <div class="center-box">
-            <div class="style-checkbox"><input required type="checkbox" id="privacy-policy"></div>
-            <label>Ich stimme der <span (click)="toggleToPrivacyPolicy()"
-                    class="color-privacy-policy">Datenschutzerklärung</span> zu</label>
-        </div>
-        <button class="next-button">Weiter</button>
-    </form>
+  <input required type="text" class="name" placeholder="Name und Nachname" autocomplete="username" [(ngModel)]="name" name="nameField" maxlength="18">
+  <input required type="email" class="email" placeholder="beispielname@email.com" autocomplete="email" [(ngModel)]="email" name="emailField">
+  <input required type="password" class="password" placeholder="Passwort" autocomplete="current-password" [(ngModel)]="password" name="passwordField" minlength="8">
+  <div class="center-box">
+    <div class="style-checkbox"><input required type="checkbox" id="privacy-policy" [(ngModel)]="privacyPolicyChecked" name="privacyPolicyField"></div>
+    <label>Ich stimme der <span (click)="toggleToPrivacyPolicy()" class="color-privacy-policy">Datenschutzerklärung</span> zu</label>
+  </div>
+  <button class="next-button" [class.not-allowed]="shouldShowNotAllowed">Weiter</button>
+</form>
 </div>
 <div class="position-center" [class.show]="showPrivacyPolicy">
     <div (click)="toggleToCreateAccount()" class="arrow-image"></div>

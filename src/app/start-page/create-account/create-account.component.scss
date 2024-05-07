@@ -257,6 +257,10 @@ h3 {
     }
 }
 
+.not-allowed {
+    cursor: not-allowed;
+}
+
 ::-webkit-scrollbar {
     width: 4px;
 }

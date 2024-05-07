@@ -18,6 +18,7 @@ export class ResetPasswordComponent {
   email: string = '';
   password: string = '';
   isTranslated: boolean = true;
+  inputEmpty: boolean = true;
 
 
   toggleToLogin() {
@@ -56,4 +57,7 @@ export class ResetPasswordComponent {
     this.authService.showSlideAnimation = false;
   }
 
+  updateCursor() {
+    this.inputEmpty = this.email.trim() === '';
+  }
 }

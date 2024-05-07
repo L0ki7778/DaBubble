@@ -17,6 +17,8 @@ export class CreateAccountComponent {
   name: string = '';
   hideCreateContainer: boolean = false;
   showPrivacyPolicy: boolean = false;
+  privacyPolicyChecked: boolean = false;
+
 
 
   constructor(private router: Router) { }
@@ -48,4 +50,12 @@ export class CreateAccountComponent {
     this.authService.animation = false;
     this.authService.showSlideAnimation = false;
   }
+
+  get isInputEmpty(): boolean {
+    return this.name.trim() === '' || this.email.trim() === '' || this.password.trim() === '';
+  }
+
+  get shouldShowNotAllowed(): boolean {
+    return (this.isInputEmpty || !this.privacyPolicyChecked);
+    }
 }

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
 import { Auth } from '@angular/fire/auth';
 import { CommonModule } from '@angular/common';
@@ -23,10 +23,14 @@ export class LoginComponent {
   private auth: Auth = inject(Auth);
   private router: Router = inject(Router);
   authService: AuthService = inject(AuthService);
+  @ViewChild('emailInput', { static: true }) emailInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('passwordInput', { static: true }) passwordInput!: ElementRef<HTMLInputElement>;
   email: string = '';
   password: string = '';
   emailError = false;
   passwordError = false;
+  isInputEmpty: boolean = true;
+
 
 
   async login() {
@@ -50,6 +54,10 @@ export class LoginComponent {
   toggleToResetPassword() {
     this.authService.showLogin = false;
     this.authService.showResetPassword = true;
+  }
+
+  updateCursor() {
+    this.isInputEmpty = this.email.trim() === '' || this.password.trim() === '';
   }
 
 }

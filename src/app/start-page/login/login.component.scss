@@ -185,7 +185,9 @@ form {
     margin-top: -5px;
 }
 
-
+.not-allowed {
+    cursor: not-allowed;
+}
 
 @media (max-height: 800px) {
     .d-flex {
