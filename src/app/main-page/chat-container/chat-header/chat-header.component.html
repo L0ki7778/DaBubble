@@ -1,6 +1,6 @@
 <!-- chat header for channels -->
 <div class="chat-container-header" *ngIf="this.selectionService.channelOrDM.value === 'channel'">
-    <app-edit-channel-overlay [channelId]="choosenChatTypeId" *ngIf="editChannel" style="z-index: 201;"></app-edit-channel-overlay>
+    <app-edit-channel-overlay [channelId]="choosenChatTypeId" *ngIf="editChannel"></app-edit-channel-overlay>
     <div class="chat-head-title" (click)="openEditChannelOverlay($event)">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -17,7 +17,7 @@
         </svg>
     </div>
     <div class="chat-member-section">
-        <app-members-overlay style="z-index: 201;" *ngIf="showMembers" [channelMemberIds]="currentChannelMembersIds"
+        <app-members-overlay *ngIf="showMembers" [channelMemberIds]="currentChannelMembersIds"
             [channelMemberNames]="currentChannelMembersNames" [channelMemberAvatars]="currentChannelMembersAvatars">
         </app-members-overlay>
         <div class="chat-head-members" (click)="openMembersOverlay($event)">
@@ -27,7 +27,7 @@
             </div>
             <span> {{ currentChannelMembersIds.length }} </span>
         </div>
-        <app-add-member-overlay style="z-index: 201;" *ngIf="showAddMember" [channelName]="currentChannelName" [channelId]="choosenChatTypeId"
+        <app-add-member-overlay *ngIf="showAddMember" [channelName]="currentChannelName" [channelId]="choosenChatTypeId"
             [channelMemberIds]="currentChannelMembersIds">
         </app-add-member-overlay>
         <img class="add-member-button" [src]="imgSrc"

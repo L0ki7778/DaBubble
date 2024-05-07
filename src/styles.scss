@@ -8,7 +8,6 @@ body {
     display: flex;
     justify-content: center;
     overflow: hidden;
-    position: relative;
 }
 
 app-root {
@@ -16,7 +15,6 @@ app-root {
     width: 100%;
     max-width: 1920px;
     display: flex;
-    position: relative;
 }
 
 * {
