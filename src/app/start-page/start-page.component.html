@@ -15,6 +15,11 @@
 <app-enter-new-password *ngIf="authService.showEnterNewPassword"></app-enter-new-password>
 <app-choose-profile-picture *ngIf="authService.showChooseProfilePicture"></app-choose-profile-picture>
 <app-upload-warning *ngIf="overlay.warning"></app-upload-warning>
-<footer>
+<div class="create-account-mobile" *ngIf="authService.showLogin">
+    <p>Neu bei DABubble?</p>
+    <span (click)="toggleToCreateAccount()">Konto erstellen</span>
+</div>
+<footer [ngClass]="{'mobile-footer': authService.showMobileDesign}">
     <p [routerLink]="['imprint']" (click)="preventAnimation()">Impressum</p>
     <p [routerLink]="['privacy-policy']">Datenschutz</p>
+</footer>

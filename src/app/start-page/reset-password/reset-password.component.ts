@@ -24,6 +24,7 @@ export class ResetPasswordComponent {
   toggleToLogin() {
     this.authService.showLogin = true;
     this.authService.showResetPassword = false;
+    this.authService.showMobileDesign = false;
   }
 
   toggleToEnterNewPassword() {
