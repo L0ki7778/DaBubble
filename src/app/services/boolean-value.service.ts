@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,11 @@ export class BooleanValueService {
   viewThreadObservable = this.viewThreadSource.asObservable();
   profileView = signal(false);
   userMention = signal(false);
+  showWorkspace = new BehaviorSubject<boolean>(true);
+
+  updateShowWorkspace(value: boolean) {
+    this.showWorkspace.next(value);
+  }
 
   toggleViewThread(value: boolean) {
     this.viewThread = value;

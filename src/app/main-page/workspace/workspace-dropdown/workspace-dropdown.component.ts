@@ -34,6 +34,7 @@ export class WorkspaceDropdownComponent {
   showList = false;
   currentUserID: string | null = '';
   filteredChannelNames: string[] = [];
+  showWorkspace: boolean = true;
 
 
   async ngOnInit() {
@@ -41,6 +42,9 @@ export class WorkspaceDropdownComponent {
     this.filterChannels();
     this.DMService.fetchUserNames();
     this.checkName();
+    this.booleanService.showWorkspace.subscribe(value => {
+      this.showWorkspace = value;
+    });
   }
 
   filterChannels() {
@@ -56,6 +60,7 @@ export class WorkspaceDropdownComponent {
   sendChannelId(index: number) {
     this.selectionService.choosenChatTypeId.next(this.selectionService.channelIds[index]);
     this.selectionService.channelOrDM.next('channel');
+    this.closeWorkspace();
   }
 
   sendDMId(index: number) {
@@ -85,6 +90,10 @@ export class WorkspaceDropdownComponent {
   createCannel(event: MouseEvent) {
     event.stopPropagation();
     this.overlayService.toggleWorkspaceOverlay();
+  }
+
+  closeWorkspace() {
+    this.booleanService.showWorkspace.next(false);
   }
 
 }

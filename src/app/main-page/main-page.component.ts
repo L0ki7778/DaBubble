@@ -36,6 +36,8 @@ export class MainPageComponent {
   overlay: any;
   showThread: boolean = false;
   isScreenSmall = false;
+  mobileView = false;
+  showWorkspace: boolean = true;
   private subscription!: Subscription;
   @ViewChild('WorkspaceComponent', { read: ElementRef }) workspaceComponentRef: ElementRef | undefined;
 
@@ -52,6 +54,9 @@ export class MainPageComponent {
         this.showThread = value;
       }
     );
+    this.booleanService.showWorkspace.subscribe(value => {
+      this.showWorkspace = value;
+    });
     this.checkScreenSize();
   }
 
@@ -60,9 +65,9 @@ export class MainPageComponent {
     this.checkScreenSize();
   }
 
-
   checkScreenSize() {
-    this.isScreenSmall = window.innerWidth < 1280;
+    this.isScreenSmall = window.innerWidth <= 1280;
+    this.mobileView = window.innerWidth <= 900;
   }
 
   ngOnDestroy() {
