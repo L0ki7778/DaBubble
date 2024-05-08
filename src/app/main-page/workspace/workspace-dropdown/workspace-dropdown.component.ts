@@ -66,6 +66,7 @@ export class WorkspaceDropdownComponent {
   sendDMId(index: number) {
     this.selectionService.choosenChatTypeId.next(this.selectionService.DMIds[index]);
     this.selectionService.channelOrDM.next('direct-message');
+    this.closeWorkspace();
   }
 
   checkName() {
