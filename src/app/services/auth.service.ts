@@ -29,6 +29,7 @@ export class AuthService {
   showEnterNewPassword: boolean = false;
   showCreateAccount: boolean = false;
   showHeader: boolean = true;
+  showMobileDesign: boolean = false;
   guestEmail = 'guest@email.com';
   guestPassword = 'Passwort';
   resetPasswordEmail: any = null;

@@ -39,16 +39,19 @@ export class StartPageComponent {
     this.authService.showLogin = !this.authService.showLogin;
     this.authService.showHeader = !this.authService.showHeader;
     this.authService.showCreateAccount = !this.authService.showCreateAccount;
+    this.authService.showMobileDesign = true;
   }
 
   toggleToResetPassword() {
     this.authService.showLogin = !this.authService.showLogin;
     this.authService.showHeader = !this.authService.showHeader;
     this.authService.showResetPassword = !this.authService.showResetPassword;
+    this.authService.showMobileDesign = true;
   }
 
   toggleToChooseProfilePicture() {
     this.authService.showChooseProfilePicture = this.authService.showChooseProfilePicture;
+    this.authService.showMobileDesign = true;
   }
 
   preventAnimation() {
