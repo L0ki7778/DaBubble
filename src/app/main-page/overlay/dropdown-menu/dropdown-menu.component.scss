@@ -1,115 +1,119 @@
 nav {
-    background-color: white;
-    width: 282px;
-    height: 181px;
-    position: absolute;
-    top: 100px;
-    right: 20px;
-    border-radius: 30px 0px 30px 30px;
-    box-shadow: 0px 6px 14px 0px rgba(0, 0, 0, 0.4);
-    animation: slideAnimationToLeft 150ms ease-in-out;
+  background-color: white;
+  width: 282px;
+  height: 181px;
+  position: absolute;
+  top: 100px;
+  right: 20px;
+  border-radius: 30px 0px 30px 30px;
+  box-shadow: 0px 6px 14px 0px rgba(0, 0, 0, 0.4);
+  animation: slideAnimationToLeft 150ms ease-in-out;
 
 
-    ul {
-        display: flex;
-        padding: 0;
-        margin: 0;
-        height: 100%;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-        gap: 36px;
-    }
+  ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 36px;
+  }
 
-    li {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        list-style: none;
-        font-size: 24px;
-        font-weight: 500;
-        padding: 5px 48px;
-        border-radius: 24px;
-        margin-left: 24px;
-    }
+  li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    list-style: none;
+    font-size: 24px;
+    font-weight: 500;
+    padding: 5px 48px;
+    border-radius: 24px;
+    margin-left: 24px;
+  }
 }
 
 .hover {
-    &:hover {
-        cursor: pointer;
-        color: var(--purple3);
-        font-weight: 600;
-        background-color: var(--lighterPurple);
-    }
+  &:hover {
+    cursor: pointer;
+    color: var(--purple3);
+    font-weight: 600;
+    background-color: var(--lighterPurple);
+  }
 }
 
 .line-container {
-    display: none;
-    margin-bottom: 8px;
+  display: none;
+  margin-bottom: 8px;
 
-    img {
-        cursor: pointer;
-    }
+  img {
+    cursor: pointer;
+  }
 }
 
 .nav-closed-mobile {
-    animation: slideAnimationToTopReverse 150ms ease-in-out;
-  }
+  animation: slideAnimationToTopReverse 150ms ease-in-out;
+}
 
-  .nav-closed {
-    animation: slideAnimationToLeftReverse 150ms ease-in-out;
-  }
+.nav-closed {
+  animation: slideAnimationToLeftReverse 150ms ease-in-out;
+}
 
 @keyframes slideAnimationToTop {
-    0% {
-      transform: translateY(100%);
-    }
-    100% {
-      transform: translateY(0);
-    }
+  0% {
+    transform: translateY(100%);
   }
-  
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
 @keyframes slideAnimationToTopReverse {
-    0% {
-      transform: translateY(0);
-    }
-    100% {
-      transform: translateY(100%);
-    }
-  }
-  
-  @keyframes slideAnimationToLeft {
-    0% {
-      transform: translateX(100%);
-    }
-    100% {
-      transform: translateX(0);
-    }
-  }
-  
-  @keyframes slideAnimationToLeftReverse {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(100%);
-    }
+  0% {
+    transform: translateY(0);
   }
 
-  @media screen and (max-width: 900px) {
-    nav {
-        top: auto;
-        right: auto;
-        bottom: 0;
-        width: 100vw;
-        border-radius: 30px 30px 0px 0px;
-        box-shadow: 0px 6px 14px 10px rgba(0, 0, 0, 0.3);
-        padding: 30px 0 12px 0;
-        animation: slideAnimationToTop 150ms ease-in-out;
-    }
+  100% {
+    transform: translateY(100%);
+  }
+}
 
-    .line-container {
-        display: flex;
-        justify-content: center;
-    }
+@keyframes slideAnimationToLeft {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideAnimationToLeftReverse {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media screen and (max-width: 900px) {
+  nav {
+    top: auto;
+    right: auto;
+    bottom: 0;
+    width: 100vw;
+    border-radius: 30px 30px 0px 0px;
+    box-shadow: 0px 6px 14px 10px rgba(0, 0, 0, 0.3);
+    padding: 30px 0 12px 0;
+    animation: slideAnimationToTop 150ms ease-in-out;
+  }
+
+  .line-container {
+    display: flex;
+    justify-content: center;
+  }
 }

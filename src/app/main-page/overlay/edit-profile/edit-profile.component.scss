@@ -113,3 +113,34 @@ input {
         background-color: var(--purple2);
     }
 }
+
+
+// max-width
+@media screen and (max-width: 900px) {
+    .edit-container {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .edit-container {
+        padding: 25px 20px;
+        min-width: auto;
+        width: 78%;
+    }
+
+    .user-img-container img {
+        width: 170px;
+        height: 170px;
+    }
+
+    .btn-container {
+        gap: 10px;
+    }
+
+    .save-btn, .cancel-btn {
+        padding: 6px 16px;
+    }
+}
