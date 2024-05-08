@@ -36,7 +36,7 @@ export class MainPageComponent {
   overlay: any;
   showThread: boolean = false;
   isScreenSmall = false;
-  mobileView = false;
+  mobileView: boolean = false;
   showWorkspace: boolean = true;
   private subscription!: Subscription;
   @ViewChild('WorkspaceComponent', { read: ElementRef }) workspaceComponentRef: ElementRef | undefined;
@@ -56,6 +56,9 @@ export class MainPageComponent {
     );
     this.booleanService.showWorkspace.subscribe(value => {
       this.showWorkspace = value;
+    });
+    this.booleanService.mobileView.subscribe(value => {
+      this.mobileView = value;
     });
     this.checkScreenSize();
   }

@@ -11,6 +11,7 @@ export class BooleanValueService {
   profileView = signal(false);
   userMention = signal(false);
   showWorkspace = new BehaviorSubject<boolean>(true);
+  mobileView = new BehaviorSubject<boolean>(false);
 
   updateShowWorkspace(value: boolean) {
     this.showWorkspace.next(value);
