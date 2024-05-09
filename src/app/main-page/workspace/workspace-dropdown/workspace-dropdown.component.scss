@@ -98,6 +98,11 @@ div {
             fill: $purple3;
         }
     }
+
+    span {
+        overflow: hidden;
+        max-width: 196px;
+    }
 }
 
 .active-dm {
@@ -161,5 +166,22 @@ div {
 
     .add-channel {
         margin-bottom: 32px;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+
+    .list-dm,
+    .list-channel span {
+        font-size: 16px;
+    }
+
+    div {
+        font-size: 19px;
+    }
+
+    .profile-image {
+        width: 45px;
+        height: 45px;
     }
 }

@@ -124,6 +124,11 @@ input {
 @media only screen and (max-width: 900px) {
     input {
         border: 1px solid var(--lightPurple);
+        font-size: 18px;
+
+        &::placeholder {
+            font-size: 18px;
+        }
     }
 
     :host {
