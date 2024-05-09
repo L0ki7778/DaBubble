@@ -1,8 +1,8 @@
 import { Component, ElementRef, HostListener, ViewChild, inject } from '@angular/core';
-import { OverlayService } from '../../../services/overlay.service';
+import { OverlayService } from '../../../../services/overlay.service';
 import { CommonModule } from '@angular/common';
-import { DirectMessagesService } from '../../../services/direct-messages.service';
-import { AuthService } from '../../../services/auth.service';
+import { DirectMessagesService } from '../../../../services/direct-messages.service';
+import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'app-profile-view',

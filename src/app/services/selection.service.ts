@@ -11,7 +11,6 @@ import { BooleanValueService } from './boolean-value.service';
 export class SelectionService {
   firestore = inject(Firestore);
   dmService = inject(DirectMessagesService);
-  booleanService = inject(BooleanValueService);
   channelNames: string[] = [];
   channelIds: string[] = [];
   DMIds: string[] = [];
@@ -53,8 +52,7 @@ export class SelectionService {
   }
 
   loadChannels() {
-    if(this.unsubChannels)
-      {this.unsubChannels()}
+    if (this.unsubChannels) { this.unsubChannels() }
     this.unsubChannels = onSnapshot(this.channelsQuery,
       { includeMetadataChanges: true }, (querySnapshot) => {
         this.channelNames = [];
@@ -70,8 +68,7 @@ export class SelectionService {
   }
 
   loadDirectMessages() {
-    if(this.unsubDM)
-      {this.unsubDM()}
+    if (this.unsubDM) { this.unsubDM() }
     this.unsubDM = onSnapshot(this.directMessagesQuery, { includeMetadataChanges: true }, (querySnapshot) => {
       this.DMIds = [];
       querySnapshot.forEach((doc) => {
@@ -84,29 +81,24 @@ export class SelectionService {
   }
 
   async getFirstDocumentId() {
-    if (!this.booleanService.mobileView.value) {
-      if (this.channelIds.length === 0 && this.DMIds.length === 0) {
-        const otherUserName = await this.getFirstUser();
-        if (otherUserName) {
-          this.channelOrDM.next('direct-message');
-          this.dmService.selectedUserName = otherUserName;
-          this.dmService.loadChatHistory();
-        }
-      } else if (this.channelIds.length > 0) {
-        this.channelOrDM.next('channel');
-        this.choosenChatTypeId.next(this.channelIds[0]);
-      } else if (this.DMIds.length > 0) {
+    if (this.channelIds.length === 0 && this.DMIds.length === 0) {
+      const otherUserName = await this.getFirstUser();
+      if (otherUserName) {
         this.channelOrDM.next('direct-message');
-        const otherUserName = await this.getOtherUserName();
-        if (otherUserName) {
-          this.dmService.selectedUserName = otherUserName;
-          this.choosenChatTypeId.next(this.DMIds[0]);
-          this.dmService.loadChatHistory();
-        }
+        this.dmService.selectedUserName = otherUserName;
+        this.dmService.loadChatHistory();
       }
-    } else {
-      this.channelOrDM.next('');
-      this.choosenChatTypeId.next('');
+    } else if (this.channelIds.length > 0) {
+      this.channelOrDM.next('channel');
+      this.choosenChatTypeId.next(this.channelIds[0]);
+    } else if (this.DMIds.length > 0) {
+      this.channelOrDM.next('direct-message');
+      const otherUserName = await this.getOtherUserName();
+      if (otherUserName) {
+        this.dmService.selectedUserName = otherUserName;
+        this.choosenChatTypeId.next(this.DMIds[0]);
+        this.dmService.loadChatHistory();
+      }
     }
   }
 

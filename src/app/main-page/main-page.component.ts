@@ -68,7 +68,6 @@ export class MainPageComponent {
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
     this.checkScreenSize();
-    this.selectionService.loadData();
   }
 
   checkScreenSize() {

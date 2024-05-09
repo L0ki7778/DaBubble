@@ -4,7 +4,7 @@ import { WorkspaceOverlayComponent } from './workspace-overlay/workspace-overlay
 import { CommonModule } from '@angular/common';
 import { DropdownMenuComponent } from './dropdown-menu/dropdown-menu.component';
 import { AddMemberOverlayComponent } from './add-member-overlay/add-member-overlay.component';
-import { ProfileViewComponent } from './profile-view/profile-view.component';
+import { ProfileViewComponent } from './upload-warning/profile-view/profile-view.component';
 import { BooleanValueService } from '../../services/boolean-value.service';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { MemberProfileComponent } from './member-profile/member-profile.component';

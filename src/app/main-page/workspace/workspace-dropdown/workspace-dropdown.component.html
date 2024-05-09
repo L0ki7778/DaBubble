@@ -39,7 +39,7 @@
 
     @for(channel of this.filteredChannelNames; track channel; let index = $index ) {
     <div class="list-channel"
-        [ngClass]="{ 'active-channel': channel === this.selectionService.getChannelNameById(this.selectionService.choosenChatTypeId.value)}"
+        [ngClass]="{ 'active-channel': (channel === this.selectionService.getChannelNameById(this.selectionService.choosenChatTypeId.value) && !this.booleanService.mobileView.value)}"
         (click)="sendChannelId(index); closeThread()">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -59,7 +59,7 @@
     <div *ngIf="showList" (click)="DMService.loadChatHistory(); closeThread()">
         <div *ngFor="let user of DMService.filteredUserNames, let index = index" class="list-dm list-user"
             (click)="DMService.addUserToDirectMessages(user.name); sendDMId(index)"
-            [ngClass]="{ 'active-dm': ((user.name === this.DMService.selectedUserName) && (this.selectionService.channelOrDM.value === 'direct-message'))}">
+            [ngClass]="{ 'active-dm': ((user.name === this.DMService.selectedUserName) && (this.selectionService.channelOrDM.value === 'direct-message') && !(this.booleanService.mobileView.value))}">
             <img [src]="user.profileImage" class="profile-image"><span>{{ user.name }}</span>
         </div>
         <br>
