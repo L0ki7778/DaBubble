@@ -122,7 +122,7 @@ export class ChatMessageComponent {
   openMemberView(event: MouseEvent) {
     event.stopPropagation();
     this.overlay.toggleMemberView();
-    this.selectionService.selectedMemberId = this.user.id;
+    this.selectionService.selectedMemberId.next(this.user.id);
     this.DMService.selectedProfileName = this.user.name;
     this.DMService.selectedProfileImage = this.user.image;
     this.DMService.selectedUserName = this.user.name;
