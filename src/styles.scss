@@ -278,3 +278,9 @@ app-root {
         max-height: 300px;
     }
 }
+
+@media(max-width: 650px) {
+    app-start-page {
+        overflow: scroll;
+    }
+}
