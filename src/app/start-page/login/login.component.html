@@ -14,7 +14,7 @@
                 <div class="separator"></div><span class="or">ODER</span>
                 <div class="separator"></div>
             </div>
-            <div class="loginGoogle" (click)="authService.loginWithGoogle()">Anmelden mit Google</div>
+            <div class="login-google" (click)="authService.loginWithGoogle()">Anmelden mit Google</div>
             <div class="buttons">
                 <button class="login-button" [class.not-allowed]="isInputEmpty">Anmelden</button>
                 <button class="guest-button" (click)="loginAsGuest($event)">Gäste-Login</button>

@@ -139,3 +139,9 @@ app-create-account {
         }
     }
 }
+
+@media(max-width: 650px) {
+    .logo-box {
+        margin-left: 0;
+    }
+}

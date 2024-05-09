@@ -116,7 +116,7 @@ form {
     }
 }
 
-.loginGoogle {
+.login-google {
     width: 100%;
     text-align: center;
     padding: 15px 10px;
@@ -192,5 +192,92 @@ form {
 @media (max-height: 800px) {
     .d-flex {
         margin-bottom: 100px;
+    }
+}
+
+@media(max-width: 650px) {
+    .login-container {
+        width: 90%;
+    }
+}
+
+@media(max-width: 550px) {
+    .login-google {
+        background-position: 7% 50%;
+    }
+}
+
+@media(max-width: 500px) {
+    .buttons {
+        gap: 20px;
+    }
+
+    .login-container {
+        padding: 20px 15px;
+    }
+    
+    .email {
+        width: 94%;
+    }
+
+    .password {
+        width: 94%;
+    }
+
+    .login-google {
+        width: 94%;
+    }
+}
+
+@media(max-width: 400px) {
+    .info-text {
+        font-size: 16px;
+    }
+
+    .email {
+        font-size: 16px;
+    }
+
+    .password {
+        font-size: 16px;
+    }
+
+    .forgot-password {
+        font-size: 16px;
+    }
+
+    .or {
+        font-size: 16px;
+    }
+
+    .login-google {
+        font-size: 16px;
+    }
+
+    .login-button {
+        font-size: 16px;
+        background-size: 34px;
+    }
+
+    .guest-button {
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: 42px;
+    }
+}
+
+@media(max-width: 370px) {
+    .buttons {
+        gap: 14px;
+    }
+
+    .guest-button {
+        padding: 10px 14px;
+    }
+
+    .login-button {
+        padding: 10px 14px;
     }
 }
