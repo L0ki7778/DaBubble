@@ -40,7 +40,6 @@ export class SearchBarComponent {
   searchValue: string = '';
 
 
-
   async ngOnInit() {
     this.filterChannels();
     this.DMService.fetchUserNamesSearchBar();
@@ -71,18 +70,21 @@ export class SearchBarComponent {
     }
   }
 
-  showDropdownMenu() {
+  showDropdownMenu(event: MouseEvent) {
+    event.stopPropagation();
     this.DMService.showDropdown = true;
   }
 
   sendChannelId(index: number) {
     this.selectionService.choosenChatTypeId.next(this.selectionService.channelIds[index]);
     this.selectionService.channelOrDM.next('channel');
+    this.closeWorkspace();
   }
 
   sendDMId(index: number) {
     this.selectionService.choosenChatTypeId.next(this.selectionService.DMIds[index]);
     this.selectionService.channelOrDM.next('direct-message');
+    this.closeWorkspace();
   }
 
   ngOnDestroy() {
@@ -93,6 +95,14 @@ export class SearchBarComponent {
   closeThread() {
     this.booleanService.toggleViewThread(false);
     this.DMService.showDropdown = false;
+  }
+
+  stopPropagation(event: MouseEvent) {
+    event.stopPropagation();
+  }
+
+  closeWorkspace() {
+    this.booleanService.showWorkspace.next(false);
   }
 
 }

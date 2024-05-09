@@ -2,7 +2,7 @@
 <div id="main-content" (click)="hideSearchList()">
     <app-workspace *ngIf="showWorkspace || !mobileView" [ngStyle]="(mobileView) ? {'max-width': '100%'} : {}"
         #WorkspaceComponent></app-workspace>
-    <app-close-workspace *ngIf="showWorkspace" (click)="handleWorkspace(); hideSearchList()"
+    <app-close-workspace *ngIf="showWorkspace && !mobileView" (click)="handleWorkspace(); hideSearchList()"
         [workspaceOpen]="workspaceOpen"></app-close-workspace>
     <app-chat-container *ngIf="(!isScreenSmall || !showThread) && (!showWorkspace || !mobileView)"></app-chat-container>
     <app-thread *ngIf="showThread" [ngStyle]="(isScreenSmall && showThread) ? {'max-width': '100%'} : {}"></app-thread>

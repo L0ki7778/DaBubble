@@ -274,7 +274,7 @@ export class ThreadContentComponent {
   openMemberView(event: MouseEvent) {
     event.stopPropagation();
     this.overlay.toggleMemberView();
-    this.selectionService.selectedMemberId = this.messageUser.id;
+    this.selectionService.selectedMemberId.next(this.messageUser.id);
     this.DMService.selectedProfileName = this.messageUser.name;
     this.DMService.selectedProfileImage = this.messageUser.image;
     this.DMService.selectedUserName = this.messageUser.name;

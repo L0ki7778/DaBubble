@@ -11,6 +11,7 @@ import { BooleanValueService } from '../services/boolean-value.service';
 import { CloseWorkspaceComponent } from './workspace/close-workspace/close-workspace.component';
 import { Subscription } from 'rxjs';
 import { DirectMessagesService } from '../services/direct-messages.service';
+import { SelectionService } from '../services/selection.service';
 
 @Component({
   selector: 'app-main-page',
@@ -32,6 +33,7 @@ export class MainPageComponent {
   overlayService = inject(OverlayService);
   booleanService = inject(BooleanValueService);
   DMService = inject(DirectMessagesService);
+  selectionService = inject(SelectionService);
   workspaceOpen = true;
   overlay: any;
   showThread: boolean = false;
@@ -71,6 +73,11 @@ export class MainPageComponent {
   checkScreenSize() {
     this.isScreenSmall = window.innerWidth <= 1280;
     this.mobileView = window.innerWidth <= 900;
+    if (this.mobileView) {
+      this.booleanService.mobileView.next(true);
+    } else {
+      this.booleanService.mobileView.next(false);
+    }
   }
 
   ngOnDestroy() {

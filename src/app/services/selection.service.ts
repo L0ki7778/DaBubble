@@ -1,8 +1,9 @@
-import { Injectable, inject } from '@angular/core';
+import { HostListener, Injectable, inject } from '@angular/core';
 import { Firestore, getDocs } from '@angular/fire/firestore';
 import { collection, query, onSnapshot, CollectionReference, doc, getDoc } from "firebase/firestore";
 import { BehaviorSubject } from 'rxjs';
 import { DirectMessagesService } from './direct-messages.service';
+import { BooleanValueService } from './boolean-value.service';
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +46,13 @@ export class SelectionService {
     this.loadData();
   }
 
+  loadData() {
+    this.loadChannels();
+    this.loadDirectMessages();
+  }
+
   loadChannels() {
+    if (this.unsubChannels) { this.unsubChannels() }
     this.unsubChannels = onSnapshot(this.channelsQuery,
       { includeMetadataChanges: true }, (querySnapshot) => {
         this.channelNames = [];
@@ -61,6 +68,7 @@ export class SelectionService {
   }
 
   loadDirectMessages() {
+    if (this.unsubDM) { this.unsubDM() }
     this.unsubDM = onSnapshot(this.directMessagesQuery, { includeMetadataChanges: true }, (querySnapshot) => {
       this.DMIds = [];
       querySnapshot.forEach((doc) => {
@@ -72,9 +80,26 @@ export class SelectionService {
     });
   }
 
-  loadData() {
-    this.loadChannels();
-    this.loadDirectMessages();
+  async getFirstDocumentId() {
+    if (this.channelIds.length === 0 && this.DMIds.length === 0) {
+      const otherUserName = await this.getFirstUser();
+      if (otherUserName) {
+        this.channelOrDM.next('direct-message');
+        this.dmService.selectedUserName = otherUserName;
+        this.dmService.loadChatHistory();
+      }
+    } else if (this.channelIds.length > 0) {
+      this.channelOrDM.next('channel');
+      this.choosenChatTypeId.next(this.channelIds[0]);
+    } else if (this.DMIds.length > 0) {
+      this.channelOrDM.next('direct-message');
+      const otherUserName = await this.getOtherUserName();
+      if (otherUserName) {
+        this.dmService.selectedUserName = otherUserName;
+        this.choosenChatTypeId.next(this.DMIds[0]);
+        this.dmService.loadChatHistory();
+      }
+    }
   }
 
   async getFirstUser() {
@@ -104,28 +129,6 @@ export class SelectionService {
     } else {
       console.warn('Das Direct-Message-Dokument wurde nicht gefunden.');
       return null;
-    }
-  }
-
-  async getFirstDocumentId() {
-    if (this.channelIds.length === 0 && this.DMIds.length === 0) {
-      const otherUserName = await this.getFirstUser();
-      if (otherUserName) {
-        this.channelOrDM.next('direct-message');
-        this.dmService.selectedUserName = otherUserName;
-        this.dmService.loadChatHistory();
-      }
-    } else if (this.channelIds.length > 0) {
-      this.channelOrDM.next('channel');
-      this.choosenChatTypeId.next(this.channelIds[0]);
-    } else if (this.DMIds.length > 0) {
-      this.channelOrDM.next('direct-message');
-      const otherUserName = await this.getOtherUserName();
-      if (otherUserName) {
-        this.dmService.selectedUserName = otherUserName;
-        this.choosenChatTypeId.next(this.DMIds[0]);
-        this.dmService.loadChatHistory();
-      }
     }
   }
 
