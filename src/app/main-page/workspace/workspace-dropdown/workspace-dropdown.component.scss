@@ -151,3 +151,15 @@ div {
     background-image: url('../../../../assets/img/general/plus.svg');
     background-size: cover;
 }
+
+
+// max-width
+@media only screen and (max-width: 900px) {
+    .dropdown {
+        padding-top: 4px;
+    }
+
+    .add-channel {
+        margin-bottom: 32px;
+    }
+}

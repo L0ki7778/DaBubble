@@ -121,6 +121,10 @@ header {
     .head-logo {
         height: 60px;
     }
+
+    app-search-bar {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 600px) {

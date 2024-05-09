@@ -84,6 +84,24 @@ app-close-workspace {
     }
 }
 
+
+// max-width
+@media only screen and (max-width: 900px) {
+    app-workspace {
+        align-items: center;
+        box-sizing: border-box;
+        padding: 32px 10% 0 10%;
+    }
+}
+
+@media (max-height: 800px) {
+
+    app-workspace,
+    app-thread {
+        overflow-y: scroll;
+    }
+}
+
 @media (max-height: 700px) {
 
     app-workspace,
@@ -92,11 +110,8 @@ app-close-workspace {
     }
 }
 
-
-@media (max-height: 800px) {
-
-    app-workspace,
-    app-thread {
-        overflow-y: scroll;
+@media only screen and (max-width: 500px) {
+    app-workspace {
+        padding: 32px 0 0 0;
     }
 }

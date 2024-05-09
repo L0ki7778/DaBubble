@@ -105,6 +105,8 @@ input {
     }
 }
 
+
+// max-width
 @media only screen and (max-width: 1200px) {
     input {
         height: 55px;
@@ -120,7 +122,22 @@ input {
 }
 
 @media only screen and (max-width: 900px) {
+    input {
+        border: 1px solid var(--lightPurple);
+    }
+
     :host {
-        display: none;
+        max-width: 100%;
+        margin-bottom: 32px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    :host {
+        max-width: 93%;
+    }
+
+    input {
+        border-radius: 30px;
     }
 }
