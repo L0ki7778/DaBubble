@@ -80,7 +80,7 @@ export class SelectionService {
   }
 
   async getFirstDocumentId() {
-    if (!this.booleanService.mobileView) {
+    if (!this.booleanService.mobileView.value) {
       console.log('Desktop view active');
       if (this.channelIds.length === 0 && this.DMIds.length === 0) {
         const otherUserName = await this.getFirstUser();
