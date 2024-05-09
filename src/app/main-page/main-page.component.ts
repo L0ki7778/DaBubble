@@ -71,6 +71,11 @@ export class MainPageComponent {
   checkScreenSize() {
     this.isScreenSmall = window.innerWidth <= 1280;
     this.mobileView = window.innerWidth <= 900;
+    if (this.mobileView) {
+      this.booleanService.mobileView.next(true);
+    } else {
+      this.booleanService.mobileView.next(false);
+    }
   }
 
   ngOnDestroy() {
