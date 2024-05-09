@@ -1,7 +1,7 @@
 {
     "workspaceOverlay": {
         "createChannel": "Channel erstellen",
-        "description": "Channels dienen deinem Team zur Kommunikation. Am besten sollten sie themenbezogen sein #marketing zum Beispiel",
+        "description": "Channels dienen deinem Team zur Kommunikation. Am besten sollten sie themenbezogen sein #marketing zum Beispiel.",
         "nameHeader": "Channel-Name",
         "nameExample":"z.B. Kooperationsprojekte",
         "descriptionHeader": "Beschreibung ",

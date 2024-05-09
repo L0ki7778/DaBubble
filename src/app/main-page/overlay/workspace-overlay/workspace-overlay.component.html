@@ -12,8 +12,8 @@
             <div>{{"workspaceOverlay.optional" | translate}}</div>
         </div>
         <div class="input-field">
-            <input id="description" type="text" formControlName="description"
-                placeholder="{{'workspaceOverlay.descriptionExample' | translate}}" autocomplete="off">
+            <textarea id="description" type="text" formControlName="description"
+                placeholder="{{'workspaceOverlay.descriptionExample' | translate}}" autocomplete="off"></textarea>
         </div>
         <button [disabled]="!newChannel.valid">{{"workspaceOverlay.create" | translate}}</button>
     </form>

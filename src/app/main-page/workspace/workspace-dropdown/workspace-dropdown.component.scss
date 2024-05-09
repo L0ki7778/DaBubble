@@ -26,8 +26,9 @@ div {
     position: relative;
     width: 100%;
     gap: 8px;
-    margin: 36px 0 0 15px;
+    padding: 36px 0 0 24px;
     transition: all ease 0.1s;
+    box-sizing: border-box;
 
     &:hover {
         cursor: pointer;

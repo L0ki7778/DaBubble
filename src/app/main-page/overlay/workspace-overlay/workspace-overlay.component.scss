@@ -28,7 +28,7 @@ h4 {
 
 .input-field {
     border: 1px solid var(--lightPurple);
-    border-radius: 40px;
+    border-radius: 30px;
     padding: 14px 16px;
     width: 100%;
     box-sizing: border-box;
@@ -44,17 +44,23 @@ h4 {
         border-color: $purple2;
     }
 
-    input {
-        width: 90%;
+    input,
+    textarea {
+        width: 92%;
         border: unset;
         outline: unset;
         font-size: 18px;
         font-weight: 400;
     }
+
+    textarea {
+        width: 96%;
+        resize: none;
+    }
 }
 
 #description {
-    margin-left: 1.45rem
+    margin-left: 8px;
 }
 
 form {
@@ -63,13 +69,13 @@ form {
 
     button {
         margin-top: 1.5rem;
+        margin-left: -4px;
         padding: 8px 21px;
         border-radius: 25px;
         font-size: 18px;
         font-weight: 700;
         align-self: flex-end;
         border: unset;
-        transform: scale(1.1);
         transition: all ease .1s;
         background-color: $purple2;
         color: white;
@@ -94,8 +100,8 @@ form {
 
 .close-btn {
     position: absolute;
-    top: 3rem;
-    right: 4rem;
+    top: 40px;
+    right: 2rem;
     background-color: transparent;
     transition: all ease .1s;
     border: unset;
@@ -129,4 +135,38 @@ form {
     background-color: white;
     border-radius: 30px;
     box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+
+// max-width
+@media screen and (max-width: 900px) {
+    .workspace-overlay {
+        width: 78%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .workspace-overlay {
+        padding: 40px 20px;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        border-radius: 0;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .input-field {
+        font-size: 16px;
+        padding: 10px 12px;
+
+        input,
+        textarea {
+            font-size: 16px;
+        }
+
+        input {
+            width: 88%;
+        }
+    }
 }
