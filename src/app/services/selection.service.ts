@@ -53,6 +53,8 @@ export class SelectionService {
   }
 
   loadChannels() {
+    if(this.unsubChannels)
+      {this.unsubChannels()}
     this.unsubChannels = onSnapshot(this.channelsQuery,
       { includeMetadataChanges: true }, (querySnapshot) => {
         this.channelNames = [];
@@ -68,6 +70,8 @@ export class SelectionService {
   }
 
   loadDirectMessages() {
+    if(this.unsubDM)
+      {this.unsubDM()}
     this.unsubDM = onSnapshot(this.directMessagesQuery, { includeMetadataChanges: true }, (querySnapshot) => {
       this.DMIds = [];
       querySnapshot.forEach((doc) => {
@@ -81,7 +85,6 @@ export class SelectionService {
 
   async getFirstDocumentId() {
     if (!this.booleanService.mobileView.value) {
-      console.log('Desktop view active');
       if (this.channelIds.length === 0 && this.DMIds.length === 0) {
         const otherUserName = await this.getFirstUser();
         if (otherUserName) {
@@ -102,8 +105,8 @@ export class SelectionService {
         }
       }
     } else {
-      console.log('Mobile view active');
-
+      this.channelOrDM.next('');
+      this.choosenChatTypeId.next('');
     }
   }
 
