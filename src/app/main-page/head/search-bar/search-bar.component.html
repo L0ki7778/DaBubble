@@ -1,6 +1,6 @@
-<input type="text" placeholder="DABubble durchsuchen" (click)="showDropdownMenu()" (input)="filterChannelsAndUsers()"
+<input type="text" placeholder="DABubble durchsuchen" (click)="showDropdownMenu($event)" (input)="filterChannelsAndUsers()"
     [(ngModel)]="searchValue">
-<div class="dropdown-menu" *ngIf="this.DMService.showDropdown" [@fadeAnimation]>
+<div (click)="stopPropagation($event)" class="dropdown-menu" *ngIf="this.DMService.showDropdown" [@fadeAnimation]>
     <div class="headline">Channels</div>
     @for(channel of this.filteredChannelNames; track channel; let index = $index ) {
     <div class="list" (click)="sendChannelId(index); closeThread()"

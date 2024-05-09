@@ -35,18 +35,18 @@ input {
     position: absolute;
     padding: 32px;
     background-color: white;
-    margin-top: 16px;
+    margin-top: 12px;
     z-index: 101;
-    border-top-left-radius: 32px;
+    border-top-left-radius: 50px;
     border-bottom-left-radius: 32px;
     border-bottom-right-radius: 32px;
-    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+    box-shadow: 0px 4px 14px 1px rgba(0, 0, 0, 0.3);
     max-height: 484px;
     overflow-y: scroll;
 }
 
 .headline {
-    font-weight: bold;
+    font-weight: 700;
     font-size: 20px;
     margin-bottom: 12px;
 }
@@ -135,6 +135,10 @@ input {
         max-width: 100%;
         margin-bottom: 32px;
     }
+
+    .dropdown-menu {
+        left: 10%;
+    }
 }
 
 @media only screen and (max-width: 500px) {
@@ -144,5 +148,28 @@ input {
 
     input {
         border-radius: 30px;
+    }
+
+    .dropdown-menu {
+        left: 3.5%;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .list {
+        font-size: 16px;
+
+        img {
+            width: 45px;
+            height: 45px;
+        }
+    }
+
+    .headline {
+        font-size: 19px;
+    }
+
+    .dropdown-menu {
+        max-width: 200px;
     }
 }
