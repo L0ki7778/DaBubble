@@ -1,14 +1,22 @@
 <div class="close-workspace-container">
     @if(workspaceOpen){
-        <div>Workspace-Menü schließen</div>
-    }@else {
-        <div>Workspace-Menü öffnen</div>
-    }
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M24 23V9C24 8.44772 23.5523 8 23 8L9 8C8.44771 8 8 8.44772 8 9V23C8 23.5523 8.44771 24 9 24H23C23.5523 24 24 23.5523 24 23Z" stroke="black" stroke-width="2"/>
-    <path d="M23 13.7144L7 13.7144" stroke="black" stroke-width="2"/>
-    <path d="M13.7145 19.4282L15.6466 17.496C15.8419 17.3008 16.1585 17.3008 16.3537 17.496L18.2859 19.4282" stroke="black" stroke-width="2" stroke-linecap="round"/>
+    <div>Workspace-Menü schließen</div>
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M24 23V9C24 8.44772 23.5523 8 23 8L9 8C8.44771 8 8 8.44772 8 9V23C8 23.5523 8.44771 24 9 24H23C23.5523 24 24 23.5523 24 23Z"
+            stroke="black" stroke-width="2" />
+        <path d="M23 13.7144L7 13.7144" stroke="black" stroke-width="2" />
+        <path d="M13.7145 19.4282L15.6466 17.496C15.8419 17.3008 16.1585 17.3008 16.3537 17.496L18.2859 19.4282"
+            stroke="black" stroke-width="2" stroke-linecap="round" />
     </svg>
-    
-    
+    }@else {
+    <div>Workspace-Menü öffnen</div>
+    <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1.5" y="1" width="16" height="16" rx="1" transform="rotate(90 9.5 9)" stroke="black"
+            stroke-width="2" />
+        <path d="M6.71436 1.5V17.5" transform="rotate(90 9.5 9)" stroke="black" stroke-width="2" />
+        <path d="M10.143 11.7856L12.0752 9.85348C12.2704 9.65822 12.2704 9.34164 12.0752 9.14638L10.143 7.21422"
+            transform="rotate(90 9.5 9)" stroke="black" stroke-width="2" stroke-linecap="round" />
+    </svg>
+    }
 </div>

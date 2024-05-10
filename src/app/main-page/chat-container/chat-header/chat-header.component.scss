@@ -56,6 +56,8 @@
     @include dFlex();
     position: relative;
     flex-direction: row-reverse;
+    max-width: 128px;
+    overflow: auto hidden;
 
     img {
         height: 30px;
@@ -91,6 +93,7 @@
     font-weight: 700;
     font-size: 24px;
     padding: 5px 10px;
+
     &:hover {
         cursor: pointer;
         background-color: #ECEEFE;
@@ -98,7 +101,7 @@
     }
 }
 
-.overlay-bg{
+.overlay-bg {
     position: absolute;
     top: 0;
     left: 0;
@@ -108,7 +111,7 @@
     z-index: 3;
 }
 
-app-edit-channel-overlay{
+app-edit-channel-overlay {
     z-index: 4;
     display: flex;
     position: absolute;
@@ -116,7 +119,7 @@ app-edit-channel-overlay{
     left: 0;
 }
 
-app-members-overlay{
+app-members-overlay {
     z-index: 4;
     display: flex;
     position: absolute;
@@ -124,10 +127,14 @@ app-members-overlay{
     right: 5%;
 }
 
-app-add-member-overlay{
+app-add-member-overlay {
     z-index: 4;
     display: flex;
     position: absolute;
     top: 10%;
     right: 0;
+}
+
+::-webkit-scrollbar {
+    height: 1.5px !important;
 }
