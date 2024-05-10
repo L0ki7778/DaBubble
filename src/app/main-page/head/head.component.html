@@ -1,5 +1,10 @@
 <header>
     <img class="head-logo" src="assets/img/general/dabubble-logo.svg" (click)="hideSearchList()">
+    <div class="devspace-mobile">
+        <img src="../../../assets/img/main-page/head/arrow-left.svg">
+        <img src="assets/img/main-page/workspace/workspace-logo.svg">
+        <span>Devspace</span>
+    </div>
     <div class="function-container">
         <app-search-bar></app-search-bar>
         <div (click)="openDropdownMenu($event); hideSearchList()" class="user-container">

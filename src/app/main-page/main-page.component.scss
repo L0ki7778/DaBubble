@@ -23,8 +23,8 @@ app-workspace {
     @include scaleElement();
     display: flex;
     flex-direction: column;
-    min-width: max-content;
-    max-width: 20%;
+    min-width: min-content;
+    max-width: 340px;
     transition: all ease .25s;
     position: relative;
     background-color: white;

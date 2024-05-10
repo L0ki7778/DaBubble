@@ -54,6 +54,17 @@ header {
     border-radius: 50%;
 }
 
+.devspace-mobile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    span {
+        font-size: 21px;
+        font-weight: 700;
+    }
+}
+
 
 // max-width
 @media screen and (max-width: 1200px) {
