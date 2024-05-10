@@ -263,6 +263,14 @@ form {
         font-size: 16px;
     }
 
+    .email::placeholder {
+        font-size: 16px;
+      }
+
+    .password::placeholder {
+        font-size: 16px;
+    }
+
     h1 {
         font-size: 42px;
     }
@@ -279,5 +287,11 @@ form {
 
     .login-button {
         padding: 10px 14px;
+    }
+}
+
+@media(max-width: 340px) {
+    .login-google {
+        background-position: 4% 50%;
     }
 }

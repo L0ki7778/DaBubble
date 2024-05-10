@@ -4,7 +4,7 @@
         <h1>DABubble</h1>
     </div>
     <div *ngIf="!authService.endAnimation"></div>
-    <div class="create-account" *ngIf="authService.showLogin">
+    <div class="create-account" *ngIf="authService.showLogin && !authService.showMobileDesign">
         <p>Neu bei DABubble?</p>
         <span (click)="toggleToCreateAccount()">Konto erstellen</span>
     </div>
@@ -15,11 +15,11 @@
 <app-enter-new-password *ngIf="authService.showEnterNewPassword"></app-enter-new-password>
 <app-choose-profile-picture *ngIf="authService.showChooseProfilePicture"></app-choose-profile-picture>
 <app-upload-warning *ngIf="overlay.warning"></app-upload-warning>
-<div class="create-account-mobile" *ngIf="authService.showLogin">
+<div class="create-account" *ngIf="authService.showMobileDesign && authService.showLogin">
     <p>Neu bei DABubble?</p>
     <span (click)="toggleToCreateAccount()">Konto erstellen</span>
 </div>
-<footer [ngClass]="{'mobile-footer': authService.showMobileDesign}">
+<footer>
     <p [routerLink]="['imprint']" (click)="preventAnimation()">Impressum</p>
     <p [routerLink]="['privacy-policy']">Datenschutz</p>
 </footer>

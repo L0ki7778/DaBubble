@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { LoginComponent } from './login/login.component';
 import { CommonModule } from '@angular/common';
 import { CreateAccountComponent } from './create-account/create-account.component';
@@ -33,25 +33,36 @@ export class StartPageComponent {
 
   ngOnInit() {
     setTimeout(() => this.authService.endAnimation = true, 3000);
+    this.checkWidth();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.checkWidth();
+  }
+
+  checkWidth() {
+    if(window.innerWidth < 650) {
+      this.authService.showMobileDesign = true;
+    } else {
+      this.authService.showMobileDesign = false;
+    }
   }
 
   toggleToCreateAccount() {
     this.authService.showLogin = !this.authService.showLogin;
     this.authService.showHeader = !this.authService.showHeader;
     this.authService.showCreateAccount = !this.authService.showCreateAccount;
-    this.authService.showMobileDesign = true;
   }
 
   toggleToResetPassword() {
     this.authService.showLogin = !this.authService.showLogin;
     this.authService.showHeader = !this.authService.showHeader;
     this.authService.showResetPassword = !this.authService.showResetPassword;
-    this.authService.showMobileDesign = true;
   }
 
   toggleToChooseProfilePicture() {
     this.authService.showChooseProfilePicture = this.authService.showChooseProfilePicture;
-    this.authService.showMobileDesign = true;
   }
 
   preventAnimation() {

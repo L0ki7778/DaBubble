@@ -1,5 +1,4 @@
 .warning-container {
-    position: relative;
     background-color: white;
     border-radius: 30px;
     position: absolute;
@@ -34,5 +33,31 @@
             cursor: pointer;
             background-color: var(--purple2);
         }
+    }
+}
+
+@media(max-width: 1100px) {
+    .warning-container {
+        width: 60%;
+    }
+}
+
+@media(max-width: 755px) {
+    .warning-container {
+        width: 70%;
+    }
+}
+
+@media(max-width: 650px) {
+    .warning-container {
+        width: 78%;
+        padding: 40px;
+    }
+}
+
+@media(max-width: 480px) {
+    .warning-container {
+        width: 80%;
+        padding: 20px;
     }
 }

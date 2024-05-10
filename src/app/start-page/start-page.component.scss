@@ -51,31 +51,6 @@ header {
     }
 }
 
-.create-account-mobile {
-    display: none;
-    flex-direction: column;
-    margin-right: 46px;
-    margin-top: 24px;
-
-    >p {
-        font-size: 18px;
-    }
-
-    >span {
-        font-size: 18px;
-        color: var(--purple2);
-        padding: 4px 12px;
-        outline: 1px solid var(--lightPurple);
-        border-radius: 25px;
-
-        &:hover {
-            cursor: pointer;
-            font-weight: 500;
-            color: var(--purple1);
-        }
-    }
-}
-
 footer {
     font-size: 18px;
     color: var(--purple2);
@@ -102,11 +77,6 @@ footer {
     }
 }
 
-.mobile-footer {
-    position: absolute;
-    transform: translateX(-50%);
-}
-
 app-reset-password,
 app-create-account {
     display: flex;
@@ -114,19 +84,20 @@ app-create-account {
 }
 
 @media(max-width: 650px) {
-    .create-account {
-        display: none;
-    }
 
     header {
         justify-content: center;
     }
 
-    .create-account-mobile {
+    .create-account {
         display: flex;
         align-items: center;
         margin-right: 0;
         margin-bottom: 24px;
+        >span {
+            outline: 1px solid var(--lightPurple);
+            border-radius: 25px;
+        }
     }
 
     footer {
@@ -143,5 +114,21 @@ app-create-account {
 @media(max-width: 650px) {
     .logo-box {
         margin-left: 0;
+    }
+}
+
+@media(max-width: 400px) {
+    .create-account {
+        >span {
+            font-size: 16px;
+        }
+
+        >p {
+            font-size: 16px;
+        }
+    }
+
+    footer {
+        font-size: 16px;
     }
 }

@@ -41,7 +41,6 @@ export class EnterNewPasswordComponent {
         this.preventAnimation();
         setTimeout(() => {
           this.toggleToLogin();
-          this.authService.showMobileDesign = false;
         }, 2000);
         const auth = getAuth();
         const emailCredential = await this.getEmailCredential();
@@ -96,7 +95,6 @@ export class EnterNewPasswordComponent {
   toggleToLogin() {
     this.authService.showLogin = true;
     this.authService.showEnterNewPassword = false;
-    this.authService.showMobileDesign = false;
   }
 
   preventAnimation() {
