@@ -8,6 +8,7 @@ import { Firestore, doc, getDoc } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { DirectMessagesService } from '../../services/direct-messages.service';
+import { BooleanValueService } from '../../services/boolean-value.service';
 
 @Component({
     selector: 'app-head',
@@ -24,18 +25,34 @@ export class HeadComponent {
     overlay = inject(OverlayService);
     authService = inject(AuthService);
     DMService = inject(DirectMessagesService);
+    private firestore: Firestore = inject(Firestore);
+    booleanService = inject(BooleanValueService);
     name: string | null = '';
     imgSrc: string = 'assets/img/start-page/unknown.svg';
-    private firestore: Firestore = inject(Firestore);
     auth = getAuth();
     authSubscription: Subscription | null = null;
     private userNameSubscription: Subscription | null = null;
+    showWorkspace: boolean = true;
+    mobileView: boolean = false;
+    showThread: boolean = false;
+    private subscription!: Subscription;
 
 
     ngOnInit() {
         this.loggedInUser();
         this.findImageUrl();
         this.subscribeToUserName();
+        this.booleanService.showWorkspace.subscribe(value => {
+            this.showWorkspace = value;
+        });
+        this.booleanService.mobileView.subscribe(value => {
+            this.mobileView = value;
+        });
+        this.subscription = this.booleanService.viewThreadObservable.subscribe(
+            value => {
+              this.showThread = value;
+            }
+          );
     }
 
     hideSearchList() {

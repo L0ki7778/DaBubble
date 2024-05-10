@@ -13,10 +13,6 @@ export class BooleanValueService {
   showWorkspace = new BehaviorSubject<boolean>(true);
   mobileView = new BehaviorSubject<boolean>(false);
 
-  updateShowWorkspace(value: boolean) {
-    this.showWorkspace.next(value);
-  }
-
   toggleViewThread(value: boolean) {
     this.viewThread = value;
     this.viewThreadSource.next(value);

@@ -5,6 +5,6 @@
     <app-close-workspace *ngIf="showWorkspace && !mobileView" (click)="handleWorkspace(); hideSearchList()"
         [workspaceOpen]="workspaceOpen"></app-close-workspace>
     <app-chat-container *ngIf="(!isScreenSmall || !showThread) && (!showWorkspace || !mobileView)"></app-chat-container>
-    <app-thread *ngIf="showThread" [ngStyle]="(isScreenSmall && showThread) ? {'max-width': '100%'} : {}"></app-thread>
+    <app-thread *ngIf="showThread && (!showWorkspace || !mobileView)" [ngStyle]="(isScreenSmall && showThread) ? {'max-width': '100%'} : {}"></app-thread>
 </div>
 <app-overlay *ngIf="overlay"></app-overlay>

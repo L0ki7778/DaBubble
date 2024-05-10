@@ -1,6 +1,6 @@
 <header>
-    <img class="head-logo" src="assets/img/general/dabubble-logo.svg" (click)="hideSearchList()">
-    <div class="devspace-mobile">
+    <img *ngIf="(showWorkspace && mobileView) || (showWorkspace && !mobileView)  || !mobileView" class="head-logo" src="assets/img/general/dabubble-logo.svg" (click)="hideSearchList()">
+    <div *ngIf="((showThread && mobileView) || (!showWorkspace && mobileView)) && !showWorkspace" class="devspace-mobile">
         <img src="../../../assets/img/main-page/head/arrow-left.svg">
         <img src="assets/img/main-page/workspace/workspace-logo.svg">
         <span>Devspace</span>
