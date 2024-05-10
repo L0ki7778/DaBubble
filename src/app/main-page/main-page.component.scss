@@ -118,11 +118,15 @@ app-close-workspace {
 
 
 @media only screen and (max-width: 400px) {
-    #main-content{
+    #main-content {
         padding: 0;
     }
 
     app-workspace {
+        border-radius: 0;
+    }
+
+    app-chat-container {
         border-radius: 0;
     }
 }

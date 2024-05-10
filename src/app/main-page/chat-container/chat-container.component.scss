@@ -28,3 +28,11 @@ app-chat-input {
     position: relative;
     margin-bottom: 1.5rem;
 }
+
+
+// max-width
+@media only screen and (max-width: 400px) {
+    app-chat-header {
+        border-radius: 0;
+    }
+}

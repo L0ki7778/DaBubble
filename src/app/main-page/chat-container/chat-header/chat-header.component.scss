@@ -56,7 +56,7 @@
     @include dFlex();
     position: relative;
     flex-direction: row-reverse;
-    max-width: 128px;
+    max-width: 288px;
     overflow: auto hidden;
 
     img {
@@ -137,4 +137,57 @@ app-add-member-overlay {
 
 ::-webkit-scrollbar {
     height: 1.5px !important;
+}
+
+
+// max-width
+@media only screen and (max-width: 1500px) {
+    .member-icons {
+        max-width: 128px;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .member-icons {
+        max-width: 260px;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .member-icons {
+        max-width: 128px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .chat-head-members {
+        display: none;
+    }
+
+    .chat-head-title {
+        span {
+            font-size: 22px;
+        }
+    }
+
+    .arrow {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    #main-content {
+        padding: 0;
+    }
+
+    .chat-container-header {
+        padding: 0 16px;
+    }
+
+    .chat-head-title {
+        padding: 0;
+        margin-left: -2px;
+        gap: 4px;
+    }
 }
