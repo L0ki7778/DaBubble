@@ -113,4 +113,8 @@ export class HeadComponent {
         this.authSubscription.add(unsubscribe);
     }
 
+    openWorkspace() {
+        this.booleanService.showWorkspace.next(true);
+    }
+
 }

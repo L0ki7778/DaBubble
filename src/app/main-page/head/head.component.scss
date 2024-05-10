@@ -57,12 +57,20 @@ header {
 .devspace-mobile {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 
     span {
-        font-size: 21px;
-        font-weight: 700;
+        font-size: 28px;
+        font-weight: 600;
     }
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.arrow-left {
+    width: 33px;
 }
 
 
@@ -146,6 +154,46 @@ header {
     .profile-img {
         height: 50px;
         width: 50px;
+    }
+
+    .devspace-mobile {
+        gap: 8px;
+
+        span {
+            font-size: 24px;
+        }
+    }
+
+    .devspace-logo {
+        height: 50px;
+    }
+
+    .arrow-left {
+        width: 29px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .devspace-mobile {
+        gap: 6px;
+
+        span {
+            font-size: 22px;
+        }
+    }
+
+    .devspace-logo {
+        height: 48px;
+    }
+
+    .arrow-left {
+        margin-left: -12px;
+        margin-right: -6px;
+    }
+
+    .profile-img {
+        height: 48px;
+        width: 48px;
     }
 }
 
