@@ -14,7 +14,7 @@
                 [ngStyle]="{'opacity': isHovered ? '1' : '0'}"
                 (editingStarted)="startEditing($event.messageId, $event.messageText)">
             </app-reaction-bar>
-            <div>
+            <div [ngStyle]="{'flex-direction': isOwnMessage ? 'row-reverse' : 'row'}">
                 <span (click)="openMemberView($event)" class="message-author">
                     {{ user.name }}
                 </span>
