@@ -72,14 +72,8 @@ app-chat-answer {
     width: 100%;
     display: flex;
     align-items: flex-end;
-    justify-content: flex-end;
+    justify-content: space-between;
     position: relative;
-
-    div {
-        display: flex;
-        justify-content: start;
-        align-items: center;
-    }
 }
 
 .answer-footer {
@@ -182,7 +176,8 @@ app-chat-answer {
 }
 
 .reaction-bar-container {
-    position: absolute;
+    position: relative;
+    top: -20px;
     gap: none;
     display: flex;
     align-items: center;

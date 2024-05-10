@@ -12,8 +12,8 @@
     <div class="answer-box"
       [ngStyle]="{'align-items': isOwnAnswer ? 'end' : 'start', 'margin': isOwnAnswer ? '0 0 0 24px' : '0 24px 0 0'}">
       <div class="answer-header" [ngStyle]="{'flex-direction': isOwnAnswer ? 'row' : 'row-reverse'}">
-        <div *ngIf="isHovered"
-          [ngStyle]="{'border-radius': isOwnAnswer ? '25px 25px 0px 25px' : '25px 25px 25px 0px', 'flex-direction': isOwnAnswer ? 'none' : 'row-reverse'}"
+        <div
+          [ngStyle]="{'opacity': isHovered ? '1' : '0', 'border-radius': isOwnAnswer ? '25px 25px 0px 25px' : '25px 25px 25px 0px', 'flex-direction': isOwnAnswer ? 'row' : 'row-reverse'}"
           class="reaction-bar-container">
           <div (click)="showEmojiPicker($event)" class="smiley-img">
           </div>
@@ -60,8 +60,8 @@
         </div>
       </div>
       <emoji-mart (emojiClick)="addEditedEmoji($event)" #emoji *ngIf="viewEditEmojiPicker"
-      [style]="{ position: 'relative', 'z-index': '9' }">
-  </emoji-mart>
+        [style]="{ position: 'relative', 'z-index': '9' }">
+      </emoji-mart>
       <div class="answer-footer" [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'none' }">
         <div *ngIf="message" class="reactions">
           <p *ngFor="let reaction of message.reactions | keyvalue" (click)="addEmoji({emoji: {native: reaction.key}})">
