@@ -29,7 +29,7 @@ export const fadeAnimation = trigger('fadeAnimation', [
 export class SearchBarComponent {
 
   DMService: DirectMessagesService = inject(DirectMessagesService);
-  booleanService = inject(BooleanValueService)
+  booleanService = inject(BooleanValueService);
   firestore = this.DMService.firestore;
   filteredChannelNames: string[] = [];
   channelsRef: CollectionReference = collection(this.firestore, "channels");
