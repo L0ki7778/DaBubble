@@ -14,11 +14,11 @@ header {
 }
 
 .head-logo {
-    height: 70px;
+    height: 65px;
 }
 
 .user-container {
-    height: 70px;
+    height: 65px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -26,7 +26,7 @@ header {
     cursor: pointer;
 
     span {
-        font-size: 32px;
+        font-size: 30px;
         font-weight: 700;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -94,14 +94,15 @@ header {
         height: 55px;
         width: 55px;
         border-radius: 50%;
-    }
-
-    .head-logo {
-        height: 65px;
+        margin-left: 4px;
     }
 
     header {
         gap: 3.5%;
+    }
+
+    .head-logo {
+        height: 55px;
     }
 }
 
@@ -131,6 +132,7 @@ header {
     header {
         justify-content: space-between;
         gap: unset;
+        padding: 16px 30px;
     }
 
     .function-container {
@@ -170,6 +172,10 @@ header {
 
     .arrow-left {
         width: 29px;
+    }
+
+    header {
+        padding: 16px 20px;
     }
 }
 
@@ -213,6 +219,6 @@ header {
 
 @media screen and (min-width: 1200px) {
     header {
-        gap: 2.5%;
+        gap: 4.5%;
     }
 }
