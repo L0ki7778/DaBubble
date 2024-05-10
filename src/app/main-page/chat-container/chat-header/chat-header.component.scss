@@ -31,6 +31,9 @@
         letter-spacing: 0em;
         text-align: left;
         font-weight: 700;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 }
 
@@ -147,9 +150,23 @@ app-add-member-overlay {
     }
 }
 
+@media only screen and (max-width: 1000px) {
+    .chat-head-title {
+        span {
+            max-width: 292px;
+        }
+    }
+}
+
 @media only screen and (max-width: 900px) {
     .member-icons {
         max-width: 260px;
+    }
+
+    .chat-head-title {
+        span {
+            max-width: none;
+        }
     }
 }
 
@@ -174,6 +191,17 @@ app-add-member-overlay {
         width: 28px;
         height: 28px;
     }
+
+    .add-member-button {
+        height: 35px;
+        max-height: 35px;
+    }
+
+    .chat-head-title {
+        span {
+            max-width: 192px;
+        }
+    }
 }
 
 @media only screen and (max-width: 400px) {
@@ -188,6 +216,21 @@ app-add-member-overlay {
     .chat-head-title {
         padding: 0;
         margin-left: -2px;
-        gap: 4px;
+        gap: 0;
+
+        span {
+            max-width: 196px;
+            font-size: 20px;
+        }
+
+        svg {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    .arrow {
+        width: 26px !important;
+        height: 26px !important;
     }
 }

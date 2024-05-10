@@ -30,3 +30,15 @@ app-thread-input {
     position: relative;
     margin-bottom: 1.5rem;
 }
+
+
+// max-width
+@media only screen and (max-width: 400px) {
+    app-thread-header {
+        border-radius: 0;
+    }
+
+    app-thread-header {
+        padding: 0 16px;
+    }
+}

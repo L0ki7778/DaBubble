@@ -24,7 +24,7 @@ app-workspace {
     display: flex;
     flex-direction: column;
     min-width: min-content;
-    max-width: 340px;
+    max-width: 310px;
     transition: all ease .25s;
     position: relative;
     background-color: white;
@@ -122,10 +122,8 @@ app-close-workspace {
         padding: 0;
     }
 
-    app-workspace {
-        border-radius: 0;
-    }
-
+    app-workspace,
+    app-thread,
     app-chat-container {
         border-radius: 0;
     }

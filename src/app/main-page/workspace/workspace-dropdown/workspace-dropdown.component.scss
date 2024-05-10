@@ -53,6 +53,13 @@ div {
     font-size: 18px;
     font-weight: 400;
 
+    span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 190px;
+    }
+
     &:hover {
         cursor: pointer;
         background-color: #ECEEFE;
@@ -166,6 +173,10 @@ div {
 
     .add-channel {
         margin-bottom: 32px;
+    }
+
+    .list-channel span {
+        max-width: none;
     }
 }
 
