@@ -10,8 +10,7 @@
     <div class="answer-box"
         [ngStyle]="{'align-items': isOwnAnswer ? 'end' : 'start', 'margin': isOwnAnswer ? '0 0 0 24px' : '0 24px 0 0'}">
         <div class="answer-header" [ngStyle]="{'flex-direction': isOwnAnswer ? 'row' : 'row-reverse'}">
-            <div *ngIf="isHovered"
-                [ngStyle]="{'border-radius': isOwnAnswer ? '25px 25px 0px 25px' : '25px 25px 25px 0px', 'flex-direction': isOwnAnswer ? 'none' : 'row-reverse'}"
+            <div [ngStyle]="{'opacity': isHovered ? '1' : '0', 'border-radius': isOwnAnswer ? '25px 25px 0px 25px' : '25px 25px 25px 0px', 'flex-direction': isOwnAnswer ? 'row' : 'row-reverse'}"
                 class="reaction-bar-container">
                 <div (click)="showEmojiPickerAnswer($event)" class="smiley-img">
                 </div>
