@@ -4,7 +4,7 @@
     </span>
 </div>
 <div #edit class="answer-container" (mouseover)="onHover()" (mouseleave)="onLeave()"
-    [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'none', 'background-color': isHovered ? '#ECEEFE' : 'white'}">
+    [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'none', 'background-color': isHovered ? '#ECEEFE' : 'transparent'}">
     <img [ngStyle]="{'margin': isOwnAnswer ? '16px 24px 0 0' : '16px 0 0 24px'}" *ngIf="user.image" class="avatar-icon"
         (click)="openMemberView($event)" src="{{ user.image }}">
     <div class="answer-box"
