@@ -3,6 +3,8 @@
 h3 {
     font-size: 24px;
     font-weight: 700;
+    display: flex;
+    align-items: center;
 }
 
 h4 {
@@ -20,8 +22,12 @@ h4 {
 
 span {
     margin: 0 .5rem 0 0;
-    font-weight: bold;
+    font-weight: 700;
     font-size: 18px;
+}
+
+.sign {
+    font-size: 24px;
 }
 
 .input-field {
@@ -72,6 +78,8 @@ span {
 
 
 #channel-description-container {
+    border: 1px solid var(--lightPurple);
+    border-radius: 1rem;
     display: flex;
     flex-direction: column;
     transition: all ease .25s;
@@ -82,10 +90,10 @@ span {
 }
 
 .stroke-div {
-    height: 2px;
+    height: 1px;
     width: 100%;
     margin: 0 auto;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: var(--lightPurple);
 }
 
 
@@ -118,9 +126,9 @@ span {
 
     h4:last-of-type {
         z-index: 2;
-        color: $purple2;
-        font-size: 18px;
-        font-weight: 600;
+        color: var(--purple3);
+        font-size: 16px;
+        font-weight: 500;
 
         &:hover {
             cursor: pointer;
@@ -130,7 +138,7 @@ span {
 }
 
 .border-container {
-    border: 2px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--lightPurple);
     position: absolute;
     bottom: 0;
     left: 0;
@@ -199,7 +207,7 @@ span {
 
 .close-btn {
     position: absolute;
-    top: 1rem;
+    top: 25px;
     right: 2rem;
     background-color: transparent;
     transition: all ease .1s;
@@ -254,6 +262,8 @@ span {
     padding: 0 2rem 1.5rem;
     background-color: white;
     border-radius: 0 2rem 2rem;
+    min-width: 500px;
+    max-width: 70%;
 }
 
 .description-text {

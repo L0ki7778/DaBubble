@@ -1,5 +1,5 @@
 <div #editView class="edit-channel-overlay">
-    <h3><span>#</span> Entwicklerteam</h3>
+    <h3><span class="sign">#</span> Entwicklerteam</h3>
     <div id="channel-name-container">
         <div class="channel-edit-part" [ngClass]="{'h4-translate': editName}">
             <h4>
@@ -18,8 +18,8 @@
         <div class="border-container" [ngClass]="{'shrink-container': editName,'hover-input':editName}">
             <div class="input-field">
                 <span>#</span>
-                <input maxlength="20" [(ngModel)]="channelName" type="text" placeholder="{{ channelName }}" [disabled]="!editName"
-                    [ngClass]="{'hover-input':editName}">
+                <input maxlength="20" [(ngModel)]="channelName" type="text" placeholder="{{ channelName }}"
+                    [disabled]="!editName" [ngClass]="{'hover-input':editName}">
             </div>
         </div>
     </div>
