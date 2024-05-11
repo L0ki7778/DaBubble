@@ -38,12 +38,16 @@ export class SearchBarComponent {
   currentUserID: string | null = '';
   selectionService = inject(SelectionService);
   searchValue: string = '';
+  mobileView: boolean = false;
 
 
   async ngOnInit() {
     this.filterChannels();
     this.DMService.fetchUserNamesSearchBar();
     this.currentUserID = await this.DMService.getLoggedInUserId();
+    this.booleanService.mobileView.subscribe(value => {
+      this.mobileView = value;
+    });
   }
 
   filterChannels() {
@@ -102,7 +106,9 @@ export class SearchBarComponent {
   }
 
   closeWorkspace() {
-    this.booleanService.showWorkspace.next(false);
+    if (this.mobileView) {
+      this.booleanService.showWorkspace.next(false);
+    }
   }
 
 }

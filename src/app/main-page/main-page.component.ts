@@ -94,8 +94,15 @@ export class MainPageComponent {
     const workspaceElement: HTMLElement = this.workspaceComponentRef.nativeElement;
     const isOpen = workspaceElement.style.width === '0px';
 
-    isOpen ? this.openWorkspace(workspaceElement) : this.closeWorkspace(workspaceElement);
+    if (isOpen) {
+      this.openWorkspace(workspaceElement);
+      this.booleanService.showWorkspace.next(true);
+    } else {
+      this.closeWorkspace(workspaceElement);
+      this.booleanService.showWorkspace.next(false);
+    }
   }
+
 
   setWorkspaceStyles(workspaceElement: HTMLElement, styles: Partial<CSSStyleDeclaration>) {
     Object.assign(workspaceElement.style, styles);
@@ -118,7 +125,7 @@ export class MainPageComponent {
     this.setWorkspaceStyles(workspaceElement, {
       width: '0',
       minWidth: 'unset',
-      margin: '0 -2rem',
+      margin: '-8px',
       opacity: '0'
     });
   }

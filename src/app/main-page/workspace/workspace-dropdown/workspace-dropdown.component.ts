@@ -35,6 +35,7 @@ export class WorkspaceDropdownComponent {
   currentUserID: string | null = '';
   filteredChannelNames: string[] = [];
   showWorkspace: boolean = true;
+  mobileView: boolean = false;
 
 
   async ngOnInit() {
@@ -44,6 +45,9 @@ export class WorkspaceDropdownComponent {
     this.checkName();
     this.booleanService.showWorkspace.subscribe(value => {
       this.showWorkspace = value;
+    });
+    this.booleanService.mobileView.subscribe(value => {
+      this.mobileView = value;
     });
   }
 
@@ -94,7 +98,9 @@ export class WorkspaceDropdownComponent {
   }
 
   closeWorkspace() {
-    this.booleanService.showWorkspace.next(false);
+    if (this.mobileView) {
+      this.booleanService.showWorkspace.next(false);
+    }
   }
 
 }
