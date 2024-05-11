@@ -1,6 +1,6 @@
 header {
     left: 0;
-    top:0;
+    top: 0;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -23,6 +23,9 @@ span {
     font-size: 14px;
     font-weight: 400;
     color: var(--purple2);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .cross-img {
@@ -39,15 +42,24 @@ span {
 
 
 // max-width
+@media only screen and (max-width: 1400px) {
+    span {
+        max-width: 187px;
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+    span {
+        max-width: none;
+    }
+}
+
 @media only screen and (max-width: 400px) {
     .cross-img {
         margin-right: -6px;
     }
 
     span {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
         max-width: 165px;
     }
 }
