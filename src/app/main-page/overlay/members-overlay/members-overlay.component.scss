@@ -17,6 +17,7 @@ section {
 .members-header {
     @include dFlex(space-between, center);
     @include scaleElement();
+    height: auto;
 
     span {
         font-size: 24px;
@@ -139,10 +140,9 @@ section {
 }
 
 // min-height
-@media only screen and (max-height: 715px) and (min-width: 600px) {
-    section {
-        padding: 24px;
-        max-height: 490px;
+@media only screen and (max-height: 700px) {
+    .users-container {
+        max-height: 478px;
         overflow-y: auto;
     }
 }

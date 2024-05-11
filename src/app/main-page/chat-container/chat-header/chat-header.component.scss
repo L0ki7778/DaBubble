@@ -285,7 +285,7 @@ app-add-member-overlay {
     }
 }
 
-// min-height
+// max-height
 @media only screen and (max-height: 715px) and (min-width: 600px) {
     app-edit-channel-overlay {
         top: -50px;
