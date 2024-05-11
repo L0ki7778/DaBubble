@@ -71,7 +71,7 @@ span {
 
 
 #channel-author {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 400;
     color: var(--purple3);
 }
@@ -154,7 +154,7 @@ span {
 }
 
 .description-input {
-    border: 2px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--lightPurple);
     position: absolute;
     bottom: 0;
     left: 0;
@@ -168,14 +168,15 @@ span {
 
 #description-input-field {
     padding: .75rem;
-    border: 2px solid rgba(0, 0, 0, 0.1);
-    border-radius: 2rem;
+    border: 1px solid var(--lightPurple);
+    border-radius: 30px;
     transition: all ease .25s;
     outline: unset;
     margin-bottom: -4rem;
     opacity: 0;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 400;
+    resize: none;
 }
 
 #description {
@@ -196,14 +197,9 @@ span {
     margin-bottom: -2rem !important;
 }
 
-.no-padding {
-    padding: 0 !important;
-}
-
 .border-transparent {
     border-color: transparent !important;
 }
-
 
 .close-btn {
     position: absolute;
@@ -234,16 +230,15 @@ span {
 
 .leave-channel-btn {
     margin-top: 1.5rem;
-    width: 9rem;
-    height: 2.5rem;
+    padding: 10px 21px;
     border-radius: 2rem;
-    font-weight: bold;
     align-self: flex-end;
     border: unset;
-    transform: scale(1.1);
     transition: all ease .1s;
     background-color: $purple3;
     color: white;
+    font-size: 18px;
+    font-weight: 600;
 
     &:not(:disabled):hover {
         cursor: pointer;
@@ -257,17 +252,18 @@ span {
 
 .edit-channel-overlay {
     @include container();
+    position: relative;
     display: flex;
     flex-direction: column;
     padding: 0 2rem 1.5rem;
     background-color: white;
     border-radius: 0 2rem 2rem;
     min-width: 500px;
-    max-width: 70%;
+    max-width: 90%;
 }
 
 .description-text {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 400;
 }
 
