@@ -5,6 +5,7 @@ import { BooleanValueService } from '../../../services/boolean-value.service';
 import { SelectionService } from '../../../services/selection.service';
 import { DocumentSnapshot } from 'firebase/firestore';
 import { Firestore, doc, onSnapshot } from '@angular/fire/firestore';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-thread-header',
@@ -24,9 +25,18 @@ export class ThreadHeaderComponent {
 
   currentChannelName: string = '';
   private unsubscribeChannel: (() => void) | undefined;
+  selectionIdSubscription: Subscription = new Subscription();
 
   constructor() {
-    this.subscribeToChannelsData();
+    this.selectionIdSubscription = this.selectionService.choosenMessageId$.subscribe(() => {
+      if (this.unsubscribeChannel) {
+        this.unsubscribeChannel();
+        this.subscribeToChannelsData();
+      }
+      else {
+        this.subscribeToChannelsData();
+      }
+    });
   }
 
   subscribeToChannelsData() {
