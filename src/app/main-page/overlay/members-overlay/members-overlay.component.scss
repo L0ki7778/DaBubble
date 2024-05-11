@@ -101,3 +101,48 @@ section {
     letter-spacing: 0em;
     text-align: left;
 }
+
+
+// max-width
+@media only screen and (max-width: 900px) {
+    section {
+        padding: 30px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .user-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 170px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    section {
+        padding: 12px;
+    }
+
+    .user-icon {
+        width: 47px;
+        height: 47px;
+    }
+
+    .members-header {
+        font-size: 23px;
+    }
+
+    .user-name {
+        font-size: 17px;
+    }
+}
+
+// min-height
+@media only screen and (max-height: 715px) and (min-width: 600px) {
+    section {
+        padding: 24px;
+        max-height: 490px;
+        overflow-y: auto;
+    }
+}

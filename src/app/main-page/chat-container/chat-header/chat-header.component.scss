@@ -126,7 +126,7 @@ app-members-overlay {
     z-index: 4;
     display: flex;
     position: absolute;
-    top: 10%;
+    top: 9%;
     right: 5%;
 }
 
@@ -136,6 +136,10 @@ app-add-member-overlay {
     position: absolute;
     top: 10%;
     right: 0;
+}
+
+.mobileView {
+    display: none;
 }
 
 ::-webkit-scrollbar {
@@ -153,7 +157,7 @@ app-add-member-overlay {
 @media only screen and (max-width: 1000px) {
     .chat-head-title {
         span {
-            max-width: 292px;
+            max-width: 286px;
         }
     }
 }
@@ -221,6 +225,14 @@ app-add-member-overlay {
     app-edit-channel-overlay {
         left: 0;
     }
+
+    .normalView {
+        display: none;
+    }
+
+    .mobileView {
+        display: inline;
+    }
 }
 
 @media only screen and (max-width: 400px) {
@@ -263,6 +275,13 @@ app-add-member-overlay {
     app-edit-channel-overlay {
         height: 104vh;
         top: -104px;
+    }
+
+    app-members-overlay {
+        top: 47%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        right: auto;
     }
 }
 
