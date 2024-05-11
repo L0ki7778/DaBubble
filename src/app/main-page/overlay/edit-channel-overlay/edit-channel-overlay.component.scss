@@ -177,6 +177,7 @@ span {
     font-size: 17px;
     font-weight: 400;
     resize: none;
+    max-height: 100px;
 }
 
 #description {
@@ -260,6 +261,8 @@ span {
     border-radius: 0 2rem 2rem;
     min-width: 500px;
     max-width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .description-text {
@@ -304,5 +307,69 @@ span {
 
     100% {
         transform: translate(1rem, -1rem);
+    }
+}
+
+
+// max-width
+@media only screen and (max-width: 1280px) {
+    .edit-channel-overlay {
+        min-width: 455px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .edit-channel-overlay {
+        padding: 0 16px 14px;
+        max-width: none;
+        min-width: 84vw;
+        overflow-y: auto;
+    }
+
+    h3 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 290px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    h3 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 290px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .edit-channel-overlay {
+        border-radius: 0;
+        min-width: 92vw;
+        max-height: none;
+    }
+
+    h3 {
+        margin-top: 48px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 270px;
+        font-size: 23px;
+    }
+
+    .close-btn {
+        top: 50px;
+        right: 8px;
+    }
+}
+
+// min-height
+@media only screen and (max-height: 715px) and (min-width: 600px) {
+    .edit-channel-overlay {
+        height: 73vh;
+        max-height: 73vh;
+        border-radius: 2rem;
     }
 }

@@ -119,7 +119,7 @@ app-edit-channel-overlay {
     display: flex;
     position: absolute;
     top: 10%;
-    left: 0;
+    left: 24px;
 }
 
 app-members-overlay {
@@ -168,6 +168,10 @@ app-add-member-overlay {
             max-width: none;
         }
     }
+
+    app-edit-channel-overlay {
+        left: 6px;
+    }
 }
 
 @media only screen and (max-width: 700px) {
@@ -213,6 +217,10 @@ app-add-member-overlay {
         width: 48px;
         height: 48px;
     }
+
+    app-edit-channel-overlay {
+        left: 0;
+    }
 }
 
 @media only screen and (max-width: 400px) {
@@ -250,5 +258,17 @@ app-add-member-overlay {
         text-overflow: ellipsis;
         white-space: nowrap;
         max-width: 227px;
+    }
+
+    app-edit-channel-overlay {
+        height: 104vh;
+        top: -104px;
+    }
+}
+
+// min-height
+@media only screen and (max-height: 715px) and (min-width: 600px) {
+    app-edit-channel-overlay {
+        top: -50px;
     }
 }
