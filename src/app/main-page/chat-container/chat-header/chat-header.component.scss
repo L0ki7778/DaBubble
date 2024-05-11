@@ -85,7 +85,7 @@
 
 .profile-image {
     width: 50px;
-    height: 50px !important;
+    height: 50px;
     border-radius: 50%;
 }
 
@@ -202,6 +202,17 @@ app-add-member-overlay {
             max-width: 192px;
         }
     }
+
+    .profile-container {
+        font-size: 22px;
+        padding: 0;
+        gap: 12px;
+    }
+
+    .profile-image {
+        width: 48px;
+        height: 48px;
+    }
 }
 
 @media only screen and (max-width: 400px) {
@@ -216,7 +227,7 @@ app-add-member-overlay {
     .chat-head-title {
         padding: 0;
         margin-left: -2px;
-        gap: 0;
+        gap: 2px;
 
         span {
             max-width: 196px;
@@ -232,5 +243,12 @@ app-add-member-overlay {
     .arrow {
         width: 26px !important;
         height: 26px !important;
+    }
+
+    .profile-container span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 227px;
     }
 }
