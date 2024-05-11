@@ -81,6 +81,9 @@ section {
     flex-direction: column;
     gap: 15px;
     padding: 15px 10px;
+    overflow-y: auto;
+    max-height: 330px;
+    justify-content: unset;
 }
 
 .user-box {
@@ -134,5 +137,45 @@ section {
         transition: ease-in 150ms;
         cursor: pointer;
         background-color: $purple2;
+    }
+}
+
+
+// max-width
+@media only screen and (max-width: 500px) {
+    section {
+        padding: 24px;
+    }
+
+    .add-member-header {
+        gap: 80px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    section {
+        padding: 16px;
+    }
+
+    .add-member-header {
+        gap: 40px;
+
+        span {
+            font-size: 23px;
+        }
+    }
+
+    .user-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 133px;
+    }
+}
+
+// max-height
+@media only screen and (max-height: 845px) {
+    .member-suggestion-box {
+        max-height: 214px;
     }
 }

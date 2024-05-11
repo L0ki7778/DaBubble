@@ -134,7 +134,7 @@ app-add-member-overlay {
     z-index: 4;
     display: flex;
     position: absolute;
-    top: 10%;
+    top: 9%;
     right: 0;
 }
 
@@ -282,6 +282,10 @@ app-add-member-overlay {
         left: 50%;
         transform: translate(-50%, -50%);
         right: auto;
+    }
+
+    app-add-member-overlay {
+        right: 16px;
     }
 }
 
