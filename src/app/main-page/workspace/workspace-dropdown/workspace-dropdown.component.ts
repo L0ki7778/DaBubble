@@ -36,6 +36,7 @@ export class WorkspaceDropdownComponent {
   filteredChannelNames: string[] = [];
   showWorkspace: boolean = true;
   mobileView: boolean = false;
+  isScreenSmall: boolean = false;
 
 
   async ngOnInit() {
@@ -48,6 +49,9 @@ export class WorkspaceDropdownComponent {
     });
     this.booleanService.mobileView.subscribe(value => {
       this.mobileView = value;
+    });
+    this.booleanService.isScreenSmall.subscribe(value => {
+      this.isScreenSmall = value;
     });
   }
 
@@ -65,6 +69,9 @@ export class WorkspaceDropdownComponent {
     this.selectionService.choosenChatTypeId.next(this.selectionService.channelIds[index]);
     this.selectionService.channelOrDM.next('channel');
     this.closeWorkspace();
+    if (this.isScreenSmall) {
+      this.closeThread();
+    }
   }
 
   sendDMId(index: number) {

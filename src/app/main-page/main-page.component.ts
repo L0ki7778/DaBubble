@@ -37,7 +37,7 @@ export class MainPageComponent {
   workspaceOpen = true;
   overlay: any;
   showThread: boolean = false;
-  isScreenSmall = false;
+  isScreenSmall: boolean = false;
   mobileView: boolean = false;
   showWorkspace: boolean = true;
   private subscription!: Subscription;
@@ -62,6 +62,9 @@ export class MainPageComponent {
     this.booleanService.mobileView.subscribe(value => {
       this.mobileView = value;
     });
+    this.booleanService.isScreenSmall.subscribe(value => {
+      this.isScreenSmall = value;
+    });
     this.checkScreenSize();
   }
 
@@ -72,6 +75,12 @@ export class MainPageComponent {
 
   checkScreenSize() {
     this.isScreenSmall = window.innerWidth <= 1280;
+    if (this.isScreenSmall) {
+      this.booleanService.isScreenSmall.next(true);
+    } else {
+      this.booleanService.isScreenSmall.next(false);
+    }
+
     this.mobileView = window.innerWidth <= 900;
     if (this.mobileView) {
       this.booleanService.mobileView.next(true);

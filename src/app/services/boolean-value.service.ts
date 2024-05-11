@@ -12,6 +12,8 @@ export class BooleanValueService {
   userMention = signal(false);
   showWorkspace = new BehaviorSubject<boolean>(true);
   mobileView = new BehaviorSubject<boolean>(false);
+  isScreenSmall = new BehaviorSubject<boolean>(false);
+  
 
   toggleViewThread(value: boolean) {
     this.viewThread = value;
