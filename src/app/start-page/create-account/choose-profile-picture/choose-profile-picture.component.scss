@@ -152,6 +152,44 @@ h1 {
     display: none;
 }
 
+.warning-container {
+    background-color: white;
+    border-radius: 30px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 56px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 48px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+
+    span {
+        color: var(--rosaError);
+        font-size: 23px;
+
+    }
+
+    .save-btn {
+        width: min-content;
+        color: white;
+        font-size: 18px;
+        font-weight: 500;
+        height: 49px;
+        padding: 12px 25px;
+        border-radius: 50px;
+        background-color: var(--purple1);
+        border: 0;
+
+        &:hover {
+            cursor: pointer;
+            background-color: var(--purple2);
+        }
+    }
+}
+
 @media (max-height: 800px) {
     .content-container {
         margin-bottom: 80px;

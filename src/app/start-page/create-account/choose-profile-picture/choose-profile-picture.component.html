@@ -19,6 +19,10 @@
         <button class="next-btn" (click)="register()">Weiter</button>
     </div>
 </div>
+<div class="warning-container" *ngIf="showReport">
+    <span>Diese E-Mail Adresse wurde schon registriert. Versuchen sie eine andere E-Mail Adresse.</span>
+    <button class="save-btn" (click)="hideReport()">OK</button>
+</div>
 <div class="success-report">
     Konto erfolgreich erstellt!
 </div>

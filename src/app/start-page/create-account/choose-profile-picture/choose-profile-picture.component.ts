@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class ChooseProfilePictureComponent {
   originalFile: File | null = null;
   selectedProfilePictureUrl: string | null = null;
   isProfilePictureFromFile: boolean = false;
+  showReport: boolean = false;
 
 
   toggleToCreateAccount() {
@@ -36,8 +38,21 @@ export class ChooseProfilePictureComponent {
   }
 
   async register() {
+    const usersRef = collection(this.authService.firestore, 'users');
+    const q = query(usersRef, where('email', '==', this.authService.email));
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+      this.showReport = true;
+      return;
+    }
+    this.handleProfilePicture();
     this.toggleTranslation();
     this.makeContentBrighter();
+    await this.authService.register();
+    this.resetUI();
+  }
+
+  async handleProfilePicture() {
     if (this.selectedFile) {
       const file = this.dataURIToBlob(this.selectedFile.toString());
       const filePath = `profile_pictures/${this.originalFile?.name}`;
@@ -47,7 +62,9 @@ export class ChooseProfilePictureComponent {
       const uploadedFileUrl = await getDownloadURL(storageRef);
       this.authService.selectedProfilePic = uploadedFileUrl;
     }
-    await this.authService.register();
+  }
+
+  resetUI() {
     setTimeout(() => {
       this.authService.showChooseProfilePicture = false;
       this.authService.showLogin = true;
@@ -121,4 +138,7 @@ export class ChooseProfilePictureComponent {
     }
   }
 
+  hideReport() {
+    this.showReport = false;
+  }
 }
