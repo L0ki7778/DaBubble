@@ -20,10 +20,11 @@ export class DropdownMenuComponent {
   firestore = inject(Firestore);
   authService: AuthService = inject(AuthService);
   @ViewChild('profileMenu') profileMenu: ElementRef | null = null;
-
   currentUserId: string = '';
   unsubscribeChannels: any;
   unsubscribeDMs: any;
+  deleteView: boolean = false;
+
 
   @HostListener('document:click', ['$event'])
   onclick(event: Event) {
@@ -97,12 +98,23 @@ export class DropdownMenuComponent {
     this.logout();
   }
 
-  ngOnDestroy(){
-    if(this.unsubscribeChannels){
-    this.unsubscribeChannels();
+  ngOnDestroy() {
+    if (this.unsubscribeChannels) {
+      this.unsubscribeChannels();
     }
-    if(this.unsubscribeDMs){
-    this.unsubscribeDMs();
+    if (this.unsubscribeDMs) {
+      this.unsubscribeDMs();
     }
   }
+
+  showDelete(event: MouseEvent) {
+    event.stopPropagation();
+    this.deleteView = !this.deleteView;
+  }
+
+  notDelete(event: MouseEvent) {
+    event.stopPropagation();
+    this.deleteView = false;
+  }
+
 }
