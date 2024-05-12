@@ -1,7 +1,7 @@
 <div class="d-flex">
     <div class="login-container">
         <h1>Anmeldung</h1>
-        <p class="info-text">Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest</p>
+        <p class="info-text">Willkommen bei DaBubble! Melde dich mit deiner E-Mail-Adresse und Passwort an.</p>
         <form (ngSubmit)="login()" ngNativeValidate>
             <input [class.error]="emailError" required type="email" class="email" placeholder="beispielname@email.com"
                 autocomplete="email" [(ngModel)]="email" name="email" (input)="updateCursor()">
