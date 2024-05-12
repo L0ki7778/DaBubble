@@ -98,7 +98,11 @@ export class DropdownMenuComponent {
   }
 
   ngOnDestroy(){
-    this.unsubscribeChannels(); 
+    if(this.unsubscribeChannels){
+    this.unsubscribeChannels();
+    }
+    if(this.unsubscribeDMs){
     this.unsubscribeDMs();
+    }
   }
 }
