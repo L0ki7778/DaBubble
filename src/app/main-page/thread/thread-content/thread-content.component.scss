@@ -330,11 +330,10 @@ app-chat-answer {
 
 .amount-answer {
     display: flex;
-    margin: 0 0 0 1.5rem;
+    margin: 0 0 10px 1.5rem;
     width: 100%;
     height: fit-content;
     background-image: linear-gradient(to bottom, transparent 49%, var(--rosaError) 50%, transparent 51%);
-    margin-bottom: 8px;
 }
 
 .answers {
