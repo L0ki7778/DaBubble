@@ -16,7 +16,7 @@
     @include dFlex(start, center);
     padding: 0 0 10px 0;
     gap: 30px;
-    margin: 24px 0;
+    margin: 24px 0 8px 0;
 
     :hover .reaction-bar-container {
         animation: slideInFromRight 0.2s ease-in-out;
@@ -326,6 +326,27 @@ app-chat-answer {
             transition: ease-in 150ms;
         }
     }
+}
+
+.amount-answer {
+    display: flex;
+    margin: 0 0 0 1.5rem;
+    width: 100%;
+    height: fit-content;
+    background-image: linear-gradient(to bottom, transparent 49%, var(--rosaError) 50%, transparent 51%);
+    margin-bottom: 8px;
+}
+
+.answers {
+    background-color: white;
+    padding: 2px 15px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 25px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: var(--rosaError);
 }
 
 

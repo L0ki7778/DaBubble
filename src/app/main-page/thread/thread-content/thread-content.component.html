@@ -77,6 +77,12 @@
       </div>
     </div>
   </div>
+  <div class="amount-answer">
+    <span class="answers" *ngIf="message" (mouseover)="onHover()" (mouseleave)="onLeave()">
+      {{ answers.length }} <span *ngIf="answers.length === 1">Antwort</span>
+      <span *ngIf="answers.length > 1">Antworten</span>
+    </span>
+  </div>
   <!-- Answers -->
   <app-chat-answer *ngFor="let answer of answers" [answer]="answer"></app-chat-answer>
 </div>
