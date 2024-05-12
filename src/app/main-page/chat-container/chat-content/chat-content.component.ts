@@ -6,6 +6,7 @@ import { DirectMessagesService } from '../../../services/direct-messages.service
 import { PrivateMessageComponent } from '../private-message/private-message.component';
 import { SelectionService } from '../../../services/selection.service';
 import { Subscription } from 'rxjs';
+import { OverlayService } from '../../../services/overlay.service';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
   firestore: Firestore = inject(Firestore);
   DMService: DirectMessagesService = inject(DirectMessagesService);
   selectionService: SelectionService = inject(SelectionService);
+  overlayService = inject(OverlayService);
   @ViewChild('chatList') chatList!: ElementRef;
   private selectionIdSubscription: Subscription;
   private unsubscribeChannelMessages: (() => void) | undefined;
@@ -116,6 +118,13 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
     if (this.unsubscribeChannelMessages) {
       this.unsubscribeChannelMessages();
     }
+  }
+
+  openMemberView(event: MouseEvent) {
+    event.stopPropagation();
+    this.overlayService.toggleMemberView();
+    this.DMService.selectedProfileName = this.DMService.selectedUserName;
+    this.DMService.selectedProfileImage = this.DMService.selectedUserImage;
   }
 
 }

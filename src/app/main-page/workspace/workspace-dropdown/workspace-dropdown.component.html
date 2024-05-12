@@ -56,9 +56,9 @@
 </div>
 }@else {
 <div class="drop-down-list" [ngStyle]="active? {height: 'auto'} : {height:'0'}">
-    <div *ngIf="showList" (click)="DMService.loadChatHistory(); closeThread()">
+    <div *ngIf="showList">
         <div *ngFor="let user of DMService.filteredUserNames, let index = index" class="list-dm list-user"
-            (click)="DMService.addUserToDirectMessages(user.name); sendDMId(index)"
+            (click)="DMService.addUserToDirectMessages(user.name); sendDMId(index); DMService.loadChatHistory(); closeThread()"
             [ngClass]="{ 'active-dm': ((user.name === this.DMService.selectedUserName) && (this.selectionService.channelOrDM.value === 'direct-message') && !(this.booleanService.mobileView.value))}">
             <img [src]="user.profileImage" class="profile-image"><span>{{ user.name }}</span>
         </div>

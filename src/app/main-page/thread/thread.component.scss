@@ -5,10 +5,11 @@ app-thread-header {
     display: flex;
     padding: 0 1.5rem;
     width: 100%;
-    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
     border-top-left-radius: 2rem;
     border-top-right-radius: 2rem;
     box-sizing: border-box;
+    position: relative;
 }
 
 app-thread-content {
