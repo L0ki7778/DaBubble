@@ -3,6 +3,8 @@ import { Component, ElementRef, HostListener, ViewChild, inject } from '@angular
 import { OverlayService } from '../../../services/overlay.service';
 import { BooleanValueService } from '../../../services/boolean-value.service';
 import { AuthService } from '../../../services/auth.service';
+import { DirectMessagesService } from '../../../services/direct-messages.service';
+import { Firestore, collection, deleteDoc, doc, onSnapshot, query, updateDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-dropdown-menu',
@@ -14,10 +16,15 @@ import { AuthService } from '../../../services/auth.service';
 export class DropdownMenuComponent {
   overlay = inject(OverlayService);
   booleanService = inject(BooleanValueService);
+  DMService = inject(DirectMessagesService);
+  firestore = inject(Firestore);
   authService: AuthService = inject(AuthService);
   @ViewChild('profileMenu') profileMenu: ElementRef | null = null;
 
-  
+  currentUserId: string = '';
+  unsubscribeChannels: any;
+  unsubscribeDMs: any;
+
   @HostListener('document:click', ['$event'])
   onclick(event: Event) {
     if (this.profileMenu && this.profileMenu.nativeElement.contains(event.target)) {
@@ -38,6 +45,10 @@ export class DropdownMenuComponent {
     }
   }
 
+  async ngOnInit() {
+    this.currentUserId = await this.DMService.getLoggedInUserId();
+  }
+
   close() {
     this.overlay.closeOverlay();
   }
@@ -52,4 +63,42 @@ export class DropdownMenuComponent {
     this.authService.logout();
   }
 
+  async channelCleaningFromUser() {
+    const channelsQuery = query(collection(this.firestore, 'channels'));
+    this.unsubscribeChannels = onSnapshot(channelsQuery, (querySnapshot: any) => {
+      querySnapshot.forEach(async (doc: any) => {
+        if (doc.data() && doc.data()['members'].includes(this.currentUserId)) {
+          const members = doc.data()['members'];
+          const newMembers = members.filter((item: any) => item !== this.currentUserId);
+          await updateDoc(doc.ref, {
+            members: newMembers
+          })
+        }
+      })
+    });
+  }
+
+  async DMCleaningFromUser() {
+    const DMQuery = query(collection(this.firestore, 'direct-messages'));
+    this.unsubscribeDMs = onSnapshot(DMQuery, (querySnapshot: any) => {
+      querySnapshot.forEach(async (doc: any) => {
+        if (doc.data() && doc.data()['members'].includes(this.currentUserId)) {
+          await deleteDoc(doc(doc.ref));
+        }
+      })
+    });
+  }
+
+  async deleteUser() {
+    this.channelCleaningFromUser();
+    this.DMCleaningFromUser();
+    const userRef = collection(this.firestore, 'users');
+    await deleteDoc(doc(userRef, this.currentUserId));
+    this.logout();
+  }
+
+  ngOnDestroy(){
+    this.unsubscribeChannels(); 
+    this.unsubscribeDMs();
+  }
 }
