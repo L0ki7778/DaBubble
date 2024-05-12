@@ -41,6 +41,10 @@ nav {
     font-weight: 600;
     background-color: var(--lighterPurple);
   }
+
+  &:hover img {
+    filter: brightness(0) saturate(100%) invert(33%) sepia(43%) saturate(4099%) hue-rotate(224deg) brightness(99%) contrast(91%);
+  }
 }
 
 .line-container {
@@ -59,6 +63,15 @@ nav {
 .nav-closed {
   animation: slideAnimationToLeftReverse 150ms ease-in-out;
 }
+
+.delete {
+  font-size: 18px !important;
+
+  img {
+    height: 22px;
+  }
+}
+
 
 @keyframes slideAnimationToTop {
   0% {
