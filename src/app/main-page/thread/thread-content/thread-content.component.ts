@@ -46,6 +46,7 @@ export class ThreadContentComponent {
   selectionMessageIdSubscription?: Subscription;
   unsubscribeMessageAnswers: (() => void) | undefined;
   unsubscribeMessageToAnswer: (() => void) | undefined;
+  messageFromDeletedUser: boolean = false;
 
 
   constructor(private renderer: Renderer2) {
@@ -119,6 +120,14 @@ export class ThreadContentComponent {
             image: doc.data()['image'],
             id: doc.id
           };
+        }
+        else {
+          this.messageUser = {
+            name: 'Gelöschter User',
+            image: 'assets/img/start-page/unknown.svg',
+            id: ''
+          };
+          this.messageFromDeletedUser = true;
         }
       });
     }

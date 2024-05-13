@@ -38,13 +38,22 @@ export class ChatMessageComponent {
   isHovered: boolean = false;
   viewEmojiPicker: boolean = false;
   viewEditEmojiPicker: boolean = false;
-  user: any = {};
+  user: {
+    name: string;
+    image: string;
+    id: string;
+  } = {
+      name: '',
+      image: '',
+      id: '',
+    };
   answers: any[] = [];
   choosenChatId: string = '';
   currentUserId: string | null = null;
   currentMessageId: string = '';
   lastAnswerTime: string = '';
   imageTag: boolean = false;
+  messageFromDeletedUser: boolean = false;
 
 
   constructor() {
@@ -65,6 +74,13 @@ export class ChatMessageComponent {
             image: doc.data()['image'],
             id: doc.id
           };
+        } else {
+          this.user = {
+            name: 'Gelöschter User',
+            image: 'assets/img/start-page/unknown.svg',
+            id: ''
+          };
+          this.messageFromDeletedUser = true;
         }
       });
       this.currentMessageId = this.message['docId'];

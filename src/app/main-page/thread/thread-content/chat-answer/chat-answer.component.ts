@@ -39,6 +39,7 @@ export class ChatAnswerComponent {
   editingAnswerId: string | null = null;
   editingAnswerText: string = '';
   edit: ElementRef | null = null;
+  answerFromDeletedUser: boolean = false;
 
 
 
@@ -60,6 +61,13 @@ export class ChatAnswerComponent {
             image: doc.data()['image'],
             id: doc.id
           };
+        } else {
+          this.user = {
+            name: 'Gelöschter User',
+            image: 'assets/img/start-page/unknown.svg',
+            id: ''
+          };
+          this.answerFromDeletedUser = true;
         }
       });
     }
