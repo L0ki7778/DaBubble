@@ -5,7 +5,7 @@ import { BooleanValueService } from '../../../services/boolean-value.service';
 import { AuthService } from '../../../services/auth.service';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
 import { Firestore, collection, deleteDoc, doc, onSnapshot, query, updateDoc } from '@angular/fire/firestore';
-import { deleteUser, getAuth } from '@angular/fire/auth';
+import { Auth, deleteUser, getAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-dropdown-menu',
@@ -19,6 +19,7 @@ export class DropdownMenuComponent {
   booleanService = inject(BooleanValueService);
   DMService = inject(DirectMessagesService);
   firestore = inject(Firestore);
+  auth: Auth = inject(Auth);
   authService: AuthService = inject(AuthService);
   @ViewChild('profileMenu') profileMenu: ElementRef | null = null;
   currentUserId: string = '';
@@ -93,13 +94,13 @@ export class DropdownMenuComponent {
   }
 
   async cleanAuth() {
-    const auth = getAuth();
-    const user = auth.currentUser;
+    this.auth = getAuth();
+    const user = this.auth.currentUser;
     if (user) {
       deleteUser(user).then(() => {
+        console.log('Konto des Users erfolgreich gelöscht');
       }).catch((error: Error) => {
         console.log(error);
-
       });
     }
   }
