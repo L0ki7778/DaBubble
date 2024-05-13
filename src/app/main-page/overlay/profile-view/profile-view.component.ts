@@ -3,6 +3,7 @@ import { OverlayService } from '../../../services/overlay.service';
 import { CommonModule } from '@angular/common';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
 import { AuthService } from '../../../services/auth.service';
+import { BooleanValueService } from '../../../services/boolean-value.service';
 
 @Component({
   selector: 'app-profile-view',
@@ -17,11 +18,15 @@ export class ProfileViewComponent {
   overlay = inject(OverlayService);
   DMService = inject(DirectMessagesService);
   auth = inject(AuthService);
+  booleanService = inject(BooleanValueService);
+  isGuestAccount: boolean = false;
+  hint: boolean = false;
 
 
   ngOnInit() {
     this.findLoggedInUser();
     this.DMService.isLoggedInWithGoogle();
+    this.isGuestAccount = this.booleanService.isGuestAccount.value;
   }
 
   async findLoggedInUser() {
@@ -47,9 +52,14 @@ export class ProfileViewComponent {
   }
 
   openEditProfile(event: MouseEvent) {
-    event.stopPropagation();
-    this.overlay.closeOverlay();
-    setTimeout(() => this.overlay.toggleEditProfile(), 1);
+    if (!this.isGuestAccount) {
+      event.stopPropagation();
+      this.overlay.closeOverlay();
+      setTimeout(() => this.overlay.toggleEditProfile(), 1);
+    } else {
+      this.hint = true;
+    }
+
   }
 
 }

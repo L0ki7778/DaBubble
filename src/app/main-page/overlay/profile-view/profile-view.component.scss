@@ -108,6 +108,16 @@ h1 {
     transform: scale(1.2);
 }
 
+.hint {
+    text-align: center;
+    color: var(--rosaError);
+    border: 1px solid var(--rosaError);
+    border-inline-style: none;
+    transition: all ease 0.2s;
+    margin: 8px 0;
+    max-width: 360px;
+}
+
 
 // max-width
 @media screen and (max-width: 900px) {
