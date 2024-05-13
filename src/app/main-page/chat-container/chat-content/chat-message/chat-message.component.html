@@ -21,7 +21,7 @@
                 <span (click)="openMemberView($event)" class="message-author" *ngIf="!messageFromDeletedUser">
                     {{ user.name }}
                 </span>
-                <span class="message-author" *ngIf="messageFromDeletedUser">
+                <span class="message-author" *ngIf="messageFromDeletedUser" style="color: #ED1E7A !important;">
                     {{ user.name }}
                 </span>
                 <span class="message-time" *ngIf="message">

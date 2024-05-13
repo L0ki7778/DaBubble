@@ -32,7 +32,7 @@
             {{ messageUser.name }}
           </span>
           <span class="answer-author" *ngIf="messageFromDeletedUser"
-          [ngStyle]="{'text-align': isOwnAnswer ? 'right' : 'left'}">
+          [ngStyle]="{'text-align': isOwnAnswer ? 'right' : 'left'}" style="color: #ED1E7A !important;">
           {{ messageUser.name }}
         </span>
           <span class="answer-time" *ngIf="message" [ngStyle]="{'text-align': isOwnAnswer ? 'right' : 'left'}">

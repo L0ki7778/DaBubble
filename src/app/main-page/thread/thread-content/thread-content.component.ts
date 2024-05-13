@@ -189,7 +189,7 @@ export class ThreadContentComponent {
     if (this.unsubscribeMessageAnswers) {
       this.unsubscribeMessageAnswers();
     }
-    if (this.choosenMessageId && this.choosenMessageId !== '') {
+    if (this.choosenMessageId && this.choosenMessageId !== '' && this.choosenChatId) {
       const messageDocRef = collection(this.firestore, 'channels', this.choosenChatId, 'messages', this.choosenMessageId, 'answers');
       const q = query(messageDocRef, orderBy('postTime'));
       this.unsubscribeMessageAnswers = onSnapshot(q, { includeMetadataChanges: true }, (answersSnapshot) => {

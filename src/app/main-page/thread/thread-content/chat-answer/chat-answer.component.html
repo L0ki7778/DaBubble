@@ -28,7 +28,7 @@
                     {{ user.name }}
                 </span>
                 <span class="answer-author" [ngStyle]="{'text-align': isOwnAnswer ? 'right' : 'left'}"
-                    *ngIf="answerFromDeletedUser">
+                    *ngIf="answerFromDeletedUser" style="color: #ED1E7A !important;">
                     {{ user.name }}
                 </span>
                 <span class="answer-time" *ngIf="answer" [ngStyle]="{'text-align': isOwnAnswer ? 'right' : 'left'}">
