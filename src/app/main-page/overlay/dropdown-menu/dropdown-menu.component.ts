@@ -5,6 +5,7 @@ import { BooleanValueService } from '../../../services/boolean-value.service';
 import { AuthService } from '../../../services/auth.service';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
 import { Firestore, collection, deleteDoc, doc, onSnapshot, query, updateDoc } from '@angular/fire/firestore';
+import { deleteUser, getAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-dropdown-menu',
@@ -91,11 +92,24 @@ export class DropdownMenuComponent {
     });
   }
 
+  async cleanAuth() {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if (user) {
+      deleteUser(user).then(() => {
+      }).catch((error: Error) => {
+        console.log(error);
+
+      });
+    }
+  }
+
   async deleteUser() {
-    /*     this.channelCleaningFromUser();
-        this.DMCleaningFromUser();
-        const userRef = collection(this.firestore, 'users');
-        await deleteDoc(doc(userRef, this.currentUserId)); */
+    this.channelCleaningFromUser();
+    this.DMCleaningFromUser();
+    const userRef = collection(this.firestore, 'users');
+    await deleteDoc(doc(userRef, this.currentUserId));
+    this.cleanAuth();
     this.logout();
   }
 
