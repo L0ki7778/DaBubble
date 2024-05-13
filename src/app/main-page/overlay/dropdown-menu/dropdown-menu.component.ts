@@ -91,10 +91,10 @@ export class DropdownMenuComponent {
   }
 
   async deleteUser() {
-    this.channelCleaningFromUser();
+/*     this.channelCleaningFromUser();
     this.DMCleaningFromUser();
     const userRef = collection(this.firestore, 'users');
-    await deleteDoc(doc(userRef, this.currentUserId));
+    await deleteDoc(doc(userRef, this.currentUserId)); */
     this.logout();
   }
 
