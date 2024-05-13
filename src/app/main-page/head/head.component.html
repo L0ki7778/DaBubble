@@ -1,5 +1,5 @@
-<header>
-    <img *ngIf="(showWorkspace && mobileView) || (showWorkspace && !mobileView)  || !mobileView" class="head-logo" src="assets/img/general/dabubble-logo.svg" (click)="hideSearchList()">
+<header (click)="hideSearchList()">
+    <img *ngIf="(showWorkspace && mobileView) || (showWorkspace && !mobileView)  || !mobileView" class="head-logo" src="assets/img/general/dabubble-logo.svg">
     <div (click)="openWorkspace()" *ngIf="((showThread && mobileView) || (!showWorkspace && mobileView)) && !showWorkspace" class="devspace-mobile">
         <img class="arrow-left" src="assets/img/main-page/head/arrow-left.svg">
         <img class="devspace-logo" src="assets/img/main-page/workspace/workspace-logo.svg">
