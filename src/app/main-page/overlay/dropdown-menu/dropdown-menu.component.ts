@@ -26,7 +26,6 @@ export class DropdownMenuComponent {
   deleteView: boolean = false;
   isGuestAccount: boolean = false;
 
-
   @HostListener('document:click', ['$event'])
   onclick(event: Event) {
     if (this.profileMenu && this.profileMenu.nativeElement.contains(event.target)) {
@@ -49,16 +48,7 @@ export class DropdownMenuComponent {
 
   async ngOnInit() {
     this.currentUserId = await this.DMService.getLoggedInUserId();
-    this.checkIfIsGuestAccount();
-  }
-
-  checkIfIsGuestAccount() {
-    if (this.currentUserId === 'MsshyLlnpHdz3XbE3VU5E9fKAY92') {
-      this.isGuestAccount = true;
-    }
-    else {
-      this.isGuestAccount = false;
-    }
+    this.isGuestAccount = this.booleanService.isGuestAccount.value;
   }
 
   close() {
