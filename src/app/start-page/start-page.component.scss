@@ -83,10 +83,14 @@ app-create-account {
     justify-content: center;
 }
 
-@media(max-width: 650px) {
+@media(max-width: 649px) {
 
     header {
         justify-content: center;
+    }
+
+    .logo-box {
+        margin-left: 0;
     }
 
     .create-account {
@@ -108,12 +112,6 @@ app-create-account {
             outline: 1px solid var(--lightPurple);
             border-radius: 25px;
         }
-    }
-}
-
-@media(max-width: 650px) {
-    .logo-box {
-        margin-left: 0;
     }
 }
 

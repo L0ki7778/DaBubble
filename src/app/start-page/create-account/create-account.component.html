@@ -12,8 +12,12 @@
     <div class="style-checkbox"><input required type="checkbox" id="privacy-policy" [(ngModel)]="privacyPolicyChecked" name="privacyPolicyField"></div>
     <label>Ich stimme der <span (click)="toggleToPrivacyPolicy()" class="color-privacy-policy">Datenschutzerklärung</span> zu</label>
   </div>
-  <button class="next-button" [class.not-allowed]="shouldShowNotAllowed">Weiter</button>
+  <div class="dflex"><button class="next-button" [class.not-allowed]="shouldShowNotAllowed">Weiter</button></div>
 </form>
+</div>
+<div class="warning-container" *ngIf="showReport">
+    <span>Ungültige E-Mail-Adresse. Bitte geben Sie eine gültige E-Mail-Adresse ein.</span>
+    <button class="save-btn" (click)="hideReport()">OK</button>
 </div>
 <div class="position-center" [class.show]="showPrivacyPolicy">
     <div (click)="toggleToCreateAccount()" class="arrow-image"></div>

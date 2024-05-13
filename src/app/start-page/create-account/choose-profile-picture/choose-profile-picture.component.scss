@@ -195,3 +195,10 @@ h1 {
         margin-bottom: 80px;
     }
 }
+
+@media(max-width: 650px) {
+    .content-container {
+        width: 90%;
+        padding: 48px 0;
+    }
+}

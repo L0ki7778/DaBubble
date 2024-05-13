@@ -74,6 +74,10 @@ form {
     }
 }
 
+label {
+    font-size: 18px;
+}
+
 .center-box {
     display: flex;
     align-items: center;
@@ -111,7 +115,7 @@ form {
 }
 
 .name {
-    width: 100%;
+    width: 96%;
     padding: 15px 10px;
     text-indent: 18%;
     font-size: 18px;
@@ -133,7 +137,7 @@ form {
 }
 
 .email {
-    width: 100%;
+    width: 96%;
     padding: 15px 10px;
     text-indent: 18%;
     font-size: 18px;
@@ -155,7 +159,7 @@ form {
 }
 
 .password {
-    width: 100%;
+    width: 96%;
     padding: 15px 10px;
     text-indent: 18%;
     font-size: 18px;
@@ -184,7 +188,6 @@ form {
     font-weight: 600;
     font-size: 18px;
     margin-top: 8px;
-    margin-left: 290px;
     cursor: pointer;
     border: 1px solid var(--purple1);
 
@@ -270,8 +273,137 @@ h3 {
     border-radius: 10px;
 }
 
+
+.warning-container {
+    background-color: white;
+    border-radius: 30px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 56px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 48px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+
+    span {
+        color: var(--rosaError);
+        font-size: 23px;
+
+    }
+
+    .save-btn {
+        width: min-content;
+        color: white;
+        font-size: 18px;
+        font-weight: 500;
+        height: 49px;
+        padding: 12px 25px;
+        border-radius: 50px;
+        background-color: var(--purple1);
+        border: 0;
+
+        &:hover {
+            cursor: pointer;
+            background-color: var(--purple2);
+        }
+    }
+}
+
+.dflex {
+    display: flex;
+    justify-content: end;
+    width: 100%;
+}
+
 @media (max-height: 800px) {
     .create-container {
         margin-bottom: 90px;
+    }
+}
+
+@media (max-width: 650px) {
+    .create-container {
+        width: 90%;
+    }
+
+    label {
+        display: none;
+    }
+
+    .style-checkbox {
+        display: none;
+    }
+}
+
+@media(max-width: 565px) {
+    .create-container {
+        padding:56px 20px;
+    }
+
+    .email {
+        width: 95%;
+    }
+
+    .name {
+        width: 95%
+    }
+
+    .password {
+        width: 95%
+    }
+}
+
+@media(max-width: 500px) {
+    .arrow-img {
+        top: 24px;
+    }
+
+    h1 {
+        font-size: 44px;
+    }
+
+    .create-container {
+        padding:56px 16px;
+    }
+}
+
+@media(max-width: 400px) {
+    .info-text {
+        font-size: 16px;
+    }
+
+    .name {
+        font-size: 16px;
+    }
+    
+    .name::placeholder {
+        font-size: 16px;
+    }
+
+    .email {
+        font-size: 16px;
+    }
+
+    .email::placeholder {
+        font-size: 16px;
+    }
+
+    .password {
+        font-size: 16px;
+    }
+
+    .password::placeholder {
+        font-size: 16px;
+    }
+
+    .next-button {
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: 35px;
     }
 }
