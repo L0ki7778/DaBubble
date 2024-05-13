@@ -6,7 +6,7 @@
   <ul>
     <li (click)="openProfileView($event)" class="hover"><img src="assets/img/general/account_circle.svg">Profil</li>
     <li (click)="logout()" class="hover"><img src="assets/img/general/logout.svg">Log out</li>
-    <li (click)="showDelete($event)" class="hover delete"><img src="assets/img/general/bigcross.svg">Account löschen</li>
+    <li (click)="showDelete($event)" class="hover delete" *ngIf="!isGuestAccount"><img src="assets/img/general/bigcross.svg">Account löschen</li>
   </ul>
   <div *ngIf="deleteView" class="secure-sontainer">
     <span class="sure">sicher?</span>

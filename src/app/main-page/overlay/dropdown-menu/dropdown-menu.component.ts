@@ -24,6 +24,7 @@ export class DropdownMenuComponent {
   unsubscribeChannels: any;
   unsubscribeDMs: any;
   deleteView: boolean = false;
+  isGuestAccount: boolean = false;
 
 
   @HostListener('document:click', ['$event'])
@@ -48,6 +49,16 @@ export class DropdownMenuComponent {
 
   async ngOnInit() {
     this.currentUserId = await this.DMService.getLoggedInUserId();
+    this.checkIfIsGuestAccount();
+  }
+
+  checkIfIsGuestAccount() {
+    if (this.currentUserId === 'MsshyLlnpHdz3XbE3VU5E9fKAY92') {
+      this.isGuestAccount = true;
+    }
+    else {
+      this.isGuestAccount = false;
+    }
   }
 
   close() {
@@ -91,10 +102,10 @@ export class DropdownMenuComponent {
   }
 
   async deleteUser() {
-/*     this.channelCleaningFromUser();
-    this.DMCleaningFromUser();
-    const userRef = collection(this.firestore, 'users');
-    await deleteDoc(doc(userRef, this.currentUserId)); */
+    /*     this.channelCleaningFromUser();
+        this.DMCleaningFromUser();
+        const userRef = collection(this.firestore, 'users');
+        await deleteDoc(doc(userRef, this.currentUserId)); */
     this.logout();
   }
 
