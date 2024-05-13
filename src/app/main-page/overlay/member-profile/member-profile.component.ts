@@ -32,16 +32,16 @@ export class MemberProfileComponent {
   isDataLoaded = false;
   @ViewChild('memberView') memberView: ElementRef | null = null;
 
-
-  constructor() {
+  
+  async ngOnInit() {
     if (this.selectionService.channelOrDM.value === 'channel') {
       this.memberId = this.selectionService.selectedMemberId.value;
-      this.fetchUserDetails(this.memberId);
       this.checkIfSameUser();
+      this.fetchUserDetails(this.memberId);
     }
     if (this.selectionService.channelOrDM.value === 'direct-message') {
+      this.isSameUser = await this.DMService.isSameUser();
       this.fetchUserEmail();
-      this.checkIfSameUser();
     }
   }
 
@@ -71,6 +71,8 @@ export class MemberProfileComponent {
     else {
       this.isSameUser = false
     }
+    console.log(this.isSameUser);
+    
   }
 
   @HostListener('document:click', ['$event'])
