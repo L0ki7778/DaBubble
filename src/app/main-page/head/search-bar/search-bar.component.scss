@@ -48,7 +48,6 @@ input {
 .headline {
     font-weight: 700;
     font-size: 20px;
-    margin-bottom: 12px;
 }
 
 .list {
@@ -105,6 +104,26 @@ input {
     }
 }
 
+.cross-img {
+    width: 40px;
+    height: 40px;
+    background-image: url('../../../../assets/img/main-page/thread/cross.svg');
+    transition: all ease-in-out 0.2s;
+    margin-right: -18px;
+
+    &:hover {
+        cursor: pointer;
+        background-image: url('../../../../assets/img/main-page/thread/cross-hover.svg');
+    }
+}
+
+.space-between {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 
 // max-width
 @media only screen and (max-width: 1200px) {
@@ -153,6 +172,10 @@ input {
     .dropdown-menu {
         left: 3.5%;
         padding: 24px;
+    }
+
+    .cross-img {
+        margin-right: -10px;
     }
 }
 

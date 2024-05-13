@@ -1,7 +1,10 @@
 <input type="text" placeholder="DABubble durchsuchen" (click)="showDropdownMenu($event)"
     (input)="filterChannelsAndUsers()" [(ngModel)]="searchValue">
 <div (click)="stopPropagation($event)" class="dropdown-menu" *ngIf="this.DMService.showDropdown" [@fadeAnimation]>
-    <div class="headline">Channels</div>
+    <div class="space-between">
+        <span class="headline">Channels</span>
+        <div (click)="hideSearchList()" class="cross-img"></div>
+    </div>
     @for(channel of this.filteredChannelNames; track channel; let index = $index ) {
     <div class="list" (click)="sendChannelId(index); closeThread()"
         [ngClass]="{ 'active-channel': (channel === this.selectionService.getChannelNameById(this.selectionService.choosenChatTypeId.value) && !this.booleanService.mobileView.value)}">

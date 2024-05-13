@@ -111,4 +111,8 @@ export class SearchBarComponent {
     }
   }
 
+  hideSearchList() {
+    this.DMService.showDropdown = false;
+}
+
 }
