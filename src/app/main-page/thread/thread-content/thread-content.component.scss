@@ -141,6 +141,12 @@ app-chat-answer {
     cursor: pointer;
 }
 
+.deleted {
+    color: var(--rosaError);
+    cursor: auto;
+    font-weight: 600;
+}
+
 .answer-time {
     color: $textGray;
     font-size: 14px;

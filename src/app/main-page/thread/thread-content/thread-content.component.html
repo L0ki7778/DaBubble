@@ -11,7 +11,7 @@
       *ngIf="messageUser.image && !messageFromDeletedUser" class="avatar-icon" (click)="openMemberView($event)"
       src="{{ messageUser.image }}">
     <img [ngStyle]="{'margin': isOwnAnswer ? '16px 24px 0 0' : '16px 0 0 24px'}"
-      *ngIf="messageUser.image && messageFromDeletedUser" class="avatar-icon" src="{{ messageUser.image }}">
+      *ngIf="messageUser.image && messageFromDeletedUser" class="avatar-icon deleted" src="{{ messageUser.image }}">
     <div class="answer-box"
       [ngStyle]="{'align-items': isOwnAnswer ? 'end' : 'start', 'margin': isOwnAnswer ? '0 0 0 24px' : '0 24px 0 0'}">
       <div class="answer-header" [ngStyle]="{'flex-direction': isOwnAnswer ? 'row' : 'row-reverse'}">
@@ -31,8 +31,8 @@
             [ngStyle]="{'text-align': isOwnAnswer ? 'right' : 'left'}" *ngIf="!messageFromDeletedUser">
             {{ messageUser.name }}
           </span>
-          <span class="answer-author" *ngIf="messageFromDeletedUser"
-          [ngStyle]="{'text-align': isOwnAnswer ? 'right' : 'left'}" style="color: #ED1E7A !important;">
+          <span class="answer-author deleted" *ngIf="messageFromDeletedUser"
+          [ngStyle]="{'text-align': isOwnAnswer ? 'right' : 'left'}">
           {{ messageUser.name }}
         </span>
           <span class="answer-time" *ngIf="message" [ngStyle]="{'text-align': isOwnAnswer ? 'right' : 'left'}">

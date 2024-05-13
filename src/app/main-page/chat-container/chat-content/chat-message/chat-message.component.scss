@@ -134,6 +134,12 @@ app-reaction-bar {
     cursor: pointer;
 }
 
+.deleted {
+    color: var(--rosaError);
+    cursor: auto;
+    font-weight: 600;
+}
+
 .message-time {
     color: $textGray;
     font-size: 14px;
