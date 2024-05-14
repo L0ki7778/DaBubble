@@ -182,4 +182,20 @@ nav {
     justify-content: center;
     margin-bottom: 26px;
   }
+
+  .secure-sontainer {
+    margin-left: 24px;
+    margin-bottom: 16px;
+    width: 296px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  nav li {
+    padding: 5px 32px;
+  }
+
+  .secure-sontainer {
+    width: 264px;
+  }
 }
