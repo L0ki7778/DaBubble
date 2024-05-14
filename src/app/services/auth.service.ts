@@ -3,7 +3,7 @@ import { Auth, User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subscription, } from 'rxjs';
 import { UserType } from '../types/user.type';
-import { Firestore, doc, setDoc } from '@angular/fire/firestore';
+import { Firestore, arrayUnion, doc, setDoc, updateDoc } from '@angular/fire/firestore';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { Location } from '@angular/common';
 
@@ -73,10 +73,26 @@ export class AuthService {
       const userObject: UserType = this.createUserObject();
       const userDocRef = doc(this.firestore, 'users', user.uid);
       await setDoc(userDocRef, userObject);
+      await this.pushChannels(user.uid);
     } catch (error) {
       console.error('Error registering user:', error);
     }
   }
+
+  async pushChannels(userId: string) {
+    try {
+      const channelDocRef1 = doc(this.firestore, 'channels', 'zFEphBVP6CDpk4YGiWRZ');
+
+      await updateDoc(channelDocRef1, { members: arrayUnion(userId) });
+
+      const channelDocRef2 = doc(this.firestore, 'channels', '1LclZQkGX67kBS8Qohvx');
+
+      await updateDoc(channelDocRef2, { members: arrayUnion(userId) });
+    } catch (error) {
+      console.error('Error updating channels:', error);
+    }
+  }
+
 
   async login(): Promise<boolean> {
     try {
