@@ -1,8 +1,10 @@
 <div class="d-flex">
     <div class="content-container">
         <div class="flex-box">
-            <div class="arrow-img" (click)="toggleToCreateAccount()"></div>
-            <h1>Wähle deinen Avatar</h1>
+            <div class="header-flex-box">
+                <div class="arrow-img" (click)="toggleToCreateAccount()"></div>
+                <h1>Wähle deinen Avatar</h1>
+            </div>
             <img [src]="this.authService.selectedProfilePic" alt="unknown-image" (click)="fileInput.click()">
             <p class="name">{{ this.authService.name }}</p>
         </div>

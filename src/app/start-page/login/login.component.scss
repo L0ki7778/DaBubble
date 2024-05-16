@@ -227,6 +227,16 @@ form {
     .login-google {
         width: 94%;
     }
+
+    h1 {
+        font-size: 40px;
+    }
+}
+
+@media(max-width: 450px) {
+    h1 {
+        font-size: 35px
+    }
 }
 
 @media(max-width: 400px) {
@@ -272,7 +282,7 @@ form {
     }
 
     h1 {
-        font-size: 42px;
+        font-size: 32px;
     }
 }
 
@@ -294,4 +304,9 @@ form {
     .login-google {
         background-position: 4% 50%;
     }
+
+    h1 {
+        font-size: 30px
+    }
+
 }

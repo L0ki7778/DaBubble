@@ -28,7 +28,7 @@
     height: 24px;
     width: 24px;
     position: absolute;
-    left: 28px;
+    left: 52px;
     top: 75px;
     cursor: pointer;
     background-image: url("/assets/img/start-page/arrow-black.svg");
@@ -354,19 +354,34 @@ h3 {
     .password {
         width: 95%
     }
+
+    .arrow-img {
+        left: 18px;
+    }
 }
 
 @media(max-width: 500px) {
-    .arrow-img {
-        top: 24px;
-    }
 
     h1 {
-        font-size: 44px;
+        font-size: 40px;
+    }
+
+    .arrow-img {
+        top: 71px;
     }
 
     .create-container {
         padding:56px 16px;
+    }
+}
+
+@media(max-width: 450px) {
+    h1 {
+        font-size: 35px;
+    }
+
+    .arrow-img {
+        top: 67px;
     }
 }
 
@@ -404,6 +419,17 @@ h3 {
     }
 
     h1 {
-        font-size: 35px;
+        font-size: 32px;
+    }
+
+    .arrow-img {
+        top: 64px;
+        left: 10px;
+    }
+}
+
+@media(max-width: 340px) {
+    h1 {
+        font-size: 30px;
     }
 }
