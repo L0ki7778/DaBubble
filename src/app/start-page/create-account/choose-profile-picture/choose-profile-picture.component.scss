@@ -212,6 +212,11 @@ h1 {
     h1 {
         font-size: 30px;
     }
+
+    .success-report {
+        font-size: 24px;
+        padding: 25px;
+    }
 }
 
 @media(max-width: 420px) {
@@ -298,5 +303,9 @@ h1 {
 
     .next-btn {
         margin-left: 212px;
+    }
+
+    .success-report {
+        font-size: 22px;
     }
 }

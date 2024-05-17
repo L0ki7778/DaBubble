@@ -60,3 +60,71 @@ h3 {
     background: var(--purple2);
     border-radius: 10px;
 }
+
+@media(max-width: 700px) {
+    h1 {
+        font-size: 40px;
+    }
+}
+
+@media(max-width: 640px) {
+    .privacy-policy-content {
+        padding: 40px;
+        width: 70vw;
+    }
+
+    .arrow-img {
+        margin: 24px 0 0 32px;
+    }
+}
+
+@media(max-width: 570px) {
+    h1 {
+        font-size: 32px;
+    }
+
+    h2 {
+        font-size: 26px;
+    }
+}
+
+@media(max-width: 440px) {
+    .privacy-policy-content {
+        padding: 20px;
+        width: 75vw;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+
+    .arrow-img {
+        margin: 7px 0 0 12px;
+    }
+}
+
+@media(max-width: 360px) {
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h3 {
+        font-size: 16px;
+    }
+    
+    .arrow-img {
+        margin: 2px 0 0 9px;
+    }
+}

@@ -324,6 +324,12 @@ h3 {
     }
 }
 
+@media(max-width: 700px) {
+    .privacy-header {
+        font-size: 42px;
+    }
+}
+
 @media (max-width: 650px) {
     .create-container {
         width: 90%;
