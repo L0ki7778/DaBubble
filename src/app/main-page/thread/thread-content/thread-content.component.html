@@ -16,7 +16,7 @@
       [ngStyle]="{'align-items': isOwnAnswer ? 'end' : 'start', 'margin': isOwnAnswer ? '0 0 0 24px' : '0 24px 0 0'}">
       <div class="answer-header" [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'row'}">
         <div
-          [ngStyle]="{'opacity': isHovered ? '1' : '0', 'border-radius': isOwnAnswer ? '25px 25px 0px 25px' : '25px 25px 25px 0px', 'flex-direction': isOwnAnswer ? 'row-reverse' : 'row'}"
+          [ngStyle]="{'opacity': isHovered ? '1' : '0', 'border-radius': isOwnAnswer ? '25px 25px 0px 25px' : '25px 25px 25px 0px', 'flex-direction': isOwnAnswer ? 'row-reverse' : 'row', 'left': isOwnAnswer ? '0' : 'unset', 'right': isOwnAnswer ? 'unset' : '0'}"
           class="reaction-bar-container">
           <div (click)="showEmojiPicker($event)" class="smiley-img">
           </div>
@@ -25,7 +25,7 @@
             (click)="startEditing(message.docId, message.text)">Nachricht
             bearbeiten</span>
         </div>
-        <div [ngStyle]="{'flex-direction': isOwnAnswer ? 'row' : 'row-reverse'}"
+        <div [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'row'}"
           style="display: flex; justify-content: space-around; align-items: center; gap: 20px;">
           <span (click)="openMemberView($event)" class="answer-author"
             [ngStyle]="{'text-align': isOwnAnswer ? 'right' : 'left'}" *ngIf="!messageFromDeletedUser">

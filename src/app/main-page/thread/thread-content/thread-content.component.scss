@@ -184,7 +184,7 @@ app-chat-answer {
 
 .reaction-bar-container {
     position: absolute;
-    top: -20px;
+    top: -39px;
     gap: none;
     display: flex;
     align-items: center;
@@ -363,5 +363,17 @@ app-chat-answer {
 
     100% {
         transform: translateX(0);
+    }
+}
+
+
+// max-width
+@media only screen and (max-width: 400px) {
+    .answer-container {
+        gap: 18px;
+    }
+
+    .answer-time {
+        font-size: 13px;
     }
 }

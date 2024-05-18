@@ -16,17 +16,17 @@
         <div class="message-header" [ngStyle]="{'flex-direction': isOwnMessage ? 'row-reverse' : 'row'}">
             <app-reaction-bar [privateMessage]="message" [message]="message" [isOwnMessage]="isOwnMessage"
                 [messageId]="this.message.authorId" [messageText]="message.text"
-                [ngStyle]="{'opacity': isHovered ? '1' : '0'}"
+                [ngStyle]="{'opacity': isHovered ? '1' : '0', 'left': isOwnMessage ? '0' : 'unset', 'right': isOwnMessage ? 'unset' : '0'}"
                 (editingStarted)="startEditing($event.messageId, $event.messageText)">
             </app-reaction-bar>
             <div [ngStyle]="{'flex-direction': isOwnMessage ? 'row-reverse' : 'row'}">
-                <span (click)="openMemberView($event)" class="message-author" *ngIf="!messageFromDeletedUser">
+                <span (click)="openMemberView($event)" class="message-author" *ngIf="!messageFromDeletedUser" [ngStyle]="{'text-align': isOwnMessage ? 'right' : '{}'}">
                     {{ user.name }}
                 </span>
                 <span class="message-author deleted" *ngIf="messageFromDeletedUser">
                     {{ user.name }}
                 </span>
-                <span class="message-time" *ngIf="message">
+                <span class="message-time min-width" *ngIf="message" [ngStyle]="{'text-align': isOwnMessage ? 'right' : '{}'}">
                     {{ message.posthour }} Uhr
                 </span>
             </div>
@@ -65,7 +65,7 @@
                 <span (click)="showThread()" class="message-answers">{{ answers.length }} <span
                         *ngIf="answers.length === 1">Antwort</span><span
                         *ngIf="answers.length > 1">Antworten</span></span>
-                <span class="message-time">Letzte Antwort {{lastAnswerTime}}</span>
+                <span class="message-time date-width">Letzte Antwort {{lastAnswerTime}}</span>
             </div>
             <div [ngStyle]="{'margin': isOwnMessage ? '0 0 0 24px' : '0 24px 0 0'}" *ngIf="message" class="reactions">
                 <p *ngFor="let reaction of message.reactions | keyvalue"

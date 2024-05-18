@@ -15,6 +15,7 @@
 app-reaction-bar {
     transition: all ease-in-out 0.2s;
     position: absolute;
+    top: -39px;
 }
 
 .date-box {
@@ -155,7 +156,10 @@ app-reaction-bar {
     line-height: 19px;
     letter-spacing: 0em;
     text-align: left;
-    min-width: 97px;
+}
+
+.min-width {
+    min-width: fit-content;
 }
 
 .message-text {
@@ -282,6 +286,10 @@ app-reaction-bar {
     }
 }
 
+.date-width {
+    min-width: 97px;
+}
+
 .emoji-btn {
     &:hover {
         cursor: pointer;
@@ -312,5 +320,15 @@ app-reaction-bar {
 @media only screen and (max-width: 600px) {
     .message-footer {
         flex-direction: column !important;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .message-container {
+        gap: 18px;
+    }
+
+    .message-time {
+        font-size: 13px;
     }
 }
