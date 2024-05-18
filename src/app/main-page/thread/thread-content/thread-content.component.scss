@@ -14,7 +14,7 @@
 
 .answer-container {
     @include dFlex(start, center);
-    padding: 0 0 10px 0;
+    padding: 10px 0;
     gap: 30px;
     margin: 24px 0 8px 0;
 
@@ -154,6 +154,7 @@ app-chat-answer {
     line-height: 19px;
     letter-spacing: 0em;
     text-align: left;
+    min-width: fit-content;
 }
 
 .answer-text {
@@ -182,7 +183,7 @@ app-chat-answer {
 }
 
 .reaction-bar-container {
-    position: relative;
+    position: absolute;
     top: -20px;
     gap: none;
     display: flex;

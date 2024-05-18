@@ -2,7 +2,7 @@
 
 .answer-container {
     @include dFlex(start, center);
-    padding: 0 0 10px 0;
+    padding: 10px 0;
     gap: 30px;
     margin: 24px 0;
 
@@ -12,7 +12,7 @@
 }
 
 .reaction-bar-container {
-    position: relative;
+    position: absolute;
     top: -20px;
     gap: none;
     display: flex;
@@ -168,6 +168,7 @@
     line-height: 19px;
     letter-spacing: 0em;
     text-align: left;
+    min-width: fit-content;
 }
 
 .answer-text {

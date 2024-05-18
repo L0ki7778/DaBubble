@@ -9,14 +9,14 @@
     (click)="openMemberView($event)" [src]="message.authorImage" class="avatar-icon">
   <div class="message-box" [ngStyle]="{'align-items': isOwnMessage(message) ? 'end' : 'start'}">
     <div class="message-header" [ngStyle]="{'flex-direction': isOwnMessage(message) ? 'row-reverse' : 'row'}">
-      <div class="d-flex" [ngStyle]="{'flex-direction': isOwnMessage(message) ? 'row-reverse' : 'row'}">
-        <span (click)="openMemberView($event)" class="message-author">{{ message.authorName }}</span>
-        <span class="message-time">{{ (message.postTime.toDate() | date:'HH:mm') }} Uhr</span>
-      </div>
       <app-reaction-bar [privateMessage]="message" [isOwnMessage]="isOwnMessage(message)" [messageId]="message.id"
         [messageText]="message.text" [ngStyle]="{'opacity': isHovered ? '1' : '0'}"
         (editingStarted)="startEditing($event.messageId, $event.messageText)">
       </app-reaction-bar>
+      <div class="d-flex" [ngStyle]="{'flex-direction': isOwnMessage(message) ? 'row-reverse' : 'row'}">
+        <span (click)="openMemberView($event)" class="message-author">{{ message.authorName }}</span>
+        <span class="message-time">{{ (message.postTime.toDate() | date:'HH:mm') }} Uhr</span>
+      </div>
     </div>
     <div *ngIf="!isOwnMessage(message) || (isOwnMessage(message) && !editMessage)">
       <div class="message-text" *ngIf="!isOwnMessage(message)"

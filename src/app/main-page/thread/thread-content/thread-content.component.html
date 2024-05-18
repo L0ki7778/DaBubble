@@ -14,9 +14,9 @@
       *ngIf="messageUser.image && messageFromDeletedUser" class="avatar-icon deleted" src="{{ messageUser.image }}">
     <div class="answer-box"
       [ngStyle]="{'align-items': isOwnAnswer ? 'end' : 'start', 'margin': isOwnAnswer ? '0 0 0 24px' : '0 24px 0 0'}">
-      <div class="answer-header" [ngStyle]="{'flex-direction': isOwnAnswer ? 'row' : 'row-reverse'}">
+      <div class="answer-header" [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'row'}">
         <div
-          [ngStyle]="{'opacity': isHovered ? '1' : '0', 'border-radius': isOwnAnswer ? '25px 25px 0px 25px' : '25px 25px 25px 0px', 'flex-direction': isOwnAnswer ? 'row' : 'row-reverse'}"
+          [ngStyle]="{'opacity': isHovered ? '1' : '0', 'border-radius': isOwnAnswer ? '25px 25px 0px 25px' : '25px 25px 25px 0px', 'flex-direction': isOwnAnswer ? 'row-reverse' : 'row'}"
           class="reaction-bar-container">
           <div (click)="showEmojiPicker($event)" class="smiley-img">
           </div>
@@ -25,16 +25,16 @@
             (click)="startEditing(message.docId, message.text)">Nachricht
             bearbeiten</span>
         </div>
-        <div [ngStyle]="{'flex-direction': isOwnAnswer ? 'row-reverse' : 'row'}"
+        <div [ngStyle]="{'flex-direction': isOwnAnswer ? 'row' : 'row-reverse'}"
           style="display: flex; justify-content: space-around; align-items: center; gap: 20px;">
           <span (click)="openMemberView($event)" class="answer-author"
             [ngStyle]="{'text-align': isOwnAnswer ? 'right' : 'left'}" *ngIf="!messageFromDeletedUser">
             {{ messageUser.name }}
           </span>
           <span class="answer-author deleted" *ngIf="messageFromDeletedUser"
-          [ngStyle]="{'text-align': isOwnAnswer ? 'right' : 'left'}">
-          {{ messageUser.name }}
-        </span>
+            [ngStyle]="{'text-align': isOwnAnswer ? 'right' : 'left'}">
+            {{ messageUser.name }}
+          </span>
           <span class="answer-time" *ngIf="message" [ngStyle]="{'text-align': isOwnAnswer ? 'right' : 'left'}">
             {{ message.posthour }} Uhr
           </span>

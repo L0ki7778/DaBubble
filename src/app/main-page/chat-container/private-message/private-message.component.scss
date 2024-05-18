@@ -2,7 +2,7 @@
 
 .message-container {
     @include dFlex(unset, end);
-    padding: 0 0 10px 0;
+    padding: 10px 0;
     gap: 30px;
     margin: 24px 0;
 
@@ -11,14 +11,13 @@
     }
 
     &:hover app-reaction-bar {
-        opacity: 1;
         animation: slideInFromRight 0.2s ease-in-out;
     }
 }
 
 app-reaction-bar {
-    opacity: 0;
     transition: all ease-in-out 0.2s;
+    position: absolute;
 }
 
 .date-box {
@@ -66,6 +65,7 @@ app-reaction-bar {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
+    position: relative;
 
     div {
         display: flex;
