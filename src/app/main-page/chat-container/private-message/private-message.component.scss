@@ -91,6 +91,7 @@ app-reaction-bar {
     line-height: 19px;
     letter-spacing: 0em;
     text-align: left;
+    min-width: 97px;
 }
 
 .message-text {
@@ -117,6 +118,8 @@ app-reaction-bar {
     line-height: 25px;
     letter-spacing: 0em;
     text-align: left;
+    white-space: nowrap;
+
 
     &:hover {
         transition: ease-in 1s;

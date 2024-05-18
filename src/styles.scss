@@ -98,15 +98,29 @@ app-root {
 
 
 // max-width
-@media screen and (max-width: 955px) {
-    .image-box img {
-        max-height: 300px;
+@media(max-width: 650px) {
+    app-start-page {
+        overflow: scroll;
+    }
+}
+
+@media(max-width: 500px) {
+    app-start-page {
+        overflow: scroll;
+    }
+
+    .image-box {
+        max-width: 275px;
     }
 }
 
 @media screen and (max-width: 400px) {
     app-root {
         margin-bottom: 0;
+    }
+
+    .image-box {
+        max-width: 225px;
     }
 }
 
@@ -285,16 +299,4 @@ app-root {
     font-weight: 900;
     src: url('./assets/fonts/nunito-v26-latin-900italic.woff2') format('woff2');
     /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-
-@media screen and (max-width: 955px) {
-    .image-box img {
-        max-height: 300px;
-    }
-}
-
-@media(max-width: 650px) {
-    app-start-page {
-        overflow: scroll;
-    }
 }
