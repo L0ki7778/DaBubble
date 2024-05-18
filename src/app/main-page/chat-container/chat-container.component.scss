@@ -18,6 +18,7 @@ app-chat-content {
     @include dFlex(initial, center);
     flex-direction: column;
     overflow-y: scroll;
+    width: 100%;
 
     &::-webkit-scrollbar {
         width: 0;
