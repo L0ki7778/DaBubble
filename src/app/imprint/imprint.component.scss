@@ -16,8 +16,10 @@
 
 .content {
     width: 100vw;
-    height: 100vh;
+    height: 86vh;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .center {
@@ -60,4 +62,43 @@ strong {
 ::-webkit-scrollbar-thumb {
     background: var(--purple2);
     border-radius: 10px;
+}
+
+@media(max-width: 570px) {
+    h1 {
+        font-size: 32px;
+    }
+
+    strong {
+        font-size: 26px;
+    }
+}
+
+@media(max-width: 440px) {
+    
+    h1 {
+        font-size: 28px;
+    }
+
+    strong {
+        font-size: 24px;
+    }
+
+    .impressum {
+        padding: 40px;
+    }
+
+    .arrow-img {
+        margin: 20px 0 0 27px;
+    }
+}
+
+@media(max-width: 360px) {
+    h1 {
+        font-size: 24px;
+    }
+
+    strong {
+        font-size: 20px;
+    }
 }

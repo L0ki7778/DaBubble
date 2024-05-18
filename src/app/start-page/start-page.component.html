@@ -1,25 +1,27 @@
-<header>
-    <div *ngIf="authService.endAnimation" class="logo-box">
-        <img src="/assets/img/start-page/logo.svg" alt="logo" class="logo">
-        <h1>DABubble</h1>
-    </div>
-    <div *ngIf="!authService.endAnimation"></div>
-    <div class="create-account" *ngIf="authService.showLogin && !authService.showMobileDesign">
+<div class="content">
+    <header>
+        <div *ngIf="authService.endAnimation" class="logo-box">
+            <img src="/assets/img/start-page/logo.svg" alt="logo" class="logo">
+            <h1>DABubble</h1>
+        </div>
+        <div *ngIf="!authService.endAnimation"></div>
+        <div class="create-account" *ngIf="authService.showLogin && !authService.showMobileDesign">
+            <p>Neu bei DABubble?</p>
+            <span (click)="toggleToCreateAccount()">Konto erstellen</span>
+        </div>
+    </header>
+    <app-login *ngIf="authService.showLogin"></app-login>
+    <app-create-account *ngIf="authService.showCreateAccount"></app-create-account>
+    <app-reset-password *ngIf="authService.showResetPassword"></app-reset-password>
+    <app-enter-new-password *ngIf="authService.showEnterNewPassword"></app-enter-new-password>
+    <app-choose-profile-picture *ngIf="authService.showChooseProfilePicture"></app-choose-profile-picture>
+    <app-upload-warning *ngIf="overlay.warning"></app-upload-warning>
+    <div class="create-account" *ngIf="authService.showMobileDesign && authService.showLogin">
         <p>Neu bei DABubble?</p>
         <span (click)="toggleToCreateAccount()">Konto erstellen</span>
     </div>
-</header>
-<app-login *ngIf="authService.showLogin"></app-login>
-<app-create-account *ngIf="authService.showCreateAccount"></app-create-account>
-<app-reset-password *ngIf="authService.showResetPassword"></app-reset-password>
-<app-enter-new-password *ngIf="authService.showEnterNewPassword"></app-enter-new-password>
-<app-choose-profile-picture *ngIf="authService.showChooseProfilePicture"></app-choose-profile-picture>
-<app-upload-warning *ngIf="overlay.warning"></app-upload-warning>
-<div class="create-account" *ngIf="authService.showMobileDesign && authService.showLogin">
-    <p>Neu bei DABubble?</p>
-    <span (click)="toggleToCreateAccount()">Konto erstellen</span>
 </div>
-<footer>
-    <p [routerLink]="['imprint']" (click)="preventAnimation()">Impressum</p>
-    <p [routerLink]="['privacy-policy']">Datenschutz</p>
-</footer>
+    <footer>
+        <p [routerLink]="['imprint']" (click)="preventAnimation()">Impressum</p>
+        <p [routerLink]="['privacy-policy']">Datenschutz</p>
+    </footer>
