@@ -5,10 +5,10 @@
 </div>
 <div class="message-container" (mouseover)="onHover()" (mouseleave)="onLeave()"
   [ngStyle]="{'flex-direction': isOwnMessage(message) ? 'row-reverse' : 'none', 'background-color': isHovered ? '#ECEEFE' : 'white'}">
-  <img [ngStyle]="{'margin': isOwnMessage(message) ? '16px 24px 0 0' : '16px 0 0 24px'}"
+  <img [ngStyle]="{'margin': isOwnMessage(message) ? '0 1.5rem 0 0' : '0 0 0 1.5rem'}"
     (click)="openMemberView($event)" [src]="message.authorImage" class="avatar-icon">
   <div class="message-box"
-    [ngStyle]="{'align-items': isOwnMessage(message) ? 'end' : 'start', 'padding-right': isOwnMessage(message) ? '0' : '24px', 'padding-left': isOwnMessage(message) ? '24px' : '0'}">
+    [ngStyle]="{'align-items': isOwnMessage(message) ? 'end' : 'start', 'padding-right': isOwnMessage(message) ? '0' : '1.5rem', 'padding-left': isOwnMessage(message) ? '1.5rem' : '0'}">
     <div class="message-header" [ngStyle]="{'flex-direction': isOwnMessage(message) ? 'row-reverse' : 'row'}">
       <app-reaction-bar [privateMessage]="message" [isOwnMessage]="isOwnMessage(message)" [messageId]="message.id"
         [messageText]="message.text"

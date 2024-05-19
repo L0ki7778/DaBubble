@@ -1,11 +1,12 @@
 @import '../../../../mixin.scss';
 
 .message-container {
-    @include dFlex(center, start);
+    display: flex;
+    justify-content: unset;
+    align-items: end;
+    padding: 10px;
     gap: 30px;
-    width: 100%;
-    margin: 24px 0 8px 0;
-    padding: 10px 0;
+    margin: 24px 0;
 
     :hover app-reaction-bar {
         animation: slideInFromRight 0.2s ease-in-out;
@@ -41,17 +42,12 @@ app-reaction-bar {
     }
 }
 
-.icon-box {
-    @include dFlex(center, start);
-    height: 100%;
-    width: fit-content;
-}
-
 .avatar-icon {
-    display: flex;
+    align-self: flex-start;
     height: 50px;
     width: 50px;
-    padding-top: 12px;
+    margin-top: 0;
+    border-radius: 100%;
     cursor: pointer;
 }
 
@@ -326,6 +322,7 @@ app-reaction-bar {
 @media only screen and (max-width: 400px) {
     .message-container {
         gap: 18px;
+        padding: 10px 0;
     }
 
     .message-time {

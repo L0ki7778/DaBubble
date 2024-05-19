@@ -118,7 +118,7 @@ app-edit-channel-overlay {
     z-index: 4;
     display: flex;
     position: absolute;
-    top: 10%;
+    top: 100%;
     left: 24px;
 }
 
@@ -126,16 +126,16 @@ app-members-overlay {
     z-index: 4;
     display: flex;
     position: absolute;
-    top: 9%;
-    right: 5%;
+    top: 100%;
+    right: 1.5rem;
 }
 
 app-add-member-overlay {
     z-index: 4;
     display: flex;
     position: absolute;
-    top: 9%;
-    right: 0;
+    top: 100%;
+    right: 1.5rem;
 }
 
 .mobileView {
@@ -241,7 +241,7 @@ app-add-member-overlay {
     }
 
     .chat-container-header {
-        padding: 0 16px;
+        padding: 0 1.5rem;
     }
 
     .chat-head-title {
@@ -273,15 +273,15 @@ app-add-member-overlay {
     }
 
     app-edit-channel-overlay {
-        height: 104vh;
-        top: -104px;
+        height: 100%;
+        top: 0;
+        position: fixed;
     }
 
     app-members-overlay {
-        top: 47%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        right: auto;
+        top: 100%;
+        left: 1.5rem;
+        right: 1.5rem;
     }
 
     app-add-member-overlay {

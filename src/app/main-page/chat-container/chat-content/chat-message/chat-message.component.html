@@ -5,14 +5,12 @@
 </div>
 <div class="message-container" (mouseover)="onHover()" (mouseleave)="onLeave()"
     [ngStyle]="{'flex-direction': isOwnMessage ? 'row-reverse' : 'none', 'background-color': isHovered ? '#ECEEFE' : 'transparent'}">
-    <div class="icon-box"
-        [ngStyle]="{'padding-left': isOwnMessage ? '0' : '24px', 'padding-right': isOwnMessage ? '24px' : '0'}">
-        <img *ngIf="user.image && !messageFromDeletedUser" class="avatar-icon" (click)="openMemberView($event)"
-            src="{{ user.image }}">
-        <img *ngIf="user.image && messageFromDeletedUser" src="{{ user.image }}" class="avatar-icon deleted">
-    </div>
+    <img *ngIf="user.image && !messageFromDeletedUser" class="avatar-icon" (click)="openMemberView($event)"
+        src="{{ user.image }}" [ngStyle]="{'margin': isOwnMessage ? '0 1.5rem 0 0' : '0 0 0 1.5rem'}">
+    <img *ngIf="user.image && messageFromDeletedUser" src="{{ user.image }}" class="avatar-icon deleted" 
+    [ngStyle]="{'margin': isOwnMessage ? '0 1.5rem 0 0' : '0 0 0 1.5rem'}">
     <div class="message-box"
-        [ngStyle]="{'align-items': isOwnMessage ? 'end' : 'start', 'padding-right': isOwnMessage ? '0' : '24px', 'padding-left': isOwnMessage ? '24px' : '0'}">
+        [ngStyle]="{'align-items': isOwnMessage ? 'end' : 'start', 'padding-right': isOwnMessage ? '0' : '1.5rem', 'padding-left': isOwnMessage ? '1.5rem' : '0'}">
         <div class="message-header" [ngStyle]="{'flex-direction': isOwnMessage ? 'row-reverse' : 'row'}">
             <app-reaction-bar [privateMessage]="message" [message]="message" [isOwnMessage]="isOwnMessage"
                 [messageId]="this.message.authorId" [messageText]="message.text"
@@ -20,13 +18,15 @@
                 (editingStarted)="startEditing($event.messageId, $event.messageText)">
             </app-reaction-bar>
             <div [ngStyle]="{'flex-direction': isOwnMessage ? 'row-reverse' : 'row'}">
-                <span (click)="openMemberView($event)" class="message-author" *ngIf="!messageFromDeletedUser" [ngStyle]="{'text-align': isOwnMessage ? 'right' : '{}'}">
+                <span (click)="openMemberView($event)" class="message-author" *ngIf="!messageFromDeletedUser"
+                    [ngStyle]="{'text-align': isOwnMessage ? 'right' : '{}'}">
                     {{ user.name }}
                 </span>
                 <span class="message-author deleted" *ngIf="messageFromDeletedUser">
                     {{ user.name }}
                 </span>
-                <span class="message-time min-width" *ngIf="message" [ngStyle]="{'text-align': isOwnMessage ? 'right' : '{}'}">
+                <span class="message-time min-width" *ngIf="message"
+                    [ngStyle]="{'text-align': isOwnMessage ? 'right' : '{}'}">
                     {{ message.posthour }} Uhr
                 </span>
             </div>
