@@ -7,8 +7,8 @@
     [ngStyle]="{'flex-direction': isOwnMessage ? 'row-reverse' : 'none', 'background-color': isHovered ? '#ECEEFE' : 'transparent'}">
     <img *ngIf="user.image && !messageFromDeletedUser" class="avatar-icon" (click)="openMemberView($event)"
         src="{{ user.image }}" [ngStyle]="{'margin': isOwnMessage ? '0 1.5rem 0 0' : '0 0 0 1.5rem'}">
-    <img *ngIf="user.image && messageFromDeletedUser" src="{{ user.image }}" class="avatar-icon deleted" 
-    [ngStyle]="{'margin': isOwnMessage ? '0 1.5rem 0 0' : '0 0 0 1.5rem'}">
+    <img *ngIf="user.image && messageFromDeletedUser" src="{{ user.image }}" class="avatar-icon deleted"
+        [ngStyle]="{'margin': isOwnMessage ? '0 1.5rem 0 0' : '0 0 0 1.5rem'}">
     <div class="message-box"
         [ngStyle]="{'align-items': isOwnMessage ? 'end' : 'start', 'padding-right': isOwnMessage ? '0' : '1.5rem', 'padding-left': isOwnMessage ? '1.5rem' : '0'}">
         <div class="message-header" [ngStyle]="{'flex-direction': isOwnMessage ? 'row-reverse' : 'row'}">
@@ -60,7 +60,8 @@
         <emoji-mart (emojiClick)="addEditedEmoji($event)" #emoji *ngIf="viewEditEmojiPicker"
             [style]="{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', 'z-index': '9' }">
         </emoji-mart>
-        <div class="message-footer" [ngStyle]="{'flex-direction': isOwnMessage ? 'row-reverse' : 'none' }">
+        <div class="message-footer"
+            [ngStyle]="{'flex-direction': isOwnMessage ? 'row-reverse' : 'none', 'align-items': isOwnMessage ? 'flex-end' : 'flex-start'}">
             <div class="gap" *ngIf="answersExist">
                 <span (click)="showThread()" class="message-answers">{{ answers.length }} <span
                         *ngIf="answers.length === 1">Antwort</span><span

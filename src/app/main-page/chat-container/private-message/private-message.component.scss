@@ -109,6 +109,7 @@ app-reaction-bar {
     letter-spacing: 0em;
     text-align: left;
     gap: 10px;
+    word-break: break-word;
 
     p {
         margin: 0;
@@ -295,6 +296,10 @@ app-reaction-bar {
 
     .date-label {
         font-size: 16px;
+    }
+
+    .message-text {
+        font-size: 17px;
     }
 }
 

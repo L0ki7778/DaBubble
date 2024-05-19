@@ -315,7 +315,7 @@ app-reaction-bar {
 // max-width
 @media only screen and (max-width: 600px) {
     .message-footer {
-        flex-direction: column !important;
+        flex-direction: column-reverse !important;
     }
 }
 
@@ -330,6 +330,10 @@ app-reaction-bar {
 
     .date-label {
         font-size: 16px;
+    }
+
+    .message-text {
+        font-size: 17px;
     }
 }
 

@@ -171,3 +171,11 @@ form {
         transform: rotate(360deg);
     }
 }
+
+
+// max-width
+@media only screen and (max-width: 500px) {
+    .input-field {
+        font-size: 17px;
+    }
+}

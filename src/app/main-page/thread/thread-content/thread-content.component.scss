@@ -168,6 +168,7 @@ app-chat-answer {
     letter-spacing: 0em;
     text-align: left;
     gap: 10px;
+    word-break: break-word;
 
     p {
         margin: 0;
@@ -371,6 +372,10 @@ app-chat-answer {
 @media only screen and (max-width: 500px) {
     .date-label {
         font-size: 16px;
+    }
+
+    .answer-text {
+        font-size: 17px;
     }
 }
 
