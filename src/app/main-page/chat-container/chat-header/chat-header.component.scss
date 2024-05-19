@@ -120,6 +120,7 @@ app-edit-channel-overlay {
     position: absolute;
     top: 100%;
     left: 1.5rem;
+    right: 1.5rem;
 }
 
 app-members-overlay {
@@ -218,10 +219,6 @@ app-add-member-overlay {
         height: 48px;
     }
 
-    app-edit-channel-overlay {
-        left: 0;
-    }
-
     .normalView {
         display: none;
     }
@@ -270,6 +267,7 @@ app-add-member-overlay {
 
     app-edit-channel-overlay {
         height: 100%;
+        left: 0;
         top: 0;
         position: fixed;
     }

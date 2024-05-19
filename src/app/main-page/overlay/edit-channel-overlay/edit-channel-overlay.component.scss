@@ -259,7 +259,6 @@ span {
     padding: 0 2rem 1.5rem;
     background-color: white;
     border-radius: 0 2rem 2rem;
-    min-width: 500px;
     max-width: 90%;
     max-height: 90vh;
     overflow-y: auto;
@@ -312,17 +311,10 @@ span {
 
 
 // max-width
-@media only screen and (max-width: 1280px) {
-    .edit-channel-overlay {
-        min-width: 455px;
-    }
-}
-
 @media only screen and (max-width: 600px) {
     .edit-channel-overlay {
         padding: 0 16px 14px;
         max-width: none;
-        min-width: 84vw;
         overflow-y: auto;
     }
 
