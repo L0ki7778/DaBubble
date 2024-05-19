@@ -115,14 +115,12 @@ section {
     .user-name {
         overflow: hidden;
         text-overflow: ellipsis;
-        white-space: nowrap;
         max-width: 170px;
     }
 }
 
 @media only screen and (max-width: 400px) {
     section {
-        padding: 16px;
         width: 100%;
         border-radius: 30px;
     }
