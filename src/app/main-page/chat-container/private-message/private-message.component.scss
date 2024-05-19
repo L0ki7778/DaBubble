@@ -152,8 +152,13 @@ app-reaction-bar {
     display: flex;
 }
 
+.edit-position {
+    width: 100%;
+}
+
 .edit-container {
     width: 100%;
+    min-width: fit-content;
     border-top-left-radius: 30px;
     border: 1px solid var(--lightPurple);
     border-bottom-left-radius: 30px;
@@ -184,6 +189,7 @@ app-reaction-bar {
     gap: 30px;
     display: flex;
     justify-content: flex-end;
+    margin-right: 14px;
 }
 
 .cancel-button {
@@ -219,9 +225,11 @@ app-reaction-bar {
 }
 
 .edit-btn {
+    gap: 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 10px
 }
 
 .icon-fixer {
@@ -300,6 +308,26 @@ app-reaction-bar {
 
     .message-text {
         font-size: 17px;
+    }
+
+    .edit-position {
+        position: relative;
+    }
+
+    .edit-container {
+        position: absolute;
+        z-index: 5;
+        left: -8px;
+    }
+
+    .edit-btn {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .edit-buttons {
+        margin: 0;
+        gap: 30px;
     }
 }
 
