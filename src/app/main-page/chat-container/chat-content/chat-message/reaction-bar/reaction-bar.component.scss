@@ -64,3 +64,14 @@
         color: var(--purple3);
     }
 }
+
+
+// max-width
+@media only screen and (max-width: 500px) {
+    .edit-message {
+        font-size: 19px;
+        right: -120px;
+        top: 52px;
+        box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.4);
+    }
+}
