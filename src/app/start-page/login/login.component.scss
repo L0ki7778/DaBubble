@@ -55,6 +55,7 @@ form {
 
 .separator-box {
     display: flex;
+    align-items: center;
     width: 80%;
     margin-bottom: 4px;
 }
@@ -69,7 +70,6 @@ form {
     height: 1px;
     width: 100%;
     background-color: var(--lightPurple);
-    margin-top: 16px;
 }
 
 .email {
