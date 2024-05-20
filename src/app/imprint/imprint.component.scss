@@ -64,6 +64,7 @@ strong {
     border-radius: 10px;
 }
 
+
 @media(max-width: 570px) {
     h1 {
         font-size: 32px;
@@ -72,10 +73,14 @@ strong {
     strong {
         font-size: 26px;
     }
+
+    .impressum {
+        height: 57vh;
+    }
 }
 
 @media(max-width: 440px) {
-    
+
     h1 {
         font-size: 28px;
     }
@@ -86,10 +91,16 @@ strong {
 
     .impressum {
         padding: 40px;
+        width: 100vw;
+        box-sizing: border-box;
+        border-radius: 0;
+        height: 100vh;
+        margin-top: 185px;
+        font-size: 18px;
     }
 
     .arrow-img {
-        margin: 20px 0 0 27px;
+        margin: 196px 0 0 27px;
     }
 }
 

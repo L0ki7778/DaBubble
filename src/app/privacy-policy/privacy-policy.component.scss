@@ -86,12 +86,21 @@ h3 {
     h2 {
         font-size: 26px;
     }
+
+    .privacy-policy-content {
+        height: 57vh;
+    }
 }
 
 @media(max-width: 440px) {
     .privacy-policy-content {
-        padding: 20px;
-        width: 75vw;
+        padding: 40px;
+        width: 100vw;
+        box-sizing: border-box;
+        border-radius: 0;
+        height: 100vh;
+        margin-top: 185px;
+        font-size: 18px;
     }
 
     h1 {
@@ -107,7 +116,7 @@ h3 {
     }
 
     .arrow-img {
-        margin: 7px 0 0 12px;
+        margin: 195px 0 0 27px;
     }
 }
 
@@ -122,9 +131,5 @@ h3 {
 
     h3 {
         font-size: 16px;
-    }
-    
-    .arrow-img {
-        margin: 2px 0 0 9px;
     }
 }
