@@ -1,5 +1,9 @@
 @import '@ctrl/ngx-emoji-mart/picker';
 
+.emoji-mart-preview {
+    display: none;
+}
+
 body {
     margin: 0;
     background-color: var(--bgColor);
