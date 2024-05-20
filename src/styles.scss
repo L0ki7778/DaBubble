@@ -100,19 +100,20 @@ app-root {
     max-height: 450px;
 }
 
-
-// max-width
 @media(max-height: 750px) {
     app-start-page {
         overflow: scroll;
     }
 }
 
-@media(max-width: 500px) {
+@media(max-width: 650px) {
     app-start-page {
         overflow: scroll;
     }
+}
 
+@media(max-width: 500px) {
+    
     .image-box {
         max-width: 275px;
     }
