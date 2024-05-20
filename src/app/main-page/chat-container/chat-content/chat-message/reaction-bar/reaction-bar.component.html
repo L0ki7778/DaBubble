@@ -1,8 +1,13 @@
 <div [ngStyle]="{'border-radius': isOwnMessage ? '25px 25px 0px 25px' : '25px 25px 25px 0px', 'left': isOwnMessage ? '24px' : '-24px'}"
     class="reaction-bar-container">
     <div (click)="showEmojiPicker($event)" class="smiley-img">
-        <emoji-mart (emojiClick)="addEmoji($event)" #emoji *ngIf="viewEmojiPicker"
-            [style]="{ position: 'absolute', bottom: '-200px', left: '-10px', 'z-index': '9' }"></emoji-mart>
+        <emoji-mart (emojiClick)="addEmoji($event)" #emoji *ngIf="viewEmojiPicker" [style]="{width: '270px'}" [ngStyle]="{
+                'position': 'absolute', 
+                'bottom': '-290px', 
+                'z-index': '9', 
+                'width': '270px',
+                'left': isOwnMessage ? '-1px' : '-180px'
+              }">></emoji-mart>
     </div>
     <div *ngIf="this.selectionService.channelOrDM.value === 'channel'" (click)="showThread()" class="answer-img"></div>
     <div *ngIf="isOwnMessage" (click)="showOption($event)" class="edit-img"></div>

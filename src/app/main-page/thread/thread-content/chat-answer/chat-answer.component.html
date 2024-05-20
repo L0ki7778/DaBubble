@@ -78,7 +78,7 @@
                 </p>
                 <div (click)="showEmojiPickerAnswer($event)" class="smiley-img">
                     <emoji-mart (emojiClick)="addEmojiAnswer($event)" #emoji *ngIf="viewEmojiPickerAnswer"
-                        [style]="{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', 'z-index': '9' }">
+                        [style]="{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', 'z-index': '9', width: '270px' }">
                     </emoji-mart>
                 </div>
             </div>
