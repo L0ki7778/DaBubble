@@ -66,9 +66,11 @@
     0% {
         opacity: 1;
     }
+
     30% {
         width: 380px;
     }
+
     60% {
         width: 300px;
     }
@@ -87,6 +89,34 @@
     }
 }
 
+@keyframes endMoveMobile {
+
+    0% {
+        opacity: 1;
+    }
+
+    30% {
+        width: 380px;
+    }
+
+    60% {
+        width: 300px;
+    }
+
+    80% {
+        opacity: 1;
+        width: 250px;
+    }
+
+    100% {
+        opacity: 0;
+        width: auto;
+        top: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
 @keyframes moveLeft {
 
     0% {
@@ -99,6 +129,36 @@
 
     100% {
         transform: translateX(-200px);
+    }
+}
+
+@keyframes moveLeftMobile {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-150px);
+    }
+}
+
+@keyframes moveLeftPhone {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100px);
     }
 }
 
@@ -122,5 +182,150 @@
 
     100% {
         transform: translateX(calc(50vw - 80px));
+    }
+}
+
+@keyframes slideTextMobile {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    30% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(calc(35vw - 70px));
+    }
+
+    75% {
+        transform: translateX(calc(45vw - 80px));
+    }
+
+    100% {
+        transform: translateX(calc(55vw - 80px));
+    }
+}
+
+@keyframes slideTextPhone {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    30% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(calc(35vw - 35px));
+    }
+
+    75% {
+        transform: translateX(calc(45vw - 40px));
+    }
+
+    100% {
+        transform: translateX(calc(55vw - 40px));
+    }
+}
+
+@media(max-width: 900px) {
+    .logo {
+        width: 150px;
+        height: 150px;
+    }
+
+    .text {
+        font-size: 60px;
+    }
+}
+
+@media(max-width: 780px) {
+    .logo {
+        width: 130px;
+        height: 130px;
+    }
+
+    .text {
+        font-size: 52px;
+    }
+}
+
+@media(max-width: 700px) {
+    .logo {
+        width: 110px;
+        height: 110px;
+    }
+
+    .text {
+        font-size: 44px;
+    }
+}
+
+@media(max-width: 649px) {
+    .endLogo {
+        animation: endMoveMobile 0.6s ease-in-out 0s forwards;
+    }
+}
+
+@media(max-width: 630px) {
+    .text {
+        font-size: 34px;
+    }
+
+    .logo {
+        width: 90px;
+        height: 90px;
+    }
+
+    .logo {
+        animation: moveLeftMobile 0.8s ease-in-out 0s forwards,
+    }
+}
+
+@media(max-width: 540px) {
+    .text {
+        animation: slideTextMobile 0.5s ease-in-out 1s forwards;
+    }
+
+    .middle-layer {
+        padding-right: 40px;
+    }
+}
+
+@media(max-width: 450px) {
+    .logo {
+        animation: moveLeftPhone 0.8s ease-in-out 0s forwards,
+    }
+
+    .text {
+        animation: slideTextPhone 0.5s ease-in-out 1s forwards;
+    }
+
+    .middle-layer {
+        padding-right: 80px;
+    }
+}
+
+@media(max-width: 370px) {
+    .logo {
+        width: 75px;
+        height: 75px;
+    }
+
+    .text {
+        font-size: 28px;
+    }
+
+    .middle-layer {
+        padding-right: 70px;
+    }
+}
+
+@media(max-width: 330px) {
+    .middle-layer {
+        padding-right: 75px;
     }
 }

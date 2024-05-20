@@ -88,6 +88,13 @@ app-create-account {
     justify-content: center;
 }
 
+@media(max-height: 775px) {
+    footer {
+        position: static;
+        transform: unset;
+    }
+}
+
 @media(max-width: 649px) {
 
     header {
