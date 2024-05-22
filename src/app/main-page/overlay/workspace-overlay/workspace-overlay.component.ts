@@ -3,9 +3,10 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { addDoc, collection } from 'firebase/firestore';
-import { Firestore } from '@angular/fire/firestore';
+import { Firestore, getDocs, limit, query, where } from '@angular/fire/firestore';
 import { SelectionService } from '../../../services/selection.service';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-workspace-overlay',
@@ -14,6 +15,7 @@ import { DirectMessagesService } from '../../../services/direct-messages.service
     TranslateModule,
     FormsModule,
     ReactiveFormsModule,
+    CommonModule
   ],
   templateUrl: './workspace-overlay.component.html',
   styleUrl: './workspace-overlay.component.scss'
@@ -27,6 +29,7 @@ export class WorkspaceOverlayComponent {
   dmService = inject(DirectMessagesService);
   newChannel: FormGroup = new FormGroup({});
   currentUserId: string = '';
+  nameAvailable: boolean = true;
   @ViewChild('addChannelView') addChannelView: ElementRef | null = null;
 
 
@@ -39,6 +42,23 @@ export class WorkspaceOverlayComponent {
 
   async ngOnInit() {
     this.currentUserId = await this.dmService.getLoggedInUserId();
+  }
+
+  async checkIfNameAvailable() {
+    console.log('test');
+
+    if (!this.newChannel.get('name')?.value) {
+      this.nameAvailable = true;
+      return;
+    }
+    const q = query(collection(this.firestore, "channels"), where("channelName", "==", this.newChannel.get('name')?.value), limit(1));
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+      this.nameAvailable = false;
+    }
+    else {
+      this.nameAvailable = true;
+    }
   }
 
   async onSubmit(event: MouseEvent) {

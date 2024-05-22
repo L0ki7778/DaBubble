@@ -137,6 +137,12 @@ form {
     box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2);
 }
 
+.hint {
+    text-align: center;
+    color: var(--rosaError);
+    margin: 8px 0;
+}
+
 
 // max-width
 @media screen and (max-width: 900px) {
