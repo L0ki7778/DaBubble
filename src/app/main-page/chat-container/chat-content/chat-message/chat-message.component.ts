@@ -33,6 +33,7 @@ export class ChatMessageComponent {
   editingMessageText: string = '';
   selectionIdSubscription: Subscription;
   unsubscribeMessageAnswers: (() => void) | undefined;
+  unsubscribeUsers: (() => void) | undefined;
   isOwnMessage: boolean = false;
   answersExist: boolean = false;
   isHovered: boolean = false;
@@ -67,7 +68,7 @@ export class ChatMessageComponent {
     if (this.message && this.message.authorId) {
       const docRef = doc(this.firestore, 'users', this.message.authorId);
 
-      getDoc(docRef).then((doc) => {
+      this.unsubscribeUsers = onSnapshot((docRef), (doc: any) => {
         if (doc.exists()) {
           this.user = {
             name: doc.data()['name'],
@@ -292,6 +293,9 @@ export class ChatMessageComponent {
   ngOnDestroy() {
     if (this.unsubscribeMessageAnswers) {
       this.unsubscribeMessageAnswers();
+    }
+    if (this.unsubscribeUsers) {
+      this.unsubscribeUsers();
     }
   }
 
