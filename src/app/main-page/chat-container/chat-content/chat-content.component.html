@@ -1,11 +1,12 @@
 <!-- channel-messages-style -->
 <div *ngIf="this.selectionService.channelOrDM.value === 'channel'" class="channel-message-container" #chatList>
-  <app-chat-message *ngFor="let message of messages"
-    [message]="message"></app-chat-message>
+  <div *ngIf="messages.length == 0" class="empty-text">Das ist der Anfang des Channels. Füge Nachrichten hinzu, um eine Unterhaltung zu beginnen.</div>
+  <app-chat-message *ngFor="let message of messages" [message]="message"></app-chat-message>
 </div>
 
 <!-- direct-messages-style -->
 <div *ngIf="this.selectionService.channelOrDM.value === 'direct-message'" class="channel-message-container" #chatList>
-  <div (click)="openMemberView($event)" class="top-text">Diese Unterhaltung findet nur zwischen <span>&commat;{{ this.DMService.selectedUserName }}</span> und dir statt.</div>
+  <div (click)="openMemberView($event)" class="top-text">Diese Unterhaltung findet nur zwischen <span>&commat;{{
+      this.DMService.selectedUserName }}</span> und dir statt.</div>
   <app-private-message *ngFor="let message of DMService.chatMessages" [message]="message"></app-private-message>
 </div>
