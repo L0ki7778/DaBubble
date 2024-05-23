@@ -3,7 +3,7 @@ import { Component, ElementRef, HostListener, Input, ViewChild, inject } from '@
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { FormsModule } from '@angular/forms';
-import { CollectionReference, Firestore, Query, QuerySnapshot, arrayUnion, collection, doc, onSnapshot, query, updateDoc } from '@angular/fire/firestore';
+import { CollectionReference, DocumentSnapshot, Firestore, Query, QueryDocumentSnapshot, QuerySnapshot, Unsubscribe, arrayUnion, collection, doc, onSnapshot, query, updateDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-add-member-overlay',
@@ -27,10 +27,11 @@ export class AddMemberOverlayComponent {
   @Input() channelName: string = '';
   @Input() channelId: string = '';
   @ViewChild('addMember') addMember: ElementRef | null = null;
+  unsubscribeUsers: Unsubscribe;
 
 
   constructor() {
-    const unsubscribeUsers = onSnapshot(this.usersQuery, { includeMetadataChanges: true }, (usersQuerySnapshot) => {
+    this.unsubscribeUsers = onSnapshot(this.usersQuery, { includeMetadataChanges: true }, (usersQuerySnapshot) => {
       this.noMemberUsers = [];
       usersQuerySnapshot.forEach((user) => {
         if (!this.channelMemberIds.includes(user.id)) {
@@ -86,6 +87,12 @@ export class AddMemberOverlayComponent {
       return
     } else {
       this.overlay.closeOverlay();
+    }
+  }
+
+  ngOnDestroy(){
+    if(this.unsubscribeUsers){
+      this.unsubscribeUsers();
     }
   }
 

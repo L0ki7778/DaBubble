@@ -12,7 +12,7 @@
         <span class="channel-name"># {{ channelName }}</span>
         <div class="form-container">
             <input class="input-field" placeholder="Name eingeben" name="name" type="text" [(ngModel)]="inputData"
-                (input)="filterUsers()" autocomplete="off">
+                (input)="filterUsers()" (focus)="filterUsers()" autocomplete="off">
             <div class="member-suggestion-box" *ngIf="filteredUsers.length > 0">
                 <div class="user-box" *ngFor="let user of filteredUsers" (click)="selectUser(user.name, user.id, $event)">
                     <img class="user-icon" [src]="user.image">
