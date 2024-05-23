@@ -25,7 +25,6 @@ app-workspace {
     flex-direction: column;
     min-width: min-content;
     max-width: 310px;
-    transition: all ease .25s;
     position: relative;
     background-color: white;
     border-radius: 2rem;
@@ -41,7 +40,6 @@ app-thread {
     transition: all ease .25s;
     min-width: 15%;
     max-width: 27%;
-    transition: all ease .25s;
 }
 
 app-chat-container {
