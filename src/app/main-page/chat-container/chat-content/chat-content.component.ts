@@ -33,9 +33,11 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
   constructor(private renderer: Renderer2) {
     this.selectionIdSubscription = this.selectionService.choosenChatTypeId.subscribe(newId => {
       this.choosenChatId = newId;
-      if (this.choosenChatId != '' && this.selectionService.channelOrDM.value === 'channel') {
-        this.subscribeChannelMessagesChanges();
-      }
+      setTimeout(() => {
+        if (this.choosenChatId != '' && this.selectionService.channelOrDM.value === 'channel') {
+          this.subscribeChannelMessagesChanges();
+        }
+      }, 1);
     });
   }
 
