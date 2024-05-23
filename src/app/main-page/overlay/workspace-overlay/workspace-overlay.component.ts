@@ -67,6 +67,8 @@ export class WorkspaceOverlayComponent {
         authorId: this.currentUserId,
         members: [this.currentUserId],
       });
+      this.channelService.channelOrDM.next('channel');
+      this.channelService.choosenChatTypeId.next(channelRef.id);
       this.closeOverlay()
     }
   }

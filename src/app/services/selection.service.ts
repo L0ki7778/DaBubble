@@ -49,6 +49,7 @@ export class SelectionService {
   loadData() {
     this.loadChannels();
     this.loadDirectMessages();
+    this.getFirstDocumentId();
   }
 
   loadChannels() {
@@ -63,7 +64,6 @@ export class SelectionService {
             this.channelIds.push(doc.id);
           }
         });
-        this.getFirstDocumentId();
       });
   }
 
@@ -76,7 +76,6 @@ export class SelectionService {
           this.DMIds.push(doc.id);
         }
       });
-      this.getFirstDocumentId()
     });
   }
 
@@ -88,7 +87,7 @@ export class SelectionService {
         this.dmService.selectedUserName = otherUserName;
         this.dmService.loadChatHistory();
       }
-    } else if (this.channelIds.length > 0) {
+    } if (this.channelIds.length > 0) {
       this.channelOrDM.next('channel');
       this.choosenChatTypeId.next(this.channelIds[0]);
     } else if (this.DMIds.length > 0) {
