@@ -23,7 +23,7 @@ app-reaction-bar {
     display: flex;
     justify-content: center;
     width: 100%;
-    background-image: linear-gradient(to bottom, transparent 49%, $lightPurple 50%, transparent 51%);
+    background-image: linear-gradient(to bottom, transparent 49%, $lightPurple 50%, $lightPurple 51%, transparent 52%);
 }
 
 .date-label {
