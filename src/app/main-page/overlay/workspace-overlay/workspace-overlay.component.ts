@@ -45,8 +45,6 @@ export class WorkspaceOverlayComponent {
   }
 
   async checkIfNameAvailable() {
-    console.log('test');
-
     if (!this.newChannel.get('name')?.value) {
       this.nameAvailable = true;
       return;
@@ -55,8 +53,7 @@ export class WorkspaceOverlayComponent {
     const querySnapshot = await getDocs(q);
     if (!querySnapshot.empty) {
       this.nameAvailable = false;
-    }
-    else {
+    } else {
       this.nameAvailable = true;
     }
   }
