@@ -4,6 +4,10 @@
     display: none;
 }
 
+.emoji-mart-emoji[aria-label="☺️, relaxed"] {
+    display: none;
+}
+
 body {
     margin: 0;
     background-color: var(--bgColor);
@@ -113,7 +117,7 @@ app-root {
 }
 
 @media(max-width: 500px) {
-    
+
     .image-box {
         max-width: 275px;
     }
