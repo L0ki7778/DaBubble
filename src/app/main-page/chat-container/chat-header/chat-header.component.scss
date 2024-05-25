@@ -156,10 +156,10 @@ app-add-member-overlay {
     }
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1032px) {
     .chat-head-title {
         span {
-            max-width: 286px;
+            max-width: 189px;
         }
     }
 }
@@ -174,6 +174,10 @@ app-add-member-overlay {
             max-width: none;
         }
     }
+
+    .chat-head-members {
+        display: none;
+    }
 }
 
 @media only screen and (max-width: 700px) {
@@ -183,10 +187,6 @@ app-add-member-overlay {
 }
 
 @media only screen and (max-width: 600px) {
-    .chat-head-members {
-        display: none;
-    }
-
     .chat-head-title {
         span {
             font-size: 22px;
