@@ -44,7 +44,16 @@ h1 {
     img {
         width: 180px;
         height: 180px;
+        border-radius: 50%;
+        object-fit: cover;
+        &:hover {
+            cursor: pointer;
+        }
     }
+}
+
+.file {
+    display: none;
 }
 
 .label-container {
@@ -67,6 +76,12 @@ input {
     border-radius: 30px;
     border: 1px solid #ADB0D9;
     padding: 15px 20px 15px 20px;
+    width: 80%;
+    outline: none;
+
+    &:focus {
+        border: 1px solid var(--purple1);
+    }
 
     &::placeholder {
         color: var(--textGray);

@@ -4,7 +4,7 @@ import { DropdownMenuComponent } from '../overlay/dropdown-menu/dropdown-menu.co
 import { CommonModule } from '@angular/common';
 import { OverlayService } from '../../services/overlay.service';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { Firestore, doc, getDoc } from '@angular/fire/firestore';
+import { Firestore, doc, getDoc, onSnapshot } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { DirectMessagesService } from '../../services/direct-messages.service';
@@ -36,6 +36,7 @@ export class HeadComponent {
     mobileView: boolean = false;
     showThread: boolean = false;
     private subscription!: Subscription;
+    private imageUrlSubscription!: Subscription;
 
 
     ngOnInit() {
@@ -53,6 +54,9 @@ export class HeadComponent {
               this.showThread = value;
             }
           );
+          this.imageUrlSubscription = this.authService.currentImageUrl.subscribe(
+            (url) => (this.imgSrc = url)
+          );
     }
 
     hideSearchList() {
@@ -66,6 +70,7 @@ export class HeadComponent {
         if (this.userNameSubscription) {
             this.userNameSubscription.unsubscribe();
         }
+        this.imageUrlSubscription.unsubscribe();
     }
 
     private subscribeToUserName() {

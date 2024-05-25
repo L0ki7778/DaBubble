@@ -40,6 +40,8 @@ export class AuthService {
   userSubscription: Subscription = new Subscription();
   private _userName = new BehaviorSubject<string | null>(null);
   userName$ = this._userName.asObservable();
+  private imageUrlSource = new BehaviorSubject<string>('');
+  currentImageUrl = this.imageUrlSource.asObservable();
 
 
   constructor(private ngZone: NgZone) {
@@ -49,6 +51,10 @@ export class AuthService {
 
   updateUserName(newName: string | null) {
     this._userName.next(newName);
+  }
+
+  updateImageUrl(newUrl: string) {
+    this.imageUrlSource.next(newUrl);
   }
 
   private createUserObject(): UserType {

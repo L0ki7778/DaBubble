@@ -5,11 +5,13 @@ import { updateProfile, updateEmail, User, getAuth } from '@firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { AuthCredential, EmailAuthProvider, reauthenticateWithCredential, signInWithEmailAndPassword } from 'firebase/auth';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
+import { FormsModule } from '@angular/forms';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './edit-profile.component.html',
   styleUrl: './edit-profile.component.scss'
 })
@@ -21,6 +23,9 @@ export class EditProfileComponent {
   DMService = inject(DirectMessagesService);
   @ViewChild('nameInput') nameInput!: ElementRef;
   @ViewChild('emailInput') emailInput!: ElementRef;
+  selectedFile: string | ArrayBuffer | null = null;
+  originalFile: File | null = null;
+  @ViewChild('fileInput', { static: false }) fileInput: ElementRef | undefined;
 
 
   @HostListener('document:click', ['$event'])
@@ -55,7 +60,8 @@ export class EditProfileComponent {
       } else {
         console.error('Kein angemeldeter Benutzer gefunden');
       }
-      await setDoc(userDocRef, { name: newName, email: newEmail }, { merge: true });
+      await setDoc(userDocRef, { name: newName, email: newEmail, image: this.auth.userImage }, { merge: true });
+      this.auth.updateImageUrl(this.auth.userImage);
       this.close();
     } catch (error) {
       console.error('Fehler beim Aktualisieren der Benutzerprofilinformationen:', error);
@@ -81,6 +87,53 @@ export class EditProfileComponent {
       console.error('Fehler beim Abrufen der Anmeldeinformationen:', error);
       throw error;
     }
+  }
+
+  async updateProfilePicture() {
+    if (this.selectedFile) {
+      const file = this.dataURIToBlob(this.selectedFile.toString());
+      const filePath = `profile_pictures/${this.originalFile?.name}`;
+      const storage = getStorage();
+      const storageRef = ref(storage, filePath);
+      await uploadBytes(storageRef, file);
+      const uploadedFileUrl = await getDownloadURL(storageRef);
+      this.auth.userImage = uploadedFileUrl;
+    }
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.originalFile = file;
+      this.fileToBase64(file)
+        .then(result => {
+          this.selectedFile = result;
+          this.updateProfilePicture();
+        })
+        .catch(error => {
+          console.error('Fehler beim Lesen der Datei:', error);
+        });
+    }
+  }
+
+  fileToBase64(file: File): Promise<string | ArrayBuffer | null> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+      reader.readAsDataURL(file);
+    });
+  }
+
+  dataURIToBlob(dataURI: string) {
+    const byteString = atob(dataURI.split(',')[1]);
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], { type: mimeString });
   }
 
 }
