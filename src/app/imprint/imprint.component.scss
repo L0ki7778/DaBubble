@@ -1,5 +1,5 @@
 .impressum {
-    padding: 80px 72px 72px 72px;
+    padding: 72px;
     border-radius: 30px;
     width: 60vw;
     height: 50vh;
@@ -26,6 +26,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 h1 {
@@ -41,7 +42,9 @@ strong {
 }
 
 .arrow-img {
-    position: fixed;
+    position: absolute;
+    left: -36px;
+    top: -10px;
     width: 40px;
     height: 40px;
     background-image: url('../../assets/img/general/arrow.svg');
@@ -90,7 +93,7 @@ strong {
     }
 
     .impressum {
-        padding: 40px;
+        padding: 40px 52px 170px 52px;
         width: 100vw;
         box-sizing: border-box;
         border-radius: 0;
@@ -101,6 +104,8 @@ strong {
 
     .arrow-img {
         margin: 196px 0 0 27px;
+        left: -20px;
+        top: 0;
     }
 }
 
