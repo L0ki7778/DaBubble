@@ -27,6 +27,10 @@ app-root {
     display: flex;
 }
 
+app-start-page {
+    overflow: auto;
+}
+
 * {
     font-family: 'Nunito', Helvetica, sans-serif;
 }
@@ -108,15 +112,10 @@ app-root {
     color: var(--purple1);
 }
 
+
 @media(max-height: 775px) {
     app-start-page {
-        overflow: scroll;
-    }
-}
-
-@media(max-width: 650px) {
-    app-start-page {
-        overflow: scroll;
+        overflow: auto;
     }
 }
 

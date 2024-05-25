@@ -322,10 +322,6 @@ h3 {
 }
 
 @media(max-height: 900px) {
-    .create-container {
-        padding: 10px 56px 24px 56px;
-    }
-
     h1 {
         margin: 0 0 10px 0;
     }
@@ -337,18 +333,20 @@ h3 {
     .info-text {
         margin: 0;
     }
+
+    .create-container {
+        margin-bottom: 50px;
+    }
+
+    .privacy-policy-content {
+        margin-bottom: 50px;
+    }
 }
 
 
 @media(max-width: 900px) {
     .warning-container {
         width: 60%;
-    }
-}
-
-@media (max-height: 800px) {
-    .create-container {
-        margin-bottom: 90px;
     }
 }
 
@@ -380,7 +378,7 @@ h3 {
 
 @media(max-width: 565px) {
     .create-container {
-        padding:56px 20px;
+        padding: 56px 20px;
     }
 
     .email {
@@ -411,7 +409,7 @@ h3 {
     }
 
     .create-container {
-        padding:56px 16px;
+        padding: 56px 16px;
     }
 }
 
@@ -437,7 +435,7 @@ h3 {
     .name {
         font-size: 16px;
     }
-    
+
     .name::placeholder {
         font-size: 16px;
     }

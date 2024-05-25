@@ -4,7 +4,6 @@
         (keyup)="checkForAtSign($event)">
     </textarea>
 
-
     <textarea #textarea name="message" [(ngModel)]="chatContent" (ngModelChange)="chatContentChanged($event)"
         placeholder="Nachricht an {{ this.DMService.selectedUserName }} " class="input-field"
         *ngIf="this.selectionService.channelOrDM.value === 'direct-message'">

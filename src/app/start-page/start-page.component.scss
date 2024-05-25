@@ -88,7 +88,7 @@ app-create-account {
     justify-content: center;
 }
 
-@media(max-height: 775px) {
+@media(max-height: 900px) {
     footer {
         position: static;
         transform: unset;
@@ -140,5 +140,6 @@ app-create-account {
 
     footer {
         font-size: 16px;
+        margin-bottom: 16px;
     }
 }

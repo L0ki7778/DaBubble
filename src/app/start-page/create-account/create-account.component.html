@@ -14,8 +14,8 @@
         <div class="center-box">
             <div class="style-checkbox"><input required type="checkbox" id="privacy-policy"
                     [(ngModel)]="privacyPolicyChecked" name="privacyPolicyField"></div>
-            <label>Ich stimme der <span (click)="toggleToPrivacyPolicy()"
-                    class="color-privacy-policy">Datenschutzerklärung</span> zu</label>
+            <label>Ich stimme der<span (click)="toggleToPrivacyPolicy()"
+                    class="color-privacy-policy">Datenschutzerklärung</span>zu</label>
         </div>
         <div class="dflex"><button class="next-button" [class.not-allowed]="shouldShowNotAllowed">Weiter</button></div>
     </form>

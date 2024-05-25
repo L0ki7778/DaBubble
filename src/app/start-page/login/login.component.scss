@@ -190,10 +190,6 @@ form {
 }
 
 @media(max-height: 900px) {
-    .login-container {
-        padding: 10px 56px 24px 56px;
-    }
-
     form {
         gap: 16px;
     }
@@ -201,11 +197,9 @@ form {
     h1 {
         margin: 0 0 10px 0;
     }
-}
 
-@media (max-height: 800px) {
     .d-flex {
-        margin-bottom: 100px;
+        margin-bottom: 50px;
     }
 }
 

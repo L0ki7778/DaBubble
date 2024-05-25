@@ -201,21 +201,49 @@ export class ChatInputComponent {
     }
   }
 
+  // checkForAtSign(event: KeyboardEvent) {
+  //   const input = event.target as HTMLInputElement;
+  //   if (event.key === '@' && (this.previousValue === '' || this.previousValue.endsWith(' '))) {
+  //     this.searchTerm = '';
+  //     this.booleanService.userMention.set(true);
+  //     this.atSignActive = true;
+  //   } else if (this.atSignActive) {
+  //     if (event.key === ' ' || (event.key === 'Backspace' && this.previousValue.endsWith('@'))) {
+  //       this.booleanService.userMention.set(false);
+  //       this.atSignActive = false;
+  //     } else {
+  //       this.searchTerm = input.value.slice(input.value.lastIndexOf('@') + 1);
+  //     }
+  //   }
+  //   this.previousValue = input.value;
+  // }
+
   checkForAtSign(event: KeyboardEvent) {
     const input = event.target as HTMLInputElement;
-    if (event.key === '@' && (this.previousValue === '' || this.previousValue.endsWith(' '))) {
+    const currentValue = input.value;
+    const keyPressed = event.key;
+  
+    if (keyPressed === '@' && (this.previousValue === '' || this.previousValue.endsWith(' '))) {
       this.searchTerm = '';
       this.booleanService.userMention.set(true);
       this.atSignActive = true;
+      console.log('At-sign activated');
     } else if (this.atSignActive) {
-      if (event.key === ' ' || (event.key === 'Backspace' && this.previousValue.endsWith('@'))) {
+      if (keyPressed === ' ' || (keyPressed === 'Backspace' && this.previousValue.endsWith('@'))) {
         this.booleanService.userMention.set(false);
         this.atSignActive = false;
+        console.log('At-sign deactivated');
       } else {
-        this.searchTerm = input.value.slice(input.value.lastIndexOf('@') + 1);
+        const atSignIndex = currentValue.lastIndexOf('@');
+        if (atSignIndex !== -1) {
+          this.searchTerm = currentValue.slice(atSignIndex + 1);
+          console.log('Search term updated:', this.searchTerm);
+        }
       }
     }
-    this.previousValue = input.value;
+  
+    this.previousValue = currentValue;
+    console.log('Previous value updated:', this.previousValue);
   }
 
 }
