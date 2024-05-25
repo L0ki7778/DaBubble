@@ -5,15 +5,20 @@
     </div>
     <p class="info-text">Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DaBubble-Konto.</p>
     <form (ngSubmit)="saveVariables()" ngNativeValidate>
-  <input required type="text" class="name" placeholder="Name und Nachname" autocomplete="username" [(ngModel)]="name" name="nameField" maxlength="18">
-  <input required type="email" class="email" placeholder="beispielname@email.com" autocomplete="email" [(ngModel)]="email" name="emailField">
-  <input required type="password" class="password" placeholder="Passwort" autocomplete="current-password" [(ngModel)]="password" name="passwordField" minlength="8">
-  <div class="center-box">
-    <div class="style-checkbox"><input required type="checkbox" id="privacy-policy" [(ngModel)]="privacyPolicyChecked" name="privacyPolicyField"></div>
-    <label>Ich stimme der <span (click)="toggleToPrivacyPolicy()" class="color-privacy-policy">Datenschutzerklärung</span> zu</label>
-  </div>
-  <div class="dflex"><button class="next-button" [class.not-allowed]="shouldShowNotAllowed">Weiter</button></div>
-</form>
+        <input required type="text" class="name" placeholder="Name und Nachname" autocomplete="username"
+            [(ngModel)]="name" name="nameField" maxlength="18">
+        <input required type="email" class="email" placeholder="beispielname@email.com" autocomplete="email"
+            [(ngModel)]="email" name="emailField">
+        <input required type="password" class="password" placeholder="Passwort" autocomplete="current-password"
+            [(ngModel)]="password" name="passwordField" minlength="8">
+        <div class="center-box">
+            <div class="style-checkbox"><input required type="checkbox" id="privacy-policy"
+                    [(ngModel)]="privacyPolicyChecked" name="privacyPolicyField"></div>
+            <label>Ich stimme der <span (click)="toggleToPrivacyPolicy()"
+                    class="color-privacy-policy">Datenschutzerklärung</span> zu</label>
+        </div>
+        <div class="dflex"><button class="next-button" [class.not-allowed]="shouldShowNotAllowed">Weiter</button></div>
+    </form>
 </div>
 <div class="warning-container" *ngIf="showReport">
     <span>Ungültige E-Mail-Adresse. Bitte geben Sie eine gültige E-Mail-Adresse ein.</span>
