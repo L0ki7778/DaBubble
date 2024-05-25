@@ -104,6 +104,10 @@ app-root {
     max-height: 450px;
 }
 
+.mention {
+    color: var(--purple1);
+}
+
 @media(max-height: 775px) {
     app-start-page {
         overflow: scroll;

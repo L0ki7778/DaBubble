@@ -115,7 +115,7 @@ export class ChatInputComponent {
   async handleChannelMessage(trimmedChatContent: string, messageImage: string, uploadedFileUrl: string) {
     const currentUser = await this.DMService.getLoggedInUserId();
     const currentChannel = this.selectionService.choosenChatTypeId.value;
-    const messageText = trimmedChatContent.replace(/\n/g, '<br>');
+    const messageText = this.styleAtMentions(trimmedChatContent.replace(/\n/g, '<br>'));
     const messageContent = `<div class="message-wrapper">${messageImage}<div class="text-container">${messageText}</div></div>`;
     const newDoc: any = await addDoc(collection(this.firestore, "channels", currentChannel, "messages"), {
       authorId: currentUser,
@@ -126,6 +126,10 @@ export class ChatInputComponent {
     await updateDoc(newDoc, { docId: newDocId });
     this.chatContent = '';
     this.deselectFile();
+  }
+
+  styleAtMentions(text: string): string {
+    return text.replace(/(@\w+\s\w+)/g, '<span class="mention">$1</span>');
   }
 
   async handleDirectMessage(trimmedChatContent: string, messageImage: string, uploadedFileUrl: string) {
