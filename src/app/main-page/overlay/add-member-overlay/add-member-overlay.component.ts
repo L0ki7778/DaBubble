@@ -41,6 +41,12 @@ export class AddMemberOverlayComponent {
     });
   }
 
+  ngOnInit() {
+    setTimeout(() => {
+      this.filterUsers();
+    }, 100);
+  }
+
   filterUsers() {
     this.filteredUsers = [];
     this.userSelectionValid = false;
@@ -90,8 +96,8 @@ export class AddMemberOverlayComponent {
     }
   }
 
-  ngOnDestroy(){
-    if(this.unsubscribeUsers){
+  ngOnDestroy() {
+    if (this.unsubscribeUsers) {
       this.unsubscribeUsers();
     }
   }
