@@ -330,10 +330,6 @@ h3 {
         margin: 0 0 10px 0;
     }
 
-    .arrow-img {
-        top: 30px;
-    }
-
     .info-text {
         margin: 0;
     }
@@ -369,6 +365,7 @@ h3 {
 @media (max-width: 650px) {
     .create-container {
         width: 90%;
+        margin-bottom: 90px;
     }
 
     label {

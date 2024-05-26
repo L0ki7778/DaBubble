@@ -52,14 +52,13 @@ export class ProfileViewComponent {
   }
 
   openEditProfile(event: MouseEvent) {
-    if (!this.isGuestAccount) {
+    if (!this.isGuestAccount && !this.DMService.isLoggedInWithgoogle) {
       event.stopPropagation();
       this.overlay.closeOverlay();
       setTimeout(() => this.overlay.toggleEditProfile(), 1);
     } else {
       this.hint = true;
     }
-
   }
 
 }
