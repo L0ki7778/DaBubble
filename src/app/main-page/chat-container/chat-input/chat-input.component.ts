@@ -220,30 +220,25 @@ export class ChatInputComponent {
 
   checkForAtSign(event: KeyboardEvent) {
     const input = event.target as HTMLInputElement;
-    const currentValue = input.value;
-    const keyPressed = event.key;
-  
-    if (keyPressed === '@' && (this.previousValue === '' || this.previousValue.endsWith(' '))) {
+
+    const isAtSign = (event.key === '@') ||
+      (event.code === 'KeyQ' && event.altKey) || // Deutsche Tastatur (AltGr + Q)
+      (event.code === 'Digit2' && event.shiftKey) || // US-/Englische Tastatur (Shift + 2)
+      (event.code === 'KeyL' && event.altKey); // macOS Deutsche Tastatur (Alt + L)
+
+    if (isAtSign && (this.previousValue === '' || this.previousValue.endsWith(' '))) {
       this.searchTerm = '';
       this.booleanService.userMention.set(true);
       this.atSignActive = true;
-      console.log('At-sign activated');
     } else if (this.atSignActive) {
-      if (keyPressed === ' ' || (keyPressed === 'Backspace' && this.previousValue.endsWith('@'))) {
+      if (event.key === ' ' || (event.key === 'Backspace' && this.previousValue.endsWith('@'))) {
         this.booleanService.userMention.set(false);
         this.atSignActive = false;
-        console.log('At-sign deactivated');
       } else {
-        const atSignIndex = currentValue.lastIndexOf('@');
-        if (atSignIndex !== -1) {
-          this.searchTerm = currentValue.slice(atSignIndex + 1);
-          console.log('Search term updated:', this.searchTerm);
-        }
+        this.searchTerm = input.value.slice(input.value.lastIndexOf('@') + 1);
       }
     }
-  
-    this.previousValue = currentValue;
-    console.log('Previous value updated:', this.previousValue);
+    this.previousValue = input.value;
   }
 
 }
