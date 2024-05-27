@@ -203,12 +203,10 @@ export class ChatInputComponent {
 
   checkForAtSign(event: KeyboardEvent) {
     const input = event.target as HTMLInputElement;
-
     const isAtSign = (event.key === '@') ||
       (event.code === 'KeyQ' && event.altKey) ||
       (event.code === 'Digit2' && event.shiftKey) ||
       (event.code === 'KeyL' && event.altKey);
-
     if (isAtSign && (this.previousValue === '' || this.previousValue.endsWith(' '))) {
       this.searchTerm = '';
       this.booleanService.userMention.set(true);

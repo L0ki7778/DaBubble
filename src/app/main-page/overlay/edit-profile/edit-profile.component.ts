@@ -26,6 +26,9 @@ export class EditProfileComponent {
   selectedFile: string | ArrayBuffer | null = null;
   originalFile: File | null = null;
   @ViewChild('fileInput', { static: false }) fileInput: ElementRef | undefined;
+  originalName = this.auth.userName;
+  originalEmail = this.auth.userMail;
+  originalImage = this.auth.userImage;
 
 
   @HostListener('document:click', ['$event'])
@@ -46,6 +49,14 @@ export class EditProfileComponent {
   async updateUserProfile() {
     const newName = this.nameInput.nativeElement.value;
     const newEmail = this.emailInput.nativeElement.value;
+    if (!newName.trim().includes(' ')) {
+      alert('Bitte geben Sie Vor- und Nachnamen ein.');
+      return;
+    }
+    if (newName === this.originalName && newEmail === this.originalEmail && this.auth.userImage === this.originalImage) {
+      alert('Bitte ändern Sie mindestens ein Feld (Name, E-Mail oder Profilbild), bevor Sie speichern.');
+      return;
+    }
     const auth = getAuth();
     const currentUser: User | null = auth.currentUser;
     const loggedInUserId = await this.DMService.getLoggedInUserId();
