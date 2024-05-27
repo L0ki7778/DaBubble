@@ -1,7 +1,7 @@
 <form>
     <textarea #textarea name="message" [(ngModel)]="chatContent" placeholder="Nachricht an #{{ currentChannelName }}"
         class="input-field" *ngIf="this.selectionService.channelOrDM.value === 'channel'"
-        (keydown)="checkForAtSign($event)">
+        (keydown)="checkForAtSign($event)" (keyup)="checkForBackspace($event)">
     </textarea>
 
     <textarea #textarea name="message" [(ngModel)]="chatContent" (ngModelChange)="chatContentChanged($event)"

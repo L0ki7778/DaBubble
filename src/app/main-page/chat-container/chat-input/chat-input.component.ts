@@ -207,16 +207,31 @@ export class ChatInputComponent {
       (event.code === 'KeyQ' && event.altKey) ||
       (event.code === 'Digit2' && event.shiftKey) ||
       (event.code === 'KeyL' && event.altKey);
+
     if (isAtSign && (this.previousValue === '' || this.previousValue.endsWith(' '))) {
       this.searchTerm = '';
       this.booleanService.userMention.set(true);
       this.atSignActive = true;
     } else if (this.atSignActive) {
-      if (event.key === ' ' || (event.key === 'Backspace' && this.previousValue.endsWith('@'))) {
+      if (event.key === ' ') {
         this.booleanService.userMention.set(false);
         this.atSignActive = false;
       } else {
         this.searchTerm = input.value.slice(input.value.lastIndexOf('@') + 1);
+      }
+    }
+    this.previousValue = input.value;
+  }
+
+  checkForBackspace(event: KeyboardEvent) {
+    const input = event.target as HTMLInputElement;
+    const atSignCount = (this.previousValue.match(/@/g) || []).length;
+    const newAtSignCount = (input.value.match(/@/g) || []).length;
+
+    if (event.key === 'Backspace') {
+      if (atSignCount > newAtSignCount && this.previousValue.endsWith('@')) {
+        this.booleanService.userMention.set(false);
+        this.atSignActive = false;
       }
     }
     this.previousValue = input.value;
