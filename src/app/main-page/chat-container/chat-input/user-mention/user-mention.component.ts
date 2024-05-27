@@ -40,6 +40,7 @@ export class UserMentionComponent {
   currentChannelMembersIds: string[] = [];
   currentChannelMembersNames: string[] = [];
   currentChannelMembersAvatars: string[] = [];
+  currentChannelMembers: { name: string, avatar: string }[] = [];
   private unsubscribeUsers: any[] = [];
   private unsubscribeChannel: (() => void) | undefined;
   @Input() searchTerm: string;
@@ -93,8 +94,7 @@ export class UserMentionComponent {
           if (user.exists() && user.data() && user.data()['image']) {
             const userAvatarSrc = user.data()['image'];
             const userName = user.data()['name'];
-            this.currentChannelMembersAvatars[index] = userAvatarSrc;
-            this.currentChannelMembersNames[index] = userName;
+            this.currentChannelMembers[index] = { name: userName, avatar: userAvatarSrc };
           }
         }
       );
@@ -118,11 +118,11 @@ export class UserMentionComponent {
 
   get filteredMembers() {
     if (this.searchTerm) {
-      return this.currentChannelMembersNames.filter(member =>
-        member.toLowerCase().includes(this.searchTerm.toLowerCase())
+      return this.currentChannelMembers.filter(member =>
+        member.name.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
     } else {
-      return this.currentChannelMembersNames;
+      return this.currentChannelMembers;
     }
   }
 
