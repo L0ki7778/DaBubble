@@ -20,6 +20,7 @@ export class AddMemberOverlayComponent {
   noMemberUsers: { id: string; name: string; image: string }[] = [];
   filteredUsers: { id: string; name: string; image: string }[] = [];
   inputData: string = '';
+  isSelected: boolean = false;
   selectedUser: boolean = false;
   selectedUserId: string = '';
   userSelectionValid: boolean = false;
@@ -51,6 +52,7 @@ export class AddMemberOverlayComponent {
     this.filteredUsers = [];
     this.userSelectionValid = false;
     this.selectedUserId = '';
+    this.isSelected = false;
     const lowerCaseInput = this.inputData.toLowerCase();
     this.noMemberUsers.forEach((user) => {
       if (user.name.toLowerCase().includes(lowerCaseInput) && !this.selectedUser) {
@@ -67,6 +69,7 @@ export class AddMemberOverlayComponent {
     this.selectedUserId = userId;
     this.userSelectionValid = true;
     this.selectedUser = false;
+    this.isSelected = true;
   }
 
   async addSelectedUser() {

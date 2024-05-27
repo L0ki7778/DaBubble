@@ -140,6 +140,11 @@ section {
     }
 }
 
+.input-field.selected {
+    font-weight: 500;
+    text-shadow: 0 0 20px var(--purple1);
+}
+
 
 // max-width
 @media only screen and (max-width: 500px) {
