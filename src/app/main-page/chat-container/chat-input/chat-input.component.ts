@@ -201,30 +201,13 @@ export class ChatInputComponent {
     }
   }
 
-  // checkForAtSign(event: KeyboardEvent) {
-  //   const input = event.target as HTMLInputElement;
-  //   if (event.key === '@' && (this.previousValue === '' || this.previousValue.endsWith(' '))) {
-  //     this.searchTerm = '';
-  //     this.booleanService.userMention.set(true);
-  //     this.atSignActive = true;
-  //   } else if (this.atSignActive) {
-  //     if (event.key === ' ' || (event.key === 'Backspace' && this.previousValue.endsWith('@'))) {
-  //       this.booleanService.userMention.set(false);
-  //       this.atSignActive = false;
-  //     } else {
-  //       this.searchTerm = input.value.slice(input.value.lastIndexOf('@') + 1);
-  //     }
-  //   }
-  //   this.previousValue = input.value;
-  // }
-
   checkForAtSign(event: KeyboardEvent) {
     const input = event.target as HTMLInputElement;
 
     const isAtSign = (event.key === '@') ||
-      (event.code === 'KeyQ' && event.altKey) || // Deutsche Tastatur (AltGr + Q)
-      (event.code === 'Digit2' && event.shiftKey) || // US-/Englische Tastatur (Shift + 2)
-      (event.code === 'KeyL' && event.altKey); // macOS Deutsche Tastatur (Alt + L)
+      (event.code === 'KeyQ' && event.altKey) ||
+      (event.code === 'Digit2' && event.shiftKey) ||
+      (event.code === 'KeyL' && event.altKey);
 
     if (isAtSign && (this.previousValue === '' || this.previousValue.endsWith(' '))) {
       this.searchTerm = '';
