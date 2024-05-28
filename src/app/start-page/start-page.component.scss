@@ -88,10 +88,16 @@ app-create-account {
     justify-content: center;
 }
 
-@media(max-height: 900px) {
+@media(max-height: 970px) {
     footer {
         position: static;
         transform: unset;
+    }
+}
+
+@media(max-height: 970px) {
+    footer {
+        margin-top: 30px;
     }
 }
 
@@ -110,6 +116,7 @@ app-create-account {
         align-items: center;
         margin-right: 0;
         margin-bottom: 24px;
+
         >span {
             outline: 1px solid var(--lightPurple);
             border-radius: 25px;
