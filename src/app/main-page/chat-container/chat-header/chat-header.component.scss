@@ -181,6 +181,14 @@ app-add-member-overlay {
     .chat-head-members {
         display: none;
     }
+
+    .normalView {
+        display: none;
+    }
+
+    .mobileView {
+        display: inline;
+    }
 }
 
 @media only screen and (max-width: 700px) {
@@ -220,14 +228,6 @@ app-add-member-overlay {
     .profile-image {
         width: 48px;
         height: 48px;
-    }
-
-    .normalView {
-        display: none;
-    }
-
-    .mobileView {
-        display: inline;
     }
 }
 
