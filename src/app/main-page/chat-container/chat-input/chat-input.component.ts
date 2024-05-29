@@ -129,7 +129,7 @@ export class ChatInputComponent {
   }
 
   styleAtMentions(text: string): string {
-    return text.replace(/(@[\wüäöß]+\s[\wüäöß]+)/g, '<span class="mention">$1</span>');
+    return text.replace(/(@[#\wüäöß]+\s[\wüäöß]+)/g, '<span class="mention">$1</span>');
   }
 
   async handleDirectMessage(trimmedChatContent: string, messageImage: string, uploadedFileUrl: string) {

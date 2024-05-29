@@ -1,10 +1,18 @@
 <div #mention class="user-mention">
     <ul>
-        <h3>Mitglieder</h3>
+        <h3 class="margin-bottom">Mitglieder</h3>
 
         <li *ngFor="let member of filteredMembers" (click)="mentionUser(member.name)">
             <img src="{{member.avatar}}">
             <span>{{member.name}}</span>
+        </li>
+    </ul>
+
+    <ul class="margin-top">
+        <h3>Channels</h3>
+
+        <li *ngFor="let channel of filteredChannelNames" (click)="mentionChannel(channel)">
+            <span># {{channel}}</span>
         </li>
     </ul>
 </div>

@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild, inject } from '@angular/core';
 import { DirectMessagesService } from '../../../../services/direct-messages.service';
-import { CollectionReference, Firestore, collection, doc, onSnapshot } from '@angular/fire/firestore';
+import { CollectionReference, Firestore, collection, doc, onSnapshot, query } from '@angular/fire/firestore';
 import { OverlayService } from '../../../../services/overlay.service';
 import { SelectionService } from '../../../../services/selection.service';
 import { Subscription } from 'rxjs';
@@ -37,6 +37,9 @@ export class UserMentionComponent {
   choosenChatType: string = 'channel';
   currentChannelName: string = '';
   mentionName: string = '';
+  currentUserID: string | null = '';
+  channelQuery = query(this.channelsRef);
+  allChannelNames: string[] = [];
   currentChannelMembersIds: string[] = [];
   currentChannelMembersNames: string[] = [];
   currentChannelMembersAvatars: string[] = [];
@@ -52,7 +55,7 @@ export class UserMentionComponent {
     this.searchTerm = '';
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.overlaySubscription = this.$editObservable.subscribe(() => {
       this.editChannel = this.overlayService.editChannelOverlay;
       this.showMembers = this.overlayService.membersOverlay;
@@ -70,6 +73,8 @@ export class UserMentionComponent {
     this.selectionTypeSubscription = this.selectionService.channelOrDM$.subscribe(newType => {
       this.choosenChatType = newType;
     });
+    this.currentUserID = await this.DMService.getLoggedInUserId();
+    this.filterChannels();
   }
 
   subscribeToChannelsData() {
@@ -116,6 +121,11 @@ export class UserMentionComponent {
     this.booleanService.userMention.set(false);
   }
 
+  mentionChannel(name: string) {
+    this.userMentioned.emit('# ' + name);
+    this.booleanService.userMention.set(false);
+  }
+
   get filteredMembers() {
     if (this.searchTerm) {
       return this.currentChannelMembers.filter(member =>
@@ -124,6 +134,26 @@ export class UserMentionComponent {
     } else {
       return this.currentChannelMembers;
     }
+  }
+
+  get filteredChannelNames() {
+    if (this.searchTerm) {
+      return this.allChannelNames.filter(channelName =>
+        channelName.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    } else {
+      return this.allChannelNames;
+    }
+  }
+
+  filterChannels() {
+    this.unsubscribeChannel = onSnapshot(this.channelQuery, (querySnapshot) => {
+      this.allChannelNames = [];
+      querySnapshot.forEach((doc) => {
+        if (doc.data()['members'].includes(this.currentUserID))
+          this.allChannelNames.push(doc.data()['channelName'] as string);
+      });
+    });
   }
 
   @HostListener('document:click', ['$event'])
