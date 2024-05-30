@@ -13,7 +13,7 @@ import { CollectionReference, DocumentSnapshot, Firestore, Query, QueryDocumentS
   styleUrl: './add-member-overlay.component.scss'
 })
 export class AddMemberOverlayComponent {
-  translateService = inject(TranslateService)
+  translateService = inject(TranslateService);
   overlay = inject(OverlayService);
   private firestore: Firestore = inject(Firestore);
   usersQuery: Query = query(collection(this.firestore, "users"));
@@ -23,13 +23,13 @@ export class AddMemberOverlayComponent {
   isSelected: boolean = false;
   selectedUser: boolean = false;
   selectedUserId: string = '';
+  newMemberIds: string[] = [];
   userSelectionValid: boolean = false;
   @Input() channelMemberIds: string[] = [];
   @Input() channelName: string = '';
   @Input() channelId: string = '';
   @ViewChild('addMember') addMember: ElementRef | null = null;
   unsubscribeUsers: Unsubscribe;
-
 
   constructor() {
     this.unsubscribeUsers = onSnapshot(this.usersQuery, { includeMetadataChanges: true }, (usersQuerySnapshot) => {
@@ -53,7 +53,8 @@ export class AddMemberOverlayComponent {
     this.userSelectionValid = false;
     this.selectedUserId = '';
     this.isSelected = false;
-    const lowerCaseInput = this.inputData.toLowerCase();
+    const parts = this.inputData.split(/[;\s]+/);
+    const lowerCaseInput = parts[parts.length - 1].trim().toLowerCase();
     this.noMemberUsers.forEach((user) => {
       if (user.name.toLowerCase().includes(lowerCaseInput) && !this.selectedUser) {
         this.filteredUsers.push(user);
@@ -63,20 +64,24 @@ export class AddMemberOverlayComponent {
 
   selectUser(userName: string, userId: string, event: MouseEvent) {
     event.stopPropagation();
-    this.inputData = userName;
+    this.inputData += userName + '; ';
     this.selectedUser = true;
     this.filterUsers();
     this.selectedUserId = userId;
+    this.newMemberIds.push(userId);
     this.userSelectionValid = true;
     this.selectedUser = false;
     this.isSelected = true;
+    this.noMemberUsers = this.noMemberUsers.filter(user => user.id !== userId);
   }
 
   async addSelectedUser() {
     this.userSelectionValid = false;
     const channelRef = doc(this.firestore, "channels", this.channelId);
-    if (this.selectedUserId !== '') {
-      await updateDoc(channelRef, { members: arrayUnion(this.selectedUserId) });
+    if (this.newMemberIds !== null) {
+      this.newMemberIds.forEach(async (newMemberId: string) => {
+        await updateDoc(channelRef, { members: arrayUnion(newMemberId) });
+      });
       this.closeOverlay();
     }
   }
@@ -93,7 +98,7 @@ export class AddMemberOverlayComponent {
   @HostListener('document:click', ['$event'])
   onclick(event: Event) {
     if (this.addMember && this.addMember.nativeElement.contains(event.target)) {
-      return
+      return;
     } else {
       this.overlay.closeOverlay();
     }
@@ -104,5 +109,4 @@ export class AddMemberOverlayComponent {
       this.unsubscribeUsers();
     }
   }
-
 }

@@ -68,7 +68,6 @@ section {
     line-height: 24.55px;
     text-align: left;
 
-
     &:hover {
         border: 1px solid $purple2;
     }
@@ -145,8 +144,6 @@ section {
     text-shadow: 0 0 20px var(--purple1);
 }
 
-
-// max-width
 @media only screen and (max-width: 500px) {
     section {
         padding: 24px;
@@ -186,7 +183,6 @@ section {
     }
 }
 
-// max-height
 @media only screen and (max-height: 845px) {
     .member-suggestion-box {
         max-height: 214px;
