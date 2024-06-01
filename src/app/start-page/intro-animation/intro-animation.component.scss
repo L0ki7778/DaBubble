@@ -127,29 +127,6 @@
     }
 }
 
-@keyframes slideTextPhone {
-
-    0% {
-        transform: translateX(0);
-    }
-
-    30% {
-        transform: translateX(0);
-    }
-
-    50% {
-        transform: translateX(calc(35vw - 35px));
-    }
-
-    75% {
-        transform: translateX(calc(45vw - 40px));
-    }
-
-    100% {
-        transform: translateX(calc(55vw - 40px));
-    }
-}
-
 @media(max-width: 900px) {
     .logo {
         width: 150px;
