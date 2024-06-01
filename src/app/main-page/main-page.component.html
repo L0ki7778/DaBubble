@@ -1,6 +1,6 @@
 <app-head></app-head>
 <div id="main-content" (click)="hideSearchList()"
-    [ngStyle]="(!mobileView && !showWorkspace && !showThread) ? {'width': '75%', 'margin': 'auto'} : {}" [ngStyle]="(!mobileView) ? {'width': 'unset'} : {}">
+    [ngStyle]="(!mobileView && !showWorkspace && !showThread) ? {'width': 'auto', 'margin': 'auto'} : {}" [ngStyle]="(!mobileView) ? {'width': 'unset'} : {}">
     <app-workspace *ngIf="showWorkspace || !mobileView" [ngStyle]="(mobileView) ? {'max-width': '100%'} : {}"
         #WorkspaceComponent></app-workspace>
     <app-close-workspace *ngIf="!mobileView" (click)="handleWorkspace(); hideSearchList()"

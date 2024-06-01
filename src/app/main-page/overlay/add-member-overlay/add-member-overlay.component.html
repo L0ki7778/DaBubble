@@ -18,6 +18,9 @@
                     (click)="selectUser(user.name, user.id, $event)">
                     <img class="user-icon" [src]="user.image">
                     <span class="user-name">{{ user.name }}</span>
+                    <span class="checkmark" [ngClass]="{'checked': selectedUserIds.includes(user.id)}">
+                        <span class="checkmark-icon" *ngIf="selectedUserIds.includes(user.id)">&#10003;</span>
+                    </span>
                 </div>
             </div>
             <button class="add-btn"

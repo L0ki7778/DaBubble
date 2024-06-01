@@ -22,6 +22,7 @@ export class AddMemberOverlayComponent {
   inputData: string = '';
   isSelected: boolean = false;
   selectedUser: boolean = false;
+  selectedUserIds: string[] = [];
   selectedUserId: string = '';
   newMemberIds: string[] = [];
   userSelectionValid: boolean = false;
@@ -64,25 +65,26 @@ export class AddMemberOverlayComponent {
 
   selectUser(userName: string, userId: string, event: MouseEvent) {
     event.stopPropagation();
-    this.inputData += userName + '; ';
-    this.selectedUser = true;
-    this.filterUsers();
-    this.selectedUserId = userId;
-    this.newMemberIds.push(userId);
-    this.userSelectionValid = true;
-    this.selectedUser = false;
-    this.isSelected = true;
-    this.noMemberUsers = this.noMemberUsers.filter(user => user.id !== userId);
+    const target = event.target as HTMLElement;
+    const userBox = target.closest('.user-box');
+    if (userBox) {
+      if (this.selectedUserIds.includes(userId)) {
+        this.selectedUserIds = this.selectedUserIds.filter(id => id !== userId);
+      } else {
+        this.selectedUserIds.push(userId);
+      }
+    }
+    this.userSelectionValid = this.selectedUserIds.length > 0;
   }
 
   async addSelectedUser() {
-    this.userSelectionValid = false;
     const channelRef = doc(this.firestore, "channels", this.channelId);
-    if (this.newMemberIds !== null) {
-      this.newMemberIds.forEach(async (newMemberId: string) => {
-        await updateDoc(channelRef, { members: arrayUnion(newMemberId) });
+    if (this.selectedUserIds.length > 0) {
+      this.selectedUserIds.forEach(async (userId: string) => {
+        await updateDoc(channelRef, { members: arrayUnion(userId) });
       });
       this.closeOverlay();
+      this.selectedUserIds = [];
     }
   }
 
