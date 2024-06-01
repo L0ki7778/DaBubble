@@ -110,7 +110,7 @@ export class DropdownMenuComponent {
     this.DMCleaningFromUser();
     const userRef = collection(this.firestore, 'users');
     await deleteDoc(doc(userRef, this.currentUserId));
-    this.cleanAuth();
+    await this.cleanAuth();
     this.logout();
   }
 
