@@ -36,7 +36,7 @@
 }
 
 .logo {
-    animation: moveLeft 0.8s ease-in-out 0s forwards,
+    animation: moveLeft 0.8s ease-in-out 0s forwards;
 }
 
 .text {
@@ -281,7 +281,7 @@
     }
 
     .logo {
-        animation: moveLeftMobile 0.8s ease-in-out 0s forwards,
+        animation: moveLeftMobile 0.8s ease-in-out 0s forwards;
     }
 }
 
@@ -297,7 +297,7 @@
 
 @media(max-width: 450px) {
     .logo {
-        animation: moveLeftPhone 0.8s ease-in-out 0s forwards,
+        animation: moveLeftPhone 0.8s ease-in-out 0s forwards;
     }
 
     .text {
