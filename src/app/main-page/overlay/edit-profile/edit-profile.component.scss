@@ -46,8 +46,10 @@ h1 {
         height: 180px;
         border-radius: 50%;
         object-fit: cover;
+
         &:hover {
             cursor: pointer;
+            transform: scale(1.1);
         }
     }
 }
@@ -155,7 +157,8 @@ input {
         gap: 10px;
     }
 
-    .save-btn, .cancel-btn {
+    .save-btn,
+    .cancel-btn {
         padding: 6px 16px;
     }
 }
