@@ -51,6 +51,7 @@ form {
     margin-top: 24px;
     gap: 22px;
     width: 100%;
+    position: relative;
 }
 
 .separator-box {
@@ -80,9 +81,6 @@ form {
     background-color: var(--lighterPurple);
     border-radius: 100px;
     border: 1px solid transparent;
-    background-image: url("/assets/img/start-page/mail.svg");
-    background-repeat: no-repeat;
-    background-position: 8% 50%;
     outline: none;
 
     &:focus {
@@ -94,6 +92,18 @@ form {
     }
 }
 
+.email-icon {
+    position: absolute;
+    left: 34px;
+    top: 16px;
+}
+
+.lock {
+    position: absolute;
+    left: 34px;
+    top: 95px;
+}
+
 .password {
     width: 100%;
     padding: 15px 10px;
@@ -102,9 +112,6 @@ form {
     background-color: var(--lighterPurple);
     border-radius: 100px;
     border: 1px solid var(--lighterPurple);
-    background-image: url("/assets/img/start-page/lock.svg");
-    background-repeat: no-repeat;
-    background-position: 8% 50%;
     outline: none;
 
     &:focus {
@@ -213,6 +220,14 @@ form {
     .login-google {
         background-position: 7% 50%;
     }
+
+    .email-icon {
+        left: 20px;
+    }
+
+    .lock {
+        left: 20px;
+    }
 }
 
 @media(max-width: 500px) {
@@ -305,6 +320,14 @@ form {
 
     .login-button {
         padding: 10px 14px;
+    }
+
+    .email-icon {
+        top: 15px;
+    }
+
+    .lock {
+        top: 90px;
     }
 }
 

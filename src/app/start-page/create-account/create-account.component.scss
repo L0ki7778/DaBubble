@@ -59,6 +59,7 @@ form {
     margin-top: 24px;
     gap: 22px;
     width: 100%;
+    position: relative;
 }
 
 .color-privacy-policy {
@@ -107,6 +108,8 @@ label {
 
     &:focus {
         opacity: 1;
+        outline: none;
+        border-style: none;
     }
 
     &:hover {
@@ -122,9 +125,6 @@ label {
     background-color: var(--lighterPurple);
     border-radius: 100px;
     border: 1px solid transparent;
-    background-image: url("/assets/img/start-page/person.svg");
-    background-repeat: no-repeat;
-    background-position: 8% 50%;
     outline: none;
 
     &:focus {
@@ -134,6 +134,12 @@ label {
     &::placeholder {
         font-size: 18px;
     }
+}
+
+.person-icon {
+    position: absolute;
+    left: 34px;
+    top: 16px;
 }
 
 .email {
@@ -144,9 +150,6 @@ label {
     background-color: var(--lighterPurple);
     border-radius: 100px;
     border: 1px solid transparent;
-    background-image: url("/assets/img/start-page/mail.svg");
-    background-repeat: no-repeat;
-    background-position: 8% 50%;
     outline: none;
 
     &:focus {
@@ -158,6 +161,12 @@ label {
     }
 }
 
+.email-icon {
+    position: absolute;
+    left: 34px;
+    top: 95px;
+}
+
 .password {
     width: 96%;
     padding: 15px 10px;
@@ -166,9 +175,6 @@ label {
     background-color: var(--lighterPurple);
     border-radius: 100px;
     border: 1px solid var(--lighterPurple);
-    background-image: url("/assets/img/start-page/lock.svg");
-    background-repeat: no-repeat;
-    background-position: 8% 50%;
     outline: none;
 
     &:focus {
@@ -178,6 +184,12 @@ label {
     &::placeholder {
         font-size: 18px;
     }
+}
+
+.lock {
+    position: absolute;
+    top: 172px;
+    left: 34px;
 }
 
 .next-button {
@@ -433,6 +445,11 @@ h3 {
         font-size: 16px;
     }
 
+    .person-icon {
+        left: 20px;
+        top: 14px;
+    }
+
     .name::placeholder {
         font-size: 16px;
     }
@@ -441,12 +458,22 @@ h3 {
         font-size: 16px;
     }
 
+    .email-icon {
+        left: 20px;
+        top: 91px;
+    }
+
     .email::placeholder {
         font-size: 16px;
     }
 
     .password {
         font-size: 16px;
+    }
+
+    .lock {
+        top: 166px;
+        left: 20px;
     }
 
     .password::placeholder {
