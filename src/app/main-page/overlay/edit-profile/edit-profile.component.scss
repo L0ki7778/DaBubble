@@ -23,6 +23,11 @@ h1 {
     font-weight: 700;
 }
 
+.error-message {
+    color: var(--rosaError);
+    margin-top: -5px;
+}
+
 .cross-img {
     width: 40px;
     height: 40px;
@@ -131,8 +136,21 @@ input {
     }
 }
 
+.add-btn-disabled {
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    height: 49px;
+    padding: 12px 25px;
+    border-radius: 50px;
+    background-color: var(--textGray);
+    border: 0;
 
-// max-width
+    &:hover {
+        cursor: pointer;
+    }
+}
+
 @media screen and (max-width: 900px) {
     .edit-container {
         top: 50%;

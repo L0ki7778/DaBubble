@@ -4,8 +4,7 @@
         <div (click)="close()" class="cross-img"></div>
     </div>
     <div class="user-img-container">
-        <input class="file" type="file" accept="image/*"
-                (change)="onFileSelected($event)" #fileInput>
+        <input class="file" type="file" accept="image/*" (change)="onFileSelected($event)" #fileInput>
         <img (click)="fileInput.click()" [src]="this.auth.userImage">
     </div>
     <div class="label-container">
@@ -13,15 +12,20 @@
         <span>Vollständiger Name</span>
     </div>
     <form (ngSubmit)="updateUserProfile()" ngNativeValidate>
-        <input required type="text" [value]="this.auth.userName" #nameInput minlength="5" maxlength="18">
+        <input required type="text" [value]="this.auth.userName" #nameInput minlength="5" maxlength="18" (input)="checkForChanges()">
         <div class="label-container">
             <img src="assets/img/general/mail.svg">
             <span>E-Mail-Adresse</span>
         </div>
-        <input required type="text" [value]="this.auth.userMail" #emailInput minlength="5" maxlength="30">
+        <input required type="text" [value]="this.auth.userMail" #emailInput minlength="5" maxlength="30" (input)="checkForChanges()">
+        <span *ngIf="nothingChangedError" class="error-message">Bitte ändern Sie mindestens ein Feld (Name, E-Mail oder
+            Profilbild), bevor Sie speichern.</span>
+        <span *ngIf="enterFullNameError" class="error-message">Bitte geben Sie Vor- und Nachnamen ein.</span>
+        <span *ngIf="wrongEmail" class="error-message">Bitte geben Sie eine gültige E-Mail-Adresse ein.</span>
         <div class="btn-container">
             <button class="cancel-btn" (click)="close()">Abbrechen</button>
-            <button class="save-btn">Speichern</button>
+            <button [ngClass]="{'save-btn': userChangeValid, 'add-btn-disabled': !userChangeValid}"
+                class="save-btn">Speichern</button>
         </div>
     </form>
 </div>

@@ -7,11 +7,12 @@ import { AuthCredential, EmailAuthProvider, reauthenticateWithCredential, signIn
 import { DirectMessagesService } from '../../../services/direct-messages.service';
 import { FormsModule } from '@angular/forms';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './edit-profile.component.html',
   styleUrl: './edit-profile.component.scss'
 })
@@ -29,6 +30,10 @@ export class EditProfileComponent {
   originalName = this.auth.userName;
   originalEmail = this.auth.userMail;
   originalImage = this.auth.userImage;
+  nothingChangedError: boolean = false;
+  enterFullNameError: boolean = false;
+  userChangeValid: boolean = false;
+  wrongEmail: boolean = false;
 
 
   @HostListener('document:click', ['$event'])
@@ -50,11 +55,22 @@ export class EditProfileComponent {
     const newName = this.nameInput.nativeElement.value;
     const newEmail = this.emailInput.nativeElement.value;
     if (!newName.trim().includes(' ')) {
-      alert('Bitte geben Sie Vor- und Nachnamen ein.');
+      this.enterFullNameError = true;
+      this.nothingChangedError = false;
+      this.wrongEmail = false;
       return;
     }
     if (newName === this.originalName && newEmail === this.originalEmail && this.auth.userImage === this.originalImage) {
-      alert('Bitte ändern Sie mindestens ein Feld (Name, E-Mail oder Profilbild), bevor Sie speichern.');
+      this.nothingChangedError = true;
+      this.enterFullNameError = false;
+      this.wrongEmail = false;
+      return;
+    }
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    if (!emailRegex.test(newEmail)) {
+      this.wrongEmail = true;
+      this.nothingChangedError = false;
+      this.enterFullNameError = false;
       return;
     }
     const auth = getAuth();
@@ -76,6 +92,16 @@ export class EditProfileComponent {
       this.close();
     } catch (error) {
       console.error('Fehler beim Aktualisieren der Benutzerprofilinformationen:', error);
+    }
+  }
+
+  checkForChanges() {
+    const newName = this.nameInput.nativeElement.value;
+    const newEmail = this.emailInput.nativeElement.value;
+    if (newName !== this.originalName || newEmail !== this.originalEmail || this.auth.userImage !== this.originalImage) {
+      this.userChangeValid = true;
+    } else {
+      this.userChangeValid = false;
     }
   }
 
