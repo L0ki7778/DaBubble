@@ -34,6 +34,8 @@ export class ChatContentComponent implements AfterViewInit, OnDestroy {
     this.selectionIdSubscription = this.selectionService.choosenChatTypeId.subscribe(newId => {
       if (this.selectionService.channelOrDM.value === 'channel') {
         this.choosenChatId = newId;
+        console.log(newId);
+        
         if (this.choosenChatId != '') {
           this.subscribeChannelMessagesChanges();
         }
