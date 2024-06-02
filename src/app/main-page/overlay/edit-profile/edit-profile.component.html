@@ -12,17 +12,18 @@
         <span>Vollständiger Name</span>
     </div>
     <form (ngSubmit)="updateUserProfile()" ngNativeValidate>
-        <input [class.error]="nothingChangedError || enterFullNameError" required type="text"
-            [value]="this.auth.userName" #nameInput minlength="5" maxlength="18" (input)="checkForChanges()">
+        <input [ngStyle]="{'margin-bottom': enterFullNameError ? '8px' : '0'}"
+            [class.error]="nothingChangedError || enterFullNameError" required type="text" [value]="this.auth.userName"
+            #nameInput minlength="5" maxlength="18" (input)="checkForChanges()">
+        <span *ngIf="enterFullNameError" class="error-message">Bitte geben Sie Vor- und Nachnamen ein.</span>
         <div class="label-container">
             <img src="assets/img/general/mail.svg">
             <span>E-Mail-Adresse</span>
         </div>
-        <input [ngStyle]="{'margin-bottom': nothingChangedError || enterFullNameError || wrongEmail ? '8px' : '0'}"
+        <input [ngStyle]="{'margin-bottom': nothingChangedError || wrongEmail ? '8px' : '0'}"
             [class.error]="nothingChangedError || wrongEmail" required type="text" [value]="this.auth.userMail"
             #emailInput minlength="5" maxlength="30" (input)="checkForChanges()">
         <span *ngIf="nothingChangedError" class="error-message">Bitte mindestens eine Änderung vornehmen.</span>
-        <span *ngIf="enterFullNameError" class="error-message">Bitte geben Sie Vor- und Nachnamen ein.</span>
         <span *ngIf="wrongEmail" class="error-message">Bitte geben Sie eine gültige E-Mail-Adresse ein.</span>
         <div class="btn-container">
             <button class="cancel-btn" (click)="close()">Abbrechen</button>
