@@ -124,20 +124,22 @@ section {
 
 .add-btn-disabled {
     justify-self: flex-end;
-    padding: 12px 25px;
+    padding: 11px 23px;
     border-radius: 25px;
-    border: none;
-    color: white;
-    background-color: $textGray;
+    color: rgba(0, 0, 0, 0.3);
+    background-color: var(--lighterPurple);
+    border: 2px solid var(--lightPurple);
+    font-size: 16px;
 }
 
 .add-btn-active {
     justify-self: flex-end;
-    padding: 12px 25px;
+    padding: 11px 23px;
     border-radius: 25px;
     border: none;
     color: white;
     background-color: $purple1;
+    font-size: 16px;
 
     &:hover {
         transition: ease-in 150ms;

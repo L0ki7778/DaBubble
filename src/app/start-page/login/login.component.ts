@@ -32,7 +32,6 @@ export class LoginComponent {
   isInputEmpty: boolean = true;
 
 
-
   async login() {
     this.authService.email = this.email;
     this.authService.password = this.password;

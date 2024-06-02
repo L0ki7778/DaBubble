@@ -25,7 +25,6 @@ h1 {
 
 .error-message {
     color: var(--rosaError);
-    margin-top: -5px;
 }
 
 .cross-img {
@@ -137,19 +136,24 @@ input {
 }
 
 .add-btn-disabled {
-    color: white;
     font-size: 18px;
     font-weight: 700;
     height: 49px;
     padding: 12px 25px;
     border-radius: 50px;
-    background-color: var(--textGray);
-    border: 0;
+    color: rgba(0, 0, 0, 0.3);
+    background-color: var(--lighterPurple);
+    border: 2px solid var(--lightPurple);
 
     &:hover {
         cursor: pointer;
     }
 }
+
+.error {
+    border: 1px solid var(--rosaError);
+}
+
 
 @media screen and (max-width: 900px) {
     .edit-container {
@@ -176,7 +180,8 @@ input {
     }
 
     .save-btn,
-    .cancel-btn {
+    .cancel-btn,
+    .add-btn-disabled {
         padding: 6px 16px;
     }
 }
