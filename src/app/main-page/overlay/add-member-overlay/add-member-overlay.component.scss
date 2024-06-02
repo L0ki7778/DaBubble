@@ -91,6 +91,7 @@ section {
     border-radius: 30px;
     gap: 15px;
     padding: 4px 20px;
+    width: 87%;
 
     &:hover {
         transition: ease-in 150ms;
@@ -154,7 +155,8 @@ section {
     margin-left: 8px;
     vertical-align: middle;
     cursor: pointer;
-    position: relative;
+    position: absolute;
+    right: 76px;
   }
   
   .checkmark.checked {
