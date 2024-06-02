@@ -23,6 +23,10 @@ h1 {
     font-weight: 700;
 }
 
+.error-message {
+    color: var(--rosaError);
+}
+
 .cross-img {
     width: 40px;
     height: 40px;
@@ -46,8 +50,10 @@ h1 {
         height: 180px;
         border-radius: 50%;
         object-fit: cover;
+
         &:hover {
             cursor: pointer;
+            transform: scale(1.1);
         }
     }
 }
@@ -129,8 +135,26 @@ input {
     }
 }
 
+.add-btn-disabled {
+    font-size: 18px;
+    font-weight: 700;
+    height: 49px;
+    padding: 12px 25px;
+    border-radius: 50px;
+    color: rgba(0, 0, 0, 0.3);
+    background-color: var(--lighterPurple);
+    border: 2px solid var(--lightPurple);
 
-// max-width
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.error {
+    border: 1px solid var(--rosaError);
+}
+
+
 @media screen and (max-width: 900px) {
     .edit-container {
         top: 50%;
@@ -155,7 +179,9 @@ input {
         gap: 10px;
     }
 
-    .save-btn, .cancel-btn {
+    .save-btn,
+    .cancel-btn,
+    .add-btn-disabled {
         padding: 6px 16px;
     }
 }

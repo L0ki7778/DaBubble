@@ -36,7 +36,7 @@
 }
 
 .logo {
-    animation: moveLeft 0.8s ease-in-out 0s forwards,
+    animation: moveLeft 0.8s ease-in-out 0s forwards;
 }
 
 .text {
@@ -83,37 +83,9 @@
     100% {
         opacity: 0;
         width: auto;
-        top: 30px;
+        top: 39px;
         left: 45px;
         transform: none;
-    }
-}
-
-@keyframes endMoveMobile {
-
-    0% {
-        opacity: 1;
-    }
-
-    30% {
-        width: 380px;
-    }
-
-    60% {
-        width: 300px;
-    }
-
-    80% {
-        opacity: 1;
-        width: 250px;
-    }
-
-    100% {
-        opacity: 0;
-        width: auto;
-        top: 30px;
-        left: 50%;
-        transform: translateX(-50%);
     }
 }
 
@@ -129,36 +101,6 @@
 
     100% {
         transform: translateX(-200px);
-    }
-}
-
-@keyframes moveLeftMobile {
-
-    0% {
-        transform: translateX(0);
-    }
-
-    50% {
-        transform: translateX(0);
-    }
-
-    100% {
-        transform: translateX(-150px);
-    }
-}
-
-@keyframes moveLeftPhone {
-
-    0% {
-        transform: translateX(0);
-    }
-
-    50% {
-        transform: translateX(0);
-    }
-
-    100% {
-        transform: translateX(-100px);
     }
 }
 
@@ -182,52 +124,6 @@
 
     100% {
         transform: translateX(calc(50vw - 80px));
-    }
-}
-
-@keyframes slideTextMobile {
-
-    0% {
-        transform: translateX(0);
-    }
-
-    30% {
-        transform: translateX(0);
-    }
-
-    50% {
-        transform: translateX(calc(35vw - 70px));
-    }
-
-    75% {
-        transform: translateX(calc(45vw - 80px));
-    }
-
-    100% {
-        transform: translateX(calc(55vw - 80px));
-    }
-}
-
-@keyframes slideTextPhone {
-
-    0% {
-        transform: translateX(0);
-    }
-
-    30% {
-        transform: translateX(0);
-    }
-
-    50% {
-        transform: translateX(calc(35vw - 35px));
-    }
-
-    75% {
-        transform: translateX(calc(45vw - 40px));
-    }
-
-    100% {
-        transform: translateX(calc(55vw - 40px));
     }
 }
 
@@ -281,7 +177,7 @@
     }
 
     .logo {
-        animation: moveLeftMobile 0.8s ease-in-out 0s forwards,
+        animation: moveLeftMobile 0.8s ease-in-out 0s forwards;
     }
 }
 
@@ -297,7 +193,7 @@
 
 @media(max-width: 450px) {
     .logo {
-        animation: moveLeftPhone 0.8s ease-in-out 0s forwards,
+        animation: moveLeftPhone 0.8s ease-in-out 0s forwards;
     }
 
     .text {

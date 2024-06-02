@@ -92,8 +92,8 @@ form {
 
         &:disabled {
             color: rgba(0, 0, 0, 0.3);
-            background-color: transparent;
-            border: 2px solid $lightPurple
+            background-color: var(--lighterPurple);
+            border: 2px solid var(--lightPurple);
         }
     }
 }

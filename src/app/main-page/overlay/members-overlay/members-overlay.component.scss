@@ -120,12 +120,17 @@ section {
         text-overflow: ellipsis;
         max-width: 170px;
     }
+
+    .add-member-box span {
+        max-width: none;
+    }
 }
 
 @media only screen and (max-width: 400px) {
     section {
         width: 100%;
         border-radius: 30px;
+        padding: 24px;
     }
 
     .user-icon {
@@ -139,6 +144,10 @@ section {
 
     .user-name {
         font-size: 17px;
+    }
+
+    .add-member-box {
+        gap: 8px;
     }
 }
 

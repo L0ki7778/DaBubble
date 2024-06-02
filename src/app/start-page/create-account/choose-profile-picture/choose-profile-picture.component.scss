@@ -32,6 +32,7 @@
         width: 125px;
         border-radius: 50%;
         left: 36%;
+        object-fit: cover;
 
         &:hover {
             outline: 4px solid rgba(0, 0, 0, 0.1) !important;
@@ -209,7 +210,7 @@ h1 {
 
 @media(max-width: 650px) {
     .content-container {
-        width: 90%;
+        width: 88%;
         padding: 48px 10px;
         margin-bottom: 90px;
     }
@@ -242,6 +243,9 @@ h1 {
 }
 
 @media(max-width: 400px) {
+    .content-container {
+        width: 86%;
+    }
 
     .flex-box {
         >img {
@@ -262,11 +266,11 @@ h1 {
 
     .choose-own-img {
         >span {
-            font-size: 16px;
+            font-size: 15px;
         }
 
         >button {
-            font-size: 16px;
+            font-size: 15px;
         }
     }
 
@@ -275,11 +279,11 @@ h1 {
     }
 
     .profile-icons {
-        gap: 6px;
+        gap: 5px;
 
         >img {
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
         }
     }
 }

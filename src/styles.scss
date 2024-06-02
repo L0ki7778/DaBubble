@@ -312,3 +312,107 @@ app-start-page {
     src: url('./assets/fonts/nunito-v26-latin-900italic.woff2') format('woff2');
     /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
+
+@keyframes endMoveMobile {
+
+    0% {
+        opacity: 1;
+    }
+
+    30% {
+        width: 380px;
+    }
+
+    60% {
+        width: 300px;
+    }
+
+    80% {
+        opacity: 1;
+        width: 250px;
+    }
+
+    100% {
+        opacity: 0;
+        width: auto;
+        top: 39px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes moveLeftMobile {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-150px);
+    }
+}
+
+@keyframes moveLeftPhone {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100px);
+    }
+}
+
+@keyframes slideTextPhone {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    30% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(calc(35vw - 35px));
+    }
+
+    75% {
+        transform: translateX(calc(45vw - 40px));
+    }
+
+    100% {
+        transform: translateX(calc(55vw - 40px));
+    }
+}
+
+@keyframes slideTextMobile {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    30% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(calc(35vw - 70px));
+    }
+
+    75% {
+        transform: translateX(calc(45vw - 80px));
+    }
+
+    100% {
+        transform: translateX(calc(55vw - 80px));
+    }
+}

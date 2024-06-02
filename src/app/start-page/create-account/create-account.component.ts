@@ -20,6 +20,7 @@ export class CreateAccountComponent {
   showPrivacyPolicy: boolean = false;
   privacyPolicyChecked: boolean = false;
   showReport: boolean = false;
+  showReportName: boolean = false;
 
 
   constructor(private router: Router) { }
@@ -49,7 +50,7 @@ export class CreateAccountComponent {
       return;
     }
     if (!this.name.trim().includes(' ')) {
-      alert('Bitte geben Sie Vor- und Nachnamen ein.');
+      this.showReportName = true;
       return;
     }
     this.authService.password = this.password;
@@ -88,6 +89,7 @@ export class CreateAccountComponent {
 
   hideReport() {
     this.showReport = false;
+    this.showReportName = false;
   }
 
 }
