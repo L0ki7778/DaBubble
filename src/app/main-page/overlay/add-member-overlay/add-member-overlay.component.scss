@@ -91,6 +91,8 @@ section {
     border-radius: 30px;
     gap: 15px;
     padding: 4px 20px;
+    width: 87%;
+    position: relative;
 
     &:hover {
         transition: ease-in 150ms;
@@ -154,7 +156,8 @@ section {
     margin-left: 8px;
     vertical-align: middle;
     cursor: pointer;
-    position: relative;
+    position: absolute;
+    right: 26px;
 }
 
 .checkmark.checked {
@@ -187,6 +190,20 @@ section {
             font-size: 16px;
         }
     }
+
+    .checkmark {
+        right: 18px;
+    }
+}
+
+@media(max-width: 412px) {
+    .add-member-header {
+        gap: 70px;
+    }
+
+    .checkmark {
+        right: 14px;
+    }
 }
 
 @media only screen and (max-width: 400px) {
@@ -212,6 +229,7 @@ section {
     .user-box {
         gap: 12px;
         padding: 4px 9px;
+        width: 93%;
     }
 
     .checkmark {
