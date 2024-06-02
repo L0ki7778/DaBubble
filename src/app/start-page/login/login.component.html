@@ -4,7 +4,7 @@
         <p class="info-text">Willkommen bei DaBubble! Melde dich mit deiner E-Mail-Adresse und Passwort an.</p>
         <form (ngSubmit)="login()" ngNativeValidate>
             <input [class.error]="emailError" required type="email" class="email" placeholder="beispielname@email.com"
-                autocomplete="email" [(ngModel)]="email" name="email" (input)="updateCursor()">
+                autocomplete="off" [(ngModel)]="email" name="email" (input)="updateCursor()">
             <input [class.error]="passwordError" required type="password" class="password" placeholder="Passwort"
                 autocomplete="current-password" [(ngModel)]="password" name="password" (input)="updateCursor()">
             <span *ngIf="passwordError" class="error-message">Falsche E-Mail-Adresse oder Passwort. Bitte versuchen Sie
