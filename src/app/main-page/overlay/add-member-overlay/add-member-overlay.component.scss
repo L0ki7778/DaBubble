@@ -83,6 +83,8 @@ section {
     overflow: hidden auto;
     max-height: 330px;
     justify-content: unset;
+    box-sizing: border-box;
+    min-width: 365px;
 }
 
 .user-box {
@@ -90,8 +92,10 @@ section {
     align-items: center;
     border-radius: 30px;
     gap: 15px;
-    padding: 4px 20px;
-    width: 87%;
+    padding: 4px 12px;
+    width: 100%;
+    min-width: 300px;
+    box-sizing: border-box;
     position: relative;
 
     &:hover {
@@ -229,11 +233,7 @@ section {
     .user-box {
         gap: 12px;
         padding: 4px 9px;
-        width: 93%;
-    }
-
-    .checkmark {
-        margin-left: 0;
+        width: 96%;
     }
 }
 
