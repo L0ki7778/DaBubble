@@ -5,7 +5,7 @@
         <h4>{{"workspaceOverlay.nameHeader" | translate}}</h4>
         <div class="input-field" [ngStyle]="{'border-color': !nameAvailable ? '#ED1E7A' : null}">
             <span>#</span>
-            <input id="name" type="text" formControlName="name" maxlength="20"
+            <input id="name" type="text" formControlName="name" minlength="4" maxlength="20"
                 placeholder="{{'workspaceOverlay.nameExample' | translate}}" autocomplete="off"
                 (keyup)="checkIfNameAvailable()">
         </div>
