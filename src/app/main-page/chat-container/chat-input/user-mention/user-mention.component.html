@@ -1,5 +1,5 @@
 <div #mention class="user-mention">
-    <ul *ngIf="(!searchUser && !searchChannel) || (searchUser && !searchChannel)">
+    <ul *ngIf="viewUser && ((!searchUser && !searchChannel) || (searchUser && !searchChannel))">
         <h3 class="margin-bottom">Mitglieder</h3>
 
         <li *ngFor="let member of filteredMembers" (click)="mentionUser(member.name)">
@@ -8,7 +8,7 @@
         </li>
     </ul>
 
-    <ul *ngIf="(!searchChannel && !searchUser) || (searchChannel && !searchUser)" class="margin-top">
+    <ul *ngIf="viewChannel && ((!searchChannel && !searchUser) || (searchChannel && !searchUser))" class="margin-top">
         <h3>Channels</h3>
 
         <li *ngFor="let channel of filteredChannelNames" (click)="mentionUser(channel)">

@@ -48,6 +48,8 @@ export class UserMentionComponent {
   private unsubscribeChannel: (() => void) | undefined;
   @Input() searchUser: string;
   @Input() searchChannel: string;
+  @Input() viewUser: boolean = true;
+  @Input() viewChannel: boolean = true;
   @Output() userMentioned = new EventEmitter<string>();
   @ViewChild('mention') mention: ElementRef | null = null;
 
@@ -55,6 +57,8 @@ export class UserMentionComponent {
   constructor() {
     this.searchUser = '';
     this.searchChannel = '';
+    this.viewUser = true;
+    this.viewChannel = true;
   }
 
   async ngOnInit() {

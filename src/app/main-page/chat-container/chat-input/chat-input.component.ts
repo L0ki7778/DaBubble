@@ -49,6 +49,8 @@ export class ChatInputComponent {
   searchChannel: string = '';
   atSignActive: boolean = false;
   hashSignActive: boolean = false;
+  viewUser: boolean = true;
+  viewChannel: boolean = true;
   userMention = this.booleanService.userMention;
   originalFile: File | null = null;
 
@@ -131,8 +133,11 @@ export class ChatInputComponent {
   }
 
   styleAtMentions(text: string): string {
-    return text.replace(/(@[#\wüäöß]+\s[\wüäöß]+)/g, '<span class="mention">$1</span>');
+    let styledText = text.replace(/(@[\wüäöß]+\s[\wüäöß]+)/g, '<span class="mention">$1</span>');
+    styledText = styledText.replace(/(#[\wüäöß]+)/g, '<span class="mention">$1</span>');
+    return styledText;
   }
+
 
   async handleDirectMessage(trimmedChatContent: string, messageImage: string, uploadedFileUrl: string) {
     const otherUserId = await this.DMService.getUserId(this.DMService.selectedUserName);
@@ -190,6 +195,10 @@ export class ChatInputComponent {
 
   showUserMention(event: MouseEvent) {
     event.stopPropagation();
+    this.searchUser = '';
+    this.searchChannel = '';
+    this.viewUser = true;
+    this.viewChannel = true;
     let currentValue = this.booleanService.userMention();
     this.booleanService.userMention.set(currentValue ? false : true);
   }
@@ -200,19 +209,19 @@ export class ChatInputComponent {
     let spaceExists = name.includes(' ');
 
     if (spaceExists) {
-        if (lastAt != -1) {
-            this.chatContent = this.chatContent.substring(0, lastAt) + '@' + name + ' ';
-        } else {
-            this.chatContent += '@' + name + ' ';
-        }
+      if (lastAt != -1) {
+        this.chatContent = this.chatContent.substring(0, lastAt) + '@' + name + ' ';
+      } else {
+        this.chatContent += '@' + name + ' ';
+      }
     } else {
-        if (lastHash != -1) {
-            this.chatContent = this.chatContent.substring(0, lastHash) + '#' + name + ' ';
-        } else {
-            this.chatContent += '#' + name + ' ';
-        }
+      if (lastHash != -1) {
+        this.chatContent = this.chatContent.substring(0, lastHash) + '#' + name + ' ';
+      } else {
+        this.chatContent += '#' + name + ' ';
+      }
     }
-}
+  }
 
 
 
@@ -229,15 +238,21 @@ export class ChatInputComponent {
       this.searchUser = '';
       this.booleanService.userMention.set(true);
       this.atSignActive = true;
+      this.viewChannel = false;
+      this.viewUser = true;
     } else if (isHashSign && (this.previousValue === '' || this.previousValue.endsWith(' '))) {
       this.searchChannel = '';
       this.booleanService.userMention.set(true);
       this.hashSignActive = true;
+      this.viewUser = false;
+      this.viewChannel = true;
     } else if (this.atSignActive || this.hashSignActive) {
       if (event.key === ' ') {
         this.booleanService.userMention.set(false);
         this.atSignActive = false;
         this.hashSignActive = false;
+        this.viewUser = true;
+        this.viewChannel = true;
       } else if (this.atSignActive) {
         this.searchUser = input.value.slice(input.value.lastIndexOf('@') + 1);
       } else if (this.hashSignActive) {
