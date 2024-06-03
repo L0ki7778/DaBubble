@@ -38,7 +38,10 @@ export class SearchBarComponent {
   currentUserID: string | null = '';
   selectionService = inject(SelectionService);
   searchValue: string = '';
+  prevInput = '';
   mobileView: boolean = false;
+  showUser: boolean = true;
+  showChannel: boolean = true;
 
 
   async ngOnInit() {
@@ -61,18 +64,21 @@ export class SearchBarComponent {
   }
 
   filterChannelsAndUsers() {
-    if (this.searchValue.trim() === '') {
+    const searchValue = this.searchValue.replace(/[@#]/g, '').trim();
+
+    if (searchValue === '') {
       this.filterChannels();
       this.DMService.fetchUserNamesSearchBar();
     } else {
       this.filteredChannelNames = this.filteredChannelNames.filter(channel =>
-        channel.toLowerCase().includes(this.searchValue.toLowerCase())
+        channel.toLowerCase().includes(searchValue.toLowerCase())
       );
       this.DMService.filteredUserNamesSearchBar = this.DMService.filteredUserNamesSearchBar.filter(user =>
-        user.name.toLowerCase().includes(this.searchValue.toLowerCase())
+        user.name.toLowerCase().includes(searchValue.toLowerCase())
       );
     }
   }
+
 
   showDropdownMenu(event: MouseEvent) {
     event.stopPropagation();
@@ -113,6 +119,30 @@ export class SearchBarComponent {
 
   hideSearchList() {
     this.DMService.showDropdown = false;
-}
+  }
+
+  checkForSpecialSign(event: KeyboardEvent) {
+    const isAtSign = event.key === '@';
+    const isHashSign = event.key === '#';
+
+    if (isAtSign) {
+      this.showChannel = false;
+      this.showUser = true;
+    } else if (isHashSign) {
+      this.showChannel = true;
+      this.showUser = false;
+    }
+  }
+
+  checkForBackspace(event: KeyboardEvent) {
+    let input = (event.target as HTMLInputElement).value;
+
+    if ((this.prevInput.endsWith('@') || this.prevInput.endsWith('#')) && event.key === 'Backspace') {
+      this.showUser = true;
+      this.showChannel = true;
+    }
+
+    this.prevInput = input;
+  }
 
 }

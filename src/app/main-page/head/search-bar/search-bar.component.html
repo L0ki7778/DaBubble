@@ -1,12 +1,12 @@
 <input type="text" placeholder="DABubble durchsuchen" (click)="showDropdownMenu($event)"
-    (input)="filterChannelsAndUsers()" [(ngModel)]="searchValue">
+    (input)="filterChannelsAndUsers()" (keydown)="checkForSpecialSign($event)" (keyup)="checkForBackspace($event)" [(ngModel)]="searchValue">
 <div (click)="stopPropagation($event)" class="dropdown-menu" *ngIf="this.DMService.showDropdown" [@fadeAnimation]>
     <div class="space-between">
-        <span class="headline">Channels</span>
-        <div (click)="hideSearchList()" class="cross-img"></div>
+        <span *ngIf="showChannel" class="headline">Channels</span>
+        <div *ngIf="!showUser || (showChannel && showUser)" (click)="hideSearchList()" class="cross-img"></div>
     </div>
     @for(channel of this.filteredChannelNames; track channel; let index = $index ) {
-    <div class="list" (click)="sendChannelId(index); closeThread()"
+    <div *ngIf="showChannel" class="list" (click)="sendChannelId(index); closeThread()"
         [ngClass]="{ 'active-channel': (channel === this.selectionService.getChannelNameById(this.selectionService.choosenChatTypeId.value) && !this.booleanService.mobileView.value)}">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -18,8 +18,11 @@
         </span>
     </div>
     }
-    <div class="headline">User</div>
-    <div (click)="DMService.loadChatHistory(); closeThread()" class="mb-14">
+    <div class="space-between">
+        <div *ngIf="showUser" class="headline">User</div>
+        <div *ngIf="!showChannel" (click)="hideSearchList()" class="cross-img"></div>
+    </div>
+    <div *ngIf="showUser" (click)="DMService.loadChatHistory(); closeThread()" class="mb-14">
         <div *ngFor="let user of DMService.filteredUserNamesSearchBar, let index = index" class="list padding-user"
             (click)="DMService.addUserToDirectMessages(user.name); sendDMId(index)"
             [ngClass]="{ 'active-dm': ((user.name === this.DMService.selectedUserName) && (this.selectionService.channelOrDM.value === 'direct-message') && !(this.booleanService.mobileView.value))}">
