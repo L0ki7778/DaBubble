@@ -101,7 +101,7 @@ form {
 .lock {
     position: absolute;
     left: 34px;
-    top: 95px;
+    top: 93px;
 }
 
 .password {
@@ -265,6 +265,10 @@ form {
 @media(max-width: 400px) {
     .info-text {
         font-size: 16px;
+    }
+
+    .lock {
+        top: 90px;
     }
 
     .email {
