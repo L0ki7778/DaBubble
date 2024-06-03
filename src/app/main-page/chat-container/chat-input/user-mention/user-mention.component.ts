@@ -46,13 +46,15 @@ export class UserMentionComponent {
   currentChannelMembers: { name: string, avatar: string }[] = [];
   private unsubscribeUsers: any[] = [];
   private unsubscribeChannel: (() => void) | undefined;
-  @Input() searchTerm: string;
+  @Input() searchUser: string;
+  @Input() searchChannel: string;
   @Output() userMentioned = new EventEmitter<string>();
   @ViewChild('mention') mention: ElementRef | null = null;
 
 
   constructor() {
-    this.searchTerm = '';
+    this.searchUser = '';
+    this.searchChannel = '';
   }
 
   async ngOnInit() {
@@ -121,15 +123,10 @@ export class UserMentionComponent {
     this.booleanService.userMention.set(false);
   }
 
-  mentionChannel(name: string) {
-    this.userMentioned.emit('# ' + name);
-    this.booleanService.userMention.set(false);
-  }
-
   get filteredMembers() {
-    if (this.searchTerm) {
+    if (this.searchUser) {
       return this.currentChannelMembers.filter(member =>
-        member.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+        member.name.toLowerCase().includes(this.searchUser.toLowerCase())
       );
     } else {
       return this.currentChannelMembers;
@@ -137,9 +134,9 @@ export class UserMentionComponent {
   }
 
   get filteredChannelNames() {
-    if (this.searchTerm) {
+    if (this.searchChannel) {
       return this.allChannelNames.filter(channelName =>
-        channelName.toLowerCase().includes(this.searchTerm.toLowerCase())
+        channelName.toLowerCase().includes(this.searchChannel.toLowerCase())
       );
     } else {
       return this.allChannelNames;

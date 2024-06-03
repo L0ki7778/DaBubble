@@ -45,8 +45,10 @@ export class ChatInputComponent {
   currentChannelName: string = '';
   mentionedUser: string = '';
   previousValue: string = '';
-  searchTerm: string = '';
+  searchUser: string = '';
+  searchChannel: string = '';
   atSignActive: boolean = false;
+  hashSignActive: boolean = false;
   userMention = this.booleanService.userMention;
   originalFile: File | null = null;
 
@@ -194,30 +196,52 @@ export class ChatInputComponent {
 
   handleUserMentioned(name: string) {
     let lastAt = this.chatContent.lastIndexOf('@');
-    if (lastAt != -1) {
-      this.chatContent = this.chatContent.substring(0, lastAt) + '@' + name + ' ';
-    } else {
-      this.chatContent += '@' + name + ' ';
-    }
-  }
+    let lastHash = this.chatContent.lastIndexOf('#');
+    let spaceExists = name.includes(' ');
 
-  checkForAtSign(event: KeyboardEvent) {
+    if (spaceExists) {
+        if (lastAt != -1) {
+            this.chatContent = this.chatContent.substring(0, lastAt) + '@' + name + ' ';
+        } else {
+            this.chatContent += '@' + name + ' ';
+        }
+    } else {
+        if (lastHash != -1) {
+            this.chatContent = this.chatContent.substring(0, lastHash) + '#' + name + ' ';
+        } else {
+            this.chatContent += '#' + name + ' ';
+        }
+    }
+}
+
+
+
+  checkForSpecialSign(event: KeyboardEvent) {
     const input = event.target as HTMLInputElement;
     const isAtSign = (event.key === '@') ||
       (event.code === 'KeyQ' && event.altKey) ||
       (event.code === 'Digit2' && event.shiftKey) ||
       (event.code === 'KeyL' && event.altKey);
+    const isHashSign = (event.key === '#') ||
+      (event.code === 'Digit3' && event.shiftKey);
 
     if (isAtSign && (this.previousValue === '' || this.previousValue.endsWith(' '))) {
-      this.searchTerm = '';
+      this.searchUser = '';
       this.booleanService.userMention.set(true);
       this.atSignActive = true;
-    } else if (this.atSignActive) {
+    } else if (isHashSign && (this.previousValue === '' || this.previousValue.endsWith(' '))) {
+      this.searchChannel = '';
+      this.booleanService.userMention.set(true);
+      this.hashSignActive = true;
+    } else if (this.atSignActive || this.hashSignActive) {
       if (event.key === ' ') {
         this.booleanService.userMention.set(false);
         this.atSignActive = false;
-      } else {
-        this.searchTerm = input.value.slice(input.value.lastIndexOf('@') + 1);
+        this.hashSignActive = false;
+      } else if (this.atSignActive) {
+        this.searchUser = input.value.slice(input.value.lastIndexOf('@') + 1);
+      } else if (this.hashSignActive) {
+        this.searchChannel = input.value.slice(input.value.lastIndexOf('#') + 1);
       }
     }
     this.previousValue = input.value;
@@ -227,11 +251,16 @@ export class ChatInputComponent {
     const input = event.target as HTMLInputElement;
     const atSignCount = (this.previousValue.match(/@/g) || []).length;
     const newAtSignCount = (input.value.match(/@/g) || []).length;
+    const hashSignCount = (this.previousValue.match(/#/g) || []).length;
+    const newHashSignCount = (input.value.match(/#/g) || []).length;
 
     if (event.key === 'Backspace') {
       if (atSignCount > newAtSignCount && this.previousValue.endsWith('@')) {
         this.booleanService.userMention.set(false);
         this.atSignActive = false;
+      } else if (hashSignCount > newHashSignCount && this.previousValue.endsWith('#')) {
+        this.booleanService.userMention.set(false);
+        this.hashSignActive = false;
       }
     }
     this.previousValue = input.value;
