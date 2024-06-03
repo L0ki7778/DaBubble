@@ -4,7 +4,6 @@
         <p class="info-text">Willkommen bei DaBubble! Melde dich mit deiner E-Mail-Adresse und Passwort an.</p>
         <form (ngSubmit)="login()" ngNativeValidate>
             <img src="/assets/img/start-page/mail.svg" alt="mail-icon" class="email-icon">
-            <img src="/assets/img/start-page/lock.svg" alt="lock-icon" class="lock">
             <input [class.error]="emailError" required type="email" class="email" placeholder="beispielname@email.com"
                 autocomplete="email" [(ngModel)]="email" name="email" (input)="updateCursor()">
             <input [class.error]="passwordError" required type="password" class="password" placeholder="Passwort"

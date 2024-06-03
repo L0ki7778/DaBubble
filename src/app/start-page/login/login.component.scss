@@ -94,7 +94,7 @@ form {
 
 .email-icon {
     position: absolute;
-    left: 34px;
+    left: 7.5%;
     top: 16px;
 }
 
@@ -113,6 +113,9 @@ form {
     border-radius: 100px;
     border: 1px solid var(--lighterPurple);
     outline: none;
+    background-image: url("/assets/img/start-page/lock.svg");
+    background-repeat: no-repeat;
+    background-position: 10% 46%;
 
     &:focus {
         border: 1px solid var(--purple1);
@@ -221,6 +224,10 @@ form {
         background-position: 7% 50%;
     }
 
+    .password {
+        background-position: 8% 46%;
+    }
+
     .email-icon {
         left: 20px;
     }
@@ -245,6 +252,11 @@ form {
 
     .password {
         width: 94%;
+        background-position: 4% 46%;
+    }
+
+    .email-icon {
+        left: 4.5%;
     }
 
     .login-google {
@@ -344,16 +356,4 @@ form {
         font-size: 30px
     }
 
-}
-
-@media(max-height: 900px) {
-    .lock {
-        top: 87px;
-    }
-}
-
-@media(max-height: 850px) {
-    .lock {
-        top: 84px;
-    }
 }
