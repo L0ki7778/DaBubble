@@ -345,3 +345,15 @@ form {
     }
 
 }
+
+@media(max-height: 900px) {
+    .lock {
+        top: 87px;
+    }
+}
+
+@media(max-height: 850px) {
+    .lock {
+        top: 84px;
+    }
+}
