@@ -62,18 +62,26 @@
     flex-direction: row-reverse;
     max-width: 288px;
     overflow: auto hidden;
+}
 
-    img {
-        height: 30px;
-        width: 30px;
-        border-radius: 100%;
-        border: 2px solid white;
-        object-fit: cover;
+.member-img {
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
+    border: 2px solid white;
+    object-fit: cover;
 
-        &:not(:first-child) {
-            margin-right: -10px;
-        }
+    &:not(:first-child) {
+        margin-right: -10px;
     }
+}
+
+.plus {
+    background-color: white;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    margin: 0 0 12px 2px;
 }
 
 .add-member-button {

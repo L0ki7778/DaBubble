@@ -1,10 +1,11 @@
 @import './../../../mixin.scss';
 
-h3 {
+.h3 {
     font-size: 24px;
     font-weight: 700;
     display: flex;
     align-items: center;
+    margin: 16px 0;
 }
 
 h4 {
@@ -96,6 +97,17 @@ span {
     background-color: var(--lightPurple);
 }
 
+.hint {
+    text-align: center;
+    color: var(--rosaError);
+    margin: 8px 0;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.border-color {
+    border-color: var(--rosaError) !important;
+}
 
 .h4-translate {
     h4:first-of-type {
@@ -204,8 +216,8 @@ span {
 
 .close-btn {
     position: absolute;
-    top: 25px;
-    right: 2rem;
+    top: 17px;
+    right: 16px;
     background-color: transparent;
     transition: all ease .1s;
     border: unset;
@@ -259,6 +271,7 @@ span {
     padding: 0 2rem 1.5rem;
     background-color: white;
     border-radius: 0 2rem 2rem;
+    min-width: 380px;
     max-width: 90%;
     max-height: 90vh;
     overflow-y: auto;
@@ -318,7 +331,7 @@ span {
         overflow-y: auto;
     }
 
-    h3 {
+    .h3 {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -327,11 +340,11 @@ span {
 }
 
 @media only screen and (max-width: 500px) {
-    h3 {
+    .h3 {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        max-width: 290px;
+        max-width: 278px;
     }
 
     .input-field {
@@ -340,6 +353,10 @@ span {
         &::placeholder {
             font-size: 16px;
         }
+    }
+
+    .edit-channel-overlay {
+        min-width: 312px;
     }
 }
 
@@ -350,7 +367,7 @@ span {
         max-height: none;
     }
 
-    h3 {
+    .h3 {
         margin-top: 48px;
         overflow: hidden;
         text-overflow: ellipsis;

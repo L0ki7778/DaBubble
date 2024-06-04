@@ -1,5 +1,8 @@
 <div #editView class="edit-channel-overlay">
-    <h3><span class="sign">#</span> {{ channelName }}</h3>
+    <span class="h3">
+        <span class="sign">#</span>
+        {{ channelName }}
+    </span>
     <div id="channel-name-container">
         <div class="channel-edit-part" [ngClass]="{'h4-translate': editName}">
             <h4>
@@ -10,19 +13,20 @@
                 Bearbeiten
             </h4>
             }@else {
-            <h4 id="save" (click)="saveChannelName($event)">
+            <h4 *ngIf="nameAvailable" id="save" (click)="saveChannelName($event)">
                 Speichern
             </h4>
             }
         </div>
-        <div class="border-container" [ngClass]="{'shrink-container': editName,'hover-input':editName}">
+        <div class="border-container" [ngClass]="{'shrink-container': editName, 'border-color': !nameAvailable}">
             <div class="input-field">
                 <span>#</span>
                 <input maxlength="20" [(ngModel)]="channelName" type="text" placeholder="{{ channelName }}"
-                    [disabled]="!editName" [ngClass]="{'hover-input':editName}">
+                    [disabled]="!editName" [ngClass]="{'hover-input':editName}" (keyup)="checkIfNameAvailable()">
             </div>
         </div>
     </div>
+    <span class="hint" *ngIf="!nameAvailable">Name bereits vorhanden! Bitte verwende einen anderen Namen.</span>
     <div id="channel-description-container">
         <div class="channel-edit-part">
             <h4>

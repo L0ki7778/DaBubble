@@ -21,8 +21,9 @@
         </app-members-overlay>
         <div class="chat-head-members" (click)="openMembersOverlay($event)">
             <div class="member-icons">
+                <img class="plus" *ngIf="currentChannelMembersIds.length > 4" src="assets/img/general/plus.svg">
                 @for(member of currentChannelMembersIds; track member; let i = $index ){
-                    <img *ngIf="i < 4" src="{{ currentChannelMembersAvatars[i] }}">
+                <img class="member-img" *ngIf="i < 4" src="{{ currentChannelMembersAvatars[i] }}">
                 }
             </div>
             <span> {{ currentChannelMembersIds.length }} </span>

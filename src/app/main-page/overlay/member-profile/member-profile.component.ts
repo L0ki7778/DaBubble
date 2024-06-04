@@ -32,7 +32,7 @@ export class MemberProfileComponent {
   isDataLoaded = false;
   @ViewChild('memberView') memberView: ElementRef | null = null;
 
-  
+
   async ngOnInit() {
     if (this.selectionService.channelOrDM.value === 'channel') {
       this.memberId = this.selectionService.selectedMemberId.value;
@@ -71,8 +71,6 @@ export class MemberProfileComponent {
     else {
       this.isSameUser = false
     }
-    console.log(this.isSameUser);
-    
   }
 
   @HostListener('document:click', ['$event'])
@@ -99,5 +97,5 @@ export class MemberProfileComponent {
       this.unsubUser();
     }
   }
-  
+
 }

@@ -9,8 +9,7 @@
                 placeholder="{{'workspaceOverlay.nameExample' | translate}}" autocomplete="off"
                 (keyup)="checkIfNameAvailable()">
         </div>
-        <span class="hint" *ngIf="!nameAvailable">Name bereits vorhanden! Bitte verwende einen anderen Namen für deinen neuen
-            Channel.</span>
+        <span class="hint" *ngIf="!nameAvailable">Name bereits vorhanden! Bitte verwende einen anderen Namen.</span>
         <div class="inline">
             <h4>{{"workspaceOverlay.descriptionHeader" | translate}} </h4>
             <div>{{"workspaceOverlay.optional" | translate}}</div>

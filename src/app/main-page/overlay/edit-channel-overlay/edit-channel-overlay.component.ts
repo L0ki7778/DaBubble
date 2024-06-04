@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, HostListener, Input, ViewChild, inject } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { OverlayService } from '../../../services/overlay.service';
-import { FormsModule } from '@angular/forms';
-import { doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { collection, doc, getDoc, getDocs, limit, onSnapshot, query, where } from 'firebase/firestore';
 import { Firestore, deleteDoc, updateDoc } from '@angular/fire/firestore';
 import { DirectMessagesService } from '../../../services/direct-messages.service';
 import { SelectionService } from '../../../services/selection.service';
@@ -23,8 +23,10 @@ export class EditChannelOverlayComponent {
   selectionService = inject(SelectionService);
   overlay = inject(OverlayService)
   firestore = inject(Firestore)
+  newChannel: FormGroup = new FormGroup({});
   editName: boolean = false;
   editDescription: boolean = false;
+  nameAvailable: boolean = true;
   channelName: string = '';
   description: string = '';
   authorId: string = '';
@@ -34,6 +36,13 @@ export class EditChannelOverlayComponent {
   @Input() channelId: string = '';
   @ViewChild('editView') editView: ElementRef | null = null;
 
+
+  constructor() {
+    this.newChannel = new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      description: new FormControl('')
+    });
+  }
 
   ngOnInit() {
     if (this.channelId)
@@ -111,5 +120,20 @@ export class EditChannelOverlayComponent {
     if (this.unsubChannel)
       this.unsubChannel();
   }
+
+  async checkIfNameAvailable() {
+    if (!this.channelName) {
+        this.nameAvailable = true;
+        return;
+    }
+    const q = query(collection(this.firestore, "channels"), where("channelName", "==", this.channelName), limit(1));
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+        this.nameAvailable = false;
+    } else {
+        this.nameAvailable = true;
+    }
+}
+
 
 }
