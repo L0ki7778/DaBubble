@@ -113,7 +113,7 @@ form {
     border-radius: 100px;
     border: 1px solid var(--lighterPurple);
     outline: none;
-    background-image: url("/assets/img/start-page/lock.svg");
+    background-image: url("../../../assets/img/start-page/lock.svg");
     background-repeat: no-repeat;
     background-position: 10% 46%;
 
@@ -136,7 +136,7 @@ form {
     border: 1px solid var(--lighterPurple);
     outline: none;
     color: var(--purple1);
-    background-image: url("/assets/img/start-page/google.svg");
+    background-image: url("../../../assets/img/start-page/google.svg");
     background-repeat: no-repeat;
     background-position: 17% 50%;
     text-align: center;
@@ -245,7 +245,7 @@ form {
     .login-container {
         padding: 20px 15px;
     }
-    
+
     .email {
         width: 94%;
     }
@@ -314,7 +314,7 @@ form {
 
     .email::placeholder {
         font-size: 16px;
-      }
+    }
 
     .password::placeholder {
         font-size: 16px;
