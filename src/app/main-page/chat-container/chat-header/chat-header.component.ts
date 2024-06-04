@@ -44,7 +44,7 @@ export class ChatHeaderComponent {
   private unsubscribeUsers: any[] = [];
   private unsubscribeChannel: (() => void) | undefined;
 
-  imgSrc: string = "../../../../assets/img/main-page/chat/add-members-button.svg";
+  imgSrc: string = "assets/img/main-page/chat/add-members-button.svg";
 
 
   ngOnInit() {
