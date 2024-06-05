@@ -20,7 +20,7 @@
             <a href="mailto:{{ userMail }}">{{ userMail }}&nbsp;</a>
         </div>
     </div>
-    <div class="btn-container" (click)="openChat()" *ngIf="!isSameUser">
+    <div class="btn-container" (click)="openChat(memberId)" *ngIf="!isSameUser">
         <button class="message-btn">
             <img src="assets/img/general/message.svg">
             Nachricht
@@ -53,7 +53,7 @@
             <a href="mailto:{{ userMail }}">{{ userMail }}&nbsp;</a>
         </div>
     </div>
-    <div class="btn-container" (click)="openChat()" *ngIf="!isSameUser">
+    <div class="btn-container" (click)="openChat(memberId)" *ngIf="!isSameUser">
         <button class="message-btn">
             <img src="assets/img/general/message.svg">
             Nachricht

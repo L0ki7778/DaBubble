@@ -23,7 +23,7 @@ export class MemberProfileComponent {
   firestore = inject(Firestore);
   usersRef: CollectionReference = collection(this.firestore, "users");
   unsubUser: any;
-  memberId?: string;
+  memberId: string = '';
   userImage: string = 'assets/img/general/avatars/avatar3.svg';
   userName: string = 'Frederik Beck';
   userStatus: 'online' | 'offline' = 'online';
@@ -86,10 +86,13 @@ export class MemberProfileComponent {
     this.overlay.closeOverlay();
   }
 
-  openChat() {
-    this.close();
+  openChat(memberId: string) {
+    this.DMService.addUserToDirectMessages(this.userName);
+    this.selectionService.choosenChatTypeId.next(memberId);
     this.selectionService.channelOrDM.next('direct-message');
+    this.DMService.loadChatHistory();
     this.DMService.loadChatHistoryProfile();
+    this.close();
   }
 
   ngOnDestroy() {
