@@ -60,7 +60,7 @@
     @include dFlex();
     position: relative;
     flex-direction: row-reverse;
-    max-width: 288px;
+    max-width: 237px;
     overflow: auto hidden;
 }
 
@@ -167,6 +167,22 @@ app-add-member-overlay {
 @media only screen and (max-width: 1500px) {
     .member-icons {
         max-width: 128px;
+    }
+}
+
+@media only screen and (max-width: 1455px) {
+    .chat-head-title {
+        span {
+            max-width: 192px;
+        }
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+    .chat-head-title {
+        span {
+            max-width: none;
+        }
     }
 }
 
